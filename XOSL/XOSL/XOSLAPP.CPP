@@ -89,7 +89,8 @@ typedef struct {
 
 //const TMountPart MOUNT_PART = {0x80,0x06,0x0031b600};
 
-const TMountPart MOUNT_PART = {0x80,0x06,0x00246c00};
+//const TMountPart MOUNT_PART = {0x80,0x06,0x00246c00};
+const TMountPart MOUNT_PART = {0x82,0x06,0xffff6000};
 //const TMountPart MOUNT_PART = {0x80,0x06,0x005ffa40};
 static char *FileName = "dump_a.dmp";
 
@@ -126,7 +127,7 @@ const char *WallpaperFileName   = "XOSLWALLXBF";
 
 CApplication::CApplication()
 {
-	#ifdef DOS_DEBUG
+	#ifdef DOS_DEBUG_NB
 	MemoryCheck();   ///ML: Check if (MMU) memory is accessible.
 	#endif
 
@@ -150,19 +151,25 @@ int CApplication::Execute()
 	TMiscPref *MiscPref;
 	//CBootItem *BootItem;
 
+	puts("10\r\n");
 	if (BypassRequest())
 		ExecuteBypass();
 
-
+//	puts("11\r\n");
 	CreateCoreClasses();
+//	puts("13\r\n");
 	InitializeCore();
 
 	// reveal all partitions if requested
+//	puts("14\r\n");
 	MiscPref = XOSLData->GetMiscPref();
+//	puts("15\r\n");
 	PartList->RevealAll();
 
+//	puts("16\r\n");
 	CreateApplication();
 
+//	puts("17\r\n");
 	DoSplashFadeOut();
 
 	InitAppGraphics();
@@ -299,7 +306,7 @@ int CApplication::Execute()
 
 void CApplication::CriticalError(const char *ErrorMsg)
 {
-	//int Key;
+	// TODO make CriticalError this use va_args
 	CBypass XoslBypass;
 
 	Graph->SetMode(modeText,false);
@@ -346,7 +353,9 @@ void CApplication::InitializeCore()
 	TGraphData *GraphData;
 
 	/* Initialize splash screen */
-	FileSystem->Mount(MOUNT_PART.Drive,MOUNT_PART.StartSector);
+	if(FileSystem->Mount(MOUNT_PART.Drive,MOUNT_PART.StartSector) == -1){
+		CriticalError("Failed to mount partition");
+	}
 	LoadXOSLSplashLogo();
 	Screen->SetSplashLogo(LOGO_WIDTH,LOGO_HEIGHT,SplashLogo);
 	
@@ -735,42 +744,3 @@ void CApplication::PerformAntiVirus()
 	AntiVirus.Sweep();
 }
 
-#ifdef DOS_DEBUG
-void CApplication::MemoryCheck()
-{
-	//ML: Function to test MMU read/write access 
-	long lPageAddr;
-	unsigned char ucOrgMemData[16];
-	unsigned char ucTestMemData[16];
-	int iIndex;
-
-	//void memcpy (void far *dest, void far *str, U16B size);
-	//void memset(void far *dest, U8B value, U16B count);
-	//int memcmp(const void far *s1, const void far *s2, U16B count); 
-
-	for (iIndex=0;iIndex<16;iIndex++)
-	{
-		 ucTestMemData[iIndex]=0x80+iIndex;
-	}
-
-	#define MMU_STARTADDRESS 0x6500 //Value should be in line with value set in starter.asm 
-
-	for (lPageAddr=MMU_STARTADDRESS;lPageAddr<0x9fff;lPageAddr++)
-	{
-		memcpy(ucOrgMemData,(void *)(lPageAddr << 16),16);
-		memcpy((void *)(lPageAddr << 16),ucTestMemData,16);
-		if (memcmp((void *)(lPageAddr << 16),ucTestMemData,16)){
-			//if memcmp return value is not 0 then data in memory is not equal to data written
-			lPageAddr=0x10000;
-			printf("CApplication::MemCheck failed: Abort debugging or press key to continue\n");  //ML->any output ???
-			CKeyboard::Flush();	  //Flush keyboard buffer
-			CKeyboard::WaitKeyStroke(); 
-		} else
-		{
-			//Need to restore original data for memory that already has been allocated by the MMU
-			if (lPageAddr<MMU_STARTADDRESS+0x10)
-				memcpy((void *)(lPageAddr << 16),ucOrgMemData,16);
-		}
-	}
-}
-#endif

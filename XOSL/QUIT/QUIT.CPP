@@ -56,6 +56,7 @@ void CQuit::Reboot()
 	if (Mouse)
 		delete Mouse;
 	Graph->SetMode(modeText,false);
-	PostResetFlags = 0x0000; // cold boot. 0x1234 for warm boot
-	RebootJmp();
+	// PostResetFlags = 0x0000; // cold boot. 0x1234 for warm boot
+	// RebootJmp();
+	RebootASM();
 }

@@ -6,6 +6,7 @@ LIB_FILES=xosl.lib mmu.lib timer.lib mouse.lib gui.lib graph.lib text.lib \
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=-DDOS_DEBUG
+TLINK_OPTIONS=/v
 !endif
 
 LINK_OPTIONS=/3 /s /L$(LIBPATH)
@@ -14,7 +15,7 @@ OBJ_FILES=misc\starter.obj misc\a20line.obj misc\a20stat.obj
 EXE_FILE=xosl.exe
 MAP_FILE=xosl.map
 
-LINK=$(MAKEDIR)\tlink
+LINK=$(MAKEDIR)\tlink $(TLINK_OPTIONS)
 MAKE=$(MAKEDIR)\make $(MAKE_OPTIONS)
 
 ENTER=@cd

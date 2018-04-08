@@ -162,7 +162,7 @@ void CPartDialog::AddSystem(int Row, const char *FSName)
 	PartListBox->AddItem(Row,2,FSName);
 }
 
-void CPartDialog::AddSize(int Row, long Sectors)
+void CPartDialog::AddSize(int Row, unsigned long Sectors)
 {
 	CString Msg;
 

@@ -66,14 +66,14 @@ void LoadXoslLoad()
 // Sector 0 = boot record, sector 1 = FAT, sector 2,3 = root dir, sector 4 = data start (cluster 2)
 {
 	long XoslLoadCluster;
-	long XoslLoadSector;
+	unsigned long XoslLoadSector;
 
 	XoslLoadCluster = LocateXoslLoad();
 	
-	XoslLoadSector = (((long)XoslLoadCluster - 2) << 4) + 4;
+	XoslLoadSector = (((unsigned long)XoslLoadCluster - 2) << 4) + 4;
 
-	// assumption: xoslload <= 8192 byte
-	DiskRead(XoslLoadSector,(void *)0x80000100,16);
+	// assumption: xoslload <= 16k byte
+	DiskRead(XoslLoadSector,(void *)0x80000100,32);
 }
 
 int LocateXoslLoad()

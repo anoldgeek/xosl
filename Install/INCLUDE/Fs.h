@@ -19,7 +19,7 @@ class CFileSystem {
 	public:
 		CFileSystem();
 		virtual ~CFileSystem();
-		virtual int Mount(int Drive, long StartSector);
+		virtual int Mount(int Drive, unsigned long StartSector);
 		virtual unsigned short ReadFile(const char *FileName, void *Buffer) = 0;
 		virtual int WriteFile(const char *FileName, const void *Buffer) = 0;
 	protected:

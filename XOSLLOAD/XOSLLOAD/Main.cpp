@@ -20,6 +20,7 @@
 #include <mem.h>
 #include <exestruc.h>
 #include <execute.h>
+#include <string.h>
 
 #include <Bypass.h>
 
@@ -34,7 +35,7 @@
 typedef struct {
 	int Drive;
 	int FSType;
-	long StartSector;
+	unsigned long StartSector;
 } TMountPart;
 
 // address where XOSL expects to find which partition it is located on.
@@ -65,24 +66,46 @@ static void CriticalError(const char *Msg);
 
 static char HeaderData[32768];
 
+#define FREESEGSTART 0x5000
+#define FREESEGEND 0x8000
+
+void printf(const char *format, ...);
+void AllocInit(unsigned short MemSegStart, unsigned short MemSegEnd);
+
 _extern void CPPMain()
 {
+
 	CFileSystem *FileSystem;
 	void *ImageData;
 	TExeHeader *ExeHeader = (TExeHeader *)&HeaderData[2];
+	unsigned short EndSeg;
+
+	printf("AllocInit( %x, %x )\r\n",FREESEGSTART, FREESEGEND);
+	AllocInit(FREESEGSTART, FREESEGEND);
 
 	PutS("\r\nExtended Operating System Loader 1.1.9\r\n\n");
 	if (BypassRequest())
 		CriticalError(NULL);
-
+//    PutS("0\r\n");
 	CleanMemory();
 	FileSystem = MountFileSystem();
+//	PutS("1\r\n");
 	ImageData = LoadImage(FileSystem);
+//	PutS("2\r\n");
 	HandleRelocate(ImageData);
+	PutS("3\r\n");
 	delete FileSystem;
+	
+	EndSeg=START_SEG + ExeHeader->PageCount + ExeHeader->MinMem;
 
+	printf("START_SEG %x, EndSeg %x\r\n");
+/* */
+printf("Execute(START_SEG,ExeHeader->ReloSS,ExeHeader->ExeSP,ExeHeader->ReloCS,ExeHeader->ExeIP,EndSeg,0x8000)\r\n");
+	printf("Execute(START_SEG %x,ExeHeader->ReloSS %x,ExeHeader->ExeSP %x,ExeHeader->ReloCS %x,ExeHeader->ExeIP %x,EndSeg %x,0x8000 %x)\r\n",
+		START_SEG,ExeHeader->ReloSS,ExeHeader->ExeSP,ExeHeader->ReloCS,ExeHeader->ExeIP,EndSeg,0x8000);
+/**/
 	Execute(START_SEG,ExeHeader->ReloSS,ExeHeader->ExeSP,
-			  ExeHeader->ReloCS,ExeHeader->ExeIP);
+			  ExeHeader->ReloCS,ExeHeader->ExeIP,EndSeg,0x8000);  // TODO Find last free Seg and replace 0x8000
 }
 
 void CleanMemory()
@@ -96,10 +119,10 @@ void CleanMemory()
 //	memset((void *)0x40008000,0,32768);
 }
 
-
 CFileSystem *MountFileSystem()
 {
 	CFileSystem *FileSystem;
+	int ret;
 
 	CreatePartition();
 	switch (XoslMountPart.FSType) {
@@ -113,7 +136,9 @@ CFileSystem *MountFileSystem()
 			CriticalError("Unknown file system.");
 			break;
 	}
-	FileSystem->Mount(XoslMountPart.Drive,XoslMountPart.StartSector);
+	//printf("XoslMountPart.Drive %x XoslMountPart.StartSector %lu\r\n",(int)XoslMountPart.Drive,(unsigned long)XoslMountPart.StartSector);
+	ret=FileSystem->Mount(XoslMountPart.Drive,XoslMountPart.StartSector);
+	//printf("Exited FileSystem->Mount %d\r\n", ret ); 
 	return FileSystem;
 }
 
@@ -122,17 +147,24 @@ void *LoadImage(CFileSystem *FileSystem)
 	void *Dest;
 	int ImgIndex;
 	char *ImageName = IMAGE_NAME;
+	char  *ImageLogErrorMsg = "Unable to load XOSL image ";
+	char ErrorMsg[80];
 	int Index;
 	int ImageCount;
 
-	if (!FileSystem->ReadFile(ImageName,HeaderData))
-		CriticalError("Unable to load XOSL image.");
+	strcpy(ErrorMsg,ImageLogErrorMsg); // Prepare error msg
+	if (!FileSystem->ReadFile(ImageName,HeaderData)){
+		strcat(ErrorMsg,ImageName);
+		CriticalError(ErrorMsg);
+	}
 	++ImageName[7];
 	ImageCount = *(short *)HeaderData;
 	Dest = (void *)IMAGE_DESTADDR;
 	for (Index = 0; Index < ImageCount; ++Index) {
-		if (!FileSystem->ReadFile(ImageName,Dest))
-			CriticalError("Unable to load XOSL image.");
+		if (!FileSystem->ReadFile(ImageName,Dest)){
+			strcat(ErrorMsg,ImageName);
+			CriticalError(ErrorMsg);
+		}
 		++ImageName[7];
 		(unsigned long)Dest += 0x08000000;
 	}
@@ -177,3 +209,25 @@ void CreatePartition()
 		XoslMountPart.StartSector = Ipl->IplData.ABSSectorStart;
 	}
 }
+
+char *strcat( char *to, const char *from )
+{
+	char *temp ;
+
+	temp = to ;
+	while( *to++ ) ;
+	to-- ;
+	while( *to++ = *from++ ) ;
+	return temp ;
+}
+
+
+char *strcpy( char *to, const char *from )
+{
+	char *temp ;
+
+	temp = to ;
+	while( *to++ = *from++ ) ;
+	return temp ;
+}
+

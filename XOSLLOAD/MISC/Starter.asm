@@ -11,13 +11,16 @@
                 .model  tiny
                 .386p
 		.code
-                extrn   _AllocInit: near
+;                extrn   _AllocInit: near
                 extrn   _CPPMain: near
 
 		.startup
-                push    dword ptr 50000000h
-                call    _AllocInit
-                pop     eax
+
+; Moved to CPPMain
+;                push    word ptr 5000h
+;		push	word ptr 9000h
+;                call    _AllocInit
+;                pop     eax
 
                 call    _CPPMain
 		 end

@@ -204,7 +204,7 @@ void CFsCreator::AddFatEntries(long FileSize)
 
 int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 {
-	long ImageSize;
+	unsigned long ImageSize;
 	int TransferCount;
 	int Index;
 	CDisk Disk;

@@ -35,7 +35,7 @@ LoaderStart:    nop                     ;need to move code two bytes, so
 ;0000:7c40:
                 db      0eah            ;jmp 07b4:0145
                 dd      07b00145h
-;07b4:0105:
+;07b4:0145:
                 mov     ax,cs
                 mov     ds,ax
                 mov     ss,ax

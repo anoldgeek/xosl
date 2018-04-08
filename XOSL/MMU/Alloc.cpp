@@ -31,7 +31,7 @@ typedef struct SMemDesc {
 } TMemDesc, *PMemDesc;
 
 static PMemDesc FreeList;
-
+/*
 void AllocInit(unsigned long MemStart)
 {
 	PMemDesc NextItem;
@@ -45,7 +45,30 @@ void AllocInit(unsigned long MemStart)
 	NextItem->Next = NULL;
 	NextItem->PageCount = (0x00098000 - PhysAddr(MemStart) >> 4) - 1;
 }
+*/
+void AllocInit(unsigned short MemSegStart, unsigned short MemSegEnd)
+{
+	unsigned long MemStart;
+	unsigned long MemEnd;
+	PMemDesc NextItem;
 
+	MemStart = MemSegStart;
+	MemStart =  MemStart << 16;
+
+	MemEnd = MemSegEnd;
+	MemEnd = MemEnd << 16;
+
+	FreeList = (PMemDesc)MemStart;
+	NextItem = (PMemDesc)(0x00010000 + MemStart);
+	FreeList->Prev = NULL;
+	FreeList->Next = NextItem;
+	FreeList->PageCount = 0;
+	NextItem->Prev = FreeList;
+	NextItem->Next = NULL;
+
+//	NextItem->PageCount = (0x000a0000 - PhysAddr(MemStart) >> 4) - 1;
+	NextItem->PageCount = (MemEnd - PhysAddr(MemStart) >> 4) - 1;
+}
 void *operator new (unsigned int Size)
 {
 	long PageCount;

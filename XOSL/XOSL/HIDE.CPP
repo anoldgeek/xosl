@@ -160,7 +160,7 @@ void CHidingDialog::AddSystem(int Row, const char *FSName)
 	PartListBox->AddItem(Row,2,FSName);
 }
 
-void CHidingDialog::AddSize(int Row, long Sectors)
+void CHidingDialog::AddSize(int Row, unsigned long Sectors)
 {
 	CString Msg;
 

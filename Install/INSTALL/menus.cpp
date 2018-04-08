@@ -264,11 +264,15 @@ void CInstallMenus::CreateDosDriveList()
 	int *Buffer;
 
 	DosDriveCount = Data.GetLastDrive() - ('C' - 'A');
-	DosDriveList = new char *[DosDriveCount];
-	Buffer = new int[DosDriveCount];
-	for (Index = 0; Index < DosDriveCount; ++Index) {
-		Buffer[Index] = Index + 'C';
-		DosDriveList[Index] = (char *)&Buffer[Index];
+	if (DosDriveCount > 0) {
+		DosDriveList = new char *[DosDriveCount];
+		Buffer = new int[DosDriveCount];
+		for (Index = 0; Index < DosDriveCount; ++Index) {
+			Buffer[Index] = Index + 'C';
+			DosDriveList[Index] = (char *)&Buffer[Index];
+		}
+	} else {
+		DosDriveList = (char *) 0;
 	}
 }
 
@@ -278,6 +282,9 @@ void CInstallMenus::CreatePartList()
 	char *PartStr;
 	const TPartition *Partition;
 	int Index, Count;
+	unsigned long PartitionSize;
+	char PartitionSizeSuffix;
+	char SPartitionSize[16];
 
 	Count = PartList.GetCount();
 	PartNameList = new char *[Count];
@@ -303,7 +310,17 @@ void CInstallMenus::CreatePartList()
 						PartStr[2] = '0' + (Partition->Drive & ~0x80);
 						MemCopy(&PartStr[4],Partition->Type == PART_PRIMARY ? "pri" : "log",3);
 						MemCopy(&PartStr[9],Partition->FSName,strlen(Partition->FSName));
-						itoa((int)(Partition->SectorCount >> 11),&PartStr[29],10);
+
+						// Shorten partition size display by using M of G suffix
+						PartitionSize = (Partition->SectorCount >> 11); // Get size in Mb
+						if (PartitionSize < 1024L){
+							strcat(ultoa(PartitionSize,&SPartitionSize[0],10),"M");
+						}else{ 
+							strcat(ultoa(PartitionSize >> 10,&SPartitionSize[0],10),"G");
+						}
+						MemCopy(&PartStr[29], SPartitionSize, strlen(SPartitionSize));
+
+						//ultoa((Partition->SectorCount >> 11),&PartStr[29],10);
 						PartNameList[PartNameCount++] = PartStr;
 						break;
 				}

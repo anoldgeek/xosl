@@ -20,19 +20,40 @@
                 extrn   _DisableA20: far
                 extrn   _PrintA20Status: far
 
-		.startup
+		; Check if started by xoslloader
+		mov	ax,cs
+		cmp	ax,02000h 
+		je	loadedby_xoslloader
+
+		; loaded by dos or debugger
+;		.startup
+		MOV	 DX,@data
+		MOV	 DS,DX
+		MOV	 BX,SS
+		SUB	 BX,DX
+		SHL	 BX,4
+		MOV	 SS,DX
+		ADD	 SP,BX
+
+		; should get FreeSegStart and End from command line
+		push	07000h;
+		push	08000h;
+		jmp	starter2
+
+loadedby_xoslloader:
+		; Get FreeSegStart and End from Stack
+		mov	bp,sp
+		mov	ax,[bp+06h]
+		push	ax
+		mov	ax,[bp+08h]
+		push	ax
+
+starter2:
 		call 	_EnableA20
                 push    dx
                 call    _PrintA20Status
                 pop     dx
 
-		ifdef DOS_DEBUG
-		push    dword ptr 65000000h    ;MMU start address for DOS debug version
-		else
-                push    dword ptr 50000000h
-		endif
-                call    @AllocInit$qul
-                pop     eax
                 call    _main
 
                 push    ax              ;boot drive 

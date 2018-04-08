@@ -63,6 +63,9 @@ void CKeyboard::SelectLayout(TKeyLayout KeyLayout)
 		case enumLayoutFrench:
 			SelectedLayout = FrenchKeyList; // azerty
 			break;
+		case enumLayoutGR:
+			   SelectedLayout = GRKeyList; // qwertz
+			break;
 		default:
 			break;
 	}

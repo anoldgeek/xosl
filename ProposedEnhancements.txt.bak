@@ -48,3 +48,21 @@
 			int CApplication::StartInstallSep()
 				add
 				DriveMbr = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(8));
+
+
+		Partition = PartList.GetPartition(Index);
+		MbrDrive=Partition->Drive
+		MbrDrive = PartList.GetPartition(Index)->Drive
+
+1. Completed for XOSL seperate partition install in xosl11a
+
+
+2. Include XOSL118 fixes
+
+3. Install assuming fixed count of XOSLIMGx.XXF files.
+	\install\install\FatInst.cpp line 129
+		int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
+	\install\install\Files.cpp line 83
+		const char *CXoslFiles::FileList[] = {
+
+4. In "Add Boot Item" menu ,fix patition size display to unsigned long instead of long.
