@@ -37,6 +37,9 @@ public:
 	void InitFixMbrSep(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
 
 	int ResolvePartIndex(int ListIndex);
+    int ResolveHDIndex(int ListIndex);
+	int GetHDIndex(unsigned char MbrHDSector0);
+	void ResetPartNameList(void);
 
 private:
 	CTextUI &TextUI;
@@ -56,7 +59,7 @@ private:
 	void CreateHDList();
 	char **HDNameList;
 	int HDNameCount;
-	int *HDResolveList;
+	unsigned char *HDResolveList;
 	char *MbrHDSector0List;
 
 	int FatAvail;

@@ -221,7 +221,7 @@ int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 
 
 
-int CFatInstall::InstallIpl(void *Ipl,int MbrHDSector0)
+int CFatInstall::InstallIpl(void *Ipl,unsigned char MbrHDSector0)
 {
 	CDisk Disk;
 	unsigned char Mbr[512];
@@ -230,19 +230,19 @@ int CFatInstall::InstallIpl(void *Ipl,int MbrHDSector0)
 
 	TextUI.OutputStr("Installing IPL...");
 	if (Disk.Map(MbrHDSector0,0) == -1) {
-		TextUI.OutputStr("failed\nUnable to access MBR");
+		TextUI.OutputStr("failed\nUnable to access MBR. ");
 		return -1;
 	}
 	Disk.Lock();
 	if (Disk.Read(0,Mbr,1) == -1) {
 		Disk.Unlock();
-		TextUI.OutputStr("failed\nUnable to read MBR");
+		TextUI.OutputStr("failed\nUnable to read MBR. ");
 		return -1;
 	}
 	MemCopy(Mbr,Ipl,436);
 	if (Disk.Write(0,Mbr,1) == -1) {
 		Disk.Unlock();
-		TextUI.OutputStr("failed\nUnable to write to MBR");
+		TextUI.OutputStr("failed\nUnable to write to MBR. ");
 		return -1;
 	}
 

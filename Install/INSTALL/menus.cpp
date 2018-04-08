@@ -34,6 +34,7 @@ CInstallMenus::~CInstallMenus()
 		delete DosDriveList[0];
 		delete DosDriveList;
 	}
+	// ResetPartNameList();
 }
 
 void CInstallMenus::InitMainMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
@@ -245,8 +246,8 @@ void CInstallMenus::InitFixMbrFat(CTextList::TListItemExecute MenuHandler, void 
 void CInstallMenus::InitFixMbrSep(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
 {
 	if (!PartNameList){
-		CreatePartList();
 		CreateHDList();
+		CreatePartList();
 	}
 
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
@@ -293,7 +294,7 @@ void CInstallMenus::CreatePartList()
 	Count = PartList.GetCount();
 	PartNameList = new char *[Count];
 	PartResolveList = new int[Count];
-	MbrHDSector0List = new char[Count];
+	MbrHDSector0List = new unsigned char[Count];
 
 	for (PartNameCount = Index = 0; Index < Count; ++Index) {
 		Partition = PartList.GetPartition(Index);
@@ -327,13 +328,14 @@ void CInstallMenus::CreatePartList()
 						strcpy(&PartStr[29], SPartitionSize);
 
 						//ultoa((Partition->SectorCount >> 11),&PartStr[29],10);
-						PartNameList[PartNameCount++] = PartStr;
+						PartNameList[PartNameCount] = PartStr;
 
 						if(Partition->FSType == 0x78 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
-							MbrHDSector0List[PartNameCount - 1] = Partition->MbrHDSector0 - 0x80;
+							MbrHDSector0List[PartNameCount] = GetHDIndex(Partition->MbrHDSector0);
 						}else{
-							MbrHDSector0List[PartNameCount - 1] = 0;
+							MbrHDSector0List[PartNameCount] = 0; // HD0
 						}
+						PartNameCount++;
 						break;
 				}
 				break;
@@ -373,17 +375,23 @@ void CInstallMenus::CreateHDList()
 			HDNameCount++;
 		}
 	}
-	HDNameList = new char *[HDNameCount];
-//	HDResolveList = new int[HDNameCount];
+	HDNameList = new char *[HDNameCount+1];
+	HDResolveList = new unsigned char[HDNameCount+1];
 
 	for(Index=0; Index < HDNameCount ; ++Index){
-			HDStr = new char [4];
-			MemSet(HDStr,0,4);
+			HDStr = new char [10];
+			MemSet(HDStr,0,10);
 			MemCopy(HDStr,"HD",2);
 			HDStr[2] = '0' + Index;
 			HDNameList[Index] = HDStr;
+            HDResolveList[Index] = Index + 0x80;
 	}
-
+	HDStr = new char [10];
+ 	MemSet(HDStr,0,10);
+ 	MemCopy(HDStr,"NONE",4);
+ 	HDNameList[HDNameCount] = HDStr;
+ 	HDResolveList[HDNameCount] = 0xff;
+	HDNameCount++;
 }
 int CInstallMenus::ResolvePartIndex(int ListIndex)
 {
@@ -394,4 +402,48 @@ int CInstallMenus::ResolvePartIndex(int ListIndex)
 		if (PartResolveList[Index] == ListIndex)
 			return Index;
 	return -1;
+}
+int CInstallMenus::ResolveHDIndex(int ListIndex)
+{
+	return HDResolveList[ListIndex];
+}
+
+int CInstallMenus::GetHDIndex(unsigned char MbrHDSector0)
+{
+	for(int index = 0; index < HDNameCount; index++){
+		if (HDResolveList[index] == MbrHDSector0){
+			return index;
+		}
+	}
+	return 0;
+}
+
+void CInstallMenus::ResetPartNameList(void)
+{
+	int Count;
+
+	Count = PartList.GetCount();
+
+	if (!PartNameList) {
+		for (int index = 0;index < Count ; ++index ){
+			delete PartNameList[index];
+		}
+		delete PartNameList;
+	}
+
+	if (HDNameCount != 0){
+		for (int index;index < HDNameCount ; ++index ){
+			delete HDNameList[index];
+		}
+		delete HDNameList;
+	}
+
+	if (PartResolveList != 0)
+		delete PartResolveList;
+
+	if (MbrHDSector0List != 0)
+		delete MbrHDSector0List;
+
+	if (HDResolveList != 0)
+		delete HDResolveList;
 }

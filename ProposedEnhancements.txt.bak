@@ -116,7 +116,6 @@ XOSL11E
 10. Fix smartbootloader "not enough memory" on install. OK with freedos probably issue with dos 6.22 config
 
 XOSL11F
-**************** TODO ****************
 
 8. Fix install restore and delete, where xosl installed in HD other than HD0 in sep installs.
 	Store which HD the mbr is written to during install in a new item CBootItemFile.MbrHDSector0 and retrieve it for display on restore and delete action.
@@ -138,14 +137,24 @@ XOSL11F
 					TextUI.SetOptionIndex(LinkedListItem, CInstallMenus.MbrHDSector0List[LinkedListItem]);
 				}
 	
+XOSL11G
 
 
-			
+	
+9. Enable install of XOSL as chain load only (Do not install Sector 0 Mbr)
 
-9. Create upgrade option.
-	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ), convert to new release and restore after install.
+XOSL11H
+
+**************** TODO ****************
 
 
+10. Create upgrade option.
+	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ). 
+	Convert to new release and restore after install or update existing files to new release and avoid installing new ones.
+	
+
+
+11. Fix updating partlist when returning to main memu after installing XOSL
 
 
 

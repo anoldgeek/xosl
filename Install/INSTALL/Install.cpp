@@ -39,7 +39,7 @@ CInstaller::~CInstaller()
 {
 }
 
-int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrHDSector0)
+int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
 {
 	TIPL Ipl;
 
@@ -70,12 +70,11 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
 		return -1;
-
 	TextUI.OutputStr("\nInstall complete\n");
 	return 0;
 }
 
-int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrHDSector0)
+int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
 {
 	const TPartition *Partition;
 	TIPL Ipl;
@@ -117,19 +116,20 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
 		return -1;
 
-
-
 	SetPartId(PartIndex,0x78);
 
-
-	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
-		return -1;
-
-	TextUI.OutputStr("\nInstall complete\n");
+ 	if (MbrHDSector0 != 0xff){
+ 		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+ 			return -1;
+ 		else
+ 			TextUI.OutputStr("\nInstall complete\n");
+ 	}else{
+ 		TextUI.OutputStr("\Install complete...\n   for chain loading only.\n");
+ 	}
 	return 0;
 }
 
-int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int MbrHDSector0)
+int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, unsigned char MbrHDSector0)
 {
 	char MbrBuffer[512];
 	//const char *MbrFileName;
@@ -146,7 +146,7 @@ int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int Original
 	return 0;
 }
 
-int CInstaller::Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0)
+int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSector0)
 {
 	const TPartition *Partition;
 	char OriginalMbrBuffer[512];
@@ -180,7 +180,7 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0)
 
 
 
-int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSector0)
+int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, unsigned char MbrHDSector0)
 {
 	char Ipl[512];
 
@@ -194,7 +194,7 @@ int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSecto
 	return 0;
 }
 
-int CInstaller::Restore(int PartIndex, int MbrHDSector0)
+int CInstaller::Restore(int PartIndex, unsigned char MbrHDSector0)
 {
 	char CurrentMbr[512];
 
@@ -263,7 +263,7 @@ int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouse
 }
 
 
-int CInstaller::CreateBootItem(int MbrHDSector0)
+int CInstaller::CreateBootItem(unsigned char MbrHDSector0)
 {
 	CBootItemFile *BootItemData = new CBootItemFile;
 	int hFile;

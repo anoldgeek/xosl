@@ -132,7 +132,7 @@ int CApplication::StartInstallSep()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 	int PartIndex;
-	int MbrHDSector0;
+	unsigned char MbrHDSector0;
 	bool PartMan;
 	bool SmartBootManager;
 	
@@ -142,7 +142,7 @@ int CApplication::StartInstallSep()
 	SmartBootManager = TextUI.GetOptionIndex(3) == 0;
 
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(4));
-	MbrHDSector0 = TextUI.GetOptionIndex(8) + 0x80;
+	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(8));
 
 	if (Installer.Install(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
@@ -176,10 +176,10 @@ int CApplication::StartRestoreFat()
 int CApplication::StartRestoreSep()
 {
 	int PartIndex;
-	int MbrHDSector0;
+	unsigned char MbrHDSector0;
 	
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(0));
-	MbrHDSector0 = TextUI.GetOptionIndex(4) + 0x80;
+	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(4));
 
 	if (Installer.Restore(PartIndex,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
@@ -211,11 +211,11 @@ int CApplication::StartUninstallSep()
 {
 	int PartIndex;
 	int OriginalMbr;
-	int MbrHDSector0;
+	unsigned char MbrHDSector0;
 	
 	OriginalMbr = !TextUI.GetOptionIndex(0);
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(2));
-	MbrHDSector0 = TextUI.GetOptionIndex(6) + 0x80;
+	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(6));
 	return Installer.Uninstall(PartIndex,OriginalMbr,MbrHDSector0);
 }
 
@@ -363,6 +363,7 @@ void CApplication::DoneMenuExecute(CApplication *Application, TEnumDoneMenu Item
 			Application->DoExit = 1;
 			break;
 		case enumDoneMain:
+			// Application->InstallMenus.ResetPartNameList(); // Ensure changed partitions are reread. But causes corruption!!
 			Application->InstallMenus.InitMainMenu((CTextList::TListItemExecute)Application->MainMenuExecute,Application);
 			break;
 		default:
