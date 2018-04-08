@@ -55,6 +55,6 @@
 
 typedef int bool;
 #define false FALSE
-#define true TRUE;
+#define true TRUE
 
 #endif

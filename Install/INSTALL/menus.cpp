@@ -136,7 +136,7 @@ void CInstallMenus::InitInstSepMenu(CTextList::TListItemExecute MenuHandler, voi
 	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
 	TextUI.AddMenuItem(2,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta",1,2,YesNoList,1);
 	TextUI.AddMenuItem(3,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
-	TextUI.AddMenuItem(4,"Drv Type System (for XOSL)   Size ","Partition to install XOSL "XOSL_VERSION" on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(4,"Drv Type System (for XOSL)   Size ","Partition to install XOSL "XOSL_VERSION" on",1,PartNameCount,(const char **)PartNameList,0,8,MbrHDSector0List);
 	TextUI.AddMenuItem(8,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL "XOSL_VERSION" MBR on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(10,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
 	TextUI.AddMenuItem(11,"Return to install menu","Return to install menu",1);
@@ -217,7 +217,7 @@ void CInstallMenus::InitUninstallSep(CTextList::TListItemExecute MenuHandler, vo
 
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Restore MBR","Restore the Master Boot Record with the original or default loader",1,2,MbrIplList,1);
-	TextUI.AddMenuItem(2,"Drv Type System              Size ","Partition XOSL is currently installed on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(2,"Drv Type System              Size ","Partition XOSL is currently installed on",1,PartNameCount,(const char **)PartNameList,0,6,MbrHDSector0List);
 	TextUI.AddMenuItem(6,"Drv for Sector0 MBR","Drive Sector 0 XOSL "XOSL_VERSION" MBR is currently installed on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(8,"Start uninstall","Uninstall Extended Operating System Loader",1);
 	TextUI.AddMenuItem(10,"Return to uninstall menu","Return to uninstall menu",1);
@@ -244,13 +244,16 @@ void CInstallMenus::InitFixMbrFat(CTextList::TListItemExecute MenuHandler, void 
 
 void CInstallMenus::InitFixMbrSep(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
 {
-	if (!PartNameList)
+	if (!PartNameList){
 		CreatePartList();
+		CreateHDList();
+	}
 
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 
 	TextUI.ClearMenu();
-	TextUI.AddMenuItem(0,"Drv Type System              Size ","Partition XOSL is currently installed on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(0,"Drv Type System              Size ","Partition XOSL is currently installed on",1,PartNameCount,(const char **)PartNameList,0,4,MbrHDSector0List);
+	TextUI.AddMenuItem(4,"Drv for Sector0 MBR","Drive Sector 0 XOSL "XOSL_VERSION" MBR is currently installed on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(6,"Start restore","Restore XOSL "XOSL_VERSION"",1);
 	TextUI.AddMenuItem(8,"Return to upgrade menu","Return to upgrade menu",1);
 	TextUI.SetItemIndex(0);
@@ -290,6 +293,7 @@ void CInstallMenus::CreatePartList()
 	Count = PartList.GetCount();
 	PartNameList = new char *[Count];
 	PartResolveList = new int[Count];
+	MbrHDSector0List = new char[Count];
 
 	for (PartNameCount = Index = 0; Index < Count; ++Index) {
 		Partition = PartList.GetPartition(Index);
@@ -324,6 +328,12 @@ void CInstallMenus::CreatePartList()
 
 						//ultoa((Partition->SectorCount >> 11),&PartStr[29],10);
 						PartNameList[PartNameCount++] = PartStr;
+
+						if(Partition->FSType == 0x78 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
+							MbrHDSector0List[PartNameCount - 1] = Partition->MbrHDSector0 - 0x80;
+						}else{
+							MbrHDSector0List[PartNameCount - 1] = 0;
+						}
 						break;
 				}
 				break;
@@ -375,8 +385,6 @@ void CInstallMenus::CreateHDList()
 	}
 
 }
-
-
 int CInstallMenus::ResolvePartIndex(int ListIndex)
 {
 	int Count, Index;

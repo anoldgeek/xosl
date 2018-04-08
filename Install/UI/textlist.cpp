@@ -11,6 +11,9 @@
 #include <textlist.h>
 #include <key.h>
 #include <string.h>
+#include <textui.h>
+#include <menus.h>
+
 
 
 #ifndef NULL
@@ -59,7 +62,7 @@ void CTextList::AddItem(int Index, const char *Caption, const char *HelpText, in
 }
 
 void CTextList::AddItem(int Index, const char *Caption, const char *HelpText,
-	int Enabled, int OptionCount, const char **OptionList, int IsCombo)
+	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, char *MbrHDSector0List)
 {
 	CListItem *Node;
 	int ItemWidth, MaxWidth;
@@ -81,6 +84,8 @@ void CTextList::AddItem(int Index, const char *Caption, const char *HelpText,
 	
 	Node->OptionWidth = MaxWidth;
 	Node->OptionIndex = 0;
+	Node->LinkedListItemIndex = LinkedListItemIndex;
+	Node->MbrHDSector0List = MbrHDSector0List;
 }
 
 void CTextList::Refresh()
@@ -146,6 +151,11 @@ int CTextList::GetOptionIndex(int Index)
 	return ListItems[Index].OptionIndex;
 }
 
+void CTextList::SetOptionIndex(int Index, int OptionIndex)
+{
+	ListItems[Index].OptionIndex = OptionIndex;
+}
+
 
 void CTextList::ConnectEventHandler(CTextList::TListItemExecute Handler, void *_this)
 {
@@ -157,6 +167,7 @@ void CTextList::ConnectEventHandler(CTextList::TListItemExecute Handler, void *_
 void CTextList::HandleKeyAction(int Key)
 {
 	CListItem *Item;
+	CListItem *LinkedItem;
 
 	switch (Key) {
 		case KEY_UP:
@@ -183,12 +194,18 @@ void CTextList::HandleKeyAction(int Key)
 			if (Item->Type == tltCombo) {
 				if (--Item->OptionIndex < 0)
 					Item->OptionIndex = Item->OptionCount - 1;
+
 				Refresh();
 			}
 			else {
 				if (Item->Type == tltList) {
 					if (--Item->OptionIndex < 0)
 						++Item->OptionIndex;
+					if (Item->LinkedListItemIndex != -1){
+						// Set the index on the linked item
+						LinkedItem=&ListItems[Item->LinkedListItemIndex];
+						LinkedItem->OptionIndex = Item->MbrHDSector0List[Item->OptionIndex];
+					}
 					Refresh();
 				}
 			}
@@ -205,6 +222,11 @@ void CTextList::HandleKeyAction(int Key)
 				if (Item->Type == tltList) {
 					if (++Item->OptionIndex == Item->OptionCount)
 						--Item->OptionIndex;
+					if (Item->LinkedListItemIndex != -1){
+						// Set the index on the linked item
+						LinkedItem=&ListItems[Item->LinkedListItemIndex];
+						LinkedItem->OptionIndex = Item->MbrHDSector0List[Item->OptionIndex];
+					}
 					Refresh();
 				}
 			}

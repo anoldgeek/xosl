@@ -89,7 +89,7 @@ class CPartList {
 		TPartNode *CreateNonPartNode(int Drive);
 		const char *GetFSName(int FSID);
 		void CreatePLUP();
-		void GetPartMbrHDSector0(TPartition *Partition);
+		unsigned char GetPartMbrHDSector0(TPartition *Partition);
 
 		TMBRNode MBRList;
 		TPartNode PartList;

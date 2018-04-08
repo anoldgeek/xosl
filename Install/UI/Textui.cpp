@@ -97,9 +97,9 @@ void CTextUI::AddMenuItem(int Index, const char *Caption,
 }
 
 void CTextUI::AddMenuItem(int Index, const char *Caption, const char *HelpText,
-	int Enabled, int OptionCount, const char **OptionList, int IsCombo)
+	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, char *MbrHDSector0List)
 {
-	MenuItems.AddItem(Index,Caption,HelpText,Enabled,OptionCount,OptionList,IsCombo);
+	MenuItems.AddItem(Index,Caption,HelpText,Enabled,OptionCount,OptionList,IsCombo,LinkedListItemIndex,MbrHDSector0List);
 }
 
 void CTextUI::RefreshMenu()
@@ -211,3 +211,7 @@ void CTextUI::ShowPopup(int Left, int Top, int Width, int Height, const char *Te
 	Popup->Show();
 }
 
+void CTextUI::SetOptionIndex(int OptionIndex, int Index)
+{
+	MenuItems.SetOptionIndex(OptionIndex,Index);
+}

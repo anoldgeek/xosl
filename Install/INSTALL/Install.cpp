@@ -23,6 +23,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <xoslver.h>
+#include <items.h>
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
@@ -47,7 +48,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}
 	if (CreateXoslData(GraphicsMode,MouseType) == -1)
 		return -1;
-	if (CreateBootItem() == -1)
+	if (CreateBootItem(MbrHDSector0) == -1)
 		return -1;
 	if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName()) == -1)
 		return -1; 
@@ -95,7 +96,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		
 	if (CreateXoslData(GraphicsMode,MouseType) == -1)
 		return -1;
-	if (CreateBootItem() == -1)
+	if (CreateBootItem(MbrHDSector0) == -1)
 		return -1;
 	if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName()) == -1)
 		return -1;
@@ -201,7 +202,7 @@ int CInstaller::Restore(int PartIndex, int MbrHDSector0)
 	if (LoadRawMbr(PartIndex,XoslFiles.GetCurrentMbrName(),CurrentMbr) == -1)
 		return -1;
 
-	if (FatInstall.InstallIpl(CurrentMbr,0x80) == -1)
+	if (FatInstall.InstallIpl(CurrentMbr,MbrHDSector0) == -1)
 		return -1;
 
 	TextUI.OutputStr("\nRestore complete\n");
@@ -262,13 +263,14 @@ int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouse
 }
 
 
-int CInstaller::CreateBootItem()
+int CInstaller::CreateBootItem(int MbrHDSector0)
 {
-	char *BootItemData = new char[BOOTITEM_FILESIZE];
+	CBootItemFile *BootItemData = new CBootItemFile;
 	int hFile;
 	
 	TextUI.OutputStr("Creating boot items file...");
 	MemSet(BootItemData,0,BOOTITEM_FILESIZE);
+	BootItemData->MbrHDSector0 = MbrHDSector0;
 	if ((hFile = DosFile.Create(XoslFiles.GetBootItemName())) == -1) {
 		TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetBootItemName());
 		delete[] BootItemData;

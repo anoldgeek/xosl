@@ -179,7 +179,7 @@ int CApplication::StartRestoreSep()
 	int MbrHDSector0;
 	
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(0));
-	MbrHDSector0 = TextUI.GetOptionIndex(8) + 0x80;
+	MbrHDSector0 = TextUI.GetOptionIndex(4) + 0x80;
 
 	if (Installer.Restore(PartIndex,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");

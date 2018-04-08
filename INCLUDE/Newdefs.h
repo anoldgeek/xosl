@@ -34,12 +34,24 @@
 
 #ifndef HAVE_FULLCPP
 typedef int bool;
-#define true 1
-#define false 0
+
+#ifndef TRUE
+#	define TRUE (1 == 1)
+#endif
+#ifndef FALSE
+#	define FALSE (1 == 0)
+#endif
+#define false FALSE
+#define true TRUE
+
+
 #define typename class
 #endif
 
+#ifndef _SIZE_T
+#define _SIZE_T
 typedef unsigned short size_t;
+#endif
 
 
 #endif

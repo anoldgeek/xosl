@@ -8,8 +8,8 @@
  * or at http://www.gnu.org
  */
 
-#ifndef __DEFS__
-#define __DEFS__
+#ifndef __newdefs__
+#define __newdefs__
 
 #if !defined(__COMPACT__)
 	#if !defined(__LARGE__)
@@ -29,39 +29,26 @@
 #define NULL 0L
 #endif
 
+
+#define IPL_ADDR ( (void *)0x00007c00 )
+
+#ifndef HAVE_FULLCPP
+typedef int bool;
+
 #ifndef TRUE
 #	define TRUE (1 == 1)
 #endif
 #ifndef FALSE
 #	define FALSE (1 == 0)
 #endif
-#define FALSE 0
-#define TRUE 1
+#define false FALSE
+#define true TRUE
 
-#define FONT_SMALL 0
-#define FONT_LARGE 1
 
-#ifndef _extern
-#	ifdef __cplusplus
-#		define _extern extern "C"
-#	else
-#		define _extern extern
-#	endif
+#define typename class
 #endif
 
-
-#ifdef __cplusplus
-#define extern extern "C"
-#endif
-
-typedef unsigned char U8B;
-typedef unsigned short U16B;
-typedef unsigned long U32B;
-
-typedef struct {
-	int Left, Top;
-	int Width, Height;
-} TRect;
+typedef unsigned short size_t;
 
 
 #endif

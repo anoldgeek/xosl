@@ -1,4 +1,4 @@
-Turbo Assembler	 Version 3.1	    17/03/18 19:46:46	    Page 1
+Turbo Assembler	 Version 3.1	    30/03/18 18:58:54	    Page 1
 data16.asm
 
 
@@ -53,7 +53,7 @@ data16.asm
      48	    0034  00000000		 Password	 dd	 0
      49
      50							 end
-Turbo Assembler	 Version 3.1	    17/03/18 19:46:46	    Page 2
+Turbo Assembler	 Version 3.1	    30/03/18 18:58:54	    Page 2
 Symbol Table
 
 
@@ -61,9 +61,9 @@ Symbol Table
 
 Symbol Name			  Type	 Value
 
-??DATE				  Text	 "17/03/18"
+??DATE				  Text	 "30/03/18"
 ??FILENAME			  Text	 "data16  "
-??TIME				  Text	 "19:46:46"
+??TIME				  Text	 "18:58:54"
 ??VERSION			  Number 030A
 @32BIT				  Text	 0
 @CODE				  Text	 DGROUP

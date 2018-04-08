@@ -23,7 +23,7 @@ class CTextList {
 		void AddItem(int Index, const char *Caption,
 			const char *HelpText, int Enabled);
 		void AddItem(int Index, const char *Caption, const char *HelpText,
-			int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex = -1, char* MbrHDSector0List = 0 );
+			int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex = -1, const char* MbrHDSector0List = "" );
 
 		
 		void Refresh();

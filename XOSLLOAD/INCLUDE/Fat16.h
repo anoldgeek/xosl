@@ -12,7 +12,9 @@
 #define __fat16__
 
 #include <fs.h>
+#include <bootrec.h>
 
+/*
 typedef struct {
 	unsigned char Jump[3];
 	unsigned char OEM_ID[8];
@@ -36,6 +38,7 @@ typedef struct {
 	unsigned char Loader[448];
 	unsigned short MagicNumber;  // 0xaa55
 } TBootFAT16;
+*/
 
 typedef struct {
 	unsigned char FileName[8];

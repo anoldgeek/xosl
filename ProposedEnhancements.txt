@@ -113,16 +113,38 @@ XOSL11E
 11. Fix date/time settings of files in sep install. 
 11. Fixed and tested for sep, FAT32 and FAT16
 
-XOSL11F
-**************** TODO ****************
+10. Fix smartbootloader "not enough memory" on install. OK with freedos probably issue with dos 6.22 config
 
-8. Fix restore and delete, where xosl installed in HD other than HD0 in sep installs.
-	Store which HD the mbr is written to on install in CBootItemFile.Sect0HD (new char value) and retrieve it for display an restore and delete action.
+XOSL11F
+
+8. Fix install restore and delete, where xosl installed in HD other than HD0 in sep installs.
+	Store which HD the mbr is written to during install in a new item CBootItemFile.MbrHDSector0 and retrieve it for display on restore and delete action.
+	Need special refresh on partition change to update currently selected MbrHDSector0.
+	Extra parameter to TextUI.AddMenuItem for partition selection, to pass current MbrHDSector0? 
+	Textlist.cpp
+		HandleKeyAction
+			Handles key input for currently selected item via ItemIndex.
+		CTextList::Refresh
+			Refreshes all ListItems. The list ite index is determined by the first parameter of TextUI.AddMenuItem in menus.cpp
+		Solution:
+			Added new int LinkedListItemIndex ;  to class CListItem in TextList.h line 53
+			Revert change to CTextList::AddItem at line 62 in TextList.cpp Replace OptionIndex with int LinkedListItemIndex = -1.
+			Revert change to  CTextList::AddItem at line 83 replacing OptionIndex with 0.
+			Add Node->LinkedListItemIndex = LinkedListItemIndex; after line 83.
+			Before Refresh in PAGE_UP & PAGE_DOWN in HandleKeyAction
+				if (LinkedListItemIndex != -1){
+					// Set the index on the linked item
+					TextUI.SetOptionIndex(LinkedListItem, CInstallMenus.MbrHDSector0List[LinkedListItem]);
+				}
+	
+XOSL11G
+
+**************** TODO ****************
+	
 
 9. Create upgrade option.
 	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ), convert to new release and restore after install.
 
-10. Fix smartbootloader "not enough memory" on install.
 
 
 

@@ -57,6 +57,7 @@ private:
 	char **HDNameList;
 	int HDNameCount;
 	int *HDResolveList;
+	char *MbrHDSector0List;
 
 	int FatAvail;
 };

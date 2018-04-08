@@ -53,7 +53,7 @@ private:
 	CFsCreator FsCreator;
 
 	int CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType);
-	int CreateBootItem();
+	int CreateBootItem(int MbrHDSector0);
 
 	int BackupOriginalMbr(int PartId, const char *DestFileName);
 	int BackupCurrentMbr(void *Ipl);

@@ -27,7 +27,7 @@ class CTextUI {
 		void AddMenuItem(int Index, const char *Caption,
 			const char *HelpText, int Enabled);
 		void AddMenuItem(int Index, const char *Caption, const char *HelpText,
-			int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex = -1, char *MbrHDSector0List = 0);
+			int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex = -1, int *MbrHDSector0List = 0);
 		void RefreshMenu();
 		void ClearMenu();
 		void SetItemIndex(int ItemIndex);

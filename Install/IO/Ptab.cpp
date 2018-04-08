@@ -12,6 +12,12 @@
 #include <transfer.h>
 #include <disk.h>
 
+#include <fat16.h>
+#include <bootrec.h>
+#include <items.h>
+//#include <mem.h>
+#include <memory.h>
+
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
 #define FSTYPE_LINUXEXT 0x85
@@ -108,6 +114,7 @@ void CPartList::CreatePartList(int FloppyCount)
 			if (Entries->RelativeSector && ((Entries->FSType != FSTYPE_EXTENDED &&
 				Entries->FSType != FSTYPE_EXTENDEDLBA && Entries->FSType != FSTYPE_LINUXEXT) ||
 				MBRNode->Type != PART_LOGICAL)) {
+				// ( RelativeSector && (( ! EXTENDED && ! EXTENDEDLBA && ! LINUXEXT ) || ! PART_LOGICAL )  )
 				PartList = PartList->Next = CreatePartNode(MBRNode,Index);
 				++Count;
 			}
@@ -161,8 +168,11 @@ TPartNode *CPartList::CreatePartNode(const TMBRNode *MBRNode, int Index)
 	Partition->FSName = GetFSName(PartEntry->FSType);
 	Partition->FSType = PartEntry->FSType;
 	Partition->Type = MBRNode->Type;
+	GetPartMbrHDSector0(Partition);
 	return PartNode;
 }
+
+
 
 const char *CPartList::GetFSName(int FSID)
 {
@@ -314,3 +324,50 @@ CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0xeb,"BeOS"},
 	{0xff,"Unknown"}
 };
+/*
+typedef	struct {
+		unsigned char Jump[3];			// jmp short + nop
+		unsigned char OEM_ID[8];		// XOSLINST
+		unsigned short SectorSize;		// 512
+		unsigned char ClusterSize;		// 16 (8192 byte)
+		unsigned short ReservedSectors;	// 1
+		unsigned char FATCopies;		// 1
+		unsigned short RootEntries;		// 32
+		unsigned short SectorCount;		// ?
+		unsigned char MediaDescriptor;	// 0xF8 (?) 
+		unsigned short FATSize;			// 1
+		unsigned short TrackSize;		// ? (sectors per head)
+		unsigned short HeadCount;		// ?
+		unsigned long HiddenSectors;	// ? (partition offset)
+		unsigned long BigSectorCount;	// 0 (total sectors < 65536)
+		unsigned short Drive;			// ?
+		unsigned char Signature;		// 0x29 (?)
+		unsigned long SerialNo;			// 0x4c534f58 (don't really care)
+		unsigned char Label[11];		// XOSL110
+		unsigned char FSID[8];			// FAT16
+		unsigned char Loader[448];		// IPL
+		unsigned short MagicNumber;		// 0x534f (used by XOSLLOAD)
+	} TBootRecord;
+*/
+
+//int memcmp(const void far *s1, const void far *s2, size_t count);
+int far memcmp(const void *s1, const void *s2, unsigned short count);
+#define BOOTITEM_FILESIZE 4096
+
+void CPartList::GetPartMbrHDSector0(TPartition *Partition)
+{
+	CDisk Disk;
+	CFAT16 *FileSystem = new CFAT16;
+	TBootRecord BootRecord;
+	CBootItemFile *BootItemData = new CBootItemFile;
+	
+	// Does this partition have sep XOSL installed
+	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1)
+		if(Disk.Read(0, &BootRecord,1) != -1 )
+			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 )
+				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 )
+					if (FileSystem->ReadFile("BOOTITEMXDF",BootItemData) == BOOTITEM_FILESIZE )
+						Partition->MbrHDSector0 = BootItemData->MbrHDSector0;
+	delete FileSystem;
+	delete BootItemData;
+}

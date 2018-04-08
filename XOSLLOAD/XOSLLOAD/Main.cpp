@@ -178,7 +178,8 @@ void CreatePartition()
 	if (memcmp(BootRecord->OEM_ID,"XOSLINST",8) == 0) {
 		XoslMountPart.Drive = BootRecord->Drive;
 		XoslMountPart.FSType = 0x06;
-		XoslMountPart.StartSector = BootRecord->StartSector;
+		//XoslMountPart.StartSector = BootRecord->StartSector;
+		XoslMountPart.StartSector = BootRecord->HiddenSectors;
 	}
 	else {
 		XoslMountPart.Drive = Ipl->IplData.DriveNumber;

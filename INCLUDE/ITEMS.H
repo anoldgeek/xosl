@@ -50,7 +50,8 @@ public:
 	unsigned char Reserved0; // was timeout
 	unsigned char PartCount;
 	unsigned short Timeout;
-	char Reserved[18]; // reserved for future use
+	unsigned char MbrHDSector0; // Which HD sector 0 (mbr) was choosen for this xosl install
+	char Reserved[17]; // reserved for future use
 }; //  sizeof(CBootItemFile) == 4096
 
 

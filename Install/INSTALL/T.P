@@ -1,0 +1,5477 @@
+install.cpp 1: 
+install.cpp 2: 
+install.cpp 3: 
+install.cpp 4: 
+install.cpp 5: 
+install.cpp 6: 
+install.cpp 7: 
+install.cpp 8: 
+install.cpp 9: 
+install.cpp 10: 
+install.cpp 11: 
+install.cpp 12: 
+install.cpp 13: 
+.\Install.h 1: 
+.\Install.h 2: 
+.\Install.h 3: 
+.\Install.h 4: 
+.\Install.h 5: 
+.\Install.h 6: 
+.\Install.h 7: 
+.\Install.h 8: 
+.\Install.h 9: 
+.\Install.h 10: 
+.\Install.h 11: 
+.\Install.h 12: 
+.\Install.h 13: 
+.\Install.h 14: 
+.\Install.h 15: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: typedef int bool;
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+.\Install.h 16: 
+..\include\textui.h 1: 
+..\include\textui.h 2: 
+..\include\textui.h 3: 
+..\include\textui.h 4: 
+..\include\textui.h 5: 
+..\include\textui.h 6: 
+..\include\textui.h 7: 
+..\include\textui.h 8: 
+..\include\textui.h 9: 
+..\include\textui.h 10: 
+..\include\textui.h 11: 
+..\include\textui.h 12: 
+..\include\textui.h 13: 
+..\include\textui.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\textui.h 15: 
+..\include\textwnd.h 1: 
+..\include\textwnd.h 2: 
+..\include\textwnd.h 3: 
+..\include\textwnd.h 4: 
+..\include\textwnd.h 5: 
+..\include\textwnd.h 6: 
+..\include\textwnd.h 7: 
+..\include\textwnd.h 8: 
+..\include\textwnd.h 9: 
+..\include\textwnd.h 10: 
+..\include\textwnd.h 11: 
+..\include\textwnd.h 12: 
+..\include\textwnd.h 13: 
+..\include\textwnd.h 14: 
+..\include\textscr.h 1: 
+..\include\textscr.h 2: 
+..\include\textscr.h 3: 
+..\include\textscr.h 4: 
+..\include\textscr.h 5: 
+..\include\textscr.h 6: 
+..\include\textscr.h 7: 
+..\include\textscr.h 8: 
+..\include\textscr.h 9: 
+..\include\textscr.h 10: 
+..\include\textscr.h 11: 
+..\include\textscr.h 12: 
+..\include\textscr.h 13: 
+..\include\textscr.h 14: class CTextScreen {
+..\include\textscr.h 15: public:
+..\include\textscr.h 16: CTextScreen(int Attr);
+..\include\textscr.h 17: ~CTextScreen();
+..\include\textscr.h 18: void PutStr(int X, int Y, const char *Str, int Attr);
+..\include\textscr.h 19: void PutChar(int X, int Y, int Ch, int Attr);
+..\include\textscr.h 20: void FillX(int X, int Y, int Ch, int Attr, int Count);
+..\include\textscr.h 21: void FillY(int X, int Y, int Ch, int Attr, int Count);
+..\include\textscr.h 22: void PutImage(int X, int Y, int Width, int Height, unsigned short *Image);
+..\include\textscr.h 23: void GetImage(int X, int Y, int Width, int Height, unsigned short *Image);
+..\include\textscr.h 24: private:
+..\include\textscr.h 25: };
+..\include\textscr.h 26: 
+..\include\textscr.h 27: 
+..\include\textscr.h 28: 
+..\include\textscr.h 29: 
+..\include\textwnd.h 15: 
+..\include\textwnd.h 16: class CTextWindow {
+..\include\textwnd.h 17: public:
+..\include\textwnd.h 18: CTextWindow(int Left, int Top, int Width, int Height, int Attr, CTextScreen &TextScreenToUse);
+..\include\textwnd.h 19: ~CTextWindow();
+..\include\textwnd.h 20: void Clear();
+..\include\textwnd.h 21: void PutStr(const char *Str);
+..\include\textwnd.h 22: void PutChar(int Ch);
+..\include\textwnd.h 23: 
+..\include\textwnd.h 24: private:
+..\include\textwnd.h 25: void AddChar(int Ch);
+..\include\textwnd.h 26: void Refresh();
+..\include\textwnd.h 27: void Scroll();
+..\include\textwnd.h 28: 
+..\include\textwnd.h 29: int Left, Top;
+..\include\textwnd.h 30: int Width, Height;
+..\include\textwnd.h 31: unsigned short Attr;
+..\include\textwnd.h 32: unsigned short *Window;
+..\include\textwnd.h 33: int CursorX, CursorY;
+..\include\textwnd.h 34: 
+..\include\textwnd.h 35: CTextScreen &TextScreen;
+..\include\textwnd.h 36: };
+..\include\textwnd.h 37: 
+..\include\textwnd.h 38: 
+..\include\textwnd.h 39: 
+..\include\textui.h 16: 
+..\include\textbox.h 1: 
+..\include\textbox.h 2: 
+..\include\textbox.h 3: 
+..\include\textbox.h 4: 
+..\include\textbox.h 5: 
+..\include\textbox.h 6: 
+..\include\textbox.h 7: 
+..\include\textbox.h 8: 
+..\include\textbox.h 9: 
+..\include\textbox.h 10: 
+..\include\textbox.h 11: 
+..\include\textbox.h 12: 
+..\include\textbox.h 13: 
+..\include\textbox.h 14: 
+..\include\textscr.h 1: 
+..\include\textscr.h 2: 
+..\include\textscr.h 3: 
+..\include\textscr.h 4: 
+..\include\textscr.h 5: 
+..\include\textscr.h 6: 
+..\include\textscr.h 7: 
+..\include\textscr.h 8: 
+..\include\textscr.h 9: 
+..\include\textscr.h 10: 
+..\include\textscr.h 11: 
+..\include\textscr.h 12: 
+..\include\textscr.h 13: 
+..\include\textscr.h 14: 
+..\include\textscr.h 15: 
+..\include\textscr.h 16: 
+..\include\textscr.h 17: 
+..\include\textscr.h 18: 
+..\include\textscr.h 19: 
+..\include\textscr.h 20: 
+..\include\textscr.h 21: 
+..\include\textscr.h 22: 
+..\include\textscr.h 23: 
+..\include\textscr.h 24: 
+..\include\textscr.h 25: 
+..\include\textscr.h 26: 
+..\include\textscr.h 27: 
+..\include\textscr.h 28: 
+..\include\textscr.h 29: 
+..\include\textbox.h 15: 
+..\include\textbox.h 16: class CTextBox {
+..\include\textbox.h 17: public:
+..\include\textbox.h 18: CTextBox(int Left, int Top, int Width, int Centered, int Attr, CTextScreen &TextScreenToUse);
+..\include\textbox.h 19: ~CTextBox();
+..\include\textbox.h 20: void SetText(const char *Str);
+..\include\textbox.h 21: private:
+..\include\textbox.h 22: int Left;
+..\include\textbox.h 23: int Top;
+..\include\textbox.h 24: int Width;
+..\include\textbox.h 25: int Centered;
+..\include\textbox.h 26: int Attr;
+..\include\textbox.h 27: char *Str;
+..\include\textbox.h 28: 
+..\include\textbox.h 29: CTextScreen &TextScreen;
+..\include\textbox.h 30: };
+..\include\textbox.h 31: 
+..\include\textbox.h 32: 
+..\include\textbox.h 33: 
+..\include\textui.h 17: 
+..\include\textlist.h 1: 
+..\include\textlist.h 2: 
+..\include\textlist.h 3: 
+..\include\textlist.h 4: 
+..\include\textlist.h 5: 
+..\include\textlist.h 6: 
+..\include\textlist.h 7: 
+..\include\textlist.h 8: 
+..\include\textlist.h 9: 
+..\include\textlist.h 10: 
+..\include\textlist.h 11: 
+..\include\textlist.h 12: 
+..\include\textlist.h 13: 
+..\include\textlist.h 14: 
+..\include\textscr.h 1: 
+..\include\textscr.h 2: 
+..\include\textscr.h 3: 
+..\include\textscr.h 4: 
+..\include\textscr.h 5: 
+..\include\textscr.h 6: 
+..\include\textscr.h 7: 
+..\include\textscr.h 8: 
+..\include\textscr.h 9: 
+..\include\textscr.h 10: 
+..\include\textscr.h 11: 
+..\include\textscr.h 12: 
+..\include\textscr.h 13: 
+..\include\textscr.h 14: 
+..\include\textscr.h 15: 
+..\include\textscr.h 16: 
+..\include\textscr.h 17: 
+..\include\textscr.h 18: 
+..\include\textscr.h 19: 
+..\include\textscr.h 20: 
+..\include\textscr.h 21: 
+..\include\textscr.h 22: 
+..\include\textscr.h 23: 
+..\include\textscr.h 24: 
+..\include\textscr.h 25: 
+..\include\textscr.h 26: 
+..\include\textscr.h 27: 
+..\include\textscr.h 28: 
+..\include\textscr.h 29: 
+..\include\textlist.h 15: 
+..\include\textbox.h 1: 
+..\include\textbox.h 2: 
+..\include\textbox.h 3: 
+..\include\textbox.h 4: 
+..\include\textbox.h 5: 
+..\include\textbox.h 6: 
+..\include\textbox.h 7: 
+..\include\textbox.h 8: 
+..\include\textbox.h 9: 
+..\include\textbox.h 10: 
+..\include\textbox.h 11: 
+..\include\textbox.h 12: 
+..\include\textbox.h 13: 
+..\include\textbox.h 14: 
+..\include\textbox.h 15: 
+..\include\textbox.h 16: 
+..\include\textbox.h 17: 
+..\include\textbox.h 18: 
+..\include\textbox.h 19: 
+..\include\textbox.h 20: 
+..\include\textbox.h 21: 
+..\include\textbox.h 22: 
+..\include\textbox.h 23: 
+..\include\textbox.h 24: 
+..\include\textbox.h 25: 
+..\include\textbox.h 26: 
+..\include\textbox.h 27: 
+..\include\textbox.h 28: 
+..\include\textbox.h 29: 
+..\include\textbox.h 30: 
+..\include\textbox.h 31: 
+..\include\textbox.h 32: 
+..\include\textbox.h 33: 
+..\include\textlist.h 16: 
+..\include\textlist.h 17: class CTextList {
+..\include\textlist.h 18: public:
+..\include\textlist.h 19: typedef void (*TListItemExecute)(void *_this, int ItemIndex);
+..\include\textlist.h 20: 
+..\include\textlist.h 21: CTextList(int Left, int Top, int Width, int Height, CTextScreen &TextScreenToUse, CTextBox &TextBoxToUse);
+..\include\textlist.h 22: ~CTextList();
+..\include\textlist.h 23: void AddItem(int Index, const char *Caption,
+..\include\textlist.h 24: const char *HelpText, int Enabled);
+..\include\textlist.h 25: void AddItem(int Index, const char *Caption, const char *HelpText,
+..\include\textlist.h 26: int Enabled, int OptionCount, const char **OptionList, int IsCombo);
+..\include\textlist.h 27: 
+..\include\textlist.h 28: 
+..\include\textlist.h 29: void Refresh();
+..\include\textlist.h 30: void Clear();
+..\include\textlist.h 31: void SetItemIndex(int ItemIndex);
+..\include\textlist.h 32: int GetOptionIndex(int Index);
+..\include\textlist.h 33: 
+..\include\textlist.h 34: void ConnectEventHandler(TListItemExecute Handler, void *_this);
+..\include\textlist.h 35: 
+..\include\textlist.h 36: void HandleKeyAction(int Key);
+..\include\textlist.h 37: private:
+..\include\textlist.h 38: enum TTextListType { 
+..\include\textlist.h 39: tltNone, 
+..\include\textlist.h 40: tltAction,
+..\include\textlist.h 41: tltCombo,
+..\include\textlist.h 42: tltList,
+..\include\textlist.h 43: };
+..\include\textlist.h 44: class CListItem {
+..\include\textlist.h 45: public:
+..\include\textlist.h 46: TTextListType Type;
+..\include\textlist.h 47: char *Caption;
+..\include\textlist.h 48: char *HelpText;
+..\include\textlist.h 49: int Enabled;
+..\include\textlist.h 50: int OptionCount;
+..\include\textlist.h 51: char **OptionList;
+..\include\textlist.h 52: int OptionWidth;
+..\include\textlist.h 53: int OptionIndex;
+..\include\textlist.h 54: };
+..\include\textlist.h 55: 
+..\include\textlist.h 56: int FirstDraw;
+..\include\textlist.h 57: void DrawActionItem(int Index);
+..\include\textlist.h 58: void DrawOptionItem(int Index);
+..\include\textlist.h 59: void DrawListItem(int Index);
+..\include\textlist.h 60: void GetMaxOptionWidth();
+..\include\textlist.h 61: 
+..\include\textlist.h 62: int Left, Top;
+..\include\textlist.h 63: int Width, Height;
+..\include\textlist.h 64: int ItemIndex;
+..\include\textlist.h 65: int MaxOptionWidth;
+..\include\textlist.h 66: CListItem *ListItems;
+..\include\textlist.h 67: 
+..\include\textlist.h 68: TListItemExecute EventHandler;
+..\include\textlist.h 69: void *Event_this;
+..\include\textlist.h 70: 
+..\include\textlist.h 71: CTextScreen &TextScreen;
+..\include\textlist.h 72: CTextBox &TextBox;
+..\include\textlist.h 73: 
+..\include\textlist.h 74: };
+..\include\textlist.h 75: 
+..\include\textlist.h 76: 
+..\include\textlist.h 77: 
+..\include\textui.h 18: 
+..\include\textpop.h 1: 
+..\include\textpop.h 2: 
+..\include\textpop.h 3: 
+..\include\textpop.h 4: 
+..\include\TextScr.h 1: 
+..\include\TextScr.h 2: 
+..\include\TextScr.h 3: 
+..\include\TextScr.h 4: 
+..\include\TextScr.h 5: 
+..\include\TextScr.h 6: 
+..\include\TextScr.h 7: 
+..\include\TextScr.h 8: 
+..\include\TextScr.h 9: 
+..\include\TextScr.h 10: 
+..\include\TextScr.h 11: 
+..\include\TextScr.h 12: 
+..\include\TextScr.h 13: 
+..\include\TextScr.h 14: 
+..\include\TextScr.h 15: 
+..\include\TextScr.h 16: 
+..\include\TextScr.h 17: 
+..\include\TextScr.h 18: 
+..\include\TextScr.h 19: 
+..\include\TextScr.h 20: 
+..\include\TextScr.h 21: 
+..\include\TextScr.h 22: 
+..\include\TextScr.h 23: 
+..\include\TextScr.h 24: 
+..\include\TextScr.h 25: 
+..\include\TextScr.h 26: 
+..\include\TextScr.h 27: 
+..\include\TextScr.h 28: 
+..\include\TextScr.h 29: 
+..\include\textpop.h 5: 
+..\include\textpop.h 6: class CTextPopup {
+..\include\textpop.h 7: public:
+..\include\textpop.h 8: CTextPopup(int Left, int Top, int Width, int Height, const char *Text, CTextScreen &TextScreenToUse);
+..\include\textpop.h 9: ~CTextPopup();
+..\include\textpop.h 10: 
+..\include\textpop.h 11: void Show();
+..\include\textpop.h 12: void Hide();
+..\include\textpop.h 13: 
+..\include\textpop.h 14: private:
+..\include\textpop.h 15: CTextScreen &TextScreen;
+..\include\textpop.h 16: 
+..\include\textpop.h 17: int Left, Top;
+..\include\textpop.h 18: int Width, Height;
+..\include\textpop.h 19: const char *Text;
+..\include\textpop.h 20: 
+..\include\textpop.h 21: unsigned short *ScreenBackup;
+..\include\textpop.h 22: 
+..\include\textpop.h 23: void DisplayString(const char *String);
+..\include\textpop.h 24: };
+..\include\textpop.h 25: 
+..\include\textpop.h 26: 
+..\include\textpop.h 27: 
+..\include\textpop.h 28: 
+..\include\textui.h 19: 
+..\include\textui.h 20: 
+..\include\textui.h 21: class CTextUI {
+..\include\textui.h 22: public:
+..\include\textui.h 23: void ConnectEventHandler(CTextList::TListItemExecute Handler, void *_this);
+..\include\textui.h 24: CTextUI(CTextScreen &TextScreenToUse);
+..\include\textui.h 25: ~CTextUI();
+..\include\textui.h 26: void OutputStr(const char *format, ...);
+..\include\textui.h 27: void AddMenuItem(int Index, const char *Caption,
+..\include\textui.h 28: const char *HelpText, int Enabled);
+..\include\textui.h 29: void AddMenuItem(int Index, const char *Caption, const char *HelpText,
+..\include\textui.h 30: int Enabled, int OptionCount, const char **OptionList, int IsCombo);
+..\include\textui.h 31: void RefreshMenu();
+..\include\textui.h 32: void ClearMenu();
+..\include\textui.h 33: void SetItemIndex(int ItemIndex);
+..\include\textui.h 34: void HandleKey(int Key);
+..\include\textui.h 35: int GetOptionIndex(int Index);
+..\include\textui.h 36: 
+..\include\textui.h 37: void SetMenuTitle(const char *Title);
+..\include\textui.h 38: 
+..\include\textui.h 39: void ShowPopup(int Left, int Top, int Width, int Height, const char *Text);
+..\include\textui.h 40: 
+..\include\textui.h 41: private:
+..\include\textui.h 42: void DrawText();
+..\include\textui.h 43: void DrawBorders();
+..\include\textui.h 44: 
+..\include\textui.h 45: CTextScreen &TextScreen;
+..\include\textui.h 46: CTextWindow Output;
+..\include\textui.h 47: CTextBox HelpText;
+..\include\textui.h 48: CTextList MenuItems;
+..\include\textui.h 49: 
+..\include\textui.h 50: const char *MenuTitle;
+..\include\textui.h 51: int MenuTitleLength;
+..\include\textui.h 52: 
+..\include\textui.h 53: CTextPopup *Popup;
+..\include\textui.h 54: };
+..\include\textui.h 55: 
+..\include\textui.h 56: 
+..\include\textui.h 57: 
+..\include\textui.h 58: 
+.\Install.h 17: 
+.\Install.h 18: 
+..\include\vesa.h 1: 
+..\include\vesa.h 2: 
+..\include\vesa.h 3: 
+..\include\vesa.h 4: 
+..\include\vesa.h 5: 
+..\include\vesa.h 6: 
+..\include\vesa.h 7: 
+..\include\vesa.h 8: 
+..\include\vesa.h 9: 
+..\include\vesa.h 10: 
+..\include\vesa.h 11: 
+..\include\vesa.h 12: 
+..\include\vesa.h 13: 
+..\include\vesa.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\vesa.h 15: 
+..\include\vesa.h 16: 
+..\include\vesa.h 17: 
+..\include\vesa.h 18: 
+..\include\vesa.h 19: 
+..\include\vesa.h 20: 
+..\include\vesa.h 21: class CVesa {
+..\include\vesa.h 22: public:
+..\include\vesa.h 23: enum TGraphicsMode {
+..\include\vesa.h 24: modeText = 0, mode640x480 = 1, mode800x600 = 2, 
+..\include\vesa.h 25: mode1024x768 = 3, mode1280x1024 = 4, mode1600x1200 = 5
+..\include\vesa.h 26: };
+..\include\vesa.h 27: 
+..\include\vesa.h 28: 
+..\include\vesa.h 29: CVesa();
+..\include\vesa.h 30: ~CVesa();
+..\include\vesa.h 31: 
+..\include\vesa.h 32: int Initialize();
+..\include\vesa.h 33: 
+..\include\vesa.h 34: void GetVbeVersion(int &Major, int &Minor);
+..\include\vesa.h 35: const char *GetOemName();
+..\include\vesa.h 36: long GetVideoMemorySize();
+..\include\vesa.h 37: 
+..\include\vesa.h 38: int GetGraphicsModeCount();
+..\include\vesa.h 39: int GetGraphicsModeSupported(TGraphicsMode GraphicsMode);
+..\include\vesa.h 40: 
+..\include\vesa.h 41: const char *GetGraphicsModeName(TGraphicsMode GraphicsMode);
+..\include\vesa.h 42: 
+..\include\vesa.h 43: 
+..\include\vesa.h 44: private:
+..\include\vesa.h 45: 
+..\include\vesa.h 46: class CSvgaInfo {
+..\include\vesa.h 47: public:
+..\include\vesa.h 48: char VESA[4];
+..\include\vesa.h 49: unsigned char VbeMinor;
+..\include\vesa.h 50: unsigned char VbeMajor;
+..\include\vesa.h 51: char *OemName;
+..\include\vesa.h 52: unsigned long Capabilities;
+..\include\vesa.h 53: unsigned short *GraphicsModes;
+..\include\vesa.h 54: unsigned short VideoMemory;
+..\include\vesa.h 55: char Reserved[236];
+..\include\vesa.h 56: char OemScratchpad[256];
+..\include\vesa.h 57: };
+..\include\vesa.h 58: 
+..\include\vesa.h 59: class CModeInfo {
+..\include\vesa.h 60: public:
+..\include\vesa.h 61: 
+..\include\vesa.h 62: int ModeAttr;				
+..\include\vesa.h 63: char AttrWinA;				
+..\include\vesa.h 64: char AttrWinB;				
+..\include\vesa.h 65: int Granularity;
+..\include\vesa.h 66: int WinSize;				
+..\include\vesa.h 67: unsigned short SegWinA;     
+..\include\vesa.h 68: unsigned short SegWinB;     
+..\include\vesa.h 69: unsigned long SwitchAddr;		
+..\include\vesa.h 70: int BytesScanline;			
+..\include\vesa.h 71: int Width;					
+..\include\vesa.h 72: int Height;					
+..\include\vesa.h 73: char CharCellWidth;			
+..\include\vesa.h 74: char CharCellHeight;		
+..\include\vesa.h 75: char MemPlanes;				
+..\include\vesa.h 76: char BitsPixel;				
+..\include\vesa.h 77: char Banks;					
+..\include\vesa.h 78: char MemoryModel;
+..\include\vesa.h 79: char BankSize;
+..\include\vesa.h 80: char ImagePages;
+..\include\vesa.h 81: char Reserver0;
+..\include\vesa.h 82: char RedSize;				
+..\include\vesa.h 83: char RedPos;				
+..\include\vesa.h 84: char GreenSize;				
+..\include\vesa.h 85: char GreenPos;				
+..\include\vesa.h 86: char BlueSize;				
+..\include\vesa.h 87: char BluePos;				
+..\include\vesa.h 88: char ResSize;				
+..\include\vesa.h 89: char ResPos;				
+..\include\vesa.h 90: char DirectModeInfo;
+..\include\vesa.h 91: unsigned long LinearBuffer;	
+..\include\vesa.h 92: unsigned long OffScrnMem;	
+..\include\vesa.h 93: int OffScrnSize;			
+..\include\vesa.h 94: char Reserved1[206];
+..\include\vesa.h 95: };
+..\include\vesa.h 96: 
+..\include\vesa.h 97: 
+..\include\vesa.h 98: CSvgaInfo SvgaInfo;
+..\include\vesa.h 99: int SupportedModes[6];
+..\include\vesa.h 100: int ModeCount;
+..\include\vesa.h 101: 
+..\include\vesa.h 102: void DetectGraphicsModes();
+..\include\vesa.h 103: static int GetSvgaInfo(CSvgaInfo &SvgaInfo);
+..\include\vesa.h 104: static int GetModeInfo(int VesaMode, CModeInfo &ModeInfo);
+..\include\vesa.h 105: static const char *GraphicsModeNames[6];
+..\include\vesa.h 106: 
+..\include\vesa.h 107: 
+..\include\vesa.h 108: };
+..\include\vesa.h 109: 
+..\include\vesa.h 110: 
+..\include\vesa.h 111: 
+..\include\vesa.h 112: 
+.\Install.h 19: 
+..\include\mouse.h 1: 
+..\include\mouse.h 2: 
+..\include\mouse.h 3: 
+..\include\mouse.h 4: 
+..\include\mouse.h 5: 
+..\include\mouse.h 6: 
+..\include\mouse.h 7: 
+..\include\mouse.h 8: 
+..\include\mouse.h 9: 
+..\include\mouse.h 10: 
+..\include\mouse.h 11: 
+..\include\mouse.h 12: 
+..\include\mouse.h 13: 
+..\include\mouse.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\mouse.h 15: 
+..\include\mouse.h 16: class CMouse {
+..\include\mouse.h 17: public:
+..\include\mouse.h 18: enum TMouseType { enumMouseCom1 = 0, enumMouseCom2, enumMouseCom3, enumMouseCom4, enumMousePs2, enumMouseNone };
+..\include\mouse.h 19: 
+..\include\mouse.h 20: 
+..\include\mouse.h 21: CMouse();
+..\include\mouse.h 22: ~CMouse();
+..\include\mouse.h 23: int MouseTypeSupported(TMouseType MouseType);
+..\include\mouse.h 24: const char *GetPortName(TMouseType MouseType);
+..\include\mouse.h 25: private:
+..\include\mouse.h 26: 
+..\include\mouse.h 27: 
+..\include\mouse.h 28: unsigned short *ComPortAddr;
+..\include\mouse.h 29: 
+..\include\mouse.h 30: static const char *PortNames[6];
+..\include\mouse.h 31: 
+..\include\mouse.h 32: static int Ps2Initialize(int PackSize);
+..\include\mouse.h 33: static int MouseAvailable(int PortAddr);
+..\include\mouse.h 34: 
+..\include\mouse.h 35: };
+..\include\mouse.h 36: 
+..\include\mouse.h 37: 
+..\include\mouse.h 38: 
+..\include\mouse.h 39: 
+.\Install.h 20: 
+..\include\dosdrv.h 1: 
+..\include\dosdrv.h 2: 
+..\include\dosdrv.h 3: 
+..\include\dosdrv.h 4: 
+..\include\dosdrv.h 5: 
+..\include\dosdrv.h 6: 
+..\include\dosdrv.h 7: 
+..\include\dosdrv.h 8: 
+..\include\dosdrv.h 9: 
+..\include\dosdrv.h 10: 
+..\include\dosdrv.h 11: 
+..\include\dosdrv.h 12: 
+..\include\dosdrv.h 13: 
+..\include\dosdrv.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\dosdrv.h 15: 
+..\include\ptab.h 1: 
+..\include\ptab.h 2: 
+..\include\ptab.h 3: 
+..\include\ptab.h 4: 
+..\include\ptab.h 5: 
+..\include\ptab.h 6: 
+..\include\ptab.h 7: 
+..\include\ptab.h 8: 
+..\include\ptab.h 9: 
+..\include\ptab.h 10: 
+..\include\ptab.h 11: 
+..\include\ptab.h 12: 
+..\include\ptab.h 13: 
+..\include\ptab.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\ptab.h 15: 
+..\include\ptab.h 16: 
+..\include\ptab.h 17: 
+..\include\ptab.h 18: 
+..\include\ptab.h 19: 
+..\include\ptab.h 20: 
+..\include\ptab.h 21: typedef struct {
+..\include\ptab.h 22: unsigned char Activated;
+..\include\ptab.h 23: unsigned char StartHead;
+..\include\ptab.h 24: unsigned short StartSectCyl;
+..\include\ptab.h 25: unsigned char FSType;
+..\include\ptab.h 26: unsigned char EndHead;
+..\include\ptab.h 27: unsigned short EndSectCyl;
+..\include\ptab.h 28: unsigned long RelativeSector;
+..\include\ptab.h 29: unsigned long SectorCount;
+..\include\ptab.h 30: } TPartEntry;
+..\include\ptab.h 31: 
+..\include\ptab.h 32: typedef struct {
+..\include\ptab.h 33: char IPL[446];
+..\include\ptab.h 34: TPartEntry Entries[4];
+..\include\ptab.h 35: unsigned short MagicNumber; 
+..\include\ptab.h 36: } TPartTable;
+..\include\ptab.h 37: 
+..\include\ptab.h 38: typedef struct S_MBRNode {
+..\include\ptab.h 39: unsigned long AbsoluteSector;
+..\include\ptab.h 40: short Drive;
+..\include\ptab.h 41: short Type; 
+..\include\ptab.h 42: TPartTable *Table;
+..\include\ptab.h 43: struct S_MBRNode *Next;
+..\include\ptab.h 44: } TMBRNode;
+..\include\ptab.h 45: 
+..\include\ptab.h 46: typedef struct {
+..\include\ptab.h 47: short Drive;
+..\include\ptab.h 48: unsigned long StartSector;
+..\include\ptab.h 49: unsigned long SectorCount;
+..\include\ptab.h 50: const char *FSName;
+..\include\ptab.h 51: short FSType;
+..\include\ptab.h 52: short Type; 
+..\include\ptab.h 53: unsigned char MbrHDSector0;
+..\include\ptab.h 54: } TPartition;
+..\include\ptab.h 55: 
+..\include\ptab.h 56: typedef struct S_PartNode {
+..\include\ptab.h 57: TPartEntry *Entry;
+..\include\ptab.h 58: TPartition *Partition;
+..\include\ptab.h 59: struct S_PartNode *Next;
+..\include\ptab.h 60: } TPartNode;
+..\include\ptab.h 61: 
+..\include\ptab.h 62: class CPartList {
+..\include\ptab.h 63: public:
+..\include\ptab.h 64: CPartList();
+..\include\ptab.h 65: ~CPartList();
+..\include\ptab.h 66: void ReadStructure();
+..\include\ptab.h 67: void WriteStructure();
+..\include\ptab.h 68: const TPartition *GetPartition(int Index);
+..\include\ptab.h 69: int Locate(int Drive, unsigned long StartSector);
+..\include\ptab.h 70: int GetCount();
+..\include\ptab.h 71: int CanHide(int Index);
+..\include\ptab.h 72: void Hide(int Index);
+..\include\ptab.h 73: void Reveal(int Index);
+..\include\ptab.h 74: int CanActivate(int Index);
+..\include\ptab.h 75: void SetAllowActiveHD(int Status);
+..\include\ptab.h 76: void SetActive(int Index);
+..\include\ptab.h 77: void SetFsType(int Index, int FsType);
+..\include\ptab.h 78: public:
+..\include\ptab.h 79: typedef struct {
+..\include\ptab.h 80: int FSID;
+..\include\ptab.h 81: const char *FSName;
+..\include\ptab.h 82: } TFSNameEntry;
+..\include\ptab.h 83: private:
+..\include\ptab.h 84: void ClearActive(int Drive);
+..\include\ptab.h 85: 
+..\include\ptab.h 86: TMBRNode *AddDrive(int Drive, unsigned long StartSector, unsigned long ExtStart, int Type, TMBRNode *MBRList);
+..\include\ptab.h 87: void CreatePartList(int FloppyCount);
+..\include\ptab.h 88: TPartNode *CreatePartNode(const TMBRNode *MBRNode, int Index);
+..\include\ptab.h 89: TPartNode *CreateNonPartNode(int Drive);
+..\include\ptab.h 90: const char *GetFSName(int FSID);
+..\include\ptab.h 91: void CreatePLUP();
+..\include\ptab.h 92: 
+..\include\ptab.h 93: TMBRNode MBRList;
+..\include\ptab.h 94: TPartNode PartList;
+..\include\ptab.h 95: int Count;
+..\include\ptab.h 96: TPartNode **PLUP;
+..\include\ptab.h 97: static TFSNameEntry FSNameList[];
+..\include\ptab.h 98: int AllowActiveHD;
+..\include\ptab.h 99: };
+..\include\ptab.h 100: 
+..\include\ptab.h 101: 
+..\include\ptab.h 102: 
+..\include\ptab.h 103: 
+..\include\ptab.h 104: 
+..\include\dosdrv.h 16: 
+..\include\dosdrv.h 17: 
+..\include\dosdrv.h 18: 
+..\include\dosdrv.h 19: 
+..\include\dosdrv.h 20: class CDosDriveList {
+..\include\dosdrv.h 21: public:
+..\include\dosdrv.h 22: class CDosDrive {
+..\include\dosdrv.h 23: public:
+..\include\dosdrv.h 24: int DriveChar; 
+..\include\dosdrv.h 25: int FATType;
+..\include\dosdrv.h 26: int Drive;
+..\include\dosdrv.h 27: unsigned long StartSector;
+..\include\dosdrv.h 28: };
+..\include\dosdrv.h 29: 
+..\include\dosdrv.h 30: 
+..\include\dosdrv.h 31: CDosDriveList(CPartList &PartListToUse);
+..\include\dosdrv.h 32: ~CDosDriveList();
+..\include\dosdrv.h 33: int LocateDrive(int DriveNum, CDosDrive &DosDrive);
+..\include\dosdrv.h 34: private:
+..\include\dosdrv.h 35: CPartList &PartList;
+..\include\dosdrv.h 36: 
+..\include\dosdrv.h 37: unsigned long GetDosSerialNo(int DriveNum);
+..\include\dosdrv.h 38: unsigned long GetBRecSerialNo(int Index);
+..\include\dosdrv.h 39: 
+..\include\dosdrv.h 40: };
+..\include\dosdrv.h 41: 
+..\include\dosdrv.h 42: 
+..\include\dosdrv.h 43: 
+.\Install.h 21: 
+.\files.h 1: 
+.\files.h 2: 
+.\files.h 3: 
+.\files.h 4: 
+.\files.h 5: 
+.\files.h 6: 
+.\files.h 7: 
+.\files.h 8: 
+.\files.h 9: 
+.\files.h 10: 
+.\files.h 11: 
+.\files.h 12: 
+.\files.h 13: 
+.\files.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+.\files.h 15: 
+.\files.h 16: class CXoslFiles {
+.\files.h 17: public:
+.\files.h 18: CXoslFiles();
+.\files.h 19: ~CXoslFiles();
+.\files.h 20: int GetCount();
+.\files.h 21: const char *GetFileName(int Index);
+.\files.h 22: const char *GetXoslDataName();
+.\files.h 23: const char *GetBootItemName();
+.\files.h 24: 
+.\files.h 25: const char *GetCurrentMbrName();
+.\files.h 26: const char *GetOriginalMbrName();
+.\files.h 27: const char *GetXoslLoadName();
+.\files.h 28: const char *GetXoslImgXName();
+.\files.h 29: const char *GetDefaultMbrName();
+.\files.h 30: const char *GetSmartBmName();
+.\files.h 31: 
+.\files.h 32: void IgnorePartManFiles();
+.\files.h 33: 
+.\files.h 34: enum TFileIpl { enumIpl16Conv = 0, enumIpl32Conv, enumIpl16Lba, enumIpl32Lba, enumIplS, enumIplSLba};
+.\files.h 35: 
+.\files.h 36: const char *GetIplFileName(TFileIpl IplToUse);
+.\files.h 37: 
+.\files.h 38: 
+.\files.h 39: private:
+.\files.h 40: static const char *FileList[];
+.\files.h 41: static const char *IplFileList[];
+.\files.h 42: static const int FileCount;
+.\files.h 43: 
+.\files.h 44: 
+.\files.h 45: static const char *XoslData;
+.\files.h 46: static const char *BootItem;
+.\files.h 47: static const char *CurrentMBR;
+.\files.h 48: static const char *OriginalMBR;
+.\files.h 49: static const char *XoslLoad;
+.\files.h 50: static const char *XoslImgX;
+.\files.h 51: 
+.\files.h 52: 
+.\files.h 53: bool IgnoreRPM;
+.\files.h 54: 
+.\files.h 55: };
+.\files.h 56: 
+.\files.h 57: 
+.\files.h 58: 
+.\files.h 59: 
+.\Install.h 22: 
+.\Install.h 23: 
+..\include\dosio.h 1: 
+..\include\dosio.h 2: 
+..\include\dosio.h 3: 
+..\include\dosio.h 4: 
+..\include\dosio.h 5: 
+..\include\dosio.h 6: 
+..\include\dosio.h 7: 
+..\include\dosio.h 8: 
+..\include\dosio.h 9: 
+..\include\dosio.h 10: 
+..\include\dosio.h 11: 
+..\include\dosio.h 12: 
+..\include\dosio.h 13: 
+..\include\dosio.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\dosio.h 15: 
+..\include\dosio.h 16: class CDosFile {
+..\include\dosio.h 17: public:
+..\include\dosio.h 18: enum TFileAccess {
+..\include\dosio.h 19: accessReadOnly = 0, accessWriteOnly = 1, accessReadWrite = 2
+..\include\dosio.h 20: };
+..\include\dosio.h 21: enum TFileAttr {
+..\include\dosio.h 22: attrReadOnly = 0x0001, attrHidden = 0x0002, attrSystem = 0x0004, attrArchive = 0x0020
+..\include\dosio.h 23: };
+..\include\dosio.h 24: enum TWhence {
+..\include\dosio.h 25: seekStart = 0, seekCurrent = 1, seekEnd = 2
+..\include\dosio.h 26: };
+..\include\dosio.h 27: 
+..\include\dosio.h 28: CDosFile();
+..\include\dosio.h 29: ~CDosFile();
+..\include\dosio.h 30: 
+..\include\dosio.h 31: static int Create(const char *FileName);
+..\include\dosio.h 32: static int Open(const char *FileName, TFileAccess Access);
+..\include\dosio.h 33: static void Close(int Handle);
+..\include\dosio.h 34: static unsigned short Read(int Handle, void *Buffer, unsigned short Length);
+..\include\dosio.h 35: static unsigned short Write(int Handle, const void *Buffer, unsigned short Length);
+..\include\dosio.h 36: 
+..\include\dosio.h 37: static int SetAttrib(const char *FileName, int Attributes);
+..\include\dosio.h 38: int Delete(const char *FileName);
+..\include\dosio.h 39: 
+..\include\dosio.h 40: int Copy(const char *Src, const char *Dest);
+..\include\dosio.h 41: int Append(int hOutFile, const char *FileName);
+..\include\dosio.h 42: long FileSize(const char *FileName);
+..\include\dosio.h 43: void GetNameExt(const char *FileName, char *Name, char *Ext);
+..\include\dosio.h 44: 
+..\include\dosio.h 45: static char TransferBuffer[32768];
+..\include\dosio.h 46: void SetFileDateTime(int hFile);
+..\include\dosio.h 47: void CDosFile::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
+..\include\dosio.h 48: static long LSeek(int Handle, long Offset, TWhence Whence);
+..\include\dosio.h 49: int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime);
+..\include\dosio.h 50: 
+..\include\dosio.h 51: private:
+..\include\dosio.h 52: static int Unlink(const char *FileName);
+..\include\dosio.h 53: };
+..\include\dosio.h 54: 
+..\include\dosio.h 55: 
+..\include\dosio.h 56: 
+..\include\dosio.h 57: 
+..\include\dosio.h 58: 
+.\Install.h 24: 
+.\Install.h 25: 
+.\FatInst.h 1: 
+.\FatInst.h 2: 
+.\FatInst.h 3: 
+.\FatInst.h 4: 
+.\FatInst.h 5: 
+.\FatInst.h 6: 
+.\FatInst.h 7: 
+.\FatInst.h 8: 
+.\FatInst.h 9: 
+.\FatInst.h 10: 
+.\FatInst.h 11: 
+.\FatInst.h 12: 
+.\FatInst.h 13: 
+.\FatInst.h 14: 
+.\FatInst.h 15: 
+.\ipl.h 1: 
+.\ipl.h 2: 
+.\ipl.h 3: 
+.\ipl.h 4: 
+.\ipl.h 5: 
+.\ipl.h 6: 
+.\ipl.h 7: 
+.\ipl.h 8: 
+.\ipl.h 9: 
+.\ipl.h 10: 
+.\ipl.h 11: 
+.\ipl.h 12: 
+.\ipl.h 13: 
+.\ipl.h 14: typedef struct {
+.\ipl.h 15: unsigned long DiskSectors;
+.\ipl.h 16: unsigned long DiskHeads;
+.\ipl.h 17: unsigned short RootEntries;
+.\ipl.h 18: unsigned short ClusterSectSize;
+.\ipl.h 19: unsigned short ClusterByteSize;
+.\ipl.h 20: unsigned long FATStart;
+.\ipl.h 21: unsigned long DirStart;
+.\ipl.h 22: unsigned long DataStart;
+.\ipl.h 23: unsigned char FSType;
+.\ipl.h 24: unsigned char DriveNumber;
+.\ipl.h 25: unsigned long ABSSectorStart;
+.\ipl.h 26: } TIPLData16Conv;
+.\ipl.h 27: 
+.\ipl.h 28: typedef struct {
+.\ipl.h 29: unsigned long DiskSectors;
+.\ipl.h 30: unsigned long DiskHeads;
+.\ipl.h 31: unsigned short ClusterSectSize;
+.\ipl.h 32: unsigned short ClusterByteSize;
+.\ipl.h 33: unsigned long FATStart;
+.\ipl.h 34: unsigned long DataStart;
+.\ipl.h 35: unsigned long RootCluster;
+.\ipl.h 36: unsigned char FSType;
+.\ipl.h 37: unsigned char DriveNumber;
+.\ipl.h 38: unsigned long ABSSectorStart;
+.\ipl.h 39: } TIPLData32Conv;
+.\ipl.h 40: 
+.\ipl.h 41: typedef struct {
+.\ipl.h 42: unsigned short RootEntries;
+.\ipl.h 43: unsigned short ClusterSectSize;
+.\ipl.h 44: unsigned short ClusterByteSize;
+.\ipl.h 45: unsigned long FATStart;
+.\ipl.h 46: unsigned long DirStart;
+.\ipl.h 47: unsigned long DataStart;
+.\ipl.h 48: unsigned char FSType;
+.\ipl.h 49: unsigned char DriveNumber;
+.\ipl.h 50: unsigned long ABSSectorStart;
+.\ipl.h 51: } TIPLData16LBA;
+.\ipl.h 52: 
+.\ipl.h 53: typedef struct {
+.\ipl.h 54: unsigned short ClusterSectSize;
+.\ipl.h 55: unsigned short ClusterByteSize;
+.\ipl.h 56: unsigned long FATStart;
+.\ipl.h 57: unsigned long DataStart;
+.\ipl.h 58: unsigned long RootCluster;
+.\ipl.h 59: unsigned char FSType;
+.\ipl.h 60: unsigned char DriveNumber;
+.\ipl.h 61: unsigned long ABSSectorStart;
+.\ipl.h 62: } TIPLData32LBA;
+.\ipl.h 63: 
+.\ipl.h 64: 
+.\ipl.h 65: typedef struct {
+.\ipl.h 66: unsigned char IPL[436 - sizeof (TIPLData16Conv)];
+.\ipl.h 67: TIPLData16Conv IPLData;
+.\ipl.h 68: unsigned long Reserved1;
+.\ipl.h 69: unsigned long PhysicalDriveSignature;
+.\ipl.h 70: unsigned short Reserved2;
+.\ipl.h 71: } TIPLFAT16Conv;
+.\ipl.h 72: 
+.\ipl.h 73: typedef struct {
+.\ipl.h 74: unsigned char IPL[436 - sizeof (TIPLData32Conv)];
+.\ipl.h 75: TIPLData32Conv IPLData;
+.\ipl.h 76: unsigned long Reserved1;
+.\ipl.h 77: unsigned long PhysicalDriveSignature;
+.\ipl.h 78: unsigned short Reserved2;
+.\ipl.h 79: } TIPLFAT32Conv;
+.\ipl.h 80: 
+.\ipl.h 81: typedef struct {
+.\ipl.h 82: char IPL[436 - sizeof (TIPLData16LBA)];
+.\ipl.h 83: TIPLData16LBA IPLData;
+.\ipl.h 84: unsigned long Reserved1;
+.\ipl.h 85: unsigned long PhysicalDriveSignature;
+.\ipl.h 86: unsigned short Reserved2;
+.\ipl.h 87: } TIPLFAT16LBA;
+.\ipl.h 88: 
+.\ipl.h 89: typedef struct {
+.\ipl.h 90: char IPL[436 - sizeof (TIPLData32LBA)];
+.\ipl.h 91: TIPLData32LBA IPLData;
+.\ipl.h 92: unsigned long Reserved1;
+.\ipl.h 93: unsigned long PhysicalDriveSignature;
+.\ipl.h 94: unsigned short Reserved2;
+.\ipl.h 95: } TIPLFAT32LBA;
+.\ipl.h 96: 
+.\ipl.h 97: 
+.\ipl.h 98: typedef union {
+.\ipl.h 99: TIPLFAT16Conv IPLFAT16Conv;
+.\ipl.h 100: TIPLFAT32Conv IPLFAT32Conv;
+.\ipl.h 101: TIPLFAT16LBA IPLFAT16LBA;
+.\ipl.h 102: TIPLFAT32LBA IPLFAT32LBA;
+.\ipl.h 103: } TIPL;
+.\ipl.h 104: 
+.\ipl.h 105: 
+.\ipl.h 106: 
+.\FatInst.h 16: 
+..\include\dosdrv.h 1: 
+..\include\dosdrv.h 2: 
+..\include\dosdrv.h 3: 
+..\include\dosdrv.h 4: 
+..\include\dosdrv.h 5: 
+..\include\dosdrv.h 6: 
+..\include\dosdrv.h 7: 
+..\include\dosdrv.h 8: 
+..\include\dosdrv.h 9: 
+..\include\dosdrv.h 10: 
+..\include\dosdrv.h 11: 
+..\include\dosdrv.h 12: 
+..\include\dosdrv.h 13: 
+..\include\dosdrv.h 14: 
+..\include\dosdrv.h 15: 
+..\include\dosdrv.h 16: 
+..\include\dosdrv.h 17: 
+..\include\dosdrv.h 18: 
+..\include\dosdrv.h 19: 
+..\include\dosdrv.h 20: 
+..\include\dosdrv.h 21: 
+..\include\dosdrv.h 22: 
+..\include\dosdrv.h 23: 
+..\include\dosdrv.h 24: 
+..\include\dosdrv.h 25: 
+..\include\dosdrv.h 26: 
+..\include\dosdrv.h 27: 
+..\include\dosdrv.h 28: 
+..\include\dosdrv.h 29: 
+..\include\dosdrv.h 30: 
+..\include\dosdrv.h 31: 
+..\include\dosdrv.h 32: 
+..\include\dosdrv.h 33: 
+..\include\dosdrv.h 34: 
+..\include\dosdrv.h 35: 
+..\include\dosdrv.h 36: 
+..\include\dosdrv.h 37: 
+..\include\dosdrv.h 38: 
+..\include\dosdrv.h 39: 
+..\include\dosdrv.h 40: 
+..\include\dosdrv.h 41: 
+..\include\dosdrv.h 42: 
+..\include\dosdrv.h 43: 
+.\FatInst.h 17: 
+..\include\textui.h 1: 
+..\include\textui.h 2: 
+..\include\textui.h 3: 
+..\include\textui.h 4: 
+..\include\textui.h 5: 
+..\include\textui.h 6: 
+..\include\textui.h 7: 
+..\include\textui.h 8: 
+..\include\textui.h 9: 
+..\include\textui.h 10: 
+..\include\textui.h 11: 
+..\include\textui.h 12: 
+..\include\textui.h 13: 
+..\include\textui.h 14: 
+..\include\textui.h 15: 
+..\include\textui.h 16: 
+..\include\textui.h 17: 
+..\include\textui.h 18: 
+..\include\textui.h 19: 
+..\include\textui.h 20: 
+..\include\textui.h 21: 
+..\include\textui.h 22: 
+..\include\textui.h 23: 
+..\include\textui.h 24: 
+..\include\textui.h 25: 
+..\include\textui.h 26: 
+..\include\textui.h 27: 
+..\include\textui.h 28: 
+..\include\textui.h 29: 
+..\include\textui.h 30: 
+..\include\textui.h 31: 
+..\include\textui.h 32: 
+..\include\textui.h 33: 
+..\include\textui.h 34: 
+..\include\textui.h 35: 
+..\include\textui.h 36: 
+..\include\textui.h 37: 
+..\include\textui.h 38: 
+..\include\textui.h 39: 
+..\include\textui.h 40: 
+..\include\textui.h 41: 
+..\include\textui.h 42: 
+..\include\textui.h 43: 
+..\include\textui.h 44: 
+..\include\textui.h 45: 
+..\include\textui.h 46: 
+..\include\textui.h 47: 
+..\include\textui.h 48: 
+..\include\textui.h 49: 
+..\include\textui.h 50: 
+..\include\textui.h 51: 
+..\include\textui.h 52: 
+..\include\textui.h 53: 
+..\include\textui.h 54: 
+..\include\textui.h 55: 
+..\include\textui.h 56: 
+..\include\textui.h 57: 
+..\include\textui.h 58: 
+.\FatInst.h 18: 
+.\files.h 1: 
+.\files.h 2: 
+.\files.h 3: 
+.\files.h 4: 
+.\files.h 5: 
+.\files.h 6: 
+.\files.h 7: 
+.\files.h 8: 
+.\files.h 9: 
+.\files.h 10: 
+.\files.h 11: 
+.\files.h 12: 
+.\files.h 13: 
+.\files.h 14: 
+.\files.h 15: 
+.\files.h 16: 
+.\files.h 17: 
+.\files.h 18: 
+.\files.h 19: 
+.\files.h 20: 
+.\files.h 21: 
+.\files.h 22: 
+.\files.h 23: 
+.\files.h 24: 
+.\files.h 25: 
+.\files.h 26: 
+.\files.h 27: 
+.\files.h 28: 
+.\files.h 29: 
+.\files.h 30: 
+.\files.h 31: 
+.\files.h 32: 
+.\files.h 33: 
+.\files.h 34: 
+.\files.h 35: 
+.\files.h 36: 
+.\files.h 37: 
+.\files.h 38: 
+.\files.h 39: 
+.\files.h 40: 
+.\files.h 41: 
+.\files.h 42: 
+.\files.h 43: 
+.\files.h 44: 
+.\files.h 45: 
+.\files.h 46: 
+.\files.h 47: 
+.\files.h 48: 
+.\files.h 49: 
+.\files.h 50: 
+.\files.h 51: 
+.\files.h 52: 
+.\files.h 53: 
+.\files.h 54: 
+.\files.h 55: 
+.\files.h 56: 
+.\files.h 57: 
+.\files.h 58: 
+.\files.h 59: 
+.\FatInst.h 19: 
+..\include\dosio.h 1: 
+..\include\dosio.h 2: 
+..\include\dosio.h 3: 
+..\include\dosio.h 4: 
+..\include\dosio.h 5: 
+..\include\dosio.h 6: 
+..\include\dosio.h 7: 
+..\include\dosio.h 8: 
+..\include\dosio.h 9: 
+..\include\dosio.h 10: 
+..\include\dosio.h 11: 
+..\include\dosio.h 12: 
+..\include\dosio.h 13: 
+..\include\dosio.h 14: 
+..\include\dosio.h 15: 
+..\include\dosio.h 16: 
+..\include\dosio.h 17: 
+..\include\dosio.h 18: 
+..\include\dosio.h 19: 
+..\include\dosio.h 20: 
+..\include\dosio.h 21: 
+..\include\dosio.h 22: 
+..\include\dosio.h 23: 
+..\include\dosio.h 24: 
+..\include\dosio.h 25: 
+..\include\dosio.h 26: 
+..\include\dosio.h 27: 
+..\include\dosio.h 28: 
+..\include\dosio.h 29: 
+..\include\dosio.h 30: 
+..\include\dosio.h 31: 
+..\include\dosio.h 32: 
+..\include\dosio.h 33: 
+..\include\dosio.h 34: 
+..\include\dosio.h 35: 
+..\include\dosio.h 36: 
+..\include\dosio.h 37: 
+..\include\dosio.h 38: 
+..\include\dosio.h 39: 
+..\include\dosio.h 40: 
+..\include\dosio.h 41: 
+..\include\dosio.h 42: 
+..\include\dosio.h 43: 
+..\include\dosio.h 44: 
+..\include\dosio.h 45: 
+..\include\dosio.h 46: 
+..\include\dosio.h 47: 
+..\include\dosio.h 48: 
+..\include\dosio.h 49: 
+..\include\dosio.h 50: 
+..\include\dosio.h 51: 
+..\include\dosio.h 52: 
+..\include\dosio.h 53: 
+..\include\dosio.h 54: 
+..\include\dosio.h 55: 
+..\include\dosio.h 56: 
+..\include\dosio.h 57: 
+..\include\dosio.h 58: 
+.\FatInst.h 20: 
+.\FatInst.h 21: class CFatInstall {
+.\FatInst.h 22: public:
+.\FatInst.h 23: CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
+.\FatInst.h 24: ~CFatInstall();
+.\FatInst.h 25: 
+.\FatInst.h 26: int CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl);
+.\FatInst.h 27: int InstallFiles(const CDosDriveList::CDosDrive &DosDrive);
+.\FatInst.h 28: int InstallFile(const char *,const char *);
+.\FatInst.h 29: int InstallIpl(void *Ipl, int MbrHDSector0);
+.\FatInst.h 30: 
+.\FatInst.h 31: void RemoveXoslFiles(char DosDriveChar);
+.\FatInst.h 32: 
+.\FatInst.h 33: 
+.\FatInst.h 34: private:
+.\FatInst.h 35: CTextUI &TextUI;
+.\FatInst.h 36: CXoslFiles &XoslFiles;
+.\FatInst.h 37: CDosFile &DosFile;
+.\FatInst.h 38: 
+.\FatInst.h 39: int CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
+.\FatInst.h 40: int CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
+.\FatInst.h 41: };
+.\FatInst.h 42: 
+.\FatInst.h 43: 
+.\FatInst.h 44: 
+.\FatInst.h 45: 
+.\Install.h 26: 
+.\FsCreate.h 1: 
+.\FsCreate.h 2: 
+.\FsCreate.h 3: 
+.\FsCreate.h 4: 
+.\FsCreate.h 5: 
+.\FsCreate.h 6: 
+.\FsCreate.h 7: 
+.\FsCreate.h 8: 
+.\FsCreate.h 9: 
+.\FsCreate.h 10: 
+.\FsCreate.h 11: 
+.\FsCreate.h 12: 
+.\FsCreate.h 13: 
+.\FsCreate.h 14: 
+.\FsCreate.h 15: 
+.\FsCreate.h 16: 
+.\FsCreate.h 17: 
+.\FsCreate.h 18: 
+.\FsCreate.h 19: 
+.\FsCreate.h 20: 
+.\FsCreate.h 21: 
+.\FsCreate.h 22: 
+.\FsCreate.h 23: 
+.\FsCreate.h 24: 
+.\FsCreate.h 25: 
+.\FsCreate.h 26: 
+.\FsCreate.h 27: 
+.\FsCreate.h 28: 
+..\include\dosio.h 1: 
+..\include\dosio.h 2: 
+..\include\dosio.h 3: 
+..\include\dosio.h 4: 
+..\include\dosio.h 5: 
+..\include\dosio.h 6: 
+..\include\dosio.h 7: 
+..\include\dosio.h 8: 
+..\include\dosio.h 9: 
+..\include\dosio.h 10: 
+..\include\dosio.h 11: 
+..\include\dosio.h 12: 
+..\include\dosio.h 13: 
+..\include\dosio.h 14: 
+..\include\dosio.h 15: 
+..\include\dosio.h 16: 
+..\include\dosio.h 17: 
+..\include\dosio.h 18: 
+..\include\dosio.h 19: 
+..\include\dosio.h 20: 
+..\include\dosio.h 21: 
+..\include\dosio.h 22: 
+..\include\dosio.h 23: 
+..\include\dosio.h 24: 
+..\include\dosio.h 25: 
+..\include\dosio.h 26: 
+..\include\dosio.h 27: 
+..\include\dosio.h 28: 
+..\include\dosio.h 29: 
+..\include\dosio.h 30: 
+..\include\dosio.h 31: 
+..\include\dosio.h 32: 
+..\include\dosio.h 33: 
+..\include\dosio.h 34: 
+..\include\dosio.h 35: 
+..\include\dosio.h 36: 
+..\include\dosio.h 37: 
+..\include\dosio.h 38: 
+..\include\dosio.h 39: 
+..\include\dosio.h 40: 
+..\include\dosio.h 41: 
+..\include\dosio.h 42: 
+..\include\dosio.h 43: 
+..\include\dosio.h 44: 
+..\include\dosio.h 45: 
+..\include\dosio.h 46: 
+..\include\dosio.h 47: 
+..\include\dosio.h 48: 
+..\include\dosio.h 49: 
+..\include\dosio.h 50: 
+..\include\dosio.h 51: 
+..\include\dosio.h 52: 
+..\include\dosio.h 53: 
+..\include\dosio.h 54: 
+..\include\dosio.h 55: 
+..\include\dosio.h 56: 
+..\include\dosio.h 57: 
+..\include\dosio.h 58: 
+.\FsCreate.h 29: 
+.\Files.h 1: 
+.\Files.h 2: 
+.\Files.h 3: 
+.\Files.h 4: 
+.\Files.h 5: 
+.\Files.h 6: 
+.\Files.h 7: 
+.\Files.h 8: 
+.\Files.h 9: 
+.\Files.h 10: 
+.\Files.h 11: 
+.\Files.h 12: 
+.\Files.h 13: 
+.\Files.h 14: 
+.\Files.h 15: 
+.\Files.h 16: 
+.\Files.h 17: 
+.\Files.h 18: 
+.\Files.h 19: 
+.\Files.h 20: 
+.\Files.h 21: 
+.\Files.h 22: 
+.\Files.h 23: 
+.\Files.h 24: 
+.\Files.h 25: 
+.\Files.h 26: 
+.\Files.h 27: 
+.\Files.h 28: 
+.\Files.h 29: 
+.\Files.h 30: 
+.\Files.h 31: 
+.\Files.h 32: 
+.\Files.h 33: 
+.\Files.h 34: 
+.\Files.h 35: 
+.\Files.h 36: 
+.\Files.h 37: 
+.\Files.h 38: 
+.\Files.h 39: 
+.\Files.h 40: 
+.\Files.h 41: 
+.\Files.h 42: 
+.\Files.h 43: 
+.\Files.h 44: 
+.\Files.h 45: 
+.\Files.h 46: 
+.\Files.h 47: 
+.\Files.h 48: 
+.\Files.h 49: 
+.\Files.h 50: 
+.\Files.h 51: 
+.\Files.h 52: 
+.\Files.h 53: 
+.\Files.h 54: 
+.\Files.h 55: 
+.\Files.h 56: 
+.\Files.h 57: 
+.\Files.h 58: 
+.\Files.h 59: 
+.\FsCreate.h 30: 
+.\IPL.h 1: 
+.\IPL.h 2: 
+.\IPL.h 3: 
+.\IPL.h 4: 
+.\IPL.h 5: 
+.\IPL.h 6: 
+.\IPL.h 7: 
+.\IPL.h 8: 
+.\IPL.h 9: 
+.\IPL.h 10: 
+.\IPL.h 11: 
+.\IPL.h 12: 
+.\IPL.h 13: 
+.\IPL.h 14: 
+.\IPL.h 15: 
+.\IPL.h 16: 
+.\IPL.h 17: 
+.\IPL.h 18: 
+.\IPL.h 19: 
+.\IPL.h 20: 
+.\IPL.h 21: 
+.\IPL.h 22: 
+.\IPL.h 23: 
+.\IPL.h 24: 
+.\IPL.h 25: 
+.\IPL.h 26: 
+.\IPL.h 27: 
+.\IPL.h 28: 
+.\IPL.h 29: 
+.\IPL.h 30: 
+.\IPL.h 31: 
+.\IPL.h 32: 
+.\IPL.h 33: 
+.\IPL.h 34: 
+.\IPL.h 35: 
+.\IPL.h 36: 
+.\IPL.h 37: 
+.\IPL.h 38: 
+.\IPL.h 39: 
+.\IPL.h 40: 
+.\IPL.h 41: 
+.\IPL.h 42: 
+.\IPL.h 43: 
+.\IPL.h 44: 
+.\IPL.h 45: 
+.\IPL.h 46: 
+.\IPL.h 47: 
+.\IPL.h 48: 
+.\IPL.h 49: 
+.\IPL.h 50: 
+.\IPL.h 51: 
+.\IPL.h 52: 
+.\IPL.h 53: 
+.\IPL.h 54: 
+.\IPL.h 55: 
+.\IPL.h 56: 
+.\IPL.h 57: 
+.\IPL.h 58: 
+.\IPL.h 59: 
+.\IPL.h 60: 
+.\IPL.h 61: 
+.\IPL.h 62: 
+.\IPL.h 63: 
+.\IPL.h 64: 
+.\IPL.h 65: 
+.\IPL.h 66: 
+.\IPL.h 67: 
+.\IPL.h 68: 
+.\IPL.h 69: 
+.\IPL.h 70: 
+.\IPL.h 71: 
+.\IPL.h 72: 
+.\IPL.h 73: 
+.\IPL.h 74: 
+.\IPL.h 75: 
+.\IPL.h 76: 
+.\IPL.h 77: 
+.\IPL.h 78: 
+.\IPL.h 79: 
+.\IPL.h 80: 
+.\IPL.h 81: 
+.\IPL.h 82: 
+.\IPL.h 83: 
+.\IPL.h 84: 
+.\IPL.h 85: 
+.\IPL.h 86: 
+.\IPL.h 87: 
+.\IPL.h 88: 
+.\IPL.h 89: 
+.\IPL.h 90: 
+.\IPL.h 91: 
+.\IPL.h 92: 
+.\IPL.h 93: 
+.\IPL.h 94: 
+.\IPL.h 95: 
+.\IPL.h 96: 
+.\IPL.h 97: 
+.\IPL.h 98: 
+.\IPL.h 99: 
+.\IPL.h 100: 
+.\IPL.h 101: 
+.\IPL.h 102: 
+.\IPL.h 103: 
+.\IPL.h 104: 
+.\IPL.h 105: 
+.\IPL.h 106: 
+.\FsCreate.h 31: 
+..\include\textui.h 1: 
+..\include\textui.h 2: 
+..\include\textui.h 3: 
+..\include\textui.h 4: 
+..\include\textui.h 5: 
+..\include\textui.h 6: 
+..\include\textui.h 7: 
+..\include\textui.h 8: 
+..\include\textui.h 9: 
+..\include\textui.h 10: 
+..\include\textui.h 11: 
+..\include\textui.h 12: 
+..\include\textui.h 13: 
+..\include\textui.h 14: 
+..\include\textui.h 15: 
+..\include\textui.h 16: 
+..\include\textui.h 17: 
+..\include\textui.h 18: 
+..\include\textui.h 19: 
+..\include\textui.h 20: 
+..\include\textui.h 21: 
+..\include\textui.h 22: 
+..\include\textui.h 23: 
+..\include\textui.h 24: 
+..\include\textui.h 25: 
+..\include\textui.h 26: 
+..\include\textui.h 27: 
+..\include\textui.h 28: 
+..\include\textui.h 29: 
+..\include\textui.h 30: 
+..\include\textui.h 31: 
+..\include\textui.h 32: 
+..\include\textui.h 33: 
+..\include\textui.h 34: 
+..\include\textui.h 35: 
+..\include\textui.h 36: 
+..\include\textui.h 37: 
+..\include\textui.h 38: 
+..\include\textui.h 39: 
+..\include\textui.h 40: 
+..\include\textui.h 41: 
+..\include\textui.h 42: 
+..\include\textui.h 43: 
+..\include\textui.h 44: 
+..\include\textui.h 45: 
+..\include\textui.h 46: 
+..\include\textui.h 47: 
+..\include\textui.h 48: 
+..\include\textui.h 49: 
+..\include\textui.h 50: 
+..\include\textui.h 51: 
+..\include\textui.h 52: 
+..\include\textui.h 53: 
+..\include\textui.h 54: 
+..\include\textui.h 55: 
+..\include\textui.h 56: 
+..\include\textui.h 57: 
+..\include\textui.h 58: 
+.\FsCreate.h 32: 
+..\include\dosio.h 1: 
+..\include\dosio.h 2: 
+..\include\dosio.h 3: 
+..\include\dosio.h 4: 
+..\include\dosio.h 5: 
+..\include\dosio.h 6: 
+..\include\dosio.h 7: 
+..\include\dosio.h 8: 
+..\include\dosio.h 9: 
+..\include\dosio.h 10: 
+..\include\dosio.h 11: 
+..\include\dosio.h 12: 
+..\include\dosio.h 13: 
+..\include\dosio.h 14: 
+..\include\dosio.h 15: 
+..\include\dosio.h 16: 
+..\include\dosio.h 17: 
+..\include\dosio.h 18: 
+..\include\dosio.h 19: 
+..\include\dosio.h 20: 
+..\include\dosio.h 21: 
+..\include\dosio.h 22: 
+..\include\dosio.h 23: 
+..\include\dosio.h 24: 
+..\include\dosio.h 25: 
+..\include\dosio.h 26: 
+..\include\dosio.h 27: 
+..\include\dosio.h 28: 
+..\include\dosio.h 29: 
+..\include\dosio.h 30: 
+..\include\dosio.h 31: 
+..\include\dosio.h 32: 
+..\include\dosio.h 33: 
+..\include\dosio.h 34: 
+..\include\dosio.h 35: 
+..\include\dosio.h 36: 
+..\include\dosio.h 37: 
+..\include\dosio.h 38: 
+..\include\dosio.h 39: 
+..\include\dosio.h 40: 
+..\include\dosio.h 41: 
+..\include\dosio.h 42: 
+..\include\dosio.h 43: 
+..\include\dosio.h 44: 
+..\include\dosio.h 45: 
+..\include\dosio.h 46: 
+..\include\dosio.h 47: 
+..\include\dosio.h 48: 
+..\include\dosio.h 49: 
+..\include\dosio.h 50: 
+..\include\dosio.h 51: 
+..\include\dosio.h 52: 
+..\include\dosio.h 53: 
+..\include\dosio.h 54: 
+..\include\dosio.h 55: 
+..\include\dosio.h 56: 
+..\include\dosio.h 57: 
+..\include\dosio.h 58: 
+.\FsCreate.h 33: 
+.\FsCreate.h 34: 
+.\FsCreate.h 35: 
+.\FsCreate.h 36: 
+.\FsCreate.h 37: 
+.\FsCreate.h 38: 
+.\FsCreate.h 39: class CFsCreator {
+.\FsCreate.h 40: public:
+.\FsCreate.h 41: CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
+.\FsCreate.h 42: ~CFsCreator();
+.\FsCreate.h 43: 
+.\FsCreate.h 44: int InstallFs(unsigned short Drive, unsigned long Sector);
+.\FsCreate.h 45: 
+.\FsCreate.h 46: void RestorePartition(unsigned short Drive,unsigned long StartSector);
+.\FsCreate.h 47: 
+.\FsCreate.h 48: 
+.\FsCreate.h 49: private:
+.\FsCreate.h 50: class CBootRecord {
+.\FsCreate.h 51: public:
+.\FsCreate.h 52: unsigned char Jump[3];			
+.\FsCreate.h 53: unsigned char OEM_ID[8];		
+.\FsCreate.h 54: unsigned short SectorSize;		
+.\FsCreate.h 55: unsigned char ClusterSize;		
+.\FsCreate.h 56: unsigned short ReservedSectors;	
+.\FsCreate.h 57: unsigned char FATCopies;		
+.\FsCreate.h 58: unsigned short RootEntries;		
+.\FsCreate.h 59: unsigned short SectorCount;		
+.\FsCreate.h 60: unsigned char MediaDescriptor;	
+.\FsCreate.h 61: unsigned short FATSize;			
+.\FsCreate.h 62: unsigned short TrackSize;		
+.\FsCreate.h 63: unsigned short HeadCount;		
+.\FsCreate.h 64: unsigned long HiddenSectors;	
+.\FsCreate.h 65: unsigned long BigSectorCount;	
+.\FsCreate.h 66: unsigned short Drive;			
+.\FsCreate.h 67: unsigned char Signature;		
+.\FsCreate.h 68: unsigned long SerialNo;			
+.\FsCreate.h 69: unsigned char Label[11];		
+.\FsCreate.h 70: unsigned char FSID[8];			
+.\FsCreate.h 71: unsigned char Loader[448];		
+.\FsCreate.h 72: unsigned short MagicNumber;		
+.\FsCreate.h 73: };
+.\FsCreate.h 74: 
+.\FsCreate.h 75: class CDirectoryEntry {
+.\FsCreate.h 76: public:
+.\FsCreate.h 77: unsigned char FileName[8];
+.\FsCreate.h 78: unsigned char Extension[3];
+.\FsCreate.h 79: unsigned char Attribute;
+.\FsCreate.h 80: unsigned char Reserved[10];
+.\FsCreate.h 81: unsigned short Time;
+.\FsCreate.h 82: unsigned short Date;
+.\FsCreate.h 83: unsigned short StartCluster;
+.\FsCreate.h 84: unsigned long FileSize;
+.\FsCreate.h 85: };
+.\FsCreate.h 86: 
+.\FsCreate.h 87: 
+.\FsCreate.h 88: CTextUI &TextUI;
+.\FsCreate.h 89: CXoslFiles &XoslFiles;
+.\FsCreate.h 90: CDosFile &DosFile;
+.\FsCreate.h 91: 
+.\FsCreate.h 92: CBootRecord BootRecord;
+.\FsCreate.h 93: unsigned short Fat[256];
+.\FsCreate.h 94: CDirectoryEntry RootDir[32];
+.\FsCreate.h 95: 
+.\FsCreate.h 96: int FatIndex;
+.\FsCreate.h 97: int RootDirIndex;
+.\FsCreate.h 98: 
+.\FsCreate.h 99: int LoadIplS(int Drive);
+.\FsCreate.h 100: int PackFile(int hClusterFile,const char *FileName);
+.\FsCreate.h 101: int PackFiles();
+.\FsCreate.h 102: int InitBootRecord(unsigned short Drive, unsigned long Sector);
+.\FsCreate.h 103: 
+.\FsCreate.h 104: int BackupPartition(int Drive, unsigned long Sector);
+.\FsCreate.h 105: int InstallXoslImg(int Drive, unsigned long Sector);
+.\FsCreate.h 106: 
+.\FsCreate.h 107: 
+.\FsCreate.h 108: void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
+.\FsCreate.h 109: void AddFatEntries(long FileSize);
+.\FsCreate.h 110: void CFsCreator::DisplayIOError();
+.\FsCreate.h 111: 
+.\FsCreate.h 112: 
+.\FsCreate.h 113: };
+.\FsCreate.h 114: 
+.\FsCreate.h 115: 
+.\FsCreate.h 116: 
+.\FsCreate.h 117: 
+.\Install.h 27: 
+.\Install.h 28: 
+.\Install.h 29: 
+.\Install.h 30: 
+.\Install.h 31: 
+.\Install.h 32: 
+.\Install.h 33: class CInstaller {
+.\Install.h 34: public:
+.\Install.h 35: CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse);
+.\Install.h 36: ~CInstaller();
+.\Install.h 37: int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrHDSector0);
+.\Install.h 38: int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrHDSector0);
+.\Install.h 39: 
+.\Install.h 40: int Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int MbrHDSector0);
+.\Install.h 41: int Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0);
+.\Install.h 42: 
+.\Install.h 43: int Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSector0);
+.\Install.h 44: int Restore(int PartIndex, int MbrHDSector0);
+.\Install.h 45: 
+.\Install.h 46: private:
+.\Install.h 47: CTextUI &TextUI;
+.\Install.h 48: CPartList &PartList;
+.\Install.h 49: CXoslFiles XoslFiles;
+.\Install.h 50: CDosFile DosFile;
+.\Install.h 51: 
+.\Install.h 52: CFatInstall FatInstall;
+.\Install.h 53: CFsCreator FsCreator;
+.\Install.h 54: 
+.\Install.h 55: int CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType);
+.\Install.h 56: int CreateBootItem(int MbrHDSector0);
+.\Install.h 57: 
+.\Install.h 58: int BackupOriginalMbr(int PartId, const char *DestFileName);
+.\Install.h 59: int BackupCurrentMbr(void *Ipl);
+.\Install.h 60: int BackupCurrentMbr(void *Ipl, int Drive, unsigned long StartSector);
+.\Install.h 61: 
+.\Install.h 62: void RemoveXoslFiles(char DosDriveChar);
+.\Install.h 63: 
+.\Install.h 64: int LoadDosMbr(int DriveChar, const char *DosFileName, void *MbrBuffer);
+.\Install.h 65: int LoadRawMbr(int PartIndex, const char *DosFileName, void *MbrBuffer);
+.\Install.h 66: 
+.\Install.h 67: int LoadDefaultMbr(void *MbrBuffer);
+.\Install.h 68: 
+.\Install.h 69: void SetPartId(int PartIndex, int PartId);
+.\Install.h 70: 
+.\Install.h 71: void InstallSmartBootManager(int Drive);
+.\Install.h 72: 
+.\Install.h 73: };
+.\Install.h 74: 
+.\Install.h 75: 
+.\Install.h 76: 
+.\Install.h 77: 
+install.cpp 14: 
+install.cpp 15: 
+.\xosldata.h 1: 
+.\xosldata.h 2: 
+.\xosldata.h 3: 
+.\xosldata.h 4: 
+.\xosldata.h 5: 
+.\xosldata.h 6: 
+.\xosldata.h 7: 
+.\xosldata.h 8: 
+.\xosldata.h 9: 
+.\xosldata.h 10: 
+.\xosldata.h 11: 
+.\xosldata.h 12: 
+.\xosldata.h 13: 
+.\xosldata.h 14: 
+..\include\vesa.h 1: 
+..\include\vesa.h 2: 
+..\include\vesa.h 3: 
+..\include\vesa.h 4: 
+..\include\vesa.h 5: 
+..\include\vesa.h 6: 
+..\include\vesa.h 7: 
+..\include\vesa.h 8: 
+..\include\vesa.h 9: 
+..\include\vesa.h 10: 
+..\include\vesa.h 11: 
+..\include\vesa.h 12: 
+..\include\vesa.h 13: 
+..\include\vesa.h 14: 
+..\include\vesa.h 15: 
+..\include\vesa.h 16: 
+..\include\vesa.h 17: 
+..\include\vesa.h 18: 
+..\include\vesa.h 19: 
+..\include\vesa.h 20: 
+..\include\vesa.h 21: 
+..\include\vesa.h 22: 
+..\include\vesa.h 23: 
+..\include\vesa.h 24: 
+..\include\vesa.h 25: 
+..\include\vesa.h 26: 
+..\include\vesa.h 27: 
+..\include\vesa.h 28: 
+..\include\vesa.h 29: 
+..\include\vesa.h 30: 
+..\include\vesa.h 31: 
+..\include\vesa.h 32: 
+..\include\vesa.h 33: 
+..\include\vesa.h 34: 
+..\include\vesa.h 35: 
+..\include\vesa.h 36: 
+..\include\vesa.h 37: 
+..\include\vesa.h 38: 
+..\include\vesa.h 39: 
+..\include\vesa.h 40: 
+..\include\vesa.h 41: 
+..\include\vesa.h 42: 
+..\include\vesa.h 43: 
+..\include\vesa.h 44: 
+..\include\vesa.h 45: 
+..\include\vesa.h 46: 
+..\include\vesa.h 47: 
+..\include\vesa.h 48: 
+..\include\vesa.h 49: 
+..\include\vesa.h 50: 
+..\include\vesa.h 51: 
+..\include\vesa.h 52: 
+..\include\vesa.h 53: 
+..\include\vesa.h 54: 
+..\include\vesa.h 55: 
+..\include\vesa.h 56: 
+..\include\vesa.h 57: 
+..\include\vesa.h 58: 
+..\include\vesa.h 59: 
+..\include\vesa.h 60: 
+..\include\vesa.h 61: 
+..\include\vesa.h 62: 
+..\include\vesa.h 63: 
+..\include\vesa.h 64: 
+..\include\vesa.h 65: 
+..\include\vesa.h 66: 
+..\include\vesa.h 67: 
+..\include\vesa.h 68: 
+..\include\vesa.h 69: 
+..\include\vesa.h 70: 
+..\include\vesa.h 71: 
+..\include\vesa.h 72: 
+..\include\vesa.h 73: 
+..\include\vesa.h 74: 
+..\include\vesa.h 75: 
+..\include\vesa.h 76: 
+..\include\vesa.h 77: 
+..\include\vesa.h 78: 
+..\include\vesa.h 79: 
+..\include\vesa.h 80: 
+..\include\vesa.h 81: 
+..\include\vesa.h 82: 
+..\include\vesa.h 83: 
+..\include\vesa.h 84: 
+..\include\vesa.h 85: 
+..\include\vesa.h 86: 
+..\include\vesa.h 87: 
+..\include\vesa.h 88: 
+..\include\vesa.h 89: 
+..\include\vesa.h 90: 
+..\include\vesa.h 91: 
+..\include\vesa.h 92: 
+..\include\vesa.h 93: 
+..\include\vesa.h 94: 
+..\include\vesa.h 95: 
+..\include\vesa.h 96: 
+..\include\vesa.h 97: 
+..\include\vesa.h 98: 
+..\include\vesa.h 99: 
+..\include\vesa.h 100: 
+..\include\vesa.h 101: 
+..\include\vesa.h 102: 
+..\include\vesa.h 103: 
+..\include\vesa.h 104: 
+..\include\vesa.h 105: 
+..\include\vesa.h 106: 
+..\include\vesa.h 107: 
+..\include\vesa.h 108: 
+..\include\vesa.h 109: 
+..\include\vesa.h 110: 
+..\include\vesa.h 111: 
+..\include\vesa.h 112: 
+.\xosldata.h 15: 
+.\xosldata.h 16: class CXoslData {
+.\xosldata.h 17: public:
+.\xosldata.h 18: class CGraphData {
+.\xosldata.h 19: public:
+.\xosldata.h 20: CVesa::TGraphicsMode VideoMode;
+.\xosldata.h 21: int FrameMove;
+.\xosldata.h 22: int LinearFB;
+.\xosldata.h 23: int Font9;
+.\xosldata.h 24: int CursorInverted;
+.\xosldata.h 25: int UseWallpaper;
+.\xosldata.h 26: int DisableFadeOut;
+.\xosldata.h 27: int DisableFadeIn;
+.\xosldata.h 28: int DisplayItemIndex;
+.\xosldata.h 29: int ClearScreen;
+.\xosldata.h 30: int Reserved[6];
+.\xosldata.h 31: };
+.\xosldata.h 32: 
+.\xosldata.h 33: class CColorData {
+.\xosldata.h 34: public:
+.\xosldata.h 35: int Reserved1; 
+.\xosldata.h 36: int ColorScheme;
+.\xosldata.h 37: int Hue;
+.\xosldata.h 38: int Saturation;
+.\xosldata.h 39: int Luminance;
+.\xosldata.h 40: int FadeColorInt;
+.\xosldata.h 41: int Reserved2[10];
+.\xosldata.h 42: };
+.\xosldata.h 43: 
+.\xosldata.h 44: class CMouseData {
+.\xosldata.h 45: public:
+.\xosldata.h 46: int MouseType;
+.\xosldata.h 47: int MouseSpeed;
+.\xosldata.h 48: int PS2Sampling;
+.\xosldata.h 49: int Reserved[13];
+.\xosldata.h 50: };
+.\xosldata.h 51: 
+.\xosldata.h 52: class CPassword {
+.\xosldata.h 53: public:
+.\xosldata.h 54: unsigned long Password;
+.\xosldata.h 55: int Reserved[14];
+.\xosldata.h 56: };
+.\xosldata.h 57: 
+.\xosldata.h 58: class CMiscPref {
+.\xosldata.h 59: public:
+.\xosldata.h 60: int AutoSave;
+.\xosldata.h 61: int BootOnSelect;
+.\xosldata.h 62: int KeyColdReboot;
+.\xosldata.h 63: int KeyShutdown;
+.\xosldata.h 64: int KeyRestart;
+.\xosldata.h 65: int KeyPart;
+.\xosldata.h 66: int SetAutoBoot;
+.\xosldata.h 67: int SoftPowerOff;
+.\xosldata.h 68: int KeyCycle;
+.\xosldata.h 69: int ActiveAllow;
+.\xosldata.h 70: int AntiVirus;
+.\xosldata.h 71: int Reserved[5];
+.\xosldata.h 72: };
+.\xosldata.h 73: 
+.\xosldata.h 74: public:
+.\xosldata.h 75: unsigned short XoslVersion;
+.\xosldata.h 76: CGraphData GraphData;
+.\xosldata.h 77: CColorData ColorData;
+.\xosldata.h 78: CMouseData MouseData;
+.\xosldata.h 79: CPassword PasswordData;
+.\xosldata.h 80: CMiscPref MiscPref;
+.\xosldata.h 81: int Reserved[175];
+.\xosldata.h 82: };
+.\xosldata.h 83: 
+.\xosldata.h 84: 
+.\xosldata.h 85: 
+install.cpp 16: 
+..\include\memory.h 1: 
+..\include\memory.h 2: 
+..\include\memory.h 3: 
+..\include\memory.h 4: 
+..\include\memory.h 5: 
+..\include\memory.h 6: 
+..\include\memory.h 7: 
+..\include\memory.h 8: 
+..\include\memory.h 9: 
+..\include\memory.h 10: 
+..\include\memory.h 11: 
+..\include\memory.h 12: 
+..\include\memory.h 13: 
+..\include\memory.h 14: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\memory.h 15: 
+..\include\memory.h 16: 
+..\include\memory.h 17: 
+..\include\memory.h 18: 
+..\include\memory.h 19: 
+..\include\memory.h 20: 
+..\include\memory.h 21: 
+..\include\memory.h 22: 
+..\include\memory.h 23: 
+..\include\memory.h 24: extern "C" {
+..\include\memory.h 25: 
+..\include\memory.h 26: void MemSet(void *dest, int value, unsigned short count);
+..\include\memory.h 27: void MemCopy(void *dest, const void *src, unsigned short size);
+..\include\memory.h 28: int MemCompare(const void *s1, const void *s2, unsigned short count);
+..\include\memory.h 29: 
+..\include\memory.h 30: }
+..\include\memory.h 31: 
+..\include\memory.h 32: 
+..\include\memory.h 33: 
+install.cpp 17: 
+..\include\disk.h 1: 
+..\include\disk.h 2: 
+..\include\disk.h 3: 
+..\include\disk.h 4: 
+..\include\disk.h 5: 
+..\include\disk.h 6: 
+..\include\disk.h 7: 
+..\include\disk.h 8: 
+..\include\disk.h 9: 
+..\include\disk.h 10: 
+..\include\disk.h 11: 
+..\include\disk.h 12: 
+..\include\disk.h 13: 
+..\include\disk.h 14: 
+..\include\disk.h 15: 
+..\include\disk.h 16: 
+..\include\disk.h 17: 
+..\include\disk.h 18: 
+..\include\disk.h 19: 
+..\include\disk.h 20: 
+..\include\defs.h 1: 
+..\include\defs.h 2: 
+..\include\defs.h 3: 
+..\include\defs.h 4: 
+..\include\defs.h 5: 
+..\include\defs.h 6: 
+..\include\defs.h 7: 
+..\include\defs.h 8: 
+..\include\defs.h 9: 
+..\include\defs.h 10: 
+..\include\defs.h 11: 
+..\include\defs.h 12: 
+..\include\defs.h 13: 
+..\include\defs.h 14: 
+..\include\defs.h 15: 
+..\include\defs.h 16: 
+..\include\defs.h 17: 
+..\include\defs.h 18: 
+..\include\defs.h 19: 
+..\include\defs.h 20: 
+..\include\defs.h 21: 
+..\include\defs.h 22: 
+..\include\defs.h 23: 
+..\include\defs.h 24: 
+..\include\defs.h 25: 
+..\include\defs.h 26: 
+..\include\defs.h 27: 
+..\include\defs.h 28: 
+..\include\defs.h 29: 
+..\include\defs.h 30: 
+..\include\defs.h 31: 
+..\include\defs.h 32: 
+..\include\defs.h 33: 
+..\include\defs.h 34: 
+..\include\defs.h 35: 
+..\include\defs.h 36: 
+..\include\defs.h 37: 
+..\include\defs.h 38: 
+..\include\defs.h 39: 
+..\include\defs.h 40: 
+..\include\defs.h 41: 
+..\include\defs.h 42: 
+..\include\defs.h 43: 
+..\include\defs.h 44: 
+..\include\defs.h 45: 
+..\include\defs.h 46: 
+..\include\defs.h 47: 
+..\include\defs.h 48: 
+..\include\defs.h 49: 
+..\include\defs.h 50: 
+..\include\defs.h 51: 
+..\include\defs.h 52: 
+..\include\defs.h 53: 
+..\include\defs.h 54: 
+..\include\defs.h 55: 
+..\include\defs.h 56: 
+..\include\defs.h 57: 
+..\include\defs.h 58: 
+..\include\defs.h 59: 
+..\include\defs.h 60: 
+..\include\defs.h 61: 
+..\include\defs.h 62: 
+..\include\disk.h 21: 
+..\include\transfer.h 1: 
+..\include\transfer.h 2: 
+..\include\transfer.h 3: 
+..\include\transfer.h 4: 
+..\include\transfer.h 5: 
+..\include\transfer.h 6: 
+..\include\transfer.h 7: 
+..\include\transfer.h 8: 
+..\include\transfer.h 9: 
+..\include\transfer.h 10: 
+..\include\transfer.h 11: 
+..\include\transfer.h 12: 
+..\include\transfer.h 13: 
+..\include\transfer.h 14: 
+..\include\transfer.h 15: 
+..\include\transfer.h 16: 
+..\include\transfer.h 17: 
+..\include\transfer.h 18: 
+..\include\transfer.h 19: 
+..\include\transfer.h 20: 
+..\include\transfer.h 21: 
+..\include\transfer.h 22: 
+..\include\transfer.h 23: 
+..\include\transfer.h 24: typedef struct {
+..\include\transfer.h 25: int PacketSize;
+..\include\transfer.h 26: int SectorCount;
+..\include\transfer.h 27: void *TransferBuffer;
+..\include\transfer.h 28: unsigned long SectorLow;
+..\include\transfer.h 29: unsigned long SectorHigh;
+..\include\transfer.h 30: } TLBAPacket;
+..\include\transfer.h 31: 
+..\include\transfer.h 32: class CDiskAccess {
+..\include\transfer.h 33: public:
+..\include\transfer.h 34: CDiskAccess();
+..\include\transfer.h 35: ~CDiskAccess();
+..\include\transfer.h 36: 
+..\include\transfer.h 37: 
+..\include\transfer.h 38: int DriveCount(int Fixed);
+..\include\transfer.h 39: int Transfer(int Action, unsigned short SectCyl,
+..\include\transfer.h 40: unsigned short DrvHead, void *Buffer, int Count);
+..\include\transfer.h 41: int GetDriveInfo(int Drive, int &Heads, int &Sectors);
+..\include\transfer.h 42: int CopyFromScratchpad(void *Buffer, int Sectors);
+..\include\transfer.h 43: int CopyToScratchpad(const void *Buffer, int Sectors);
+..\include\transfer.h 44: 
+..\include\transfer.h 45: 
+..\include\transfer.h 46: int LBAAccessAvail(int Drive);
+..\include\transfer.h 47: int LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket);
+..\include\transfer.h 48: void SetLockStatus(int Drive, int Status);
+..\include\transfer.h 49: };
+..\include\transfer.h 50: 
+..\include\transfer.h 51: 
+..\include\transfer.h 52: 
+..\include\transfer.h 53: 
+..\include\disk.h 22: 
+..\include\disk.h 23: class CDisk {
+..\include\disk.h 24: public:
+..\include\disk.h 25: CDisk();
+..\include\disk.h 26: ~CDisk();
+..\include\disk.h 27: 
+..\include\disk.h 28: int DriveCount(int Fixed);
+..\include\disk.h 29: 
+..\include\disk.h 30: int Map(int Drive, unsigned long StartSector);
+..\include\disk.h 31: 
+..\include\disk.h 32: int Read(unsigned long Sector, void *Buffer, int Count);
+..\include\disk.h 33: int Write(unsigned long Sector, const void *Buffer, int Count);
+..\include\disk.h 34: int Verify(unsigned long Sector, int Count);
+..\include\disk.h 35: 
+..\include\disk.h 36: void Lock();
+..\include\disk.h 37: void Unlock();
+..\include\disk.h 38: 
+..\include\disk.h 39: private:
+..\include\disk.h 40: int Transfer(int Action, unsigned long Sector, void *Buffer, int Count);
+..\include\disk.h 41: void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead);
+..\include\disk.h 42: 
+..\include\disk.h 43: CDiskAccess DiskAccess;
+..\include\disk.h 44: 
+..\include\disk.h 45: int DrvHeadCount;
+..\include\disk.h 46: int DrvSectorCount;
+..\include\disk.h 47: int Drive;
+..\include\disk.h 48: unsigned long StartSector;
+..\include\disk.h 49: int UseLBA;
+..\include\disk.h 50: int DiskMapped;
+..\include\disk.h 51: };
+..\include\disk.h 52: 
+..\include\disk.h 53: 
+..\include\disk.h 54: 
+install.cpp 18: 
+..\include\fat16.h 1: 
+..\include\fat16.h 2: 
+..\include\fat16.h 3: 
+..\include\fat16.h 4: 
+..\include\fat16.h 5: 
+..\include\fat16.h 6: 
+..\include\fat16.h 7: 
+..\include\fat16.h 8: 
+..\include\fat16.h 9: 
+..\include\fat16.h 10: 
+..\include\fat16.h 11: 
+..\include\fat16.h 12: 
+..\include\fat16.h 13: 
+..\include\fat16.h 14: 
+..\include\fs.h 1: 
+..\include\fs.h 2: 
+..\include\fs.h 3: 
+..\include\fs.h 4: 
+..\include\fs.h 5: 
+..\include\fs.h 6: 
+..\include\fs.h 7: 
+..\include\fs.h 8: 
+..\include\fs.h 9: 
+..\include\fs.h 10: 
+..\include\fs.h 11: 
+..\include\fs.h 12: 
+..\include\fs.h 13: 
+..\include\fs.h 14: 
+..\include\ptab.h 1: 
+..\include\ptab.h 2: 
+..\include\ptab.h 3: 
+..\include\ptab.h 4: 
+..\include\ptab.h 5: 
+..\include\ptab.h 6: 
+..\include\ptab.h 7: 
+..\include\ptab.h 8: 
+..\include\ptab.h 9: 
+..\include\ptab.h 10: 
+..\include\ptab.h 11: 
+..\include\ptab.h 12: 
+..\include\ptab.h 13: 
+..\include\ptab.h 14: 
+..\include\ptab.h 15: 
+..\include\ptab.h 16: 
+..\include\ptab.h 17: 
+..\include\ptab.h 18: 
+..\include\ptab.h 19: 
+..\include\ptab.h 20: 
+..\include\ptab.h 21: 
+..\include\ptab.h 22: 
+..\include\ptab.h 23: 
+..\include\ptab.h 24: 
+..\include\ptab.h 25: 
+..\include\ptab.h 26: 
+..\include\ptab.h 27: 
+..\include\ptab.h 28: 
+..\include\ptab.h 29: 
+..\include\ptab.h 30: 
+..\include\ptab.h 31: 
+..\include\ptab.h 32: 
+..\include\ptab.h 33: 
+..\include\ptab.h 34: 
+..\include\ptab.h 35: 
+..\include\ptab.h 36: 
+..\include\ptab.h 37: 
+..\include\ptab.h 38: 
+..\include\ptab.h 39: 
+..\include\ptab.h 40: 
+..\include\ptab.h 41: 
+..\include\ptab.h 42: 
+..\include\ptab.h 43: 
+..\include\ptab.h 44: 
+..\include\ptab.h 45: 
+..\include\ptab.h 46: 
+..\include\ptab.h 47: 
+..\include\ptab.h 48: 
+..\include\ptab.h 49: 
+..\include\ptab.h 50: 
+..\include\ptab.h 51: 
+..\include\ptab.h 52: 
+..\include\ptab.h 53: 
+..\include\ptab.h 54: 
+..\include\ptab.h 55: 
+..\include\ptab.h 56: 
+..\include\ptab.h 57: 
+..\include\ptab.h 58: 
+..\include\ptab.h 59: 
+..\include\ptab.h 60: 
+..\include\ptab.h 61: 
+..\include\ptab.h 62: 
+..\include\ptab.h 63: 
+..\include\ptab.h 64: 
+..\include\ptab.h 65: 
+..\include\ptab.h 66: 
+..\include\ptab.h 67: 
+..\include\ptab.h 68: 
+..\include\ptab.h 69: 
+..\include\ptab.h 70: 
+..\include\ptab.h 71: 
+..\include\ptab.h 72: 
+..\include\ptab.h 73: 
+..\include\ptab.h 74: 
+..\include\ptab.h 75: 
+..\include\ptab.h 76: 
+..\include\ptab.h 77: 
+..\include\ptab.h 78: 
+..\include\ptab.h 79: 
+..\include\ptab.h 80: 
+..\include\ptab.h 81: 
+..\include\ptab.h 82: 
+..\include\ptab.h 83: 
+..\include\ptab.h 84: 
+..\include\ptab.h 85: 
+..\include\ptab.h 86: 
+..\include\ptab.h 87: 
+..\include\ptab.h 88: 
+..\include\ptab.h 89: 
+..\include\ptab.h 90: 
+..\include\ptab.h 91: 
+..\include\ptab.h 92: 
+..\include\ptab.h 93: 
+..\include\ptab.h 94: 
+..\include\ptab.h 95: 
+..\include\ptab.h 96: 
+..\include\ptab.h 97: 
+..\include\ptab.h 98: 
+..\include\ptab.h 99: 
+..\include\ptab.h 100: 
+..\include\ptab.h 101: 
+..\include\ptab.h 102: 
+..\include\ptab.h 103: 
+..\include\ptab.h 104: 
+..\include\fs.h 15: 
+..\include\fs.h 16: 
+..\include\disk.h 1: 
+..\include\disk.h 2: 
+..\include\disk.h 3: 
+..\include\disk.h 4: 
+..\include\disk.h 5: 
+..\include\disk.h 6: 
+..\include\disk.h 7: 
+..\include\disk.h 8: 
+..\include\disk.h 9: 
+..\include\disk.h 10: 
+..\include\disk.h 11: 
+..\include\disk.h 12: 
+..\include\disk.h 13: 
+..\include\disk.h 14: 
+..\include\disk.h 15: 
+..\include\disk.h 16: 
+..\include\disk.h 17: 
+..\include\disk.h 18: 
+..\include\disk.h 19: 
+..\include\disk.h 20: 
+..\include\disk.h 21: 
+..\include\disk.h 22: 
+..\include\disk.h 23: 
+..\include\disk.h 24: 
+..\include\disk.h 25: 
+..\include\disk.h 26: 
+..\include\disk.h 27: 
+..\include\disk.h 28: 
+..\include\disk.h 29: 
+..\include\disk.h 30: 
+..\include\disk.h 31: 
+..\include\disk.h 32: 
+..\include\disk.h 33: 
+..\include\disk.h 34: 
+..\include\disk.h 35: 
+..\include\disk.h 36: 
+..\include\disk.h 37: 
+..\include\disk.h 38: 
+..\include\disk.h 39: 
+..\include\disk.h 40: 
+..\include\disk.h 41: 
+..\include\disk.h 42: 
+..\include\disk.h 43: 
+..\include\disk.h 44: 
+..\include\disk.h 45: 
+..\include\disk.h 46: 
+..\include\disk.h 47: 
+..\include\disk.h 48: 
+..\include\disk.h 49: 
+..\include\disk.h 50: 
+..\include\disk.h 51: 
+..\include\disk.h 52: 
+..\include\disk.h 53: 
+..\include\disk.h 54: 
+..\include\fs.h 17: 
+..\include\fs.h 18: class CFileSystem {
+..\include\fs.h 19: public:
+..\include\fs.h 20: CFileSystem();
+..\include\fs.h 21: virtual ~CFileSystem();
+..\include\fs.h 22: virtual int Mount(int Drive, unsigned long StartSector);
+..\include\fs.h 23: virtual unsigned short ReadFile(const char *FileName, void *Buffer) = 0;
+..\include\fs.h 24: virtual int WriteFile(const char *FileName, const void *Buffer) = 0;
+..\include\fs.h 25: protected:
+..\include\fs.h 26: CDisk Disk;
+..\include\fs.h 27: };
+..\include\fs.h 28: 
+..\include\fs.h 29: 
+..\include\fs.h 30: 
+..\include\fs.h 31: 
+..\include\fs.h 32: 
+..\include\fs.h 33: 
+..\include\fat16.h 15: 
+..\..\include\bootrec.h 1: 
+..\..\include\bootrec.h 2: 
+..\..\include\bootrec.h 3: 
+..\..\include\bootrec.h 4: 
+..\..\include\bootrec.h 5: 
+..\..\include\bootrec.h 6: 
+..\..\include\bootrec.h 7: 
+..\..\include\bootrec.h 8: 
+..\..\include\bootrec.h 9: 
+..\..\include\bootrec.h 10: 
+..\..\include\bootrec.h 11: 
+..\..\include\bootrec.h 12: 
+..\..\include\bootrec.h 13: 
+..\..\include\bootrec.h 14: typedef struct {
+..\..\include\bootrec.h 15: 
+..\..\include\bootrec.h 16: unsigned char Jump[3];              
+..\..\include\bootrec.h 17: unsigned char OEM_ID[8];            
+..\..\include\bootrec.h 18: unsigned short SectorSize;          
+..\..\include\bootrec.h 19: unsigned char ClusterSize;          
+..\..\include\bootrec.h 20: unsigned short ReservedSectors;     
+..\..\include\bootrec.h 21: unsigned char FATCopies;            
+..\..\include\bootrec.h 22: unsigned short RootEntries;         
+..\..\include\bootrec.h 23: unsigned short SectorCount;         
+..\..\include\bootrec.h 24: unsigned char MediaDescriptor;      
+..\..\include\bootrec.h 25: unsigned short FATSize;             
+..\..\include\bootrec.h 26: unsigned short TrackSize;           
+..\..\include\bootrec.h 27: unsigned short HeadCount;           
+..\..\include\bootrec.h 28: unsigned long HiddenSectors;        
+..\..\include\bootrec.h 29: unsigned long BigSectorCount;       
+..\..\include\bootrec.h 30: unsigned short Drive;               
+..\..\include\bootrec.h 31: unsigned char Signature;            
+..\..\include\bootrec.h 32: unsigned long SerialNo;             
+..\..\include\bootrec.h 33: unsigned char Label[11];            
+..\..\include\bootrec.h 34: unsigned char FSID[8];              
+..\..\include\bootrec.h 35: unsigned char Loader[448];          
+..\..\include\bootrec.h 36: unsigned short MagicNumber; 
+..\..\include\bootrec.h 37: } TBootFAT16;
+..\..\include\bootrec.h 38: 
+..\..\include\bootrec.h 39: typedef struct {
+..\..\include\bootrec.h 40: 
+..\..\include\bootrec.h 41: unsigned char Jump[3];              
+..\..\include\bootrec.h 42: unsigned char OEM_ID[8];            
+..\..\include\bootrec.h 43: unsigned short SectorSize;          
+..\..\include\bootrec.h 44: unsigned char ClusterSize;          
+..\..\include\bootrec.h 45: unsigned short ReservedSectors;     
+..\..\include\bootrec.h 46: unsigned char FATCopies;            
+..\..\include\bootrec.h 47: unsigned char Reserved1[4];         
+..\..\include\bootrec.h 48: unsigned char MediaDescriptor;      
+..\..\include\bootrec.h 49: unsigned short FATSize;			   
+..\..\include\bootrec.h 50: 
+..\..\include\bootrec.h 51: unsigned short TrackSize;           
+..\..\include\bootrec.h 52: unsigned short HeadCount;           
+..\..\include\bootrec.h 53: unsigned long HiddenSectors;        
+..\..\include\bootrec.h 54: unsigned long BigSectorCount;       
+..\..\include\bootrec.h 55: unsigned long BigFATSize;           
+..\..\include\bootrec.h 56: 
+..\..\include\bootrec.h 57: unsigned short Flags;               
+..\..\include\bootrec.h 58: unsigned char FSVerMajor;           
+..\..\include\bootrec.h 59: unsigned char FSVerMinor;           
+..\..\include\bootrec.h 60: unsigned long RootCluster;          
+..\..\include\bootrec.h 61: unsigned short FSSectorNumber;      
+..\..\include\bootrec.h 62: unsigned short BootSectorBackup;    
+..\..\include\bootrec.h 63: unsigned char Reserved2[12];        
+..\..\include\bootrec.h 64: unsigned char Drive;                
+..\..\include\bootrec.h 65: unsigned char Reserved3;            
+..\..\include\bootrec.h 66: unsigned char Signature;            
+..\..\include\bootrec.h 67: unsigned long SerialNo;             
+..\..\include\bootrec.h 68: unsigned char Label[11];            
+..\..\include\bootrec.h 69: unsigned char FSID[8];              
+..\..\include\bootrec.h 70: 
+..\..\include\bootrec.h 71: 
+..\..\include\bootrec.h 72: unsigned char Loader[420];          
+..\..\include\bootrec.h 73: unsigned short MagicNumber; 
+..\..\include\bootrec.h 74: 
+..\..\include\bootrec.h 75: 
+..\..\include\bootrec.h 76: } TBootFAT32;
+..\..\include\bootrec.h 77: 
+..\..\include\bootrec.h 78: 
+..\..\include\bootrec.h 79: 
+..\..\include\bootrec.h 80: 
+..\..\include\bootrec.h 81: 
+..\..\include\bootrec.h 82: 
+..\..\include\bootrec.h 83: 
+..\..\include\bootrec.h 84: 
+..\..\include\bootrec.h 85: 
+..\include\fat16.h 16: 
+..\include\fat16.h 17: 
+..\include\fat16.h 18: class CFAT16: public CFileSystem {
+..\include\fat16.h 19: public:
+..\include\fat16.h 20: CFAT16();
+..\include\fat16.h 21: ~CFAT16();
+..\include\fat16.h 22: int Mount(int Drive, unsigned long StartSector);
+..\include\fat16.h 23: unsigned short ReadFile(const char *FileName, void *Buffer);
+..\include\fat16.h 24: int WriteFile(const char *FileName, const void *Buffer);
+..\include\fat16.h 25: 
+..\include\fat16.h 26: void DosFileToRawFile(char *RawFile, const char *DosFile);
+..\include\fat16.h 27: 
+..\include\fat16.h 28: private:
+..\include\fat16.h 29: class CFAT16DirEntry {
+..\include\fat16.h 30: public:
+..\include\fat16.h 31: unsigned char FileName[8];
+..\include\fat16.h 32: unsigned char Extension[3];
+..\include\fat16.h 33: unsigned char Attribute;
+..\include\fat16.h 34: unsigned char Reserved[10];
+..\include\fat16.h 35: unsigned short Time;
+..\include\fat16.h 36: unsigned short Date;
+..\include\fat16.h 37: unsigned short StartCluster;
+..\include\fat16.h 38: unsigned long FileSize;
+..\include\fat16.h 39: };
+..\include\fat16.h 40: 
+..\include\fat16.h 41: int Locate(const char *FileName, CFAT16DirEntry &Entry);
+..\include\fat16.h 42: void ReadFAT(unsigned short Cluster);
+..\include\fat16.h 43: void ReadDirectory(unsigned short Index, CFAT16DirEntry *Root);
+..\include\fat16.h 44: 
+..\include\fat16.h 45: void GetNextCluster(unsigned short &Cluster);
+..\include\fat16.h 46: void ReadCluster(unsigned short Cluster, void *Buffer);
+..\include\fat16.h 47: void WriteCluster(unsigned short Cluster, const void *Buffer);
+..\include\fat16.h 48: 
+..\include\fat16.h 49: 
+..\include\fat16.h 50: TBootFAT16 BootSector;
+..\include\fat16.h 51: 
+..\include\fat16.h 52: unsigned short *FAT;
+..\include\fat16.h 53: unsigned short FirstCluster;
+..\include\fat16.h 54: unsigned short LastCluster;
+..\include\fat16.h 55: 
+..\include\fat16.h 56: unsigned short ClusterSize;
+..\include\fat16.h 57: unsigned long FATStart;
+..\include\fat16.h 58: unsigned long DirStart;
+..\include\fat16.h 59: unsigned long DataStart;
+..\include\fat16.h 60: };
+..\include\fat16.h 61: 
+..\include\fat16.h 62: 
+..\include\fat16.h 63: 
+install.cpp 19: 
+C:\BORLANDC\INCLUDE\string.h 1: 
+C:\BORLANDC\INCLUDE\string.h 2: 
+C:\BORLANDC\INCLUDE\string.h 3: 
+C:\BORLANDC\INCLUDE\string.h 4: 
+C:\BORLANDC\INCLUDE\string.h 5: 
+C:\BORLANDC\INCLUDE\string.h 6: 
+C:\BORLANDC\INCLUDE\string.h 7: 
+C:\BORLANDC\INCLUDE\string.h 8: 
+C:\BORLANDC\INCLUDE\string.h 9: 
+C:\BORLANDC\INCLUDE\string.h 10: 
+C:\BORLANDC\INCLUDE\string.h 11: 
+C:\BORLANDC\INCLUDE\string.h 12: 
+C:\BORLANDC\INCLUDE\string.h 13: 
+C:\BORLANDC\INCLUDE\_defs.h 1: 
+C:\BORLANDC\INCLUDE\_defs.h 2: 
+C:\BORLANDC\INCLUDE\_defs.h 3: 
+C:\BORLANDC\INCLUDE\_defs.h 4: 
+C:\BORLANDC\INCLUDE\_defs.h 5: 
+C:\BORLANDC\INCLUDE\_defs.h 6: 
+C:\BORLANDC\INCLUDE\_defs.h 7: 
+C:\BORLANDC\INCLUDE\_defs.h 8: 
+C:\BORLANDC\INCLUDE\_defs.h 9: 
+C:\BORLANDC\INCLUDE\_defs.h 10: 
+C:\BORLANDC\INCLUDE\_defs.h 11: 
+C:\BORLANDC\INCLUDE\_defs.h 12: 
+C:\BORLANDC\INCLUDE\_defs.h 13: 
+C:\BORLANDC\INCLUDE\_defs.h 14: 
+C:\BORLANDC\INCLUDE\_defs.h 15: 
+C:\BORLANDC\INCLUDE\_defs.h 16: 
+C:\BORLANDC\INCLUDE\_defs.h 17: 
+C:\BORLANDC\INCLUDE\_defs.h 18: 
+C:\BORLANDC\INCLUDE\_defs.h 19: 
+C:\BORLANDC\INCLUDE\_defs.h 20: 
+C:\BORLANDC\INCLUDE\_defs.h 21: 
+C:\BORLANDC\INCLUDE\_defs.h 22: 
+C:\BORLANDC\INCLUDE\_defs.h 23: 
+C:\BORLANDC\INCLUDE\_defs.h 24: 
+C:\BORLANDC\INCLUDE\_defs.h 25: 
+C:\BORLANDC\INCLUDE\_defs.h 26: 
+C:\BORLANDC\INCLUDE\_defs.h 27: 
+C:\BORLANDC\INCLUDE\_defs.h 28: 
+C:\BORLANDC\INCLUDE\_defs.h 29: 
+C:\BORLANDC\INCLUDE\_defs.h 30: 
+C:\BORLANDC\INCLUDE\_defs.h 31: 
+C:\BORLANDC\INCLUDE\_defs.h 32: 
+C:\BORLANDC\INCLUDE\_defs.h 33: 
+C:\BORLANDC\INCLUDE\_defs.h 34: 
+C:\BORLANDC\INCLUDE\_defs.h 35: 
+C:\BORLANDC\INCLUDE\_defs.h 36: 
+C:\BORLANDC\INCLUDE\_defs.h 37: 
+C:\BORLANDC\INCLUDE\_defs.h 38: 
+C:\BORLANDC\INCLUDE\_defs.h 39: 
+C:\BORLANDC\INCLUDE\_defs.h 40: 
+C:\BORLANDC\INCLUDE\_defs.h 41: 
+C:\BORLANDC\INCLUDE\_defs.h 42: 
+C:\BORLANDC\INCLUDE\_defs.h 43: 
+C:\BORLANDC\INCLUDE\_defs.h 44: 
+C:\BORLANDC\INCLUDE\_defs.h 45: 
+C:\BORLANDC\INCLUDE\_defs.h 46: 
+C:\BORLANDC\INCLUDE\_defs.h 47: 
+C:\BORLANDC\INCLUDE\_defs.h 48: 
+C:\BORLANDC\INCLUDE\_defs.h 49: 
+C:\BORLANDC\INCLUDE\_defs.h 50: 
+C:\BORLANDC\INCLUDE\_defs.h 51: 
+C:\BORLANDC\INCLUDE\_defs.h 52: 
+C:\BORLANDC\INCLUDE\_defs.h 53: 
+C:\BORLANDC\INCLUDE\_defs.h 54: 
+C:\BORLANDC\INCLUDE\_defs.h 55: 
+C:\BORLANDC\INCLUDE\_defs.h 56: 
+C:\BORLANDC\INCLUDE\_defs.h 57: 
+C:\BORLANDC\INCLUDE\_defs.h 58: 
+C:\BORLANDC\INCLUDE\_defs.h 59: 
+C:\BORLANDC\INCLUDE\_defs.h 60: 
+C:\BORLANDC\INCLUDE\_defs.h 61: 
+C:\BORLANDC\INCLUDE\_defs.h 62: 
+C:\BORLANDC\INCLUDE\_defs.h 63: 
+C:\BORLANDC\INCLUDE\_defs.h 64: 
+C:\BORLANDC\INCLUDE\_defs.h 65: 
+C:\BORLANDC\INCLUDE\_defs.h 66: 
+C:\BORLANDC\INCLUDE\_defs.h 67: 
+C:\BORLANDC\INCLUDE\_defs.h 68: 
+C:\BORLANDC\INCLUDE\_defs.h 69:   
+C:\BORLANDC\INCLUDE\_defs.h 70: 
+C:\BORLANDC\INCLUDE\_defs.h 71: 
+C:\BORLANDC\INCLUDE\_defs.h 72: 
+C:\BORLANDC\INCLUDE\_defs.h 73: 
+C:\BORLANDC\INCLUDE\_defs.h 74:     
+C:\BORLANDC\INCLUDE\_defs.h 75: 
+C:\BORLANDC\INCLUDE\_defs.h 76:   
+C:\BORLANDC\INCLUDE\_defs.h 77: 
+C:\BORLANDC\INCLUDE\_defs.h 78: 
+C:\BORLANDC\INCLUDE\_defs.h 79: 
+C:\BORLANDC\INCLUDE\_defs.h 80: 
+C:\BORLANDC\INCLUDE\_defs.h 81: 
+C:\BORLANDC\INCLUDE\_defs.h 82: 
+C:\BORLANDC\INCLUDE\_defs.h 83: 
+C:\BORLANDC\INCLUDE\_defs.h 84: 
+C:\BORLANDC\INCLUDE\_defs.h 85: 
+C:\BORLANDC\INCLUDE\_defs.h 86: 
+C:\BORLANDC\INCLUDE\_defs.h 87: 
+C:\BORLANDC\INCLUDE\_defs.h 88: 
+C:\BORLANDC\INCLUDE\_defs.h 89: 
+C:\BORLANDC\INCLUDE\_defs.h 90: 
+C:\BORLANDC\INCLUDE\_defs.h 91: 
+C:\BORLANDC\INCLUDE\_defs.h 92: 
+C:\BORLANDC\INCLUDE\_defs.h 93: 
+C:\BORLANDC\INCLUDE\_defs.h 94: 
+C:\BORLANDC\INCLUDE\_defs.h 95: 
+C:\BORLANDC\INCLUDE\_defs.h 96: 
+C:\BORLANDC\INCLUDE\_defs.h 97: 
+C:\BORLANDC\INCLUDE\_defs.h 98: 
+C:\BORLANDC\INCLUDE\_defs.h 99: 
+C:\BORLANDC\INCLUDE\_defs.h 100: 
+C:\BORLANDC\INCLUDE\_defs.h 101: 
+C:\BORLANDC\INCLUDE\_defs.h 102: 
+C:\BORLANDC\INCLUDE\_defs.h 103: 
+C:\BORLANDC\INCLUDE\_defs.h 104: 
+C:\BORLANDC\INCLUDE\_defs.h 105: 
+C:\BORLANDC\INCLUDE\_defs.h 106: 
+C:\BORLANDC\INCLUDE\string.h 14: 
+C:\BORLANDC\INCLUDE\string.h 15: 
+C:\BORLANDC\INCLUDE\string.h 16: 
+C:\BORLANDC\INCLUDE\string.h 17: 
+C:\BORLANDC\INCLUDE\string.h 18: 
+C:\BORLANDC\INCLUDE\string.h 19: 
+C:\BORLANDC\INCLUDE\string.h 20: 
+C:\BORLANDC\INCLUDE\string.h 21: 
+C:\BORLANDC\INCLUDE\string.h 22: typedef unsigned size_t;
+C:\BORLANDC\INCLUDE\string.h 23: 
+C:\BORLANDC\INCLUDE\string.h 24: 
+C:\BORLANDC\INCLUDE\string.h 25: 
+C:\BORLANDC\INCLUDE\string.h 26: extern "C" {
+C:\BORLANDC\INCLUDE\string.h 27: 
+C:\BORLANDC\INCLUDE\string.h 28: void  * __cdecl  memchr  (const void  *__s, int __c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 29: int         __cdecl  memcmp(const void  *__s1,
+C:\BORLANDC\INCLUDE\string.h 30: const void  *__s2, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 31: void  * __cdecl  memcpy(void  *__dest, const void  *__src,
+C:\BORLANDC\INCLUDE\string.h 32: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 33: void  * __cdecl  memmove(void  *__dest, const void  *__src,
+C:\BORLANDC\INCLUDE\string.h 34: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 35: void  * __cdecl  memset(void  *__s, int __c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 36: char  * __cdecl  strcat(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 37: char  * __cdecl  strchr(const char  *__s, int __c);
+C:\BORLANDC\INCLUDE\string.h 38: int         __cdecl  strcmp(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 39: int         __cdecl strcoll(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 40: char  * __cdecl  strcpy(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 41: size_t      __cdecl  strcspn(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 42: char  * __cdecl  strerror(int __errnum);
+C:\BORLANDC\INCLUDE\string.h 43: size_t      __cdecl  strlen(const char  *__s);
+C:\BORLANDC\INCLUDE\string.h 44: char  * __cdecl  strncat(char  *__dest, const char  *__src,
+C:\BORLANDC\INCLUDE\string.h 45: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 46: int         __cdecl  strncmp(const char  *__s1, const char  *__s2,
+C:\BORLANDC\INCLUDE\string.h 47: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 48: char  * __cdecl  strncpy(char  *__dest, const char  *__src,
+C:\BORLANDC\INCLUDE\string.h 49: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 50: char  * __cdecl  strpbrk(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 51: char  * __cdecl  strrchr(const char  *__s, int __c);
+C:\BORLANDC\INCLUDE\string.h 52: size_t      __cdecl  strspn(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 53: char  * __cdecl  strstr(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 54: char  * __cdecl  strtok(char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 55: size_t      __cdecl strxfrm(char  *__s1, const char  *__s2,
+C:\BORLANDC\INCLUDE\string.h 56: size_t __n );
+C:\BORLANDC\INCLUDE\string.h 57: char  * __cdecl  _strerror(const char  *__s);
+C:\BORLANDC\INCLUDE\string.h 58: 
+C:\BORLANDC\INCLUDE\string.h 59: 
+C:\BORLANDC\INCLUDE\string.h 60: 
+C:\BORLANDC\INCLUDE\string.h 61: 
+C:\BORLANDC\INCLUDE\string.h 62: 
+C:\BORLANDC\INCLUDE\string.h 63: 
+C:\BORLANDC\INCLUDE\string.h 64: 
+C:\BORLANDC\INCLUDE\string.h 65: void  * __cdecl  memccpy(void  *__dest, const void  *__src,
+C:\BORLANDC\INCLUDE\string.h 66: int __c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 67: int         __cdecl  memicmp(const void  *__s1, const void  *__s2,
+C:\BORLANDC\INCLUDE\string.h 68: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 69: void        __cdecl  movedata(unsigned __srcseg,unsigned __srcoff,
+C:\BORLANDC\INCLUDE\string.h 70: unsigned __dstseg,unsigned __dstoff, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 71: char  * __cdecl stpcpy(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 72: char  * __cdecl _stpcpy(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 73: char  * __cdecl  strdup(const char  *__s);
+C:\BORLANDC\INCLUDE\string.h 74: int         __cdecl  stricmp(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 75: char  * __cdecl  strlwr(char  *__s);
+C:\BORLANDC\INCLUDE\string.h 76: int         __cdecl  strnicmp(const char  *__s1, const char  *__s2,
+C:\BORLANDC\INCLUDE\string.h 77: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 78: char  * __cdecl  strnset(char  *__s, int __ch, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 79: char  * __cdecl  strrev(char  *__s);
+C:\BORLANDC\INCLUDE\string.h 80: char  * __cdecl  strset(char  *__s, int __ch);
+C:\BORLANDC\INCLUDE\string.h 81: char  * __cdecl  strupr(char  *__s);
+C:\BORLANDC\INCLUDE\string.h 82: 
+C:\BORLANDC\INCLUDE\string.h 83: void    __far * __far __cdecl _fmemccpy(void __far *__dest, const void __far *__src,
+C:\BORLANDC\INCLUDE\string.h 84: int c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 85: void    __far * __far __cdecl _fmemchr(const void __far *__s, int c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 86: int           __far __cdecl _fmemcmp(const void __far *__s1, const void __far *__s2,
+C:\BORLANDC\INCLUDE\string.h 87: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 88: void    __far * __far __cdecl _fmemcpy(void __far *__dest, const void __far *__src,
+C:\BORLANDC\INCLUDE\string.h 89: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 90: int           __far __cdecl _fmemicmp(const void __far *__s1, const void __far *__s2,
+C:\BORLANDC\INCLUDE\string.h 91: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 92: void    __far * __far __cdecl _fmemmove(void __far *__dest, const void __far *__src,
+C:\BORLANDC\INCLUDE\string.h 93: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 94: void    __far * __far __cdecl _fmemset(void __far *__s, int c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 95: void          __far __cdecl _fmovmem(const void __far *__src, void __far *__dest,
+C:\BORLANDC\INCLUDE\string.h 96: unsigned __length);
+C:\BORLANDC\INCLUDE\string.h 97: void          __far __cdecl _fsetmem(void __far *__dest,unsigned __length,
+C:\BORLANDC\INCLUDE\string.h 98: char __value);
+C:\BORLANDC\INCLUDE\string.h 99: 
+C:\BORLANDC\INCLUDE\string.h 100: char    __far * __far __cdecl _fstrcat(char __far *__dest, const char __far *__src);
+C:\BORLANDC\INCLUDE\string.h 101: char    __far * __far __cdecl _fstrchr(const char __far *__s, int c);
+C:\BORLANDC\INCLUDE\string.h 102: int           __far __cdecl _fstrcmp(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 103: char    __far * __far __cdecl _fstrcpy(char __far *__dest, const char __far *__src);
+C:\BORLANDC\INCLUDE\string.h 104: size_t        __far __cdecl _fstrcspn(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 105: char    __far * __far __cdecl _fstrdup(const char __far *__s);
+C:\BORLANDC\INCLUDE\string.h 106: int           __far __cdecl _fstricmp(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 107: size_t        __far __cdecl _fstrlen(const char __far *__s);
+C:\BORLANDC\INCLUDE\string.h 108: char    __far * __far __cdecl _fstrlwr(char __far *__s);
+C:\BORLANDC\INCLUDE\string.h 109: char    __far * __far __cdecl _fstrncat(char __far *__dest, const char __far *__src,
+C:\BORLANDC\INCLUDE\string.h 110: size_t maxlen);
+C:\BORLANDC\INCLUDE\string.h 111: int           __far __cdecl _fstrncmp(const char __far *__s1, const char __far *__s2,
+C:\BORLANDC\INCLUDE\string.h 112: size_t maxlen);
+C:\BORLANDC\INCLUDE\string.h 113: char    __far * __far __cdecl _fstrncpy(char __far *__dest, const char __far *__src,
+C:\BORLANDC\INCLUDE\string.h 114: size_t maxlen);
+C:\BORLANDC\INCLUDE\string.h 115: int           __far __cdecl _fstrnicmp(const char __far *__s1, const char __far *__s2,
+C:\BORLANDC\INCLUDE\string.h 116: size_t maxlen);
+C:\BORLANDC\INCLUDE\string.h 117: char    __far * __far __cdecl _fstrnset(char __far *__s, int ch, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 118: char    __far * __far __cdecl _fstrpbrk(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 119: char    __far * __far __cdecl _fstrrchr(const char __far *__s, int c);
+C:\BORLANDC\INCLUDE\string.h 120: char    __far * __far __cdecl _fstrrev(char __far *__s);
+C:\BORLANDC\INCLUDE\string.h 121: char    __far * __far __cdecl _fstrset(char __far *__s, int ch);
+C:\BORLANDC\INCLUDE\string.h 122: size_t        __far __cdecl _fstrspn(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 123: char    __far * __far __cdecl _fstrstr(const char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 124: char    __far * __far __cdecl _fstrtok(char __far *__s1, const char __far *__s2);
+C:\BORLANDC\INCLUDE\string.h 125: char    __far * __far __cdecl _fstrupr(char __far *__s);
+C:\BORLANDC\INCLUDE\string.h 126: 
+C:\BORLANDC\INCLUDE\string.h 127: 
+C:\BORLANDC\INCLUDE\string.h 128: 
+C:\BORLANDC\INCLUDE\string.h 129: 
+C:\BORLANDC\INCLUDE\string.h 130: 
+C:\BORLANDC\INCLUDE\string.h 131: 
+C:\BORLANDC\INCLUDE\string.h 132: 
+C:\BORLANDC\INCLUDE\string.h 133: 
+C:\BORLANDC\INCLUDE\string.h 134: 
+C:\BORLANDC\INCLUDE\string.h 135: 
+C:\BORLANDC\INCLUDE\string.h 136: 
+C:\BORLANDC\INCLUDE\string.h 137: 
+C:\BORLANDC\INCLUDE\string.h 138: 
+C:\BORLANDC\INCLUDE\string.h 139: 
+C:\BORLANDC\INCLUDE\string.h 140: void  * __cdecl  __memchr__  (const void  *__s, int __c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 141: int         __cdecl  __memcmp__(const void  *__s1,
+C:\BORLANDC\INCLUDE\string.h 142: const void  *__s2, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 143: void  * __cdecl  __memcpy__(void  *__dest, const void  *__src,
+C:\BORLANDC\INCLUDE\string.h 144: size_t __n);
+C:\BORLANDC\INCLUDE\string.h 145: void  * __cdecl  __memset__(void  *__s, int __c, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 146: 
+C:\BORLANDC\INCLUDE\string.h 147: char  * __cdecl __stpcpy__(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 148: char  * __cdecl  __strcat__(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 149: char  * __cdecl  __strchr__(const char  *__s, int __c);
+C:\BORLANDC\INCLUDE\string.h 150: int         __cdecl  __strcmp__(const char  *__s1, const char  *__s2);
+C:\BORLANDC\INCLUDE\string.h 151: char  * __cdecl  __strcpy__(char  *__dest, const char  *__src);
+C:\BORLANDC\INCLUDE\string.h 152: size_t      __cdecl  __strlen__(const char  *__s);
+C:\BORLANDC\INCLUDE\string.h 153: char  * __cdecl  __strncat__(char  *__dest, const char  *__src,
+C:\BORLANDC\INCLUDE\string.h 154: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 155: int         __cdecl  __strncmp__(const char  *__s1, const char  *__s2,
+C:\BORLANDC\INCLUDE\string.h 156: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 157: char  * __cdecl  __strncpy__(char  *__dest, const char  *__src,
+C:\BORLANDC\INCLUDE\string.h 158: size_t __maxlen);
+C:\BORLANDC\INCLUDE\string.h 159: char  * __cdecl  __strnset__(char  *__s, int __ch, size_t __n);
+C:\BORLANDC\INCLUDE\string.h 160: char  * __cdecl  __strrchr__(const char  *__s, int __c);
+C:\BORLANDC\INCLUDE\string.h 161: char  * __cdecl  __strset__(char  *__s, int __ch);
+C:\BORLANDC\INCLUDE\string.h 162: 
+C:\BORLANDC\INCLUDE\string.h 163: 
+C:\BORLANDC\INCLUDE\string.h 164: }
+C:\BORLANDC\INCLUDE\string.h 165: 
+C:\BORLANDC\INCLUDE\string.h 166: 
+C:\BORLANDC\INCLUDE\string.h 167: 
+C:\BORLANDC\INCLUDE\string.h 168: 
+C:\BORLANDC\INCLUDE\string.h 169: 
+install.cpp 20: 
+..\include\text.h 1: 
+..\include\text.h 2: 
+..\include\text.h 3: 
+..\include\text.h 4: void LockScreen();
+..\include\text.h 5: void UnlockScreen();
+..\include\text.h 6: void ClearScreen();
+..\include\text.h 7: 
+..\include\text.h 8: 
+..\include\text.h 9: 
+install.cpp 21: 
+..\include\key.h 1: 
+..\include\key.h 2: 
+..\include\key.h 3: 
+..\include\key.h 4: 
+..\include\key.h 5: 
+..\include\key.h 6: 
+..\include\key.h 7: 
+..\include\key.h 8: 
+..\include\key.h 9: 
+..\include\key.h 10: 
+..\include\key.h 11: 
+..\include\key.h 12: 
+..\include\key.h 13: 
+..\include\key.h 14: 
+..\include\key.h 15: 
+..\include\key.h 16: 
+..\include\key.h 17: 
+..\include\key.h 18: 
+..\include\key.h 19: 
+..\include\key.h 20: 
+..\include\key.h 21: 
+..\include\key.h 22: 
+..\include\key.h 23: 
+..\include\key.h 24: 
+..\include\key.h 25: 
+..\include\key.h 26: 
+..\include\key.h 27: 
+..\include\key.h 28: 
+..\include\key.h 29: 
+..\include\key.h 30: 
+..\include\key.h 31: 
+..\include\key.h 32: 
+..\include\key.h 33: 
+..\include\key.h 34: 
+..\include\key.h 35: 
+..\include\key.h 36: 
+..\include\key.h 37: 
+..\include\key.h 38: 
+..\include\key.h 39: 
+..\include\key.h 40: 
+..\include\key.h 41: 
+..\include\key.h 42: 
+..\include\key.h 43: 
+..\include\key.h 44: class CKeyboard {
+..\include\key.h 45: public:
+..\include\key.h 46: CKeyboard();
+..\include\key.h 47: ~CKeyboard();
+..\include\key.h 48: int GetCh();
+..\include\key.h 49: int KbHit();
+..\include\key.h 50: void Flush();
+..\include\key.h 51: void StoreCh(int Key);
+..\include\key.h 52: };
+..\include\key.h 53: 
+..\include\key.h 54: 
+..\include\key.h 55: 
+..\include\key.h 56: 
+install.cpp 22: 
+C:\BORLANDC\INCLUDE\process.h 1: 
+C:\BORLANDC\INCLUDE\process.h 2: 
+C:\BORLANDC\INCLUDE\process.h 3: 
+C:\BORLANDC\INCLUDE\process.h 4: 
+C:\BORLANDC\INCLUDE\process.h 5: 
+C:\BORLANDC\INCLUDE\process.h 6: 
+C:\BORLANDC\INCLUDE\process.h 7: 
+C:\BORLANDC\INCLUDE\process.h 8: 
+C:\BORLANDC\INCLUDE\process.h 9: 
+C:\BORLANDC\INCLUDE\process.h 10: 
+C:\BORLANDC\INCLUDE\process.h 11: 
+C:\BORLANDC\INCLUDE\process.h 12: 
+C:\BORLANDC\INCLUDE\process.h 13: 
+C:\BORLANDC\INCLUDE\process.h 14: 
+C:\BORLANDC\INCLUDE\process.h 15: 
+C:\BORLANDC\INCLUDE\process.h 16: 
+C:\BORLANDC\INCLUDE\process.h 17: 
+C:\BORLANDC\INCLUDE\process.h 18: 
+C:\BORLANDC\INCLUDE\process.h 19: 
+C:\BORLANDC\INCLUDE\process.h 20: 
+C:\BORLANDC\INCLUDE\process.h 21: 
+C:\BORLANDC\INCLUDE\process.h 22: 
+C:\BORLANDC\INCLUDE\process.h 23: 
+C:\BORLANDC\INCLUDE\process.h 24: 
+C:\BORLANDC\INCLUDE\process.h 25: 
+C:\BORLANDC\INCLUDE\process.h 26: 
+C:\BORLANDC\INCLUDE\process.h 27: 
+C:\BORLANDC\INCLUDE\process.h 28: 
+C:\BORLANDC\INCLUDE\process.h 29: 
+C:\BORLANDC\INCLUDE\process.h 30: 
+C:\BORLANDC\INCLUDE\process.h 31: 
+C:\BORLANDC\INCLUDE\process.h 32: extern  unsigned __cdecl _psp;    
+C:\BORLANDC\INCLUDE\process.h 33: 
+C:\BORLANDC\INCLUDE\process.h 34: 
+C:\BORLANDC\INCLUDE\process.h 35: 
+C:\BORLANDC\INCLUDE\process.h 36: 
+C:\BORLANDC\INCLUDE\process.h 37: extern "C" {
+C:\BORLANDC\INCLUDE\process.h 38: 
+C:\BORLANDC\INCLUDE\process.h 39: void __cdecl abort(void);
+C:\BORLANDC\INCLUDE\process.h 40: void __cdecl _cexit(void);
+C:\BORLANDC\INCLUDE\process.h 41: void __cdecl _c_exit(void);
+C:\BORLANDC\INCLUDE\process.h 42: int  __cdecl execl(char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 43: int  __cdecl execle(char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 44: int  __cdecl execlp(char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 45: int  __cdecl execlpe(char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 46: int  __cdecl execv(char  *__path, char  *__argv[]);
+C:\BORLANDC\INCLUDE\process.h 47: int  __cdecl execve(char  *__path, char  *__argv[], char  * *__env);
+C:\BORLANDC\INCLUDE\process.h 48: int  __cdecl execvp(char  *__path, char  *__argv[]);
+C:\BORLANDC\INCLUDE\process.h 49: int  __cdecl execvpe(char  *__path, char  *__argv[], char  * *__env);
+C:\BORLANDC\INCLUDE\process.h 50: void __cdecl exit(int __status);
+C:\BORLANDC\INCLUDE\process.h 51: void __cdecl _exit(int __status);
+C:\BORLANDC\INCLUDE\process.h 52: int  __cdecl spawnl(int __mode, char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 53: int  __cdecl spawnle(int __mode, char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 54: int  __cdecl spawnlp(int __mode, char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 55: int  __cdecl spawnlpe(int __mode, char  *__path, char  *__arg0, ...);
+C:\BORLANDC\INCLUDE\process.h 56: int  __cdecl spawnv(int __mode, char  *__path, char  *__argv[]);
+C:\BORLANDC\INCLUDE\process.h 57: int  __cdecl spawnve(int __mode, char  *__path, char  *__argv[], char  * *__env);
+C:\BORLANDC\INCLUDE\process.h 58: int  __cdecl spawnvp(int __mode, char  *__path, char  *__argv[]);
+C:\BORLANDC\INCLUDE\process.h 59: int  __cdecl spawnvpe(int __mode, char  *__path, char  *__argv[], char  * *__env);
+C:\BORLANDC\INCLUDE\process.h 60: int  __cdecl  system(const char  *__command);
+C:\BORLANDC\INCLUDE\process.h 61: 
+C:\BORLANDC\INCLUDE\process.h 62: }
+C:\BORLANDC\INCLUDE\process.h 63: 
+C:\BORLANDC\INCLUDE\process.h 64: 
+C:\BORLANDC\INCLUDE\process.h 65: 
+C:\BORLANDC\INCLUDE\process.h 66: 
+C:\BORLANDC\INCLUDE\process.h 67: 
+C:\BORLANDC\INCLUDE\process.h 68: 
+install.cpp 23: 
+C:\BORLANDC\INCLUDE\stdlib.h 1: 
+C:\BORLANDC\INCLUDE\stdlib.h 2: 
+C:\BORLANDC\INCLUDE\stdlib.h 3: 
+C:\BORLANDC\INCLUDE\stdlib.h 4: 
+C:\BORLANDC\INCLUDE\stdlib.h 5: 
+C:\BORLANDC\INCLUDE\stdlib.h 6: 
+C:\BORLANDC\INCLUDE\stdlib.h 7: 
+C:\BORLANDC\INCLUDE\stdlib.h 8: 
+C:\BORLANDC\INCLUDE\stdlib.h 9: 
+C:\BORLANDC\INCLUDE\stdlib.h 10: 
+C:\BORLANDC\INCLUDE\stdlib.h 11: 
+C:\BORLANDC\INCLUDE\stdlib.h 12: 
+C:\BORLANDC\INCLUDE\stdlib.h 13: 
+C:\BORLANDC\INCLUDE\stdlib.h 14: 
+C:\BORLANDC\INCLUDE\stdlib.h 15: 
+C:\BORLANDC\INCLUDE\stdlib.h 16: 
+C:\BORLANDC\INCLUDE\stdlib.h 17: 
+C:\BORLANDC\INCLUDE\stdlib.h 18: 
+C:\BORLANDC\INCLUDE\stdlib.h 19: 
+C:\BORLANDC\INCLUDE\stdlib.h 20: 
+C:\BORLANDC\INCLUDE\stdlib.h 21: 
+C:\BORLANDC\INCLUDE\stdlib.h 22: 
+C:\BORLANDC\INCLUDE\stdlib.h 23: 
+C:\BORLANDC\INCLUDE\stdlib.h 24: 
+C:\BORLANDC\INCLUDE\stdlib.h 25: 
+C:\BORLANDC\INCLUDE\stdlib.h 26: 
+C:\BORLANDC\INCLUDE\stdlib.h 27: typedef struct {
+C:\BORLANDC\INCLUDE\stdlib.h 28: int     quot;
+C:\BORLANDC\INCLUDE\stdlib.h 29: int     rem;
+C:\BORLANDC\INCLUDE\stdlib.h 30: } div_t;
+C:\BORLANDC\INCLUDE\stdlib.h 31: 
+C:\BORLANDC\INCLUDE\stdlib.h 32: 
+C:\BORLANDC\INCLUDE\stdlib.h 33: 
+C:\BORLANDC\INCLUDE\stdlib.h 34: 
+C:\BORLANDC\INCLUDE\stdlib.h 35: typedef struct {
+C:\BORLANDC\INCLUDE\stdlib.h 36: long    quot;
+C:\BORLANDC\INCLUDE\stdlib.h 37: long    rem;
+C:\BORLANDC\INCLUDE\stdlib.h 38: } ldiv_t;
+C:\BORLANDC\INCLUDE\stdlib.h 39: 
+C:\BORLANDC\INCLUDE\stdlib.h 40: 
+C:\BORLANDC\INCLUDE\stdlib.h 41: 
+C:\BORLANDC\INCLUDE\stdlib.h 42: 
+C:\BORLANDC\INCLUDE\stdlib.h 43: typedef char wchar_t;
+C:\BORLANDC\INCLUDE\stdlib.h 44: 
+C:\BORLANDC\INCLUDE\stdlib.h 45: 
+C:\BORLANDC\INCLUDE\stdlib.h 46: 
+C:\BORLANDC\INCLUDE\stdlib.h 47: 
+C:\BORLANDC\INCLUDE\stdlib.h 48: typedef void __cdecl (* atexit_t)(void);
+C:\BORLANDC\INCLUDE\stdlib.h 49: 
+C:\BORLANDC\INCLUDE\stdlib.h 50: 
+C:\BORLANDC\INCLUDE\stdlib.h 51: 
+C:\BORLANDC\INCLUDE\stdlib.h 52: 
+C:\BORLANDC\INCLUDE\stdlib.h 53: 
+C:\BORLANDC\INCLUDE\stdlib.h 54: 
+C:\BORLANDC\INCLUDE\stdlib.h 55: 
+C:\BORLANDC\INCLUDE\stdlib.h 56: 
+C:\BORLANDC\INCLUDE\stdlib.h 57: 
+C:\BORLANDC\INCLUDE\stdlib.h 58: 
+C:\BORLANDC\INCLUDE\stdlib.h 59: 
+C:\BORLANDC\INCLUDE\stdlib.h 60: extern "C" {
+C:\BORLANDC\INCLUDE\stdlib.h 61: 
+C:\BORLANDC\INCLUDE\stdlib.h 62: 
+C:\BORLANDC\INCLUDE\stdlib.h 63: void        __cdecl abort(void);
+C:\BORLANDC\INCLUDE\stdlib.h 64: int         __cdecl __abs__(int);
+C:\BORLANDC\INCLUDE\stdlib.h 65: 
+C:\BORLANDC\INCLUDE\stdlib.h 66: inline int __cdecl  abs(int __x) { return __abs__(__x); }
+C:\BORLANDC\INCLUDE\stdlib.h 67: 
+C:\BORLANDC\INCLUDE\stdlib.h 68: 
+C:\BORLANDC\INCLUDE\stdlib.h 69: 
+C:\BORLANDC\INCLUDE\stdlib.h 70: 
+C:\BORLANDC\INCLUDE\stdlib.h 71: int         __cdecl atexit(void (__cdecl *__func)(void));
+C:\BORLANDC\INCLUDE\stdlib.h 72: double      __cdecl atof(const char  *__s);
+C:\BORLANDC\INCLUDE\stdlib.h 73: int         __cdecl atoi(const char  *__s);
+C:\BORLANDC\INCLUDE\stdlib.h 74: long        __cdecl atol(const char  *__s);
+C:\BORLANDC\INCLUDE\stdlib.h 75: void  * __cdecl bsearch(const void  *__key, const void  *__base,
+C:\BORLANDC\INCLUDE\stdlib.h 76: size_t __nelem, size_t __width,
+C:\BORLANDC\INCLUDE\stdlib.h 77: int (__cdecl *fcmp)(const void  *,
+C:\BORLANDC\INCLUDE\stdlib.h 78: const void  *));
+C:\BORLANDC\INCLUDE\stdlib.h 79: void  * __cdecl calloc(size_t __nitems, size_t __size);
+C:\BORLANDC\INCLUDE\stdlib.h 80: div_t       __cdecl div(int __numer, int __denom);
+C:\BORLANDC\INCLUDE\stdlib.h 81: void        __cdecl exit(int __status);
+C:\BORLANDC\INCLUDE\stdlib.h 82: void        __cdecl free(void  *__block);
+C:\BORLANDC\INCLUDE\stdlib.h 83: char  * __cdecl getenv(const char  *__name);
+C:\BORLANDC\INCLUDE\stdlib.h 84: long        __cdecl labs(long __x);
+C:\BORLANDC\INCLUDE\stdlib.h 85: ldiv_t      __cdecl ldiv(long __numer, long __denom);
+C:\BORLANDC\INCLUDE\stdlib.h 86: void  * __cdecl malloc(size_t __size);
+C:\BORLANDC\INCLUDE\stdlib.h 87: int         __cdecl mblen(const char  *__s, size_t __n);
+C:\BORLANDC\INCLUDE\stdlib.h 88: size_t      __cdecl mbstowcs(wchar_t  *__pwcs, const char  *__s,
+C:\BORLANDC\INCLUDE\stdlib.h 89: size_t __n);
+C:\BORLANDC\INCLUDE\stdlib.h 90: int     __cdecl  mbtowc(wchar_t  *__pwc, const char  *__s, size_t __n);
+C:\BORLANDC\INCLUDE\stdlib.h 91: void    __cdecl  qsort(void  *__base, size_t __nelem, size_t __width,
+C:\BORLANDC\INCLUDE\stdlib.h 92: int __cdecl (* __fcmp)(const void  *, const void  *));
+C:\BORLANDC\INCLUDE\stdlib.h 93: int     __cdecl rand(void);
+C:\BORLANDC\INCLUDE\stdlib.h 94: void  *__cdecl realloc(void  *__block, size_t __size);
+C:\BORLANDC\INCLUDE\stdlib.h 95: void    __cdecl srand(unsigned __seed);
+C:\BORLANDC\INCLUDE\stdlib.h 96: double  __cdecl strtod(const char  *__s, char  * *__endptr);
+C:\BORLANDC\INCLUDE\stdlib.h 97: long    __cdecl  strtol(const char  *__s, char  * *__endptr,
+C:\BORLANDC\INCLUDE\stdlib.h 98: int __radix);
+C:\BORLANDC\INCLUDE\stdlib.h 99: long double __cdecl _strtold(const char  *__s, char  * *__endptr);
+C:\BORLANDC\INCLUDE\stdlib.h 100: unsigned long __cdecl  strtoul(const char  *__s, char  * *__endptr,
+C:\BORLANDC\INCLUDE\stdlib.h 101: int __radix);
+C:\BORLANDC\INCLUDE\stdlib.h 102: int     __cdecl  system(const char  *__command);
+C:\BORLANDC\INCLUDE\stdlib.h 103: size_t  __cdecl  wcstombs(char  *__s, const wchar_t  *__pwcs,
+C:\BORLANDC\INCLUDE\stdlib.h 104: size_t __n);
+C:\BORLANDC\INCLUDE\stdlib.h 105: int     __cdecl  wctomb(char  *__s, wchar_t __wc);
+C:\BORLANDC\INCLUDE\stdlib.h 106: 
+C:\BORLANDC\INCLUDE\stdlib.h 107: 
+C:\BORLANDC\INCLUDE\stdlib.h 108: }
+C:\BORLANDC\INCLUDE\stdlib.h 109: 
+C:\BORLANDC\INCLUDE\stdlib.h 110: 
+C:\BORLANDC\INCLUDE\stdlib.h 111: 
+C:\BORLANDC\INCLUDE\stdlib.h 112: 
+C:\BORLANDC\INCLUDE\stdlib.h 113: 
+C:\BORLANDC\INCLUDE\stdlib.h 114: 
+C:\BORLANDC\INCLUDE\stdlib.h 115: 
+C:\BORLANDC\INCLUDE\stdlib.h 116: 
+C:\BORLANDC\INCLUDE\stdlib.h 117: 
+C:\BORLANDC\INCLUDE\stdlib.h 118: 
+C:\BORLANDC\INCLUDE\stdlib.h 119: 
+C:\BORLANDC\INCLUDE\stdlib.h 120: 
+C:\BORLANDC\INCLUDE\stdlib.h 121: 
+C:\BORLANDC\INCLUDE\stdlib.h 122: 
+C:\BORLANDC\INCLUDE\stdlib.h 123: 
+C:\BORLANDC\INCLUDE\stdlib.h 124: 
+C:\BORLANDC\INCLUDE\stdlib.h 125: 
+C:\BORLANDC\INCLUDE\stdlib.h 126: 
+C:\BORLANDC\INCLUDE\stdlib.h 127: 
+C:\BORLANDC\INCLUDE\stdlib.h 128: 
+C:\BORLANDC\INCLUDE\stdlib.h 129: 
+C:\BORLANDC\INCLUDE\stdlib.h 130: 
+C:\BORLANDC\INCLUDE\stdlib.h 131: 
+C:\BORLANDC\INCLUDE\stdlib.h 132: 
+C:\BORLANDC\INCLUDE\stdlib.h 133: extern  int   __cdecl _doserrno;
+C:\BORLANDC\INCLUDE\stdlib.h 134: extern  int   __cdecl errno;
+C:\BORLANDC\INCLUDE\stdlib.h 135: 
+C:\BORLANDC\INCLUDE\stdlib.h 136: 
+C:\BORLANDC\INCLUDE\stdlib.h 137: 
+C:\BORLANDC\INCLUDE\stdlib.h 138: 
+C:\BORLANDC\INCLUDE\stdlib.h 139: 
+C:\BORLANDC\INCLUDE\stdlib.h 140: 
+C:\BORLANDC\INCLUDE\stdlib.h 141: 
+C:\BORLANDC\INCLUDE\stdlib.h 142: 
+C:\BORLANDC\INCLUDE\stdlib.h 143: 
+C:\BORLANDC\INCLUDE\stdlib.h 144: 
+C:\BORLANDC\INCLUDE\stdlib.h 145: 
+C:\BORLANDC\INCLUDE\stdlib.h 146: 
+C:\BORLANDC\INCLUDE\stdlib.h 147: extern  unsigned        __cdecl _psp;
+C:\BORLANDC\INCLUDE\stdlib.h 148: 
+C:\BORLANDC\INCLUDE\stdlib.h 149: extern  char          **__cdecl environ;
+C:\BORLANDC\INCLUDE\stdlib.h 150: extern  int             __cdecl _fmode;
+C:\BORLANDC\INCLUDE\stdlib.h 151: extern  unsigned char   __cdecl _osmajor;
+C:\BORLANDC\INCLUDE\stdlib.h 152: extern  unsigned char   __cdecl _osminor;
+C:\BORLANDC\INCLUDE\stdlib.h 153: extern  unsigned int    __cdecl _version;
+C:\BORLANDC\INCLUDE\stdlib.h 154: 
+C:\BORLANDC\INCLUDE\stdlib.h 155: 
+C:\BORLANDC\INCLUDE\stdlib.h 156: 
+C:\BORLANDC\INCLUDE\stdlib.h 157: 
+C:\BORLANDC\INCLUDE\stdlib.h 158: 
+C:\BORLANDC\INCLUDE\stdlib.h 159: 
+C:\BORLANDC\INCLUDE\stdlib.h 160: 
+C:\BORLANDC\INCLUDE\stdlib.h 161: 
+C:\BORLANDC\INCLUDE\stdlib.h 162: 
+C:\BORLANDC\INCLUDE\stdlib.h 163: 
+C:\BORLANDC\INCLUDE\stdlib.h 164: 
+C:\BORLANDC\INCLUDE\stdlib.h 165: 
+C:\BORLANDC\INCLUDE\stdlib.h 166: 
+C:\BORLANDC\INCLUDE\stdlib.h 167: 
+C:\BORLANDC\INCLUDE\stdlib.h 168: 
+C:\BORLANDC\INCLUDE\stdlib.h 169: 
+C:\BORLANDC\INCLUDE\stdlib.h 170: 
+C:\BORLANDC\INCLUDE\stdlib.h 171: extern  char            *__cdecl sys_errlist[];
+C:\BORLANDC\INCLUDE\stdlib.h 172: extern  int             __cdecl sys_nerr;
+C:\BORLANDC\INCLUDE\stdlib.h 173: 
+C:\BORLANDC\INCLUDE\stdlib.h 174: 
+C:\BORLANDC\INCLUDE\stdlib.h 175: 
+C:\BORLANDC\INCLUDE\stdlib.h 176: 
+C:\BORLANDC\INCLUDE\stdlib.h 177: 
+C:\BORLANDC\INCLUDE\stdlib.h 178: 
+C:\BORLANDC\INCLUDE\stdlib.h 179: 
+C:\BORLANDC\INCLUDE\stdlib.h 180: 
+C:\BORLANDC\INCLUDE\stdlib.h 181: 
+C:\BORLANDC\INCLUDE\stdlib.h 182: 
+C:\BORLANDC\INCLUDE\stdlib.h 183: 
+C:\BORLANDC\INCLUDE\stdlib.h 184: 
+C:\BORLANDC\INCLUDE\stdlib.h 185: inline int __cdecl random(int __num)
+C:\BORLANDC\INCLUDE\stdlib.h 186: { return(int)(((long)rand()*__num)/(0x7FFFU+1)); }
+C:\BORLANDC\INCLUDE\stdlib.h 187: 
+C:\BORLANDC\INCLUDE\stdlib.h 188: extern "C" long __cdecl  time(long  *);
+C:\BORLANDC\INCLUDE\stdlib.h 189: inline void __cdecl randomize(void) { srand((unsigned) time(0L)); }
+C:\BORLANDC\INCLUDE\stdlib.h 190: inline int  __cdecl atoi(const char  *__s) { return (int) atol(__s); }
+C:\BORLANDC\INCLUDE\stdlib.h 191: 
+C:\BORLANDC\INCLUDE\stdlib.h 192: 
+C:\BORLANDC\INCLUDE\stdlib.h 193: 
+C:\BORLANDC\INCLUDE\stdlib.h 194: 
+C:\BORLANDC\INCLUDE\stdlib.h 195: 
+C:\BORLANDC\INCLUDE\stdlib.h 196: 
+C:\BORLANDC\INCLUDE\stdlib.h 197: 
+C:\BORLANDC\INCLUDE\stdlib.h 198: 
+C:\BORLANDC\INCLUDE\stdlib.h 199: 
+C:\BORLANDC\INCLUDE\stdlib.h 200: extern "C" {
+C:\BORLANDC\INCLUDE\stdlib.h 201: 
+C:\BORLANDC\INCLUDE\stdlib.h 202: 
+C:\BORLANDC\INCLUDE\stdlib.h 203: long double __cdecl _atold(const char  *__s);
+C:\BORLANDC\INCLUDE\stdlib.h 204: char    *__cdecl ecvt(double __value, int __ndig, int  *__dec,
+C:\BORLANDC\INCLUDE\stdlib.h 205: int  *__sign);
+C:\BORLANDC\INCLUDE\stdlib.h 206: void    __cdecl _exit(int __status);
+C:\BORLANDC\INCLUDE\stdlib.h 207: char    *__cdecl fcvt(double __value, int __ndig, int  *__dec,
+C:\BORLANDC\INCLUDE\stdlib.h 208: int  *__sign);
+C:\BORLANDC\INCLUDE\stdlib.h 209: char  * __cdecl  _fullpath( char  *__buf,
+C:\BORLANDC\INCLUDE\stdlib.h 210: const char  *__path,
+C:\BORLANDC\INCLUDE\stdlib.h 211: size_t __maxlen );
+C:\BORLANDC\INCLUDE\stdlib.h 212: char    *__cdecl gcvt(double __value, int __ndec, char  *__buf);
+C:\BORLANDC\INCLUDE\stdlib.h 213: char    *__cdecl  itoa(int __value, char  *__string, int __radix);
+C:\BORLANDC\INCLUDE\stdlib.h 214: void    *__cdecl  lfind(const void  *__key, const void  *__base,
+C:\BORLANDC\INCLUDE\stdlib.h 215: size_t  *__num, size_t __width,
+C:\BORLANDC\INCLUDE\stdlib.h 216: int __cdecl(* __fcmp)(const void  *, const void  *));
+C:\BORLANDC\INCLUDE\stdlib.h 217: 
+C:\BORLANDC\INCLUDE\stdlib.h 218: unsigned long __cdecl _lrotl(unsigned long __val, int __count);
+C:\BORLANDC\INCLUDE\stdlib.h 219: unsigned long __cdecl _lrotr(unsigned long __val, int __count);
+C:\BORLANDC\INCLUDE\stdlib.h 220: 
+C:\BORLANDC\INCLUDE\stdlib.h 221: void    *__cdecl  lsearch(const void  *__key, void  *__base,
+C:\BORLANDC\INCLUDE\stdlib.h 222: size_t  *__num, size_t __width,
+C:\BORLANDC\INCLUDE\stdlib.h 223: int __cdecl(* __fcmp)(const void  *, const void  *));
+C:\BORLANDC\INCLUDE\stdlib.h 224: char  * __cdecl  ltoa(long __value, char  *__string, int __radix);
+C:\BORLANDC\INCLUDE\stdlib.h 225: void __cdecl  _makepath( char  *__path,
+C:\BORLANDC\INCLUDE\stdlib.h 226: const char  *__drive,
+C:\BORLANDC\INCLUDE\stdlib.h 227: const char  *__dir,
+C:\BORLANDC\INCLUDE\stdlib.h 228: const char  *__name,
+C:\BORLANDC\INCLUDE\stdlib.h 229: const char  *__ext );
+C:\BORLANDC\INCLUDE\stdlib.h 230: int     __cdecl  putenv(const char  *__name);
+C:\BORLANDC\INCLUDE\stdlib.h 231: 
+C:\BORLANDC\INCLUDE\stdlib.h 232: unsigned    __cdecl _rotl(unsigned __value, int __count);
+C:\BORLANDC\INCLUDE\stdlib.h 233: unsigned    __cdecl _rotr(unsigned __value, int __count);
+C:\BORLANDC\INCLUDE\stdlib.h 234: 
+C:\BORLANDC\INCLUDE\stdlib.h 235: unsigned    __cdecl __rotl__(unsigned __value, int __count);     
+C:\BORLANDC\INCLUDE\stdlib.h 236: unsigned    __cdecl __rotr__(unsigned __value, int __count);     
+C:\BORLANDC\INCLUDE\stdlib.h 237: 
+C:\BORLANDC\INCLUDE\stdlib.h 238: void        __cdecl _searchenv(const char  *__file,
+C:\BORLANDC\INCLUDE\stdlib.h 239: const char  *__varname,
+C:\BORLANDC\INCLUDE\stdlib.h 240: char  *__pathname);
+C:\BORLANDC\INCLUDE\stdlib.h 241: void        __cdecl _searchstr(const char  *__file,
+C:\BORLANDC\INCLUDE\stdlib.h 242: const char  *__ipath,
+C:\BORLANDC\INCLUDE\stdlib.h 243: char  *__pathname);
+C:\BORLANDC\INCLUDE\stdlib.h 244: void __cdecl  _splitpath( const char  *__path,
+C:\BORLANDC\INCLUDE\stdlib.h 245: char  *__drive,
+C:\BORLANDC\INCLUDE\stdlib.h 246: char  *__dir,
+C:\BORLANDC\INCLUDE\stdlib.h 247: char  *__name,
+C:\BORLANDC\INCLUDE\stdlib.h 248: char  *__ext );
+C:\BORLANDC\INCLUDE\stdlib.h 249: void    __cdecl  swab(char  *__from, char  *__to, int __nbytes);
+C:\BORLANDC\INCLUDE\stdlib.h 250: char  *__cdecl  ultoa(unsigned long __value, char  *__string,
+C:\BORLANDC\INCLUDE\stdlib.h 251: int __radix);
+C:\BORLANDC\INCLUDE\stdlib.h 252: 
+C:\BORLANDC\INCLUDE\stdlib.h 253: 
+C:\BORLANDC\INCLUDE\stdlib.h 254: 
+C:\BORLANDC\INCLUDE\stdlib.h 255: }
+C:\BORLANDC\INCLUDE\stdlib.h 256: 
+C:\BORLANDC\INCLUDE\stdlib.h 257: 
+C:\BORLANDC\INCLUDE\stdlib.h 258: 
+C:\BORLANDC\INCLUDE\stdlib.h 259: 
+C:\BORLANDC\INCLUDE\stdlib.h 260: 
+C:\BORLANDC\INCLUDE\stdlib.h 261: 
+C:\BORLANDC\INCLUDE\stdlib.h 262: 
+C:\BORLANDC\INCLUDE\stdlib.h 263: 
+C:\BORLANDC\INCLUDE\stdlib.h 264: 
+C:\BORLANDC\INCLUDE\stdlib.h 265: 
+C:\BORLANDC\INCLUDE\stdlib.h 266: 
+C:\BORLANDC\INCLUDE\stdlib.h 267: 
+install.cpp 24: 
+C:\BORLANDC\INCLUDE\stdio.h 1: 
+C:\BORLANDC\INCLUDE\stdio.h 2: 
+C:\BORLANDC\INCLUDE\stdio.h 3: 
+C:\BORLANDC\INCLUDE\stdio.h 4: 
+C:\BORLANDC\INCLUDE\stdio.h 5: 
+C:\BORLANDC\INCLUDE\stdio.h 6: 
+C:\BORLANDC\INCLUDE\stdio.h 7: 
+C:\BORLANDC\INCLUDE\stdio.h 8: 
+C:\BORLANDC\INCLUDE\stdio.h 9: 
+C:\BORLANDC\INCLUDE\stdio.h 10: 
+C:\BORLANDC\INCLUDE\stdio.h 11: 
+C:\BORLANDC\INCLUDE\stdio.h 12: 
+C:\BORLANDC\INCLUDE\stdio.h 13: 
+C:\BORLANDC\INCLUDE\stdio.h 14: 
+C:\BORLANDC\INCLUDE\stdio.h 15: 
+C:\BORLANDC\INCLUDE\stdio.h 16: 
+C:\BORLANDC\INCLUDE\stdio.h 17: 
+C:\BORLANDC\INCLUDE\_nfile.h 1: 
+C:\BORLANDC\INCLUDE\_nfile.h 2: 
+C:\BORLANDC\INCLUDE\_nfile.h 3: 
+C:\BORLANDC\INCLUDE\_nfile.h 4: 
+C:\BORLANDC\INCLUDE\_nfile.h 5: 
+C:\BORLANDC\INCLUDE\_nfile.h 6: 
+C:\BORLANDC\INCLUDE\_nfile.h 7: 
+C:\BORLANDC\INCLUDE\_nfile.h 8: 
+C:\BORLANDC\INCLUDE\_nfile.h 9: 
+C:\BORLANDC\INCLUDE\_nfile.h 10: 
+C:\BORLANDC\INCLUDE\_nfile.h 11: 
+C:\BORLANDC\INCLUDE\_nfile.h 12: 
+C:\BORLANDC\INCLUDE\_nfile.h 13: 
+C:\BORLANDC\INCLUDE\_nfile.h 14: 
+C:\BORLANDC\INCLUDE\_nfile.h 15: 
+C:\BORLANDC\INCLUDE\_nfile.h 16: 
+C:\BORLANDC\INCLUDE\stdio.h 18: 
+C:\BORLANDC\INCLUDE\stdio.h 19: 
+C:\BORLANDC\INCLUDE\stdio.h 20: 
+C:\BORLANDC\INCLUDE\stdio.h 21: 
+C:\BORLANDC\INCLUDE\stdio.h 22: 
+C:\BORLANDC\INCLUDE\stdio.h 23: 
+C:\BORLANDC\INCLUDE\stdio.h 24: 
+C:\BORLANDC\INCLUDE\stdio.h 25: 
+C:\BORLANDC\INCLUDE\stdio.h 26: 
+C:\BORLANDC\INCLUDE\stdio.h 27: 
+C:\BORLANDC\INCLUDE\stdio.h 28: 
+C:\BORLANDC\INCLUDE\stdio.h 29: 
+C:\BORLANDC\INCLUDE\stdio.h 30: 
+C:\BORLANDC\INCLUDE\stdio.h 31: typedef long    fpos_t;
+C:\BORLANDC\INCLUDE\stdio.h 32: 
+C:\BORLANDC\INCLUDE\stdio.h 33: 
+C:\BORLANDC\INCLUDE\stdio.h 34: 
+C:\BORLANDC\INCLUDE\stdio.h 35: 
+C:\BORLANDC\INCLUDE\stdio.h 36: typedef struct  {
+C:\BORLANDC\INCLUDE\stdio.h 37: int             level;          
+C:\BORLANDC\INCLUDE\stdio.h 38: unsigned        flags;          
+C:\BORLANDC\INCLUDE\stdio.h 39: char            fd;             
+C:\BORLANDC\INCLUDE\stdio.h 40: unsigned char   hold;           
+C:\BORLANDC\INCLUDE\stdio.h 41: int             bsize;          
+C:\BORLANDC\INCLUDE\stdio.h 42: unsigned char    *buffer;   
+C:\BORLANDC\INCLUDE\stdio.h 43: unsigned char    *curp;     
+C:\BORLANDC\INCLUDE\stdio.h 44: unsigned        istemp;         
+C:\BORLANDC\INCLUDE\stdio.h 45: short           token;          
+C:\BORLANDC\INCLUDE\stdio.h 46: }       FILE;                           
+C:\BORLANDC\INCLUDE\stdio.h 47: 
+C:\BORLANDC\INCLUDE\stdio.h 48: 
+C:\BORLANDC\INCLUDE\stdio.h 49: 
+C:\BORLANDC\INCLUDE\stdio.h 50: 
+C:\BORLANDC\INCLUDE\stdio.h 51: 
+C:\BORLANDC\INCLUDE\stdio.h 52: 
+C:\BORLANDC\INCLUDE\stdio.h 53: 
+C:\BORLANDC\INCLUDE\stdio.h 54: 
+C:\BORLANDC\INCLUDE\stdio.h 55: 
+C:\BORLANDC\INCLUDE\stdio.h 56: 
+C:\BORLANDC\INCLUDE\stdio.h 57: 
+C:\BORLANDC\INCLUDE\stdio.h 58: 
+C:\BORLANDC\INCLUDE\stdio.h 59: 
+C:\BORLANDC\INCLUDE\stdio.h 60: 
+C:\BORLANDC\INCLUDE\stdio.h 61: 
+C:\BORLANDC\INCLUDE\stdio.h 62: 
+C:\BORLANDC\INCLUDE\stdio.h 63: 
+C:\BORLANDC\INCLUDE\stdio.h 64: 
+C:\BORLANDC\INCLUDE\stdio.h 65: 
+C:\BORLANDC\INCLUDE\stdio.h 66: 
+C:\BORLANDC\INCLUDE\stdio.h 67: 
+C:\BORLANDC\INCLUDE\stdio.h 68: 
+C:\BORLANDC\INCLUDE\stdio.h 69: 
+C:\BORLANDC\INCLUDE\stdio.h 70: 
+C:\BORLANDC\INCLUDE\stdio.h 71: 
+C:\BORLANDC\INCLUDE\stdio.h 72: 
+C:\BORLANDC\INCLUDE\stdio.h 73: 
+C:\BORLANDC\INCLUDE\stdio.h 74: 
+C:\BORLANDC\INCLUDE\stdio.h 75: 
+C:\BORLANDC\INCLUDE\stdio.h 76: 
+C:\BORLANDC\INCLUDE\stdio.h 77: 
+C:\BORLANDC\INCLUDE\stdio.h 78: 
+C:\BORLANDC\INCLUDE\stdio.h 79: 
+C:\BORLANDC\INCLUDE\stdio.h 80: 
+C:\BORLANDC\INCLUDE\stdio.h 81: 
+C:\BORLANDC\INCLUDE\stdio.h 82: 
+C:\BORLANDC\INCLUDE\stdio.h 83: 
+C:\BORLANDC\INCLUDE\stdio.h 84: 
+C:\BORLANDC\INCLUDE\stdio.h 85: 
+C:\BORLANDC\INCLUDE\stdio.h 86: 
+C:\BORLANDC\INCLUDE\stdio.h 87: 
+C:\BORLANDC\INCLUDE\stdio.h 88: 
+C:\BORLANDC\INCLUDE\stdio.h 89: 
+C:\BORLANDC\INCLUDE\stdio.h 90: 
+C:\BORLANDC\INCLUDE\stdio.h 91: 
+C:\BORLANDC\INCLUDE\stdio.h 92: 
+C:\BORLANDC\INCLUDE\stdio.h 93: 
+C:\BORLANDC\INCLUDE\stdio.h 94: 
+C:\BORLANDC\INCLUDE\stdio.h 95: 
+C:\BORLANDC\INCLUDE\stdio.h 96: 
+C:\BORLANDC\INCLUDE\stdio.h 97: 
+C:\BORLANDC\INCLUDE\stdio.h 98: 
+C:\BORLANDC\INCLUDE\stdio.h 99: 
+C:\BORLANDC\INCLUDE\stdio.h 100: 
+C:\BORLANDC\INCLUDE\stdio.h 101: 
+C:\BORLANDC\INCLUDE\stdio.h 102: 
+C:\BORLANDC\INCLUDE\stdio.h 103: 
+C:\BORLANDC\INCLUDE\stdio.h 104: 
+C:\BORLANDC\INCLUDE\stdio.h 105: 
+C:\BORLANDC\INCLUDE\stdio.h 106: 
+C:\BORLANDC\INCLUDE\stdio.h 107: extern  FILE    __cdecl _streams[];
+C:\BORLANDC\INCLUDE\stdio.h 108: extern  unsigned    __cdecl _nfile;
+C:\BORLANDC\INCLUDE\stdio.h 109: 
+C:\BORLANDC\INCLUDE\stdio.h 110: 
+C:\BORLANDC\INCLUDE\stdio.h 111: 
+C:\BORLANDC\INCLUDE\stdio.h 112: 
+C:\BORLANDC\INCLUDE\stdio.h 113: 
+C:\BORLANDC\INCLUDE\stdio.h 114: 
+C:\BORLANDC\INCLUDE\stdio.h 115: 
+C:\BORLANDC\INCLUDE\stdio.h 116: 
+C:\BORLANDC\INCLUDE\stdio.h 117: 
+C:\BORLANDC\INCLUDE\stdio.h 118: 
+C:\BORLANDC\INCLUDE\stdio.h 119: 
+C:\BORLANDC\INCLUDE\stdio.h 120: 
+C:\BORLANDC\INCLUDE\stdio.h 121: 
+C:\BORLANDC\INCLUDE\stdio.h 122: 
+C:\BORLANDC\INCLUDE\stdio.h 123: 
+C:\BORLANDC\INCLUDE\stdio.h 124: 
+C:\BORLANDC\INCLUDE\stdio.h 125: 
+C:\BORLANDC\INCLUDE\stdio.h 126: 
+C:\BORLANDC\INCLUDE\stdio.h 127: 
+C:\BORLANDC\INCLUDE\stdio.h 128: 
+C:\BORLANDC\INCLUDE\stdio.h 129: 
+C:\BORLANDC\INCLUDE\stdio.h 130: 
+C:\BORLANDC\INCLUDE\stdio.h 131: 
+C:\BORLANDC\INCLUDE\stdio.h 132: 
+C:\BORLANDC\INCLUDE\stdio.h 133: 
+C:\BORLANDC\INCLUDE\stdio.h 134: 
+C:\BORLANDC\INCLUDE\stdio.h 135: 
+C:\BORLANDC\INCLUDE\stdio.h 136: 
+C:\BORLANDC\INCLUDE\stdio.h 137: 
+C:\BORLANDC\INCLUDE\stdio.h 138: extern "C" {
+C:\BORLANDC\INCLUDE\stdio.h 139: 
+C:\BORLANDC\INCLUDE\stdio.h 140: void    __cdecl clearerr(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 141: int     __cdecl  fclose(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 142: int     __cdecl  fflush(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 143: int     __cdecl  fgetc(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 144: int     __cdecl fgetpos(FILE  *__stream, fpos_t  *__pos);
+C:\BORLANDC\INCLUDE\stdio.h 145: char    *__cdecl  fgets(char  *__s, int __n, FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 146: FILE    *__cdecl  fopen(const char  *__path, const char  *__mode);
+C:\BORLANDC\INCLUDE\stdio.h 147: int     __cdecl  fprintf(FILE  *__stream, const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 148: int     __cdecl  fputc(int __c, FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 149: int     __cdecl  fputs(const char  *__s, FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 150: size_t  __cdecl  fread(void  *__ptr, size_t __size, size_t __n,
+C:\BORLANDC\INCLUDE\stdio.h 151: FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 152: FILE    *__cdecl  freopen(const char  *__path, const char  *__mode,
+C:\BORLANDC\INCLUDE\stdio.h 153: FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 154: int     __cdecl  fscanf(FILE  *__stream, const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 155: int     __cdecl  fseek(FILE  *__stream, long __offset, int __whence);
+C:\BORLANDC\INCLUDE\stdio.h 156: int     __cdecl fsetpos(FILE  *__stream, const fpos_t  *__pos);
+C:\BORLANDC\INCLUDE\stdio.h 157: long    __cdecl  ftell(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 158: size_t  __cdecl  fwrite(const void  *__ptr, size_t __size, size_t __n,
+C:\BORLANDC\INCLUDE\stdio.h 159: FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 160: char    *__cdecl gets(char  *__s);
+C:\BORLANDC\INCLUDE\stdio.h 161: void    __cdecl perror(const char  *__s);
+C:\BORLANDC\INCLUDE\stdio.h 162: int     __cdecl printf(const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 163: int     __cdecl puts(const char  *__s);
+C:\BORLANDC\INCLUDE\stdio.h 164: int     __cdecl remove(const char  *__path);
+C:\BORLANDC\INCLUDE\stdio.h 165: int     __cdecl  rename(const char  *__oldname,const char  *__newname);
+C:\BORLANDC\INCLUDE\stdio.h 166: void    __cdecl  rewind(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 167: int     __cdecl scanf(const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 168: void    __cdecl setbuf(FILE  *__stream, char  *__buf);
+C:\BORLANDC\INCLUDE\stdio.h 169: int     __cdecl  setvbuf(FILE  *__stream, char  *__buf,
+C:\BORLANDC\INCLUDE\stdio.h 170: int __type, size_t __size);
+C:\BORLANDC\INCLUDE\stdio.h 171: int     __cdecl  sprintf(char  *__buffer, const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 172: int     __cdecl  sscanf(const char  *__buffer,
+C:\BORLANDC\INCLUDE\stdio.h 173: const char  *__format, ...);
+C:\BORLANDC\INCLUDE\stdio.h 174: char    *__cdecl  strerror(int __errnum);
+C:\BORLANDC\INCLUDE\stdio.h 175: FILE    *__cdecl  tmpfile(void);
+C:\BORLANDC\INCLUDE\stdio.h 176: char    *__cdecl  tmpnam(char  *__s);
+C:\BORLANDC\INCLUDE\stdio.h 177: int     __cdecl  ungetc(int __c, FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 178: int     __cdecl  vfprintf(FILE  *__stream, const char  *__format,
+C:\BORLANDC\INCLUDE\stdio.h 179: void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 180: int     __cdecl  vfscanf(FILE  *__stream, const char  *__format,
+C:\BORLANDC\INCLUDE\stdio.h 181: void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 182: int     __cdecl vprintf(const char  *__format, void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 183: int     __cdecl vscanf(const char  *__format, void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 184: int     __cdecl  vsprintf(char  *__buffer, const char  *__format,
+C:\BORLANDC\INCLUDE\stdio.h 185: void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 186: int     __cdecl  vsscanf(const char  *__buffer, const char  *__format,
+C:\BORLANDC\INCLUDE\stdio.h 187: void  *__arglist);
+C:\BORLANDC\INCLUDE\stdio.h 188: int     __cdecl unlink(const char  *__path);
+C:\BORLANDC\INCLUDE\stdio.h 189: int     __cdecl getc(FILE  *__fp);
+C:\BORLANDC\INCLUDE\stdio.h 190: 
+C:\BORLANDC\INCLUDE\stdio.h 191: int     __cdecl getchar(void);
+C:\BORLANDC\INCLUDE\stdio.h 192: int     __cdecl putchar(const int __c);
+C:\BORLANDC\INCLUDE\stdio.h 193: 
+C:\BORLANDC\INCLUDE\stdio.h 194: int     __cdecl putc(const int __c, FILE  *__fp);
+C:\BORLANDC\INCLUDE\stdio.h 195: int     __cdecl feof(FILE  *__fp);
+C:\BORLANDC\INCLUDE\stdio.h 196: int     __cdecl ferror(FILE  *__fp);
+C:\BORLANDC\INCLUDE\stdio.h 197: 
+C:\BORLANDC\INCLUDE\stdio.h 198: 
+C:\BORLANDC\INCLUDE\stdio.h 199: 
+C:\BORLANDC\INCLUDE\stdio.h 200: int     __cdecl  fcloseall(void);
+C:\BORLANDC\INCLUDE\stdio.h 201: FILE    *__cdecl  fdopen(int __handle, char  *__type);
+C:\BORLANDC\INCLUDE\stdio.h 202: int     __cdecl  fgetchar(void);
+C:\BORLANDC\INCLUDE\stdio.h 203: int     __cdecl  flushall(void);
+C:\BORLANDC\INCLUDE\stdio.h 204: int     __cdecl  fputchar(int __c);
+C:\BORLANDC\INCLUDE\stdio.h 205: FILE    * __cdecl _fsopen (const char  *__path, const char  *__mode,
+C:\BORLANDC\INCLUDE\stdio.h 206: int __shflag);
+C:\BORLANDC\INCLUDE\stdio.h 207: int     __cdecl getw(FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 208: int     __cdecl putw(int __w, FILE  *__stream);
+C:\BORLANDC\INCLUDE\stdio.h 209: int     __cdecl rmtmp(void);
+C:\BORLANDC\INCLUDE\stdio.h 210: char    * __cdecl  _strerror(const char  *__s);
+C:\BORLANDC\INCLUDE\stdio.h 211: char    * __cdecl  tempnam(char  *__dir, char  *__pfx);
+C:\BORLANDC\INCLUDE\stdio.h 212: 
+C:\BORLANDC\INCLUDE\stdio.h 213: 
+C:\BORLANDC\INCLUDE\stdio.h 214: 
+C:\BORLANDC\INCLUDE\stdio.h 215: 
+C:\BORLANDC\INCLUDE\stdio.h 216: 
+C:\BORLANDC\INCLUDE\stdio.h 217: 
+C:\BORLANDC\INCLUDE\stdio.h 218: 
+C:\BORLANDC\INCLUDE\stdio.h 219: 
+C:\BORLANDC\INCLUDE\stdio.h 220: int      __cdecl  _fgetc(FILE  *__stream);           
+C:\BORLANDC\INCLUDE\stdio.h 221: int      __cdecl  _fputc(char __c, FILE  *__stream); 
+C:\BORLANDC\INCLUDE\stdio.h 222: 
+C:\BORLANDC\INCLUDE\stdio.h 223: void    __cdecl _InitEasyWin(void);  
+C:\BORLANDC\INCLUDE\stdio.h 224: 
+C:\BORLANDC\INCLUDE\stdio.h 225: 
+C:\BORLANDC\INCLUDE\stdio.h 226: }
+C:\BORLANDC\INCLUDE\stdio.h 227: 
+C:\BORLANDC\INCLUDE\stdio.h 228: 
+C:\BORLANDC\INCLUDE\stdio.h 229: 
+C:\BORLANDC\INCLUDE\stdio.h 230: 
+C:\BORLANDC\INCLUDE\stdio.h 231: 
+C:\BORLANDC\INCLUDE\stdio.h 232: 
+C:\BORLANDC\INCLUDE\stdio.h 233: 
+C:\BORLANDC\INCLUDE\stdio.h 234: 
+C:\BORLANDC\INCLUDE\stdio.h 235: 
+C:\BORLANDC\INCLUDE\stdio.h 236: 
+C:\BORLANDC\INCLUDE\stdio.h 237: 
+C:\BORLANDC\INCLUDE\stdio.h 238: 
+C:\BORLANDC\INCLUDE\stdio.h 239: 
+C:\BORLANDC\INCLUDE\stdio.h 240: 
+C:\BORLANDC\INCLUDE\stdio.h 241: 
+C:\BORLANDC\INCLUDE\stdio.h 242: 
+C:\BORLANDC\INCLUDE\stdio.h 243: 
+C:\BORLANDC\INCLUDE\stdio.h 244: 
+C:\BORLANDC\INCLUDE\stdio.h 245: 
+C:\BORLANDC\INCLUDE\stdio.h 246: 
+C:\BORLANDC\INCLUDE\stdio.h 247: 
+C:\BORLANDC\INCLUDE\stdio.h 248: 
+C:\BORLANDC\INCLUDE\stdio.h 249: 
+C:\BORLANDC\INCLUDE\stdio.h 250: 
+install.cpp 25: 
+..\..\include\xoslver.h 1: 
+..\..\include\xoslver.h 2: 
+..\..\include\xoslver.h 3: 
+..\..\include\xoslver.h 4: 
+..\..\include\xoslver.h 5: 
+..\..\include\xoslver.h 6: 
+..\..\include\xoslver.h 7: 
+..\..\include\xoslver.h 8: 
+..\..\include\xoslver.h 9: 
+..\..\include\xoslver.h 10: 
+..\..\include\xoslver.h 11: 
+..\..\include\xoslver.h 12: 
+..\..\include\xoslver.h 13: 
+..\..\include\xoslver.h 14: 
+..\..\include\xoslver.h 15: 
+..\..\include\xoslver.h 16: 
+..\..\include\xoslver.h 17: 
+..\..\include\xoslver.h 18: 
+..\..\include\xoslver.h 19: 
+install.cpp 26: 
+..\..\include\items.h 1: 
+..\..\include\items.h 2: 
+..\..\include\items.h 3: 
+..\..\include\items.h 4: 
+..\..\include\items.h 5: 
+..\..\include\items.h 6: 
+..\..\include\items.h 7: 
+..\..\include\items.h 8: 
+..\..\include\items.h 9: 
+..\..\include\items.h 10: 
+..\..\include\items.h 11: 
+..\..\include\items.h 12: 
+..\..\include\items.h 13: 
+..\..\include\items.h 14: 
+..\..\include\newdefs.h 1: 
+..\..\include\newdefs.h 2: 
+..\..\include\newdefs.h 3: 
+..\..\include\newdefs.h 4: 
+..\..\include\newdefs.h 5: 
+..\..\include\newdefs.h 6: 
+..\..\include\newdefs.h 7: 
+..\..\include\newdefs.h 8: 
+..\..\include\newdefs.h 9: 
+..\..\include\newdefs.h 10: 
+..\..\include\newdefs.h 11: 
+..\..\include\newdefs.h 12: 
+..\..\include\newdefs.h 13: 
+..\..\include\newdefs.h 14: 
+..\..\include\newdefs.h 15: 
+..\..\include\newdefs.h 16: 
+..\..\include\newdefs.h 17: 
+..\..\include\newdefs.h 18: 
+..\..\include\newdefs.h 19: 
+..\..\include\newdefs.h 20: 
+..\..\include\newdefs.h 21: 
+..\..\include\newdefs.h 22: 
+..\..\include\newdefs.h 23: 
+..\..\include\newdefs.h 24: 
+..\..\include\newdefs.h 25: 
+..\..\include\newdefs.h 26: 
+..\..\include\newdefs.h 27: 
+..\..\include\newdefs.h 28: 
+..\..\include\newdefs.h 29: 
+..\..\include\newdefs.h 30: 
+..\..\include\newdefs.h 31: 
+..\..\include\newdefs.h 32: 
+..\..\include\newdefs.h 33: 
+..\..\include\newdefs.h 34: 
+..\..\include\newdefs.h 35: 
+..\..\include\newdefs.h 36: typedef int bool;
+..\..\include\newdefs.h 37: 
+..\..\include\newdefs.h 38: 
+..\..\include\newdefs.h 39: 
+..\..\include\newdefs.h 40: 
+..\..\include\newdefs.h 41: 
+..\..\include\newdefs.h 42: 
+..\..\include\newdefs.h 43: 
+..\..\include\newdefs.h 44: 
+..\..\include\newdefs.h 45: 
+..\..\include\newdefs.h 46: 
+..\..\include\newdefs.h 47: 
+..\..\include\newdefs.h 48: 
+..\..\include\newdefs.h 49: 
+..\..\include\newdefs.h 50: 
+..\..\include\newdefs.h 51: typedef unsigned short size_t;
+..\..\include\newdefs.h 52: 
+..\..\include\newdefs.h 53: 
+..\..\include\newdefs.h 54: 
+..\..\include\newdefs.h 55: 
+..\..\include\newdefs.h 56: 
+..\..\include\items.h 15: 
+..\..\include\lastconf.h 1: 
+..\..\include\lastconf.h 2: 
+..\..\include\lastconf.h 3: 
+..\..\include\lastconf.h 4: 
+..\..\include\lastconf.h 5: 
+..\..\include\lastconf.h 6: 
+..\..\include\lastconf.h 7: 
+..\..\include\lastconf.h 8: 
+..\..\include\lastconf.h 9: 
+..\..\include\lastconf.h 10: 
+..\..\include\lastconf.h 11: 
+..\..\include\lastconf.h 12: 
+..\..\include\lastconf.h 13: 
+..\..\include\lastconf.h 14: 
+..\..\include\newdefs.h 1: 
+..\..\include\newdefs.h 2: 
+..\..\include\newdefs.h 3: 
+..\..\include\newdefs.h 4: 
+..\..\include\newdefs.h 5: 
+..\..\include\newdefs.h 6: 
+..\..\include\newdefs.h 7: 
+..\..\include\newdefs.h 8: 
+..\..\include\newdefs.h 9: 
+..\..\include\newdefs.h 10: 
+..\..\include\newdefs.h 11: 
+..\..\include\newdefs.h 12: 
+..\..\include\newdefs.h 13: 
+..\..\include\newdefs.h 14: 
+..\..\include\newdefs.h 15: 
+..\..\include\newdefs.h 16: 
+..\..\include\newdefs.h 17: 
+..\..\include\newdefs.h 18: 
+..\..\include\newdefs.h 19: 
+..\..\include\newdefs.h 20: 
+..\..\include\newdefs.h 21: 
+..\..\include\newdefs.h 22: 
+..\..\include\newdefs.h 23: 
+..\..\include\newdefs.h 24: 
+..\..\include\newdefs.h 25: 
+..\..\include\newdefs.h 26: 
+..\..\include\newdefs.h 27: 
+..\..\include\newdefs.h 28: 
+..\..\include\newdefs.h 29: 
+..\..\include\newdefs.h 30: 
+..\..\include\newdefs.h 31: 
+..\..\include\newdefs.h 32: 
+..\..\include\newdefs.h 33: 
+..\..\include\newdefs.h 34: 
+..\..\include\newdefs.h 35: 
+..\..\include\newdefs.h 36: 
+..\..\include\newdefs.h 37: 
+..\..\include\newdefs.h 38: 
+..\..\include\newdefs.h 39: 
+..\..\include\newdefs.h 40: 
+..\..\include\newdefs.h 41: 
+..\..\include\newdefs.h 42: 
+..\..\include\newdefs.h 43: 
+..\..\include\newdefs.h 44: 
+..\..\include\newdefs.h 45: 
+..\..\include\newdefs.h 46: 
+..\..\include\newdefs.h 47: 
+..\..\include\newdefs.h 48: 
+..\..\include\newdefs.h 49: 
+..\..\include\newdefs.h 50: 
+..\..\include\newdefs.h 51: 
+..\..\include\newdefs.h 52: 
+..\..\include\newdefs.h 53: 
+..\..\include\newdefs.h 54: 
+..\..\include\newdefs.h 55: 
+..\..\include\newdefs.h 56: 
+..\..\include\lastconf.h 15: 
+..\include\ptab.h 1: 
+..\include\ptab.h 2: 
+..\include\ptab.h 3: 
+..\include\ptab.h 4: 
+..\include\ptab.h 5: 
+..\include\ptab.h 6: 
+..\include\ptab.h 7: 
+..\include\ptab.h 8: 
+..\include\ptab.h 9: 
+..\include\ptab.h 10: 
+..\include\ptab.h 11: 
+..\include\ptab.h 12: 
+..\include\ptab.h 13: 
+..\include\ptab.h 14: 
+..\include\ptab.h 15: 
+..\include\ptab.h 16: 
+..\include\ptab.h 17: 
+..\include\ptab.h 18: 
+..\include\ptab.h 19: 
+..\include\ptab.h 20: 
+..\include\ptab.h 21: 
+..\include\ptab.h 22: 
+..\include\ptab.h 23: 
+..\include\ptab.h 24: 
+..\include\ptab.h 25: 
+..\include\ptab.h 26: 
+..\include\ptab.h 27: 
+..\include\ptab.h 28: 
+..\include\ptab.h 29: 
+..\include\ptab.h 30: 
+..\include\ptab.h 31: 
+..\include\ptab.h 32: 
+..\include\ptab.h 33: 
+..\include\ptab.h 34: 
+..\include\ptab.h 35: 
+..\include\ptab.h 36: 
+..\include\ptab.h 37: 
+..\include\ptab.h 38: 
+..\include\ptab.h 39: 
+..\include\ptab.h 40: 
+..\include\ptab.h 41: 
+..\include\ptab.h 42: 
+..\include\ptab.h 43: 
+..\include\ptab.h 44: 
+..\include\ptab.h 45: 
+..\include\ptab.h 46: 
+..\include\ptab.h 47: 
+..\include\ptab.h 48: 
+..\include\ptab.h 49: 
+..\include\ptab.h 50: 
+..\include\ptab.h 51: 
+..\include\ptab.h 52: 
+..\include\ptab.h 53: 
+..\include\ptab.h 54: 
+..\include\ptab.h 55: 
+..\include\ptab.h 56: 
+..\include\ptab.h 57: 
+..\include\ptab.h 58: 
+..\include\ptab.h 59: 
+..\include\ptab.h 60: 
+..\include\ptab.h 61: 
+..\include\ptab.h 62: 
+..\include\ptab.h 63: 
+..\include\ptab.h 64: 
+..\include\ptab.h 65: 
+..\include\ptab.h 66: 
+..\include\ptab.h 67: 
+..\include\ptab.h 68: 
+..\include\ptab.h 69: 
+..\include\ptab.h 70: 
+..\include\ptab.h 71: 
+..\include\ptab.h 72: 
+..\include\ptab.h 73: 
+..\include\ptab.h 74: 
+..\include\ptab.h 75: 
+..\include\ptab.h 76: 
+..\include\ptab.h 77: 
+..\include\ptab.h 78: 
+..\include\ptab.h 79: 
+..\include\ptab.h 80: 
+..\include\ptab.h 81: 
+..\include\ptab.h 82: 
+..\include\ptab.h 83: 
+..\include\ptab.h 84: 
+..\include\ptab.h 85: 
+..\include\ptab.h 86: 
+..\include\ptab.h 87: 
+..\include\ptab.h 88: 
+..\include\ptab.h 89: 
+..\include\ptab.h 90: 
+..\include\ptab.h 91: 
+..\include\ptab.h 92: 
+..\include\ptab.h 93: 
+..\include\ptab.h 94: 
+..\include\ptab.h 95: 
+..\include\ptab.h 96: 
+..\include\ptab.h 97: 
+..\include\ptab.h 98: 
+..\include\ptab.h 99: 
+..\include\ptab.h 100: 
+..\include\ptab.h 101: 
+..\include\ptab.h 102: 
+..\include\ptab.h 103: 
+..\include\ptab.h 104: 
+..\..\include\lastconf.h 16: 
+..\include\fs.h 1: 
+..\include\fs.h 2: 
+..\include\fs.h 3: 
+..\include\fs.h 4: 
+..\include\fs.h 5: 
+..\include\fs.h 6: 
+..\include\fs.h 7: 
+..\include\fs.h 8: 
+..\include\fs.h 9: 
+..\include\fs.h 10: 
+..\include\fs.h 11: 
+..\include\fs.h 12: 
+..\include\fs.h 13: 
+..\include\fs.h 14: 
+..\include\fs.h 15: 
+..\include\fs.h 16: 
+..\include\fs.h 17: 
+..\include\fs.h 18: 
+..\include\fs.h 19: 
+..\include\fs.h 20: 
+..\include\fs.h 21: 
+..\include\fs.h 22: 
+..\include\fs.h 23: 
+..\include\fs.h 24: 
+..\include\fs.h 25: 
+..\include\fs.h 26: 
+..\include\fs.h 27: 
+..\include\fs.h 28: 
+..\include\fs.h 29: 
+..\include\fs.h 30: 
+..\include\fs.h 31: 
+..\include\fs.h 32: 
+..\include\fs.h 33: 
+..\..\include\lastconf.h 17: 
+..\..\include\lastconf.h 18: typedef struct {
+..\..\include\lastconf.h 19: unsigned char Drive;
+..\..\include\lastconf.h 20: unsigned long StartSector;
+..\..\include\lastconf.h 21: } TPartKey;
+..\..\include\lastconf.h 22: 
+..\..\include\lastconf.h 23: typedef struct {
+..\..\include\lastconf.h 24: int PartitionCount;
+..\..\include\lastconf.h 25: TPartKey LastPartList[92];
+..\..\include\lastconf.h 26: char Reserved[50]; 
+..\..\include\lastconf.h 27: } TLastConfig;
+..\..\include\lastconf.h 28: 
+..\..\include\lastconf.h 29: class CLastConfig {
+..\..\include\lastconf.h 30: public:
+..\..\include\lastconf.h 31: CLastConfig(CFileSystem *FileSystemToUse, CPartList *PartListToUse);
+..\..\include\lastconf.h 32: ~CLastConfig();
+..\..\include\lastconf.h 33: 
+..\..\include\lastconf.h 34: const short *GetRelocTable();
+..\..\include\lastconf.h 35: void SetNewConfig();
+..\..\include\lastconf.h 36: private:
+..\..\include\lastconf.h 37: TLastConfig *FileData;
+..\..\include\lastconf.h 38: short RelocTable[92];
+..\..\include\lastconf.h 39: CFileSystem *FileSystem;
+..\..\include\lastconf.h 40: CPartList *PartList;
+..\..\include\lastconf.h 41: };
+..\..\include\lastconf.h 42: 
+..\..\include\lastconf.h 43: 
+..\..\include\lastconf.h 44: 
+..\..\include\items.h 16: 
+..\include\ptab.h 1: 
+..\include\ptab.h 2: 
+..\include\ptab.h 3: 
+..\include\ptab.h 4: 
+..\include\ptab.h 5: 
+..\include\ptab.h 6: 
+..\include\ptab.h 7: 
+..\include\ptab.h 8: 
+..\include\ptab.h 9: 
+..\include\ptab.h 10: 
+..\include\ptab.h 11: 
+..\include\ptab.h 12: 
+..\include\ptab.h 13: 
+..\include\ptab.h 14: 
+..\include\ptab.h 15: 
+..\include\ptab.h 16: 
+..\include\ptab.h 17: 
+..\include\ptab.h 18: 
+..\include\ptab.h 19: 
+..\include\ptab.h 20: 
+..\include\ptab.h 21: 
+..\include\ptab.h 22: 
+..\include\ptab.h 23: 
+..\include\ptab.h 24: 
+..\include\ptab.h 25: 
+..\include\ptab.h 26: 
+..\include\ptab.h 27: 
+..\include\ptab.h 28: 
+..\include\ptab.h 29: 
+..\include\ptab.h 30: 
+..\include\ptab.h 31: 
+..\include\ptab.h 32: 
+..\include\ptab.h 33: 
+..\include\ptab.h 34: 
+..\include\ptab.h 35: 
+..\include\ptab.h 36: 
+..\include\ptab.h 37: 
+..\include\ptab.h 38: 
+..\include\ptab.h 39: 
+..\include\ptab.h 40: 
+..\include\ptab.h 41: 
+..\include\ptab.h 42: 
+..\include\ptab.h 43: 
+..\include\ptab.h 44: 
+..\include\ptab.h 45: 
+..\include\ptab.h 46: 
+..\include\ptab.h 47: 
+..\include\ptab.h 48: 
+..\include\ptab.h 49: 
+..\include\ptab.h 50: 
+..\include\ptab.h 51: 
+..\include\ptab.h 52: 
+..\include\ptab.h 53: 
+..\include\ptab.h 54: 
+..\include\ptab.h 55: 
+..\include\ptab.h 56: 
+..\include\ptab.h 57: 
+..\include\ptab.h 58: 
+..\include\ptab.h 59: 
+..\include\ptab.h 60: 
+..\include\ptab.h 61: 
+..\include\ptab.h 62: 
+..\include\ptab.h 63: 
+..\include\ptab.h 64: 
+..\include\ptab.h 65: 
+..\include\ptab.h 66: 
+..\include\ptab.h 67: 
+..\include\ptab.h 68: 
+..\include\ptab.h 69: 
+..\include\ptab.h 70: 
+..\include\ptab.h 71: 
+..\include\ptab.h 72: 
+..\include\ptab.h 73: 
+..\include\ptab.h 74: 
+..\include\ptab.h 75: 
+..\include\ptab.h 76: 
+..\include\ptab.h 77: 
+..\include\ptab.h 78: 
+..\include\ptab.h 79: 
+..\include\ptab.h 80: 
+..\include\ptab.h 81: 
+..\include\ptab.h 82: 
+..\include\ptab.h 83: 
+..\include\ptab.h 84: 
+..\include\ptab.h 85: 
+..\include\ptab.h 86: 
+..\include\ptab.h 87: 
+..\include\ptab.h 88: 
+..\include\ptab.h 89: 
+..\include\ptab.h 90: 
+..\include\ptab.h 91: 
+..\include\ptab.h 92: 
+..\include\ptab.h 93: 
+..\include\ptab.h 94: 
+..\include\ptab.h 95: 
+..\include\ptab.h 96: 
+..\include\ptab.h 97: 
+..\include\ptab.h 98: 
+..\include\ptab.h 99: 
+..\include\ptab.h 100: 
+..\include\ptab.h 101: 
+..\include\ptab.h 102: 
+..\include\ptab.h 103: 
+..\include\ptab.h 104: 
+..\..\include\items.h 17: 
+..\include\fs.h 1: 
+..\include\fs.h 2: 
+..\include\fs.h 3: 
+..\include\fs.h 4: 
+..\include\fs.h 5: 
+..\include\fs.h 6: 
+..\include\fs.h 7: 
+..\include\fs.h 8: 
+..\include\fs.h 9: 
+..\include\fs.h 10: 
+..\include\fs.h 11: 
+..\include\fs.h 12: 
+..\include\fs.h 13: 
+..\include\fs.h 14: 
+..\include\fs.h 15: 
+..\include\fs.h 16: 
+..\include\fs.h 17: 
+..\include\fs.h 18: 
+..\include\fs.h 19: 
+..\include\fs.h 20: 
+..\include\fs.h 21: 
+..\include\fs.h 22: 
+..\include\fs.h 23: 
+..\include\fs.h 24: 
+..\include\fs.h 25: 
+..\include\fs.h 26: 
+..\include\fs.h 27: 
+..\include\fs.h 28: 
+..\include\fs.h 29: 
+..\include\fs.h 30: 
+..\include\fs.h 31: 
+..\include\fs.h 32: 
+..\include\fs.h 33: 
+..\..\include\items.h 18: 
+..\..\include\fatfix.h 1: 
+..\..\include\fatfix.h 2: 
+..\..\include\fatfix.h 3: 
+..\..\include\fatfix.h 4: 
+..\..\include\fatfix.h 5: 
+..\..\include\fatfix.h 6: 
+..\..\include\fatfix.h 7: 
+..\..\include\fatfix.h 8: 
+..\..\include\fatfix.h 9: 
+..\..\include\fatfix.h 10: 
+..\..\include\fatfix.h 11: 
+..\..\include\fatfix.h 12: 
+..\..\include\fatfix.h 13: 
+..\..\include\fatfix.h 14: 
+..\..\include\newdefs.h 1: 
+..\..\include\newdefs.h 2: 
+..\..\include\newdefs.h 3: 
+..\..\include\newdefs.h 4: 
+..\..\include\newdefs.h 5: 
+..\..\include\newdefs.h 6: 
+..\..\include\newdefs.h 7: 
+..\..\include\newdefs.h 8: 
+..\..\include\newdefs.h 9: 
+..\..\include\newdefs.h 10: 
+..\..\include\newdefs.h 11: 
+..\..\include\newdefs.h 12: 
+..\..\include\newdefs.h 13: 
+..\..\include\newdefs.h 14: 
+..\..\include\newdefs.h 15: 
+..\..\include\newdefs.h 16: 
+..\..\include\newdefs.h 17: 
+..\..\include\newdefs.h 18: 
+..\..\include\newdefs.h 19: 
+..\..\include\newdefs.h 20: 
+..\..\include\newdefs.h 21: 
+..\..\include\newdefs.h 22: 
+..\..\include\newdefs.h 23: 
+..\..\include\newdefs.h 24: 
+..\..\include\newdefs.h 25: 
+..\..\include\newdefs.h 26: 
+..\..\include\newdefs.h 27: 
+..\..\include\newdefs.h 28: 
+..\..\include\newdefs.h 29: 
+..\..\include\newdefs.h 30: 
+..\..\include\newdefs.h 31: 
+..\..\include\newdefs.h 32: 
+..\..\include\newdefs.h 33: 
+..\..\include\newdefs.h 34: 
+..\..\include\newdefs.h 35: 
+..\..\include\newdefs.h 36: 
+..\..\include\newdefs.h 37: 
+..\..\include\newdefs.h 38: 
+..\..\include\newdefs.h 39: 
+..\..\include\newdefs.h 40: 
+..\..\include\newdefs.h 41: 
+..\..\include\newdefs.h 42: 
+..\..\include\newdefs.h 43: 
+..\..\include\newdefs.h 44: 
+..\..\include\newdefs.h 45: 
+..\..\include\newdefs.h 46: 
+..\..\include\newdefs.h 47: 
+..\..\include\newdefs.h 48: 
+..\..\include\newdefs.h 49: 
+..\..\include\newdefs.h 50: 
+..\..\include\newdefs.h 51: 
+..\..\include\newdefs.h 52: 
+..\..\include\newdefs.h 53: 
+..\..\include\newdefs.h 54: 
+..\..\include\newdefs.h 55: 
+..\..\include\newdefs.h 56: 
+..\..\include\fatfix.h 15: 
+..\..\include\fatfix.h 16: 
+..\include\fat16.h 1: 
+..\include\fat16.h 2: 
+..\include\fat16.h 3: 
+..\include\fat16.h 4: 
+..\include\fat16.h 5: 
+..\include\fat16.h 6: 
+..\include\fat16.h 7: 
+..\include\fat16.h 8: 
+..\include\fat16.h 9: 
+..\include\fat16.h 10: 
+..\include\fat16.h 11: 
+..\include\fat16.h 12: 
+..\include\fat16.h 13: 
+..\include\fat16.h 14: 
+..\include\fat16.h 15: 
+..\include\fat16.h 16: 
+..\include\fat16.h 17: 
+..\include\fat16.h 18: 
+..\include\fat16.h 19: 
+..\include\fat16.h 20: 
+..\include\fat16.h 21: 
+..\include\fat16.h 22: 
+..\include\fat16.h 23: 
+..\include\fat16.h 24: 
+..\include\fat16.h 25: 
+..\include\fat16.h 26: 
+..\include\fat16.h 27: 
+..\include\fat16.h 28: 
+..\include\fat16.h 29: 
+..\include\fat16.h 30: 
+..\include\fat16.h 31: 
+..\include\fat16.h 32: 
+..\include\fat16.h 33: 
+..\include\fat16.h 34: 
+..\include\fat16.h 35: 
+..\include\fat16.h 36: 
+..\include\fat16.h 37: 
+..\include\fat16.h 38: 
+..\include\fat16.h 39: 
+..\include\fat16.h 40: 
+..\include\fat16.h 41: 
+..\include\fat16.h 42: 
+..\include\fat16.h 43: 
+..\include\fat16.h 44: 
+..\include\fat16.h 45: 
+..\include\fat16.h 46: 
+..\include\fat16.h 47: 
+..\include\fat16.h 48: 
+..\include\fat16.h 49: 
+..\include\fat16.h 50: 
+..\include\fat16.h 51: 
+..\include\fat16.h 52: 
+..\include\fat16.h 53: 
+..\include\fat16.h 54: 
+..\include\fat16.h 55: 
+..\include\fat16.h 56: 
+..\include\fat16.h 57: 
+..\include\fat16.h 58: 
+..\include\fat16.h 59: 
+..\include\fat16.h 60: 
+..\include\fat16.h 61: 
+..\include\fat16.h 62: 
+..\include\fat16.h 63: 
+..\..\include\fatfix.h 17: 
+..\..\include\fat32.h 1: 
+..\..\include\fat32.h 2: 
+..\..\include\fat32.h 3: 
+..\..\include\fat32.h 4: 
+..\..\include\fat32.h 5: 
+..\..\include\fat32.h 6: 
+..\..\include\fat32.h 7: 
+..\..\include\fat32.h 8: 
+..\..\include\fat32.h 9: 
+..\..\include\fat32.h 10: 
+..\..\include\fat32.h 11: 
+..\..\include\fat32.h 12: 
+..\..\include\fat32.h 13: 
+..\..\include\fat32.h 14: 
+..\include\fs.h 1: 
+..\include\fs.h 2: 
+..\include\fs.h 3: 
+..\include\fs.h 4: 
+..\include\fs.h 5: 
+..\include\fs.h 6: 
+..\include\fs.h 7: 
+..\include\fs.h 8: 
+..\include\fs.h 9: 
+..\include\fs.h 10: 
+..\include\fs.h 11: 
+..\include\fs.h 12: 
+..\include\fs.h 13: 
+..\include\fs.h 14: 
+..\include\fs.h 15: 
+..\include\fs.h 16: 
+..\include\fs.h 17: 
+..\include\fs.h 18: 
+..\include\fs.h 19: 
+..\include\fs.h 20: 
+..\include\fs.h 21: 
+..\include\fs.h 22: 
+..\include\fs.h 23: 
+..\include\fs.h 24: 
+..\include\fs.h 25: 
+..\include\fs.h 26: 
+..\include\fs.h 27: 
+..\include\fs.h 28: 
+..\include\fs.h 29: 
+..\include\fs.h 30: 
+..\include\fs.h 31: 
+..\include\fs.h 32: 
+..\include\fs.h 33: 
+..\..\include\fat32.h 15: 
+..\..\include\bootrec.h 1: 
+..\..\include\bootrec.h 2: 
+..\..\include\bootrec.h 3: 
+..\..\include\bootrec.h 4: 
+..\..\include\bootrec.h 5: 
+..\..\include\bootrec.h 6: 
+..\..\include\bootrec.h 7: 
+..\..\include\bootrec.h 8: 
+..\..\include\bootrec.h 9: 
+..\..\include\bootrec.h 10: 
+..\..\include\bootrec.h 11: 
+..\..\include\bootrec.h 12: 
+..\..\include\bootrec.h 13: 
+..\..\include\bootrec.h 14: 
+..\..\include\bootrec.h 15: 
+..\..\include\bootrec.h 16: 
+..\..\include\bootrec.h 17: 
+..\..\include\bootrec.h 18: 
+..\..\include\bootrec.h 19: 
+..\..\include\bootrec.h 20: 
+..\..\include\bootrec.h 21: 
+..\..\include\bootrec.h 22: 
+..\..\include\bootrec.h 23: 
+..\..\include\bootrec.h 24: 
+..\..\include\bootrec.h 25: 
+..\..\include\bootrec.h 26: 
+..\..\include\bootrec.h 27: 
+..\..\include\bootrec.h 28: 
+..\..\include\bootrec.h 29: 
+..\..\include\bootrec.h 30: 
+..\..\include\bootrec.h 31: 
+..\..\include\bootrec.h 32: 
+..\..\include\bootrec.h 33: 
+..\..\include\bootrec.h 34: 
+..\..\include\bootrec.h 35: 
+..\..\include\bootrec.h 36: 
+..\..\include\bootrec.h 37: 
+..\..\include\bootrec.h 38: 
+..\..\include\bootrec.h 39: 
+..\..\include\bootrec.h 40: 
+..\..\include\bootrec.h 41: 
+..\..\include\bootrec.h 42: 
+..\..\include\bootrec.h 43: 
+..\..\include\bootrec.h 44: 
+..\..\include\bootrec.h 45: 
+..\..\include\bootrec.h 46: 
+..\..\include\bootrec.h 47: 
+..\..\include\bootrec.h 48: 
+..\..\include\bootrec.h 49: 
+..\..\include\bootrec.h 50: 
+..\..\include\bootrec.h 51: 
+..\..\include\bootrec.h 52: 
+..\..\include\bootrec.h 53: 
+..\..\include\bootrec.h 54: 
+..\..\include\bootrec.h 55: 
+..\..\include\bootrec.h 56: 
+..\..\include\bootrec.h 57: 
+..\..\include\bootrec.h 58: 
+..\..\include\bootrec.h 59: 
+..\..\include\bootrec.h 60: 
+..\..\include\bootrec.h 61: 
+..\..\include\bootrec.h 62: 
+..\..\include\bootrec.h 63: 
+..\..\include\bootrec.h 64: 
+..\..\include\bootrec.h 65: 
+..\..\include\bootrec.h 66: 
+..\..\include\bootrec.h 67: 
+..\..\include\bootrec.h 68: 
+..\..\include\bootrec.h 69: 
+..\..\include\bootrec.h 70: 
+..\..\include\bootrec.h 71: 
+..\..\include\bootrec.h 72: 
+..\..\include\bootrec.h 73: 
+..\..\include\bootrec.h 74: 
+..\..\include\bootrec.h 75: 
+..\..\include\bootrec.h 76: 
+..\..\include\bootrec.h 77: 
+..\..\include\bootrec.h 78: 
+..\..\include\bootrec.h 79: 
+..\..\include\bootrec.h 80: 
+..\..\include\bootrec.h 81: 
+..\..\include\bootrec.h 82: 
+..\..\include\bootrec.h 83: 
+..\..\include\bootrec.h 84: 
+..\..\include\bootrec.h 85: 
+..\..\include\fat32.h 16: 
+..\..\include\fat32.h 17: 
+..\..\include\fat32.h 18: 
+..\..\include\fat32.h 19: 
+..\..\include\fat32.h 20: 
+..\..\include\fat32.h 21: 
+..\..\include\fat32.h 22: 
+..\..\include\fat32.h 23: 
+..\..\include\fat32.h 24: 
+..\..\include\fat32.h 25: 
+..\..\include\fat32.h 26: 
+..\..\include\fat32.h 27: 
+..\..\include\fat32.h 28: 
+..\..\include\fat32.h 29: 
+..\..\include\fat32.h 30: 
+..\..\include\fat32.h 31: 
+..\..\include\fat32.h 32: 
+..\..\include\fat32.h 33: 
+..\..\include\fat32.h 34: 
+..\..\include\fat32.h 35: 
+..\..\include\fat32.h 36: 
+..\..\include\fat32.h 37: 
+..\..\include\fat32.h 38: 
+..\..\include\fat32.h 39: 
+..\..\include\fat32.h 40: 
+..\..\include\fat32.h 41: 
+..\..\include\fat32.h 42: 
+..\..\include\fat32.h 43: 
+..\..\include\fat32.h 44: 
+..\..\include\fat32.h 45: 
+..\..\include\fat32.h 46: 
+..\..\include\fat32.h 47: 
+..\..\include\fat32.h 48: 
+..\..\include\fat32.h 49: 
+..\..\include\fat32.h 50: 
+..\..\include\fat32.h 51: 
+..\..\include\fat32.h 52: 
+..\..\include\fat32.h 53: 
+..\..\include\fat32.h 54: 
+..\..\include\fat32.h 55: typedef struct {
+..\..\include\fat32.h 56: unsigned char FileName[8];
+..\..\include\fat32.h 57: unsigned char Extension[3];
+..\..\include\fat32.h 58: unsigned char Attribute;
+..\..\include\fat32.h 59: unsigned short NT;				
+..\..\include\fat32.h 60: unsigned short CreateTime;
+..\..\include\fat32.h 61: unsigned short CreateDate;
+..\..\include\fat32.h 62: unsigned short Accessed;
+..\..\include\fat32.h 63: unsigned short StartClusterH;
+..\..\include\fat32.h 64: unsigned short Time;
+..\..\include\fat32.h 65: unsigned short Date;
+..\..\include\fat32.h 66: unsigned short StartClusterL;
+..\..\include\fat32.h 67: unsigned long FileSize;
+..\..\include\fat32.h 68: } TFAT32DirEntry;
+..\..\include\fat32.h 69: 
+..\..\include\fat32.h 70: 
+..\..\include\fat32.h 71: 
+..\..\include\fat32.h 72: class CFAT32: public CFileSystem {
+..\..\include\fat32.h 73: public:
+..\..\include\fat32.h 74: CFAT32();
+..\..\include\fat32.h 75: ~CFAT32();
+..\..\include\fat32.h 76: int Mount(int Drive, unsigned long StartSector);
+..\..\include\fat32.h 77: unsigned short ReadFile(const char *FileName, void *Buffer);
+..\..\include\fat32.h 78: int WriteFile(const char *FileName, void *Buffer);
+..\..\include\fat32.h 79: private:
+..\..\include\fat32.h 80: int Locate(const char *FileName, TFAT32DirEntry &Entry);
+..\..\include\fat32.h 81: void ReadFAT(long Cluster);
+..\..\include\fat32.h 82: 
+..\..\include\fat32.h 83: void GetNextCluster(long &Cluster);
+..\..\include\fat32.h 84: void ReadCluster(long Cluster, void *Buffer);
+..\..\include\fat32.h 85: void WriteCluster(long Cluster, void *Buffer);
+..\..\include\fat32.h 86: void GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
+..\..\include\fat32.h 87: void UpdateFileDateTime(const char *FileName);
+..\..\include\fat32.h 88: 
+..\..\include\fat32.h 89: 
+..\..\include\fat32.h 90: TBootFAT32 BootSector;
+..\..\include\fat32.h 91: 
+..\..\include\fat32.h 92: long *FAT;
+..\..\include\fat32.h 93: long FirstCluster;
+..\..\include\fat32.h 94: long LastCluster;
+..\..\include\fat32.h 95: 
+..\..\include\fat32.h 96: unsigned short ClusterSize;
+..\..\include\fat32.h 97: unsigned long FATStart;
+..\..\include\fat32.h 98: unsigned long DataStart;
+..\..\include\fat32.h 99: };
+..\..\include\fat32.h 100: 
+..\..\include\fat32.h 101: 
+..\..\include\fat32.h 102: 
+..\..\include\fatfix.h 18: 
+..\include\ptab.h 1: 
+..\include\ptab.h 2: 
+..\include\ptab.h 3: 
+..\include\ptab.h 4: 
+..\include\ptab.h 5: 
+..\include\ptab.h 6: 
+..\include\ptab.h 7: 
+..\include\ptab.h 8: 
+..\include\ptab.h 9: 
+..\include\ptab.h 10: 
+..\include\ptab.h 11: 
+..\include\ptab.h 12: 
+..\include\ptab.h 13: 
+..\include\ptab.h 14: 
+..\include\ptab.h 15: 
+..\include\ptab.h 16: 
+..\include\ptab.h 17: 
+..\include\ptab.h 18: 
+..\include\ptab.h 19: 
+..\include\ptab.h 20: 
+..\include\ptab.h 21: 
+..\include\ptab.h 22: 
+..\include\ptab.h 23: 
+..\include\ptab.h 24: 
+..\include\ptab.h 25: 
+..\include\ptab.h 26: 
+..\include\ptab.h 27: 
+..\include\ptab.h 28: 
+..\include\ptab.h 29: 
+..\include\ptab.h 30: 
+..\include\ptab.h 31: 
+..\include\ptab.h 32: 
+..\include\ptab.h 33: 
+..\include\ptab.h 34: 
+..\include\ptab.h 35: 
+..\include\ptab.h 36: 
+..\include\ptab.h 37: 
+..\include\ptab.h 38: 
+..\include\ptab.h 39: 
+..\include\ptab.h 40: 
+..\include\ptab.h 41: 
+..\include\ptab.h 42: 
+..\include\ptab.h 43: 
+..\include\ptab.h 44: 
+..\include\ptab.h 45: 
+..\include\ptab.h 46: 
+..\include\ptab.h 47: 
+..\include\ptab.h 48: 
+..\include\ptab.h 49: 
+..\include\ptab.h 50: 
+..\include\ptab.h 51: 
+..\include\ptab.h 52: 
+..\include\ptab.h 53: 
+..\include\ptab.h 54: 
+..\include\ptab.h 55: 
+..\include\ptab.h 56: 
+..\include\ptab.h 57: 
+..\include\ptab.h 58: 
+..\include\ptab.h 59: 
+..\include\ptab.h 60: 
+..\include\ptab.h 61: 
+..\include\ptab.h 62: 
+..\include\ptab.h 63: 
+..\include\ptab.h 64: 
+..\include\ptab.h 65: 
+..\include\ptab.h 66: 
+..\include\ptab.h 67: 
+..\include\ptab.h 68: 
+..\include\ptab.h 69: 
+..\include\ptab.h 70: 
+..\include\ptab.h 71: 
+..\include\ptab.h 72: 
+..\include\ptab.h 73: 
+..\include\ptab.h 74: 
+..\include\ptab.h 75: 
+..\include\ptab.h 76: 
+..\include\ptab.h 77: 
+..\include\ptab.h 78: 
+..\include\ptab.h 79: 
+..\include\ptab.h 80: 
+..\include\ptab.h 81: 
+..\include\ptab.h 82: 
+..\include\ptab.h 83: 
+..\include\ptab.h 84: 
+..\include\ptab.h 85: 
+..\include\ptab.h 86: 
+..\include\ptab.h 87: 
+..\include\ptab.h 88: 
+..\include\ptab.h 89: 
+..\include\ptab.h 90: 
+..\include\ptab.h 91: 
+..\include\ptab.h 92: 
+..\include\ptab.h 93: 
+..\include\ptab.h 94: 
+..\include\ptab.h 95: 
+..\include\ptab.h 96: 
+..\include\ptab.h 97: 
+..\include\ptab.h 98: 
+..\include\ptab.h 99: 
+..\include\ptab.h 100: 
+..\include\ptab.h 101: 
+..\include\ptab.h 102: 
+..\include\ptab.h 103: 
+..\include\ptab.h 104: 
+..\..\include\fatfix.h 19: 
+..\..\include\fatfix.h 20: typedef union {
+..\..\include\fatfix.h 21: TBootFAT16 BootFAT16;
+..\..\include\fatfix.h 22: TBootFAT32 BootFAT32;
+..\..\include\fatfix.h 23: } TBootRecord;
+..\..\include\fatfix.h 24: 
+..\..\include\fatfix.h 25: class CDriveFix {
+..\..\include\fatfix.h 26: public:
+..\..\include\fatfix.h 27: CDriveFix();
+..\..\include\fatfix.h 28: ~CDriveFix();
+..\..\include\fatfix.h 29: int CanFixFAT(const TPartition *Partition);
+..\..\include\fatfix.h 30: void FixFAT(int Drive, int FSType, TBootRecord *BootRecord);
+..\..\include\fatfix.h 31: static void SwapDrive(int Drive);
+..\..\include\fatfix.h 32: };
+..\..\include\fatfix.h 33: 
+..\..\include\fatfix.h 34: 
+..\..\include\fatfix.h 35: 
+..\..\include\items.h 19: 
+..\..\include\items.h 20: 
+..\..\include\items.h 21: 
+..\..\include\items.h 22: class CBootItem {
+..\..\include\items.h 23: public:
+..\..\include\items.h 24: char ItemName[48];
+..\..\include\items.h 25: unsigned char PartIndex;
+..\..\include\items.h 26: unsigned short Hotkey;
+..\..\include\items.h 27: char Activate;
+..\..\include\items.h 28: char FixDriveNum;
+..\..\include\items.h 29: char Disabled;
+..\..\include\items.h 30: unsigned long Password;
+..\..\include\items.h 31: unsigned short Keys[16];
+..\..\include\items.h 32: unsigned char HideList[56];
+..\..\include\items.h 33: char SwapDrives;
+..\..\include\items.h 34: char Reserved[11]; 
+..\..\include\items.h 35: }; 
+..\..\include\items.h 36: 
+..\..\include\items.h 37: class CPartDesc {
+..\..\include\items.h 38: public:
+..\..\include\items.h 39: unsigned char Drive;
+..\..\include\items.h 40: unsigned long StartSector;
+..\..\include\items.h 41: }; 
+..\..\include\items.h 42: 
+..\..\include\items.h 43: 
+..\..\include\items.h 44: class CBootItemFile {
+..\..\include\items.h 45: public:
+..\..\include\items.h 46: CBootItem BootItems[24];
+..\..\include\items.h 47: CPartDesc PartList[56];
+..\..\include\items.h 48: unsigned char BootItemCount;
+..\..\include\items.h 49: unsigned char DefaultItem;
+..\..\include\items.h 50: unsigned char Reserved0; 
+..\..\include\items.h 51: unsigned char PartCount;
+..\..\include\items.h 52: unsigned short Timeout;
+..\..\include\items.h 53: unsigned char MbrHDSector0; 
+..\..\include\items.h 54: char Reserved[17]; 
+..\..\include\items.h 55: }; 
+..\..\include\items.h 56: 
+..\..\include\items.h 57: 
+..\..\include\items.h 58: class CBootItems {
+..\..\include\items.h 59: public:
+..\..\include\items.h 60: CBootItems(CFileSystem &FileSystemToUse, CPartList &PartListToUse);
+..\..\include\items.h 61: ~CBootItems();
+..\..\include\items.h 62: int GetCount();
+..\..\include\items.h 63: CBootItem *Get(int Index);
+..\..\include\items.h 64: int Add(CBootItem &NewItem);
+..\..\include\items.h 65: void Remove(int Index);
+..\..\include\items.h 66: void Clear();
+..\..\include\items.h 67: void Swap(int Index1, int Index2);
+..\..\include\items.h 68: 
+..\..\include\items.h 69: 
+..\..\include\items.h 70: void Save();
+..\..\include\items.h 71: void Reset();
+..\..\include\items.h 72: 
+..\..\include\items.h 73: void SetDefault(int Index);
+..\..\include\items.h 74: int GetDefault();
+..\..\include\items.h 75: int GetTimeout();
+..\..\include\items.h 76: void SetTimeout(int Timeout);
+..\..\include\items.h 77: 
+..\..\include\items.h 78: int InitBoot(int BootIndex);
+..\..\include\items.h 79: 
+..\..\include\items.h 80: bool IsDefault(int Index);
+..\..\include\items.h 81: bool CanFixFAT(int Index);
+..\..\include\items.h 82: bool CanSwap(int Index);
+..\..\include\items.h 83: 
+..\..\include\items.h 84: private:
+..\..\include\items.h 85: CDriveFix DriveFix;
+..\..\include\items.h 86: CBootItemFile ItemFile;
+..\..\include\items.h 87: 
+..\..\include\items.h 88: CFileSystem &FileSystem;
+..\..\include\items.h 89: CPartList &PartList;
+..\..\include\items.h 90: 
+..\..\include\items.h 91: void MoveUp(int Index);
+..\..\include\items.h 92: void StoreKeys(const unsigned short *Keys);
+..\..\include\items.h 93: 
+..\..\include\items.h 94: void Initialize();
+..\..\include\items.h 95: bool PartListIsChanged();
+..\..\include\items.h 96: void AdjustPartList();
+..\..\include\items.h 97: 
+..\..\include\items.h 98: void BuildRelocTable(int *RelocTable);
+..\..\include\items.h 99: void UpdatePartList(int *RelocTable);
+..\..\include\items.h 100: 
+..\..\include\items.h 101: void UpdatePartIndex(CBootItem &BootItem, int *RelocTable);
+..\..\include\items.h 102: void UpdateHideList(unsigned char *HideList, int *RelocTable);
+..\..\include\items.h 103: 
+..\..\include\items.h 104: };
+..\..\include\items.h 105: 
+..\..\include\items.h 106: 
+..\..\include\items.h 107: 
+..\..\include\items.h 108: 
+..\..\include\items.h 109: 
+install.cpp 27: 
+install.cpp 28: char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
+install.cpp 29: 
+install.cpp 30: CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
+install.cpp 31: TextUI(TextUIToUse),
+install.cpp 32: PartList(PartListToUse),
+install.cpp 33: FatInstall(TextUIToUse,XoslFiles,DosFile),
+install.cpp 34: FsCreator(TextUIToUse,XoslFiles,DosFile)
+install.cpp 35: {
+install.cpp 36: }
+install.cpp 37: 
+install.cpp 38: CInstaller::~CInstaller()
+install.cpp 39: {
+install.cpp 40: }
+install.cpp 41: 
+install.cpp 42: int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrHDSector0)
+install.cpp 43: {
+install.cpp 44: TIPL Ipl;
+install.cpp 45: 
+install.cpp 46: if (!PartMan) {
+install.cpp 47: XoslFiles.IgnorePartManFiles();
+install.cpp 48: }
+install.cpp 49: if (CreateXoslData(GraphicsMode,MouseType) == -1)
+install.cpp 50: return -1;
+install.cpp 51: if (CreateBootItem(MbrHDSector0) == -1)
+install.cpp 52: return -1;
+install.cpp 53: if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName()) == -1)
+install.cpp 54: return -1; 
+install.cpp 55: 
+install.cpp 56: if (SmartBm) {
+install.cpp 57: InstallSmartBootManager(DosDrive.Drive);
+install.cpp 58: }
+install.cpp 59: if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
+install.cpp 60: return -1;
+install.cpp 61: }
+install.cpp 62: 
+install.cpp 63: if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+install.cpp 64: return -1;
+install.cpp 65: 
+install.cpp 66: if (BackupCurrentMbr(&Ipl) == -1)
+install.cpp 67: return -1;
+install.cpp 68: 
+install.cpp 69: if (FatInstall.InstallFiles(DosDrive) == -1)
+install.cpp 70: return -1;
+install.cpp 71: if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+install.cpp 72: return -1;
+install.cpp 73: 
+install.cpp 74: TextUI.OutputStr("\nInstall complete\n");
+install.cpp 75: return 0;
+install.cpp 76: }
+install.cpp 77: 
+install.cpp 78: int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrHDSector0)
+install.cpp 79: {
+install.cpp 80: const TPartition *Partition;
+install.cpp 81: TIPL Ipl;
+install.cpp 82: CDosDriveList::CDosDrive DosDrive;
+install.cpp 83: 
+install.cpp 84: if (!PartMan) {
+install.cpp 85: XoslFiles.IgnorePartManFiles();
+install.cpp 86: }
+install.cpp 87: Partition = PartList.GetPartition(PartIndex);
+install.cpp 88: DosDrive.Drive = Partition->Drive;
+install.cpp 89: DosDrive.FATType = 16; 
+install.cpp 90: DosDrive.StartSector = Partition->StartSector;
+install.cpp 91: 
+install.cpp 92: if (Partition->SectorCount < 800) {
+install.cpp 93: TextUI.OutputStr("XOSL ""1.1.G"" requires a partition of\nat least 400kb\n\n");
+install.cpp 94: return -1;
+install.cpp 95: }
+install.cpp 96: 
+install.cpp 97: if (CreateXoslData(GraphicsMode,MouseType) == -1)
+install.cpp 98: return -1;
+install.cpp 99: if (CreateBootItem(MbrHDSector0) == -1)
+install.cpp 100: return -1;
+install.cpp 101: if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName()) == -1)
+install.cpp 102: return -1;
+install.cpp 103: 
+install.cpp 104: if (SmartBm) {
+install.cpp 105: InstallSmartBootManager(DosDrive.Drive);
+install.cpp 106: }
+install.cpp 107: if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
+install.cpp 108: return -1;
+install.cpp 109: }
+install.cpp 110: 
+install.cpp 111: if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector) == -1)
+install.cpp 112: return -1;
+install.cpp 113: 
+install.cpp 114: if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+install.cpp 115: return -1;
+install.cpp 116: 
+install.cpp 117: if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
+install.cpp 118: return -1;
+install.cpp 119: 
+install.cpp 120: 
+install.cpp 121: 
+install.cpp 122: SetPartId(PartIndex,0x78);
+install.cpp 123: 
+install.cpp 124: 
+install.cpp 125: if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+install.cpp 126: return -1;
+install.cpp 127: 
+install.cpp 128: TextUI.OutputStr("\nInstall complete\n");
+install.cpp 129: return 0;
+install.cpp 130: }
+install.cpp 131: 
+install.cpp 132: int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int MbrHDSector0)
+install.cpp 133: {
+install.cpp 134: char MbrBuffer[512];
+install.cpp 135: 
+install.cpp 136: 
+install.cpp 137: if (!OriginalMbr || LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetOriginalMbrName(),MbrBuffer) == -1)
+install.cpp 138: if (LoadDefaultMbr(MbrBuffer) == -1)
+install.cpp 139: return -1;
+install.cpp 140: 
+install.cpp 141: if (FatInstall.InstallIpl(MbrBuffer, MbrHDSector0) == -1)
+install.cpp 142: return -1;
+install.cpp 143: 
+install.cpp 144: FatInstall.RemoveXoslFiles(DosDrive.DriveChar);
+install.cpp 145: TextUI.OutputStr("\nUninstall complete\n");
+install.cpp 146: return 0;
+install.cpp 147: }
+install.cpp 148: 
+install.cpp 149: int CInstaller::Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0)
+install.cpp 150: {
+install.cpp 151: const TPartition *Partition;
+install.cpp 152: char OriginalMbrBuffer[512];
+install.cpp 153: char DefaultMbrBuffer[512];
+install.cpp 154: char *MbrBuffer;
+install.cpp 155: 
+install.cpp 156: 
+install.cpp 157: if (LoadRawMbr(PartIndex,XoslFiles.GetOriginalMbrName(),OriginalMbrBuffer) != -1)
+install.cpp 158: SetPartId(PartIndex,*(unsigned short *)&OriginalMbrBuffer[508]);
+install.cpp 159: 
+install.cpp 160: if (!OriginalMbr) {
+install.cpp 161: if (LoadDefaultMbr(DefaultMbrBuffer) == -1)
+install.cpp 162: return -1;
+install.cpp 163: MbrBuffer = DefaultMbrBuffer;
+install.cpp 164: }
+install.cpp 165: else
+install.cpp 166: MbrBuffer = OriginalMbrBuffer;
+install.cpp 167: 
+install.cpp 168: 
+install.cpp 169: if (FatInstall.InstallIpl(MbrBuffer,MbrHDSector0) == -1)
+install.cpp 170: return -1;
+install.cpp 171: 
+install.cpp 172: Partition = PartList.GetPartition(PartIndex);
+install.cpp 173: FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
+install.cpp 174: 
+install.cpp 175: 
+install.cpp 176: 
+install.cpp 177: TextUI.OutputStr("\nUninstall complete\n");
+install.cpp 178: return 0;
+install.cpp 179: }
+install.cpp 180: 
+install.cpp 181: 
+install.cpp 182: 
+install.cpp 183: int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSector0)
+install.cpp 184: {
+install.cpp 185: char Ipl[512];
+install.cpp 186: 
+install.cpp 187: if (LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetCurrentMbrName(),Ipl) == -1)
+install.cpp 188: return -1;
+install.cpp 189: 
+install.cpp 190: if (FatInstall.InstallIpl(Ipl,MbrHDSector0) == -1)
+install.cpp 191: return -1;
+install.cpp 192: 
+install.cpp 193: TextUI.OutputStr("\nRestore complete\n");
+install.cpp 194: return 0;
+install.cpp 195: }
+install.cpp 196: 
+install.cpp 197: int CInstaller::Restore(int PartIndex, int MbrHDSector0)
+install.cpp 198: {
+install.cpp 199: char CurrentMbr[512];
+install.cpp 200: 
+install.cpp 201: 
+install.cpp 202: if (LoadRawMbr(PartIndex,XoslFiles.GetCurrentMbrName(),CurrentMbr) == -1)
+install.cpp 203: return -1;
+install.cpp 204: 
+install.cpp 205: if (FatInstall.InstallIpl(CurrentMbr,MbrHDSector0) == -1)
+install.cpp 206: return -1;
+install.cpp 207: 
+install.cpp 208: TextUI.OutputStr("\nRestore complete\n");
+install.cpp 209: return 0;
+install.cpp 210: }
+install.cpp 211: 
+install.cpp 212: 
+install.cpp 213: 
+install.cpp 214: 
+install.cpp 215: int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType)
+install.cpp 216: {
+install.cpp 217: CXoslData XoslData;
+install.cpp 218: CXoslData::CGraphData &GraphData = XoslData.GraphData;
+install.cpp 219: CXoslData::CColorData &ColorData = XoslData.ColorData;
+install.cpp 220: CXoslData::CMouseData &MouseData = XoslData.MouseData;
+install.cpp 221: CXoslData::CMiscPref &MiscPref = XoslData.MiscPref;
+install.cpp 222: int fh;
+install.cpp 223: 
+install.cpp 224: TextUI.OutputStr("Creating data file...");
+install.cpp 225: 
+install.cpp 226: MemSet(&XoslData,0,sizeof (CXoslData));
+install.cpp 227: 
+install.cpp 228: GraphData.VideoMode = GraphicsMode;
+install.cpp 229: GraphData.FrameMove = 1;
+install.cpp 230: 
+install.cpp 231: ColorData.ColorScheme = 15; 
+install.cpp 232: ColorData.FadeColorInt = 100; 
+install.cpp 233: 
+install.cpp 234: MouseData.MouseType = MouseType;
+install.cpp 235: MouseData.MouseSpeed = 5;
+install.cpp 236: MouseData.PS2Sampling = 5;
+install.cpp 237: 
+install.cpp 238: MiscPref.KeyRestart = 0x4400;    
+install.cpp 239: MiscPref.KeyColdReboot = 0x7100; 
+install.cpp 240: MiscPref.KeyShutdown = 0x6700;   
+install.cpp 241: MiscPref.KeyCycle = 0x1100;      
+install.cpp 242: MiscPref.KeyPart = 0x1910;       
+install.cpp 243: MiscPref.ActiveAllow = 1;
+install.cpp 244: MiscPref.AutoSave = 1;
+install.cpp 245: 
+install.cpp 246: XoslData.XoslVersion = 2;
+install.cpp 247: 
+install.cpp 248: if ((fh = DosFile.Create(XoslFiles.GetXoslDataName())) == -1) {
+install.cpp 249: TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetXoslDataName());
+install.cpp 250: return -1;
+install.cpp 251: }
+install.cpp 252: if (DosFile.Write(fh,&XoslData,sizeof (CXoslData)) != sizeof (CXoslData)) {
+install.cpp 253: TextUI.OutputStr(DiskFullMsg_ss, "install.cpp", 253);
+install.cpp 254: DosFile.Close(fh);
+install.cpp 255: return -1;
+install.cpp 256: }
+install.cpp 257: DosFile.SetFileDateTime(fh);
+install.cpp 258: DosFile.Close(fh);
+install.cpp 259: TextUI.OutputStr("done\n");
+install.cpp 260: 
+install.cpp 261: 
+install.cpp 262: return 0;
+install.cpp 263: }
+install.cpp 264: 
+install.cpp 265: 
+install.cpp 266: int CInstaller::CreateBootItem(int MbrHDSector0)
+install.cpp 267: {
+install.cpp 268: CBootItemFile *BootItemData = new CBootItemFile;
+install.cpp 269: int hFile;
+install.cpp 270: 
+install.cpp 271: TextUI.OutputStr("Creating boot items file...");
+install.cpp 272: MemSet(BootItemData,0,4096);
+install.cpp 273: BootItemData->MbrHDSector0 = MbrHDSector0;
+install.cpp 274: if ((hFile = DosFile.Create(XoslFiles.GetBootItemName())) == -1) {
+install.cpp 275: TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetBootItemName());
+install.cpp 276: delete[] BootItemData;
+install.cpp 277: return -1;
+install.cpp 278: }
+install.cpp 279: if (DosFile.Write(hFile,BootItemData,4096) != 4096) {
+install.cpp 280: TextUI.OutputStr(DiskFullMsg_ss, "install.cpp", 280);
+install.cpp 281: DosFile.SetFileDateTime(hFile);
+install.cpp 282: DosFile.Close(hFile);
+install.cpp 283: delete[] BootItemData;
+install.cpp 284: return -1;
+install.cpp 285: }
+install.cpp 286: DosFile.SetFileDateTime(hFile);
+install.cpp 287: DosFile.Close(hFile);
+install.cpp 288: TextUI.OutputStr("done\n");
+install.cpp 289: delete[] BootItemData;
+install.cpp 290: return 0;
+install.cpp 291: }
+install.cpp 292: 
+install.cpp 293: int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName)
+install.cpp 294: {
+install.cpp 295: CDisk Disk;
+install.cpp 296: unsigned short Mbr[256];
+install.cpp 297: int hFile;
+install.cpp 298: 
+install.cpp 299: if (PartId != -1) {
+install.cpp 300: TextUI.OutputStr("Creating backup of MBR...");
+install.cpp 301: }
+install.cpp 302: else {
+install.cpp 303: TextUI.OutputStr("Creating SBM loader...");
+install.cpp 304: }
+install.cpp 305: Disk.Map(0x80,0);
+install.cpp 306: Disk.Read(0,Mbr,1);
+install.cpp 307: 
+install.cpp 308: if (PartId != -1) {
+install.cpp 309: Mbr[254] = PartId;
+install.cpp 310: }
+install.cpp 311: 
+install.cpp 312: if ((hFile = DosFile.Create(DestFileName)) != -1) {
+install.cpp 313: if (DosFile.Write(hFile,Mbr,512) != 512) {
+install.cpp 314: TextUI.OutputStr("failed\nFloppy disk full.\n");
+install.cpp 315: DosFile.Close(hFile);
+install.cpp 316: return -1;
+install.cpp 317: }
+install.cpp 318: DosFile.SetFileDateTime(hFile);
+install.cpp 319: DosFile.Close(hFile);
+install.cpp 320: }
+install.cpp 321: 
+install.cpp 322: TextUI.OutputStr("done\n");
+install.cpp 323: return 0;
+install.cpp 324: }
+install.cpp 325: 
+install.cpp 326: int CInstaller::BackupCurrentMbr(void *Ipl)
+install.cpp 327: {
+install.cpp 328: int hFile;
+install.cpp 329: 
+install.cpp 330: TextUI.OutputStr("Creating backup of new MBR...");
+install.cpp 331: if ((hFile = DosFile.Create(XoslFiles.GetCurrentMbrName())) != -1) {
+install.cpp 332: if (DosFile.Write(hFile,Ipl,512) != 512) {
+install.cpp 333: TextUI.OutputStr("failed\nFloppy disk full.\n");
+install.cpp 334: DosFile.Close(hFile);
+install.cpp 335: return -1;
+install.cpp 336: }
+install.cpp 337: DosFile.SetFileDateTime(hFile);
+install.cpp 338: DosFile.Close(hFile);
+install.cpp 339: DosFile.SetFileDateTime(hFile);
+install.cpp 340: }
+install.cpp 341: 
+install.cpp 342: TextUI.OutputStr("done\n");
+install.cpp 343: return 0;
+install.cpp 344: }
+install.cpp 345: 
+install.cpp 346: 
+install.cpp 347: int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long StartSector)
+install.cpp 348: {
+install.cpp 349: CFAT16 *FileSystem = new CFAT16;
+install.cpp 350: const char *DosFileName;
+install.cpp 351: char RawFileName[16];
+install.cpp 352: 
+install.cpp 353: 
+install.cpp 354: TextUI.OutputStr("Creating backup of new MBR...");
+install.cpp 355: 
+install.cpp 356: DosFileName = XoslFiles.GetCurrentMbrName();
+install.cpp 357: FileSystem->DosFileToRawFile(RawFileName,DosFileName);
+install.cpp 358: 
+install.cpp 359: FileSystem->Mount(Drive,StartSector);
+install.cpp 360: if (FileSystem->WriteFile(RawFileName,Ipl) == -1) {
+install.cpp 361: TextUI.OutputStr("failed\nFloppy disk full.\n");
+install.cpp 362: delete FileSystem;
+install.cpp 363: return -1;
+install.cpp 364: }
+install.cpp 365: 
+install.cpp 366: TextUI.OutputStr("done\n");
+install.cpp 367: delete FileSystem;
+install.cpp 368: return 0;
+install.cpp 369: }
+install.cpp 370: 
+install.cpp 371: 
+install.cpp 372: 
+install.cpp 373: int CInstaller::LoadDosMbr(int DriveChar, const char *DosFileName, void *MbrBuffer)
+install.cpp 374: {
+install.cpp 375: int hFile;
+install.cpp 376: char FileName[24];
+install.cpp 377: 
+install.cpp 378: FileName[0] = DriveChar;
+install.cpp 379: FileName[1] = ':';
+install.cpp 380: FileName[2] = '\\';
+install.cpp 381: strcpy(&FileName[3],DosFileName);
+install.cpp 382: 
+install.cpp 383: TextUI.OutputStr("Loading backup of MBR...");
+install.cpp 384: if ((hFile = DosFile.Open(FileName,CDosFile::accessReadOnly)) == -1) {
+install.cpp 385: TextUI.OutputStr("failed\nUnable to open %s\n",FileName);
+install.cpp 386: return -1;
+install.cpp 387: }
+install.cpp 388: DosFile.Read(hFile,MbrBuffer,512);
+install.cpp 389: DosFile.Close(hFile);
+install.cpp 390: TextUI.OutputStr("done\n");
+install.cpp 391: return 0;
+install.cpp 392: }
+install.cpp 393: 
+install.cpp 394: 
+install.cpp 395: int CInstaller::LoadRawMbr(int PartIndex, const char *DosFileName, void *MbrBuffer)
+install.cpp 396: {
+install.cpp 397: const TPartition *Partition;
+install.cpp 398: CFAT16 *FileSystem = new CFAT16; 
+install.cpp 399: 
+install.cpp 400: char RawFileName[16];
+install.cpp 401: 
+install.cpp 402: Partition = PartList.GetPartition(PartIndex);
+install.cpp 403: 
+install.cpp 404: if (FileSystem->Mount(Partition->Drive,Partition->StartSector) == -1) {
+install.cpp 405: TextUI.OutputStr("Unable to mount the partition\n");
+install.cpp 406: delete FileSystem;
+install.cpp 407: return -1;
+install.cpp 408: }
+install.cpp 409: 
+install.cpp 410: FileSystem->DosFileToRawFile(RawFileName,DosFileName);
+install.cpp 411: 
+install.cpp 412: TextUI.OutputStr("Loading backup of MBR...");
+install.cpp 413: if (FileSystem->ReadFile(RawFileName,MbrBuffer) != 512) {
+install.cpp 414: TextUI.OutputStr("failed\nUnable to load %s\n",DosFileName);
+install.cpp 415: delete FileSystem;
+install.cpp 416: return -1;
+install.cpp 417: }
+install.cpp 418: TextUI.OutputStr("done\n");
+install.cpp 419: delete FileSystem;
+install.cpp 420: return 0;
+install.cpp 421: }
+install.cpp 422: 
+install.cpp 423: int CInstaller::LoadDefaultMbr(void *MbrBuffer)
+install.cpp 424: {
+install.cpp 425: int hFile;
+install.cpp 426: 
+install.cpp 427: TextUI.OutputStr("Loading default MBR...");
+install.cpp 428: if ((hFile = DosFile.Open(XoslFiles.GetDefaultMbrName(),CDosFile::accessReadOnly)) == -1) {
+install.cpp 429: TextUI.OutputStr("failed\nUnable to open %s\n",XoslFiles.GetDefaultMbrName());
+install.cpp 430: return -1;
+install.cpp 431: }
+install.cpp 432: DosFile.Read(hFile,MbrBuffer,512);
+install.cpp 433: DosFile.Close(hFile);
+install.cpp 434: TextUI.OutputStr("done\n");
+install.cpp 435: return 0;
+install.cpp 436: }
+install.cpp 437: 
+install.cpp 438: 
+install.cpp 439: void CInstaller::SetPartId(int PartIndex, int PartId)
+install.cpp 440: {
+install.cpp 441: TextUI.OutputStr("Updating partition table...");
+install.cpp 442: PartList.SetFsType(PartIndex,PartId);
+install.cpp 443: PartList.WriteStructure();
+install.cpp 444: TextUI.OutputStr("done\n");
+install.cpp 445: }
+install.cpp 446: 
+install.cpp 447: 
+install.cpp 448: const char *SmartBmStatement =
+install.cpp 449: "XOSL INSTALL UTILITY will now install Smart Boot Manager 3.7.1.\n"
+install.cpp 450: "\n"
+install.cpp 451: "* XOSL uses Smart Boot Manager (SBM) to provide CD-ROM booting support.\n"
+install.cpp 452: "* To install SBM, sbminst.exe will be used. Because of this, XOSL \n"
+install.cpp 453: "  install cannot determine whether installation of SBM was successful.\n"
+install.cpp 454: "  sbminst.exe will ask for confirmation if you wish to install SBM.\n"
+install.cpp 455: "* After install, sbmbckup.bin will hold a backup of the data over-\n"
+install.cpp 456: "  written and can be used to fully uninstall SBM. XOSL, however, will\n"
+install.cpp 457: "  not used this file to uninstall SBM - it does not required it. It is\n"
+install.cpp 458: "  still provided so you are free to use it to fully uninstall SBM (and\n"
+install.cpp 459: "  XOSL, if still installed).\n"
+install.cpp 460: "* To start SBM, select 'Smart Boot Manager' from the partition list in\n"
+install.cpp 461: "  XOSL. Use the boot keys feature to control SBM from XOSL (see manual\n"
+install.cpp 462: "  for details).\n"
+install.cpp 463: "* If installing SBM was not successful, booting 'Smart Boot Manager'\n"
+install.cpp 464: "  from XOSL will have the same effect as booting the original MBR.\n"
+install.cpp 465: "\n"
+install.cpp 466: "Smart Boot Manager, Copyright (C) 2000 Suzhe";
+install.cpp 467: 
+install.cpp 468: 
+install.cpp 469: 
+install.cpp 470: void CInstaller::InstallSmartBootManager(int )
+install.cpp 471: {
+install.cpp 472: TextUI.ShowPopup(3,2,74,20,SmartBmStatement);
+install.cpp 473: CKeyboard Keyboard;
+install.cpp 474: TextUI.HandleKey(Keyboard.GetCh());
+install.cpp 475: 
+install.cpp 476: LockScreen();
+install.cpp 477: ClearScreen();
+install.cpp 478: 
+install.cpp 479: puts("Loading SBMINST.EXE...");
+install.cpp 480: int Status = spawnl(0,"SBMINST.EXE","SBMINST.EXE","-b sbmbckup.bin","-d 128",0);
+install.cpp 481: 
+install.cpp 482: if (Status != -1) {
+install.cpp 483: puts("\nPress any key to continue XOSL install...");
+install.cpp 484: Keyboard.GetCh();
+install.cpp 485: }
+install.cpp 486: else {
+install.cpp 487: perror("");
+install.cpp 488: Keyboard.GetCh();
+install.cpp 489: }
+install.cpp 490: 
+install.cpp 491: UnlockScreen();
+install.cpp 492: 
+install.cpp 493: if (Status == -1) {
+install.cpp 494: TextUI.OutputStr("Unable to run sbminst.exe...ignored\n");
+install.cpp 495: }
+install.cpp 496: 
+install.cpp 497: 
+install.cpp 498: 
+install.cpp 499: }
+install.cpp 500: 
+install.cpp 501: 
+install.cpp 502: 
+install.cpp 503: 

@@ -12,7 +12,9 @@
 #define __fat32__
 
 #include <fs.h>
+#include <bootrec.h>
 
+/*
 typedef struct {
 	// Sector 1
 	unsigned char Jump[3];
@@ -48,6 +50,7 @@ typedef struct {
 	  // Sector 1 and 2 are ignored
 
 } TBootFAT32;
+*/
 
 typedef struct {
 	unsigned char FileName[8];

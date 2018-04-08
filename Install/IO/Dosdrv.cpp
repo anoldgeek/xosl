@@ -11,6 +11,7 @@
 #include <dosdrv.h>
 #include <bootrec.h>
 #include <disk.h>
+#include <fatfix.h>
 
 #define GetFATType(FSType) \
 	(FSType == 0x06 || FSType == 0x0e ? FATTYPE_FAT16 : FATTYPE_FAT32)
@@ -62,10 +63,10 @@ unsigned long CDosDriveList::GetBRecSerialNo(int Index)
 	switch (Partition->FSType) {
 		case 0x06: // FAT16
 		case 0x0e: // FAT16 LBA
-			return BootRecord.FAT16.SerialNo;
+			return BootRecord.BootFAT16.SerialNo;
 		case 0x0b: // FAT32
 		case 0x0c: // FAT32 LBA
-			return BootRecord.FAT32.SerialNo;
+			return BootRecord.BootFAT32.SerialNo;
 		default:
 			return (unsigned long) -1;
 	}
