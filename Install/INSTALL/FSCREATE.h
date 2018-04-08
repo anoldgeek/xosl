@@ -105,7 +105,7 @@ private:
 	int InstallXoslImg(int Drive, unsigned long Sector);
 
 
-	void AddRootDirEntry(const char *FileName, long FileSize);
+	void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
 	void AddFatEntries(long FileSize);
 	void CFsCreator::DisplayIOError();
 

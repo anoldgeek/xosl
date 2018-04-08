@@ -88,6 +88,8 @@ int CFAT32::WriteFile(const char *FileName, void *Buffer)
 			WriteCluster(Cluster,Buffer);
 			Buffer = (char *)Buffer + ClusterSize;
 		}
+		// Update the Date/Time Stamp
+		UpdateFileDateTime(FileName);
 	}
 	return 0;
 }
@@ -102,6 +104,41 @@ void CFAT32::ReadFAT(long Cluster)
 	FirstCluster = (Cluster / INMEMORY_CLUSTERS) * INMEMORY_CLUSTERS;
 	LastCluster = FirstCluster + 4095;
 }
+
+void CFAT32::UpdateFileDateTime(const char *FileName)
+{
+	TFAT32DirEntry *Entries;
+	int EntryCount;
+	int Index;
+	long Cluster;
+	unsigned short FatDate;
+	unsigned short FatTime;
+
+	EntryCount = ClusterSize / sizeof (TFAT32DirEntry);
+	Entries = new TFAT32DirEntry[EntryCount];
+	for (Cluster = BootSector.RootCluster; Cluster != 0x0fffffff; GetNextCluster(Cluster)) {
+		ReadCluster(Cluster,Entries);
+		for (Index = 0; Index < EntryCount; ++Index) {
+			if (!Entries[Index].FileName[0]) {
+				delete Entries;
+				return ;
+			}
+			if (*Entries[Index].FileName != 0xe5)
+				if (memcmp(Entries[Index].FileName,FileName,8) == 0 &&
+					 memcmp(Entries[Index].Extension,FileName + 8,3) == 0) {
+					
+					GetCurFatDateTime(&FatDate, &FatTime);
+					Entries[Index].Date = FatDate;
+					Entries[Index].Time = FatTime;
+					// Now write the update to disk
+					WriteCluster(Cluster,Entries);
+					return;
+				}
+		}
+	}
+	delete Entries;
+}
+
 
 int CFAT32::Locate(const char *FileName, TFAT32DirEntry &Entry)
 {
@@ -156,3 +193,44 @@ void CFAT32::WriteCluster(long Cluster, void *Buffer)
 	Disk->Write(Sector,Buffer,BootSector.ClusterSize);
 }
 
+void CFAT32::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime)
+{
+	unsigned short bcdhrmin;
+	unsigned char bcdsec;
+
+	unsigned short bcdcentyr;
+	unsigned short bcdmonday;
+
+	unsigned short fatdate;
+	unsigned short fattime;
+
+	int temp;
+
+	asm{
+		mov	ah,2 //; get rtc time 
+		int 1ah
+		mov	bcdhrmin,cx
+		mov	bcdsec,dh
+
+		mov	ah,4 //; get rtc date
+		int	1ah
+		mov	bcdcentyr,cx
+		mov	bcdmonday,dx
+	}
+	fattime = ((bcdsec & 0xf) + ((( bcdsec >> 4)  & 0xf ) * 10) >> 1); // convert bcd sec ( 2 sec resolotion)
+
+	fattime = fattime + (( (bcdhrmin & 0xf) + (( bcdhrmin >> 4)  & 0xf ) * 10) << 5); // convert bcd min
+	fattime = fattime + (( ((bcdhrmin >> 8 ) & 0xf) + (( bcdhrmin >> 12)  & 0xf ) * 10) << 11); // convert bcd hr
+
+
+	fatdate = (bcdmonday & 0xf)  + (( bcdmonday >> 4) & 0xf) * 10; // convert bcd day
+	fatdate = fatdate + (( ( (bcdmonday >> 8) & 0xf)  + (( bcdmonday >> 12) & 0xf) * 10) << 5);  // convert bcd month
+
+	temp = (bcdcentyr & 0xf)  + (( bcdcentyr >> 4) & 0xf) * 10; // convert bcd year
+	temp = temp +  ( ((bcdcentyr >> 8 ) & 0xf) * 100  + (( bcdcentyr >> 12 ) & 0xf) * 1000 ); // convert bcd centry
+	temp = temp - 1980; // Convert to DOS epoch date
+	fatdate = fatdate + (temp << 9);
+	
+	*pfatdate = fatdate;
+	*pfattime = fattime;
+}

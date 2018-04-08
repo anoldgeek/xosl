@@ -63,8 +63,8 @@ class CFAT16: public CFileSystem {
 
 		void GetNextCluster(unsigned short &Cluster);
 		void ReadCluster(unsigned short Cluster, void *Buffer);
-		void WriteCluster(unsigned short Cluster, const void *Buffer);
-
+		void WriteCluster(unsigned short Cluster, void *Buffer);
+		void GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
 
 		TBootFAT16 BootSector;
 

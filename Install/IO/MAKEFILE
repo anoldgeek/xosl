@@ -13,7 +13,7 @@ LIB_OBJ=-+dosio.obj -+dosint.obj -+transfer.obj -+lbatrans.obj \
 # Generic library stuff
 #
 
-INCPATH=..\include;.;$(MAKEDIR)\..\include
+INCPATH=..\include;..\..\include;.;$(MAKEDIR)\..\include
 
 CPP_OPTIONS=-O2 -mc -3 -c -d -j6 -I$(INCPATH)
 C_OPTIONS=-O2 -mc -3 -c -d -j6 -I$(INCPATH)

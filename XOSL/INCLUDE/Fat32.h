@@ -80,6 +80,8 @@ class CFAT32: public CFileSystem {
 		void GetNextCluster(long &Cluster);
 		void ReadCluster(long Cluster, void *Buffer);
 		void WriteCluster(long Cluster, void *Buffer);
+		void GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
+		void UpdateFileDateTime(const char *FileName);
 
 
 		TBootFAT32 BootSector;

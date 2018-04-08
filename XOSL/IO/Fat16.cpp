@@ -74,6 +74,37 @@ unsigned short CFAT16::ReadFile(const char *FileName, void *Buffer)
 	return (unsigned short)Entry.FileSize;
 }
 
+void CFAT16::UpdateFileDateTime(const char *FileName)
+{
+	TFAT16DirEntry Root[INMEMORY_ENTRIES];
+	unsigned short ABSIndex;
+	int Index;
+	unsigned short FatDate;
+	unsigned short FatTime;
+
+
+	Index = INMEMORY_ENTRIES;
+	for (ABSIndex = 0; ABSIndex < BootSector.RootEntries; ++Index, ++ABSIndex) {
+		if (Index == INMEMORY_ENTRIES) {
+			Index = 0;
+			ReadDirectory(ABSIndex,Root);
+		}
+		if (!Root[Index].FileName[0])
+			return;
+		if (*Root[Index].FileName != 0xe5){
+			if (memcmp(Root[Index].FileName,FileName,8) == 0 &&
+				 memcmp(Root[Index].Extension,FileName + 8,3) == 0) {
+
+				GetCurFatDateTime(&FatDate, &FatTime);
+				Root[Index].Date = FatDate;
+				Root[Index].Time = FatTime;
+				// Now write the update to disk
+				WriteDirectory(ABSIndex, Root);
+			 }
+		}
+	}
+}
+
 int CFAT16::WriteFile(const char *FileName, void *Buffer)
 {
 	unsigned short Cluster;
@@ -86,6 +117,7 @@ int CFAT16::WriteFile(const char *FileName, void *Buffer)
 			WriteCluster(Cluster,Buffer);
 			Buffer = (char *)Buffer + ClusterSize;
 		}
+		UpdateFileDateTime(FileName);
 	}
 	return 0;
 }
@@ -108,6 +140,16 @@ void CFAT16::ReadDirectory(unsigned short Index, TFAT16DirEntry *Root)
 	Sector = DirStart + (Index / INMEMORY_ENTRIES) * DIR_SECTOR_COUNT;
 	Disk->Read(Sector,Root,DIR_SECTOR_COUNT);
 }
+
+void CFAT16::WriteDirectory(unsigned short Index, TFAT16DirEntry *Root)
+{
+	unsigned long Sector;
+
+	Sector = DirStart + (Index / INMEMORY_ENTRIES) * DIR_SECTOR_COUNT;
+	Disk->Write(Sector,Root,DIR_SECTOR_COUNT);
+}
+
+
 
 int CFAT16::Locate(const char *FileName, TFAT16DirEntry &Entry)
 {
@@ -157,3 +199,44 @@ void CFAT16::WriteCluster(unsigned short Cluster, void *Buffer)
 	Disk->Write(Sector,Buffer,BootSector.ClusterSize);
 }
 
+void CFAT16::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime)
+{
+	unsigned short bcdhrmin;
+	unsigned char bcdsec;
+
+	unsigned short bcdcentyr;
+	unsigned short bcdmonday;
+
+	unsigned short fatdate;
+	unsigned short fattime;
+
+	int temp;
+
+	asm{
+		mov	ah,2 //; get rtc time 
+		int 1ah
+		mov	bcdhrmin,cx
+		mov	bcdsec,dh
+
+		mov	ah,4 //; get rtc date
+		int	1ah
+		mov	bcdcentyr,cx
+		mov	bcdmonday,dx
+	}
+	fattime = ((bcdsec & 0xf) + ((( bcdsec >> 4)  & 0xf ) * 10) >> 1); // convert bcd sec ( 2 sec resolotion)
+
+	fattime = fattime + (( (bcdhrmin & 0xf) + (( bcdhrmin >> 4)  & 0xf ) * 10) << 5); // convert bcd min
+	fattime = fattime + (( ((bcdhrmin >> 8 ) & 0xf) + (( bcdhrmin >> 12)  & 0xf ) * 10) << 11); // convert bcd hr
+
+
+	fatdate = (bcdmonday & 0xf)  + (( bcdmonday >> 4) & 0xf) * 10; // convert bcd day
+	fatdate = fatdate + (( ( (bcdmonday >> 8) & 0xf)  + (( bcdmonday >> 12) & 0xf) * 10) << 5);  // convert bcd month
+
+	temp = (bcdcentyr & 0xf)  + (( bcdcentyr >> 4) & 0xf) * 10; // convert bcd year
+	temp = temp +  ( ((bcdcentyr >> 8 ) & 0xf) * 100  + (( bcdcentyr >> 12 ) & 0xf) * 1000 ); // convert bcd centry
+	temp = temp - 1980; // Convert to DOS epoch date
+	fatdate = fatdate + (temp << 9);
+	
+	*pfatdate = fatdate;
+	*pfattime = fattime;
+}

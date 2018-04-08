@@ -16,6 +16,7 @@
 #include <disk.h>
 #include <transfer.h>
 #include <xoslver.h>
+#include <dosio.h>
 
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
@@ -122,6 +123,8 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 {
 	long FileSize;
 	int AppendStat;
+	unsigned short FatDate;
+	unsigned short FatTime;
 
 	FileSize = DosFile.FileSize(FileName);
 	if (FileSize == -1) {
@@ -129,7 +132,11 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 		DosFile.Close(hClusterFile);
 		return -1;
 	}
-
+	if(DosFile.FileDateTime(FileName,&FatDate, &FatTime) == -1 ){
+		TextUI.OutputStr("failed\nin DosFile.FileDateTime for %s.\n", FileName);
+		DosFile.Close(hClusterFile);
+		return -1;
+	}
 	AppendStat = DosFile.Append(hClusterFile,FileName);
 	if (AppendStat == -1) {
 		TextUI.OutputStr("failed\nin DosFile.Append for %s.\n", FileName);
@@ -139,13 +146,14 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 
 	// AddRootDirEntry() needs current FatIndex, 
 	// so can't swap next two function calls
-	AddRootDirEntry(FileName,FileSize);
+	AddRootDirEntry(FileName,FileSize,FatDate,FatTime);
 	AddFatEntries(FileSize);
 
 	// fill last part of the cluster with random data
 	FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
 	if (FileSize != CLUSTER_SIZE)
 		if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
+//		if (DosFile.LSeek(hClusterFile,FileSize, DosFile.seekCurrent) != FileSize) {
 			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 			DisplayIOError();
 			DosFile.Close(hClusterFile);
@@ -192,7 +200,6 @@ int CFsCreator::PackFiles()
 /* */
 	// Now the "XOSLIMGx.XXF files
 	strcpy(SrcFile2,XoslFiles.GetXoslImgXName());
-#ifndef BADCODE
 	// Get the first one it conatains the image count
 	FileName = SrcFile2;
 	TextUI.OutputStr("Packing %s... ",FileName);
@@ -212,26 +219,7 @@ int CFsCreator::PackFiles()
 		}
 		TextUI.OutputStr("done\n");
 	}
-#else
-	NextImgFile=0;
-	for(;;++NextImgFile){
-		SrcFile2[7] = NextImgFile +'0';
-		FileName = SrcFile2;
-		if(DosFile.FileSize(FileName) != -1 ) {
-			// File exists
-			TextUI.OutputStr("Packing %s... ",FileName);
-			if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
-				return -1;
-			}
-			TextUI.OutputStr("done\n");
-		}else{
-			// File does not exist
-			// TextUI.OutputStr(" %d XOSL image files packed\n",NextImgFile - 1);
-			break;
-		}
-	}
-#endif
-/* */
+
 	// Now pack the rest
 	Count = XoslFiles.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
@@ -241,46 +229,19 @@ int CFsCreator::PackFiles()
 			return -1;
 		}
 		TextUI.OutputStr("done\n");
-/*
-		FileSize = DosFile.FileSize(FileName);
-		AppendStat = DosFile.Append(hClusterFile,FileName);
-
-		if (FileSize == -1 || AppendStat == -1) {
-			TextUI.OutputStr("failed\n");
-			DosFile.Close(hClusterFile);
-			return -1;
-		}
-
-		// AddRootDirEntry() needs current FatIndex, 
-		// so can't swap next two function calls
-		AddRootDirEntry(FileName,FileSize);
-		AddFatEntries(FileSize);
-
-		// fill last part of the cluster with random data
-		FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
-		if (FileSize != CLUSTER_SIZE)
-			if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
-				TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-				DosFile.Close(hClusterFile);
-				return -1;
-			}
-
-		
-		TextUI.OutputStr("done\n");
-*/
 	}
+	DosFile.SetFileDateTime(hClusterFile);
 	DosFile.Close(hClusterFile);
 	return 0;
 }
 
 
-void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize)
+void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime)
 {
 	CDirectoryEntry &Entry = RootDir[RootDirIndex++];
 	char Name[9];
 	char Ext[4];
 	int Len;
-	
 
 	DosFile.GetNameExt(FileName,Name,Ext);
 
@@ -294,6 +255,9 @@ void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize)
 	MemCopy(Entry.Extension,Ext,3);
 	Entry.StartCluster = FatIndex;
 	Entry.FileSize = FileSize;
+
+	Entry.Date = FatDate;
+	Entry.Time = FatTime;
 }
 
 void CFsCreator::AddFatEntries(long FileSize)

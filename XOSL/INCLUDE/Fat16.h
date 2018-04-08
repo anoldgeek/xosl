@@ -60,10 +60,13 @@ class CFAT16: public CFileSystem {
 		int Locate(const char *FileName, TFAT16DirEntry &Entry);
 		void ReadFAT(unsigned short Cluster);
 		void ReadDirectory(unsigned short Index, TFAT16DirEntry *Root);
+		void WriteDirectory(unsigned short Index, TFAT16DirEntry *Root);
 
 		void GetNextCluster(unsigned short &Cluster);
 		void ReadCluster(unsigned short Cluster, void *Buffer);
 		void WriteCluster(unsigned short Cluster, void *Buffer);
+		void GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
+		void UpdateFileDateTime(const char *FileName);
 
 
 		TBootFAT16 BootSector;

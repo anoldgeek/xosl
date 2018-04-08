@@ -109,6 +109,21 @@ XOSL11D
 
 XOSL11E
 
+
+11. Fix date/time settings of files in sep install. 
+11. Fixed and tested for sep, FAT32 and FAT16
+
+XOSL11F
 **************** TODO ****************
+
+8. Fix restore and delete, where xosl installed in HD other than HD0 in sep installs.
+	Store which HD the mbr is written to on install in CBootItemFile.Sect0HD (new char value) and retrieve it for display an restore and delete action.
+
+9. Create upgrade option.
+	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ), convert to new release and restore after install.
+
+10. Fix smartbootloader "not enough memory" on install.
+
+
 
 

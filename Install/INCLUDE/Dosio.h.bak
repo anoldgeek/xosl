@@ -46,7 +46,6 @@ public:
 	void SetFileDateTime(int hFile);
 	void CDosFile::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
 	static long LSeek(int Handle, long Offset, TWhence Whence);
-	int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime);
 
 private:
 	static int Unlink(const char *FileName);

@@ -13,7 +13,7 @@ LIB_OBJ=-+freemem.obj
 # Generic library stuff
 #
 
-INCPATH=..\include;.
+INCPATH=..\include;..\..\include;.
 
 CPP_OPTIONS=-O2 -ml -3 -c -d -j6 -I$(INCPATH)
 C_OPTIONS=-O2 -mc -3 -c -d -j6 -zCFARCODE -I$(INCPATH)

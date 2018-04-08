@@ -253,7 +253,7 @@ int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouse
 		DosFile.Close(fh);
 		return -1;
 	}
-
+	DosFile.SetFileDateTime(fh);
 	DosFile.Close(fh);
 	TextUI.OutputStr("done\n");
 
@@ -276,11 +276,12 @@ int CInstaller::CreateBootItem()
 	}
 	if (DosFile.Write(hFile,BootItemData,BOOTITEM_FILESIZE) != BOOTITEM_FILESIZE) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+		DosFile.SetFileDateTime(hFile);
 		DosFile.Close(hFile);
 		delete[] BootItemData;
 		return -1;
 	}
-
+	DosFile.SetFileDateTime(hFile);
 	DosFile.Close(hFile);
 	TextUI.OutputStr("done\n");
 	delete[] BootItemData;
@@ -312,6 +313,7 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName)
 			DosFile.Close(hFile);
 			return -1;
 		}
+		DosFile.SetFileDateTime(hFile);
 		DosFile.Close(hFile);
 	}
 
@@ -330,7 +332,9 @@ int CInstaller::BackupCurrentMbr(void *Ipl)
 			DosFile.Close(hFile);
 			return -1;
 		}
+		DosFile.SetFileDateTime(hFile);
 		DosFile.Close(hFile);
+		DosFile.SetFileDateTime(hFile);
 	}
 
 	TextUI.OutputStr("done\n");

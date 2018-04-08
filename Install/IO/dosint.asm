@@ -103,17 +103,19 @@ ReadOk:         pop     ds
                 int     21h
                 jnc     WriteOK
 
-GetExtended:	push	ax bx cx dx
-		push	di si es ds
-		mov	bx,0
-		mov	ax,59h
-		int	21h
+;GetExtended:	push	ax bx cx dx
+;		push	di si es ds
+;		mov	bx,0
+;		mov	ax,59h
+;		int	21h
+;		mov	_error_code,ax
+;		mov	_error_class,bh
+;		mov	_action,bl
+;		mov	_locus,ch
+;		pop	ds es si di
+;		pop	dx cx bx ax
+
 		mov	_error_code,ax
-		mov	_error_class,bh
-		mov	_action,bl
-		mov	_locus,ch
-		pop	ds es si di
-		pop	dx cx bx ax
 		xor	ax,ax
 		
 WriteOk:        pop     ds
