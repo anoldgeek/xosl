@@ -97,6 +97,7 @@ private:
 	int RootDirIndex;
 
 	int LoadIplS(int Drive);
+	int PackFile(int hClusterFile,const char *FileName);
 	int PackFiles();
 	int InitBootRecord(unsigned short Drive, unsigned long Sector);
 

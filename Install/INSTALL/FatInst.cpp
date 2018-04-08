@@ -126,20 +126,82 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	return 0;
 }
 
+int CFatInstall::InstallFile(const char *SrcFile, const char *DestFile)
+{
+	TextUI.OutputStr("Copying %s...",SrcFile);
+	if (DosFile.SetAttrib(DestFile,0) != -1)
+		if (DosFile.Delete(DestFile) == -1) {
+			TextUI.OutputStr("failed\nUnable to delete existing %s\n",SrcFile);
+			return -1;
+		}
+	if (DosFile.Copy(SrcFile,DestFile) == -1) {
+		TextUI.OutputStr("failed\nUnabled to copy %s\n",SrcFile);
+		return -1;
+	}
+	DosFile.SetAttrib(DestFile,CDosFile::attrHidden);
+	TextUI.OutputStr("done\n");
+	return 0;
+}
+
 int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 {
 	char DestFile[32];
 	const char *SrcFile;
 	int Index, Count;
+	char SrcFile2[13];
+	int NextImgFile;
 
 	*DestFile = DosDrive.DriveChar;
 	*(unsigned short *)&DestFile[1] = 0x5c3a; // ':\'
 
+	// Install XOSLLOAD.XCF first
+	SrcFile = XoslFiles.GetXoslLoadName();
+	strcpy(&DestFile[3],SrcFile);
+	if(CFatInstall::InstallFile(SrcFile,DestFile) == -1){
+		return -1;
+	}
+	// Now the "XOSLIMGx.XXF files
+	strcpy(&SrcFile2[0],XoslFiles.GetXoslImgXName());
+	SrcFile = SrcFile2;
+	NextImgFile=0;
+	for(;;++NextImgFile){
+		int fh;
 
+		SrcFile2[7] = NextImgFile +'0';
+		strcpy(&DestFile[3],SrcFile);
+		if ((fh = DosFile.Open(SrcFile,CDosFile::accessReadOnly)) != -1){
+			DosFile.Close(fh);
+			if(CFatInstall::InstallFile(SrcFile,DestFile) == -1){
+				return -1;
+			}
+		}else{
+			// All img files in source folder copied OK
+			break;
+		}
+	}
+	// Now ensure any other img files are deleted
+	for(;;++NextImgFile){
+		SrcFile2[7] = NextImgFile +'0';
+		strcpy(&DestFile[3],SrcFile);
+		if (DosFile.SetAttrib(DestFile,0) != -1){
+			if (DosFile.Delete(DestFile) == -1) {
+				TextUI.OutputStr("failed\nUnable to delete existing %s\n",SrcFile);
+				return -1;
+			}
+		}else{
+			// Next file not found
+			break;
+		}
+	}
+	// Now the remaining files
 	Count = XoslFiles.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
 		strcpy(&DestFile[3],XoslFiles.GetFileName(Index));
 		SrcFile = XoslFiles.GetFileName(Index);
+		if(CFatInstall::InstallFile(SrcFile,DestFile) == -1){
+			return -1;
+		}
+/*
 		TextUI.OutputStr("Copying %s...",SrcFile);
 		if (DosFile.SetAttrib(DestFile,0) != -1)
 			if (DosFile.Delete(DestFile) == -1) {
@@ -152,6 +214,7 @@ int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 		}
 		DosFile.SetAttrib(DestFile,CDosFile::attrHidden);
 		TextUI.OutputStr("done\n");
+*/
 	}
 	return 0;
 }

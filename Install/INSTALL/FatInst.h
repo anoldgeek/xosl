@@ -25,6 +25,7 @@ public:
 
 	int CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl);
 	int InstallFiles(const CDosDriveList::CDosDrive &DosDrive);
+	int InstallFile(const char *,const char *);
 	int InstallIpl(void *Ipl, int MbrHDSector0);
 
 	void RemoveXoslFiles(char DosDriveChar);

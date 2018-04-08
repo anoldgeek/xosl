@@ -23,6 +23,7 @@
 #include <string.h>
 
 #include <Bypass.h>
+#include <xoslver.h>
 
 /**/
 
@@ -72,7 +73,7 @@ _extern void CPPMain()
 	void *ImageData;
 	TExeHeader *ExeHeader = (TExeHeader *)&HeaderData[2];
 
-	PutS("\r\nExtended Operating System Loader 1.1.C\r\n\n");
+	PutS("\r\nExtended Operating System Loader "XOSL_VERSION"\r\n\n");
 	if (BypassRequest())
 		CriticalError(NULL);
 

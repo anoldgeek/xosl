@@ -12,8 +12,9 @@
 #include <graph.h>
 #include <rgb.h>
 #include <cstring.h>
+#include <xoslver.h>
 
-static const char *Title = "Extended Operating System Loader 1.1.C";
+static const char *Title = "Extended Operating System Loader "XOSL_VERSION"";
 static const char *SubTitle = "with Ranish Partition Manager 2.44 Beta";
 
 CBackground::CBackground()

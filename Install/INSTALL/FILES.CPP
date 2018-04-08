@@ -73,16 +73,31 @@ void CXoslFiles::IgnorePartManFiles()
 	IgnoreRPM = true;
 }
 
+const char *CXoslFiles::GetXoslLoadName()
+{
+	return XoslLoad;
+}	
+
+const char *CXoslFiles::GetXoslImgXName()
+{
+	return XoslImgX;
+}
+
 
 const char *CXoslFiles::XoslData = "XOSLDATA.XDF";
 const char *CXoslFiles::BootItem = "BOOTITEM.XDF";
 const char *CXoslFiles::CurrentMBR = "CURR_MBR.XCF";
 const char *CXoslFiles::OriginalMBR = "ORIG_MBR.XCF";
 
+const char *CXoslFiles::XoslLoad = "XOSLLOAD.XCF";
+
+const char *CXoslFiles::XoslImgX = "XOSLIMG0.XXF";
 
 const char *CXoslFiles::FileList[] = {
+/* These are now done individually
 	"XOSLLOAD.XCF",
 	"XOSLIMG0.XXF","XOSLIMG1.XXF","XOSLIMG2.XXF","XOSLIMG3.XXF","XOSLIMG4.XXF","XOSLIMG5.XXF", "XOSLIMG6.XXF",
+*/
 	"XOSLLOGO.XBF","XOSLWALL.XBF","SPLASHLG.XBF",
 	"DEFAULT.XFF","EXTRA.XFF",
 	"ORIG_MBR.XCF","CURR_MBR.XCF","SBM_IPL0.XCF",

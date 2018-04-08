@@ -15,6 +15,7 @@
 
 #include <disk.h>
 #include <transfer.h>
+#include <xoslver.h>
 
 CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
@@ -103,39 +104,101 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long Sector)
 	BootRecord.Drive = Drive;
 	BootRecord.Signature = 0x29;
 	BootRecord.SerialNo = 0x4c534f58;
-	MemCopy(BootRecord.Label,"XOSL11C    ",11);
+	MemCopy(BootRecord.Label,XOSL_LABEL,11);
 	MemCopy(BootRecord.FSID,"FAT16   ",8);
 	BootRecord.MagicNumber = 0x534f;
 	TextUI.OutputStr("done\n");
 	return 0;
 }
+int CFsCreator::PackFile(int hClusterFile,const char *FileName)
+{
+	long FileSize;
+	int AppendStat;
 
+	FileSize = DosFile.FileSize(FileName);
+	AppendStat = DosFile.Append(hClusterFile,FileName);
+
+	if (FileSize == -1 || AppendStat == -1) {
+		TextUI.OutputStr("failed\n");
+		DosFile.Close(hClusterFile);
+		return -1;
+	}
+
+	// AddRootDirEntry() needs current FatIndex, 
+	// so can't swap next two function calls
+	AddRootDirEntry(FileName,FileSize);
+	AddFatEntries(FileSize);
+
+	// fill last part of the cluster with random data
+	FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
+	if (FileSize != CLUSTER_SIZE)
+		if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
+			TextUI.OutputStr("failed\nDisk full.\n");
+			DosFile.Close(hClusterFile);
+			return -1;
+		}
+	return 0;
+}
 int CFsCreator::PackFiles()
 {
 	int hClusterFile;
 	int Index, Count;
 	const char *FileName;
 	long FileSize;
-	int AppendStat;
+//	int AppendStat;
+	int NextImgFile;
+	char SrcFile2[13];
 
 	TextUI.OutputStr("Packing XOSL files...\n");
 	FatIndex = 2; // first two are reserved!
 	RootDirIndex = 0;
 
-	TextUI.OutputStr("Creating "XOSLIMG_FILE"...");
+	TextUI.OutputStr("Creating %s... ",XOSLIMG_FILE);
 	if ((hClusterFile = DosFile.Create(XOSLIMG_FILE)) == -1) {
 		TextUI.OutputStr("failed\n");
 		return - 1;
 	}
 	TextUI.OutputStr("done\n");
 
+
+	// Start with "XOSLLOAD.XCF"
+	FileName = XoslFiles.GetXoslLoadName();
+	TextUI.OutputStr("Packing %s... ",FileName);
+	if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+		return -1;
+	}
+	TextUI.OutputStr("done\n");
+
+	// Now the "XOSLIMGx.XXF files
+	strcpy(&SrcFile2[0],XoslFiles.GetXoslImgXName());
+	NextImgFile=0;
+	for(;;++NextImgFile){
+		SrcFile2[7] = NextImgFile +'0';
+		FileName = SrcFile2;
+		if(DosFile.FileSize(FileName) != -1 ) {
+			// File exists
+			TextUI.OutputStr("Packing %s... ",FileName);
+			if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+				return -1;
+			}
+			TextUI.OutputStr("done\n");
+		}else{
+			// File does not exist
+			TextUI.OutputStr(" %d XOSL image files packed\n",NextImgFile - 1);
+			break;
+		}
+	}
+
+	// Now pack the rest
 	Count = XoslFiles.GetCount();
-
-
 	for (Index = 0; Index < Count; ++Index) {
 		FileName = XoslFiles.GetFileName(Index);
-		TextUI.OutputStr("Packing %s...",FileName);
-
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
+		}
+		TextUI.OutputStr("done\n");
+/*
 		FileSize = DosFile.FileSize(FileName);
 		AppendStat = DosFile.Append(hClusterFile,FileName);
 
@@ -161,6 +224,7 @@ int CFsCreator::PackFiles()
 
 		
 		TextUI.OutputStr("done\n");
+*/
 	}
 	DosFile.Close(hClusterFile);
 	return 0;

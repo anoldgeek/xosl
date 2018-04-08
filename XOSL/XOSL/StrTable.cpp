@@ -1,9 +1,10 @@
 
 #include <StrTable.h>
+#include <xoslver.h>
 
 CLoaderStringTable CXoslStringTable::Loader = {
 	"Extended Operating System Loader",
-	"XOSL version 1.1.C",
+	"XOSL version "XOSL_VERSION"",
 	"Copyright \xa9 1999/2000, Geurt Vos",
 	"http://www.xosl.org",
 	"Choose OS",

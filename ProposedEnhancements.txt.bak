@@ -79,8 +79,31 @@ XOSL11C
 		int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 	\install\install\Files.cpp line 83
 		const char *CXoslFiles::FileList[] = {
+	Suggested fix:
+
+	next="1"
+	copyok=0
+	do
+		nextfile=XOSLIMG${next}.XXF
+		delete old nextfile
+		if exists new nextfile
+			if copy new nextfile
+			     copyok=1
+			 else
+			     copyok=-1
+			 fi
+		else
+			copyok=2
+		fi
+	while copyok==1
+	if copyok==-1
+		msg failed to copy nextfile
+		abort
+	fi
+
 
 7. Ipl_brec assumes a maxiumum size of XOSLLOAD.XCF of 8192. It is now bigger!!
+	Get size from directory enrty?
 
 
 

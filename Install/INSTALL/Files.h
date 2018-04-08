@@ -24,6 +24,8 @@ public:
 
 	const char *GetCurrentMbrName();
 	const char *GetOriginalMbrName();
+	const char *GetXoslLoadName();
+	const char *GetXoslImgXName();
 	const char *GetDefaultMbrName();
 	const char *GetSmartBmName();
 
@@ -44,6 +46,9 @@ private:
 	static const char *BootItem;
 	static const char *CurrentMBR;
 	static const char *OriginalMBR;
+	static const char *XoslLoad;
+	static const char *XoslImgX;
+
 
 	bool IgnoreRPM;
 

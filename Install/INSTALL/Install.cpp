@@ -22,6 +22,7 @@
 #include <process.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <xoslver.h>
 
 
 CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
@@ -87,7 +88,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	DosDrive.StartSector = Partition->StartSector;
 
 	if (Partition->SectorCount < 800) {
-		TextUI.OutputStr("XOSL 1.1.C requires a partition of\nat least 400kb\n\n");
+		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 400kb\n\n");
 		return -1;
 	}
 		

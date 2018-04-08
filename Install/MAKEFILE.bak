@@ -1,6 +1,5 @@
 #main makefile for INSTALL.EXE
 
-DOS_DEBUG=yes
 
 LIBPATH=install;io;mouse;vesa;ui;keyboard;text;string
 LIB_FILES=install.lib io.lib mouse.lib string.lib\
@@ -10,6 +9,8 @@ LIB_FILES=install.lib io.lib mouse.lib string.lib\
 MAKE_OPTIONS=-DDOS_DEBUG
 TLINK_OPTIONS=/v
 !endif
+
+MAKE_OPTIONS= $(MAKE_OPTIONS) -DXOSL_VERSION=$(XOSL_VERSION) -DXOSL_LABEL=$(XOSL_LABEL)
 
 MAKEROOT=$(MAKEDIR)\..
 
