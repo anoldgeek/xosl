@@ -145,16 +145,19 @@ XOSL11G
 
 XOSL11H
 
-**************** TODO ****************
-
 
 10. Create upgrade option.
 	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ). 
-	Convert to new release and restore after install or update existing files to new release and avoid installing new ones.
-	
+	Convert to new release and restore after install OR update existing files to new release and avoid installing new ones.
 
+XOSL120	
+**************** TODO ****************
 
 11. Fix updating partlist when returning to main memu after installing XOSL
 
+12. Add boot from GPT via bios (msdos).
 
+13. Add boot via UEFI
+
+14. Add install via USFI
 

@@ -1,4 +1,4 @@
-Turbo Assembler	 Version 3.1	    01/04/18 11:32:04	    Page 1
+Turbo Assembler	 Version 3.1	    08/04/18 08:07:35	    Page 1
 mem.asm
 
 
@@ -51,7 +51,7 @@ mem.asm
      46	    001C			 MemCompare	 endp
      47
      48							 end
-Turbo Assembler	 Version 3.1	    01/04/18 11:32:04	    Page 2
+Turbo Assembler	 Version 3.1	    08/04/18 08:07:35	    Page 2
 Symbol Table
 
 
@@ -59,9 +59,9 @@ Symbol Table
 
 Symbol Name			  Type	 Value
 
-??DATE				  Text	 "01/04/18"
+??DATE				  Text	 "08/04/18"
 ??FILENAME			  Text	 "mem	  "
-??TIME				  Text	 "11:32:04"
+??TIME				  Text	 "08:07:35"
 ??VERSION			  Number 030A
 @32BIT				  Text	 0
 @CODE				  Text	 DGROUP

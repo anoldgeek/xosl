@@ -29,6 +29,9 @@ public:
 	void InitErrorMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
 	void InitDoneMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
 	void InitUnDoneMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
+	void InitUpgradeMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
+	void InitUpgradeFatMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
+	void InitUpgradeSepMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
 
 	void InitUninstallFat(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
 	void InitUninstallSep(CTextList::TListItemExecute MenuHandler, void *HandlerClass);

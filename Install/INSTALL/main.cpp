@@ -151,6 +151,64 @@ int CApplication::StartInstallSep()
 	return 0;
 }
 
+int CApplication::StartUpgradeFat()
+{
+	CVesa::TGraphicsMode GraphicsMode;
+	CMouse::TMouseType MouseType;
+
+	CDosDriveList DosDriveList(PartList);
+	CDosDriveList::CDosDrive DosDrive;
+	int DosDriveIndex;
+	bool PartMan;
+	bool SmartBootManager;
+
+	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
+	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
+	DosDriveIndex = TextUI.GetOptionIndex(2);
+
+	PartMan = TextUI.GetOptionIndex(3) == 0;
+
+	SmartBootManager = TextUI.GetOptionIndex(4) == 0;
+
+	if (DosDriveList.LocateDrive(DosDriveIndex,DosDrive) == -1) {
+		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
+		return -1;
+	}
+
+	if (Installer.Upgrade(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,0x80) == -1) {
+		TextUI.OutputStr("Upgrade error\n");
+		return -1;
+	}
+
+	return 0;
+}
+
+int CApplication::StartUpgradeSep()
+{
+	CVesa::TGraphicsMode GraphicsMode;
+	CMouse::TMouseType MouseType;
+	int PartIndex;
+	unsigned char MbrHDSector0;
+	bool PartMan;
+	bool SmartBootManager;
+	
+	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
+	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
+
+	PartMan = TextUI.GetOptionIndex(2) == 0;
+
+	SmartBootManager = TextUI.GetOptionIndex(3) == 0;
+
+	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(4));
+	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(8));
+
+	if (Installer.Upgrade(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager,MbrHDSector0) == -1) {
+		TextUI.OutputStr("Upgrade error\n");
+		return -1;
+	}
+	return 0;
+}
+
 
 int CApplication::StartRestoreFat()
 {
@@ -239,6 +297,12 @@ void CApplication::MainMenuExecute(CApplication *Application, TEnumMainMenu Item
 		case enumExit:
 			Application->DoExit = 1;
 			break;
+		case enumUpgrade:
+			if (Application->Data.CollectData(1,1,1) == -1)
+				Application->InstallMenus.InitErrorMenu((CTextList::TListItemExecute)Application->ErrorMenuExecute,Application);
+			else
+				Application->InstallMenus.InitUpgradeMenu((CTextList::TListItemExecute)Application->UpgradeMenuExecute,Application);
+			break;
 		default:
 			break;
 	}
@@ -257,6 +321,25 @@ void CApplication::InstallMenuExecute(CApplication *Application, TEnumInstallMen
 			Application->TextUI.ShowPopup(10,4,60,17,InstallWarning);
 			break;
 		case enumInstAbort:
+			Application->InstallMenus.InitMainMenu((CTextList::TListItemExecute)Application->MainMenuExecute,Application);
+			break;
+		default:
+			break;
+	}
+}
+
+void CApplication::UpgradeMenuExecute(CApplication *Application, TEnumUpgradeMenu Item)
+{
+	switch (Item) {
+		case enumUpgradeFat:
+			Application->InstallMenus.InitUpgradeFatMenu((CTextList::TListItemExecute)Application->UpgradeFatMenuExecute,Application);
+			break;
+		case enumUpgradeSep:
+			Application->InstallMenus.InitUpgradeSepMenu((CTextList::TListItemExecute)Application->UpgradeSepMenuExecute,Application);
+//			Application->TextUI.OutputStr("WARNING:\nAll data on the partition you install XOSL on will be destroyed!\n\n");
+//			Application->TextUI.ShowPopup(10,4,60,17,InstallWarning);
+			break;
+		case enumUpgradeAbort:
 			Application->InstallMenus.InitMainMenu((CTextList::TListItemExecute)Application->MainMenuExecute,Application);
 			break;
 		default:
@@ -321,6 +404,23 @@ void CApplication::InstFatMenuExecute(CApplication *Application, TEnumInstFatMen
 	}
 }
 
+void CApplication::UpgradeFatMenuExecute(CApplication *Application, TEnumUpgradeFatMenu Item)
+{
+	switch (Item) {
+		case enumUpgradeFatStart:
+			if (Application->StartUpgradeFat() == -1)
+				Application->InstallMenus.InitErrorMenu((CTextList::TListItemExecute)Application->ErrorMenuExecute,Application);
+			else
+				Application->InstallMenus.InitDoneMenu((CTextList::TListItemExecute)Application->DoneMenuExecute,Application);
+			break;
+		case enumUpgradeFatAbort:
+			Application->InstallMenus.InitInstallMenu((CTextList::TListItemExecute)Application->UpgradeMenuExecute,Application);
+			break;
+		default:
+			break;
+	}
+}
+
 
 void CApplication::InstSepMenuExecute(CApplication *Application, TEnumInstSepMenu Item)
 {
@@ -333,6 +433,23 @@ void CApplication::InstSepMenuExecute(CApplication *Application, TEnumInstSepMen
 			break;
 		case enumInstSepAbort:
 			Application->InstallMenus.InitInstallMenu((CTextList::TListItemExecute)Application->InstallMenuExecute,Application);
+			break;
+		default:
+			break;
+	}
+}
+
+void CApplication::UpgradeSepMenuExecute(CApplication *Application, TEnumUpgradeSepMenu Item)
+{
+	switch (Item) {
+		case enumUpgradeSepStart:
+			if (Application->StartUpgradeSep() == -1)
+				Application->InstallMenus.InitErrorMenu((CTextList::TListItemExecute)Application->ErrorMenuExecute,Application);
+			else
+				Application->InstallMenus.InitDoneMenu((CTextList::TListItemExecute)Application->DoneMenuExecute,Application);
+			break;
+		case enumUpgradeSepAbort:
+			Application->InstallMenus.InitUpgradeMenu((CTextList::TListItemExecute)Application->UpgradeMenuExecute,Application);
 			break;
 		default:
 			break;

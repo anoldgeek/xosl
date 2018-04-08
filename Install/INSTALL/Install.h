@@ -42,6 +42,9 @@ public:
 
 	int Restore(const CDosDriveList::CDosDrive &DosDrive, unsigned char MbrHDSector0);
 	int Restore(int PartIndex, unsigned char MbrHDSector0);
+
+	int Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0);
+	int Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, unsigned char MbrHDSector0);
 	
 private:
 	CTextUI &TextUI;
@@ -69,6 +72,8 @@ private:
 	void SetPartId(int PartIndex, int PartId);
 
 	void InstallSmartBootManager(int Drive);
+
+	int CopyFileForUpgrade(const char *FileName, char DriveChar);
 
 };
 

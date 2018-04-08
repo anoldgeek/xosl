@@ -48,6 +48,7 @@ void CInstallMenus::InitMainMenu(CTextList::TListItemExecute MenuHandler, void *
 	TextUI.AddMenuItem(4,"Restore XOSL","Make your system start XOSL again (typically after installing an OS)",1);
 
 	TextUI.AddMenuItem(6,"Exit install","Quit without installing Extended Operating System Loader "XOSL_VERSION"",1);
+	TextUI.AddMenuItem(8,"Upgrade XOSL","Upgrade Extended Operating System Loader to "XOSL_VERSION"",1);
 	TextUI.SetItemIndex(0);
 	TextUI.RefreshMenu();
 }
@@ -64,6 +65,20 @@ void CInstallMenus::InitInstallMenu(CTextList::TListItemExecute MenuHandler, voi
 	TextUI.SetItemIndex(FatAvail ? 0 : 2);
 	TextUI.RefreshMenu();
 }
+
+void CInstallMenus::InitUpgradeMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
+{
+	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
+	
+	TextUI.ClearMenu();
+	TextUI.SetMenuTitle(" Upgrade \xcd\xcd");
+	TextUI.AddMenuItem(0,"Upgrade a DOS drive","Upgrade XOSL to "XOSL_VERSION" on a DOS drive (FAT16/FAT32)",FatAvail);
+	TextUI.AddMenuItem(2,"Upgrade a dedicated partition","Upgrade XOSL to "XOSL_VERSION" on an existing dedicated partition",1);
+	TextUI.AddMenuItem(6,"Return to main menu","Return to main menu",1);
+	TextUI.SetItemIndex(FatAvail ? 0 : 2);
+	TextUI.RefreshMenu();
+}
+
 
 void CInstallMenus::InitFixMbrMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
 {
@@ -141,6 +156,60 @@ void CInstallMenus::InitInstSepMenu(CTextList::TListItemExecute MenuHandler, voi
 	TextUI.AddMenuItem(8,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL "XOSL_VERSION" MBR on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(10,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
 	TextUI.AddMenuItem(11,"Return to install menu","Return to install menu",1);
+	TextUI.SetItemIndex(0);
+	TextUI.RefreshMenu();
+}
+
+void CInstallMenus::InitUpgradeFatMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
+{
+	const char **ModeNameList;
+	int ModeCount;
+	const char **MouseTypeNames;
+	int MouseTypeCount;
+
+	Data.GetGraphicsModeNames(ModeNameList,ModeCount);
+	Data.GetMouseTypeNames(MouseTypeNames,MouseTypeCount);
+	if (!DosDriveList)
+		CreateDosDriveList();
+
+	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
+	TextUI.ClearMenu();
+	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
+	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
+	TextUI.AddMenuItem(2,"Upgrade drive","Drive to upgrade XOSL on",1,DosDriveCount,(const char **)DosDriveList,1);
+	TextUI.AddMenuItem(3,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
+	TextUI.AddMenuItem(4,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+
+	TextUI.AddMenuItem(6,"Start upgrade","Upgrade Extended Operating System Loader to "XOSL_VERSION"",1);
+	TextUI.AddMenuItem(8,"Return to upgrade menu","Return to upgrade menu",1);
+	TextUI.SetItemIndex(0);
+	TextUI.RefreshMenu();
+}
+
+void CInstallMenus::InitUpgradeSepMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
+{
+	const char **ModeNameList;
+	int ModeCount;
+	const char **MouseTypeNames;
+	int MouseTypeCount;
+
+	Data.GetGraphicsModeNames(ModeNameList,ModeCount);
+	Data.GetMouseTypeNames(MouseTypeNames,MouseTypeCount);
+	if (!PartNameList){
+		CreateHDList();
+		CreatePartList();
+	}
+
+	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
+	TextUI.ClearMenu();
+	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
+	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
+	TextUI.AddMenuItem(2,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta",1,2,YesNoList,1);
+	TextUI.AddMenuItem(3,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+	TextUI.AddMenuItem(4,"Drv Type System (XOSL UG)    Size ","Partition to upgrade XOSL to "XOSL_VERSION,1,PartNameCount,(const char **)PartNameList,0,8,MbrHDSector0List);
+	TextUI.AddMenuItem(8,"Drv for Sector0 MBR","Drive to upgrade Sector 0 XOSL to "XOSL_VERSION" MBR",1,HDNameCount,(const char **)HDNameList,1);
+	TextUI.AddMenuItem(10,"Start upgrade","Upgrade Extended Operating System Loader to "XOSL_VERSION"",1);
+	TextUI.AddMenuItem(11,"Return to upgrade menu","Return to upgrade menu",1);
 	TextUI.SetItemIndex(0);
 	TextUI.RefreshMenu();
 }

@@ -17,6 +17,9 @@
 #include <items.h>
 //#include <mem.h>
 #include <memory.h>
+#include <dosio.h>
+#include <files.h>
+#include <xosldata.h>
 
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
@@ -370,4 +373,99 @@ void CPartList::GetPartMbrHDSector0(TPartition *Partition)
 						Partition->MbrHDSector0 = BootItemData->MbrHDSector0;
 	delete FileSystem;
 	delete BootItemData;
+}
+
+int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0)
+{
+	CDisk Disk;
+	CDosFile DosFile;
+	CXoslFiles XoslFiles;
+	CFAT16 *FileSystem = new CFAT16;
+	TBootRecord BootRecord;
+	CBootItemFile *BootItemData = new CBootItemFile;
+	int fh;
+	char XoslFsFileName[13];
+	
+	ConvertDOS2XoslFsName(XoslFiles.GetBootItemName(),XoslFsFileName);
+	// Does this partition have sep XOSL installed
+	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1){
+		if(Disk.Read(0, &BootRecord,1) != -1 ){
+			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
+				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
+					if (FileSystem->ReadFile(XoslFsFileName,BootItemData) == BOOTITEM_FILESIZE ){
+						BootItemData->MbrHDSector0 = MbrHDSector0;
+						fh = DosFile.Create(XoslFiles.GetBootItemName());
+						if( fh != -1 ) {
+							if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
+								DosFile.Close(fh);
+								delete FileSystem;
+								delete BootItemData;
+								return 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	delete FileSystem;
+	delete BootItemData;
+	return -1;
+}
+
+int CPartList::Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition)
+{
+	CDisk Disk;
+	CDosFile DosFile;
+	CFAT16 *FileSystem = new CFAT16;
+	TBootRecord BootRecord;
+	int fh;
+	char XoslFsFileName[13];
+
+	if(FileSize > sizeof CDosFile::TransferBuffer)
+		return -1;
+
+	ConvertDOS2XoslFsName(DosFileName,XoslFsFileName);
+	// Does this partition have sep XOSL installed
+	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1){
+		if(Disk.Read(0, &BootRecord,1) != -1 ){
+			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
+				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
+					if (FileSystem->ReadFile(XoslFsFileName,CDosFile::TransferBuffer) == FileSize ){
+						if( (fh=DosFile.Create(DosFileName)) != -1 ){
+							if(DosFile.Write(fh,CDosFile::TransferBuffer,FileSize) == FileSize){
+								DosFile.Close(fh);
+								delete FileSystem;
+								return 0;
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+	delete FileSystem;
+	return -1;
+}
+void CPartList::ConvertDOS2XoslFsName(const char *DosFileName, char *XoslFsFileName)
+{
+	int i;
+
+	for(i = 0 ; i < 8 ; i++){
+		if(*DosFileName && *DosFileName != '.'){
+			*XoslFsFileName++ = *DosFileName++;
+		}else{
+			*XoslFsFileName++ = ' ';
+		}
+	}
+	if(*DosFileName == '.')
+		DosFileName++;
+	for(i = 0 ; i < 3 ; i++){
+		if(*DosFileName) {
+			*XoslFsFileName++ = *DosFileName++;
+		}else{
+			*XoslFsFileName++ = ' ';
+		}
+	}
+	*XoslFsFileName = '\0';
 }

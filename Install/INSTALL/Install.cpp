@@ -498,4 +498,132 @@ void CInstaller::InstallSmartBootManager(int /*Drive*/)
 
 }
 
+int CInstaller::CopyFileForUpgrade(const char *FileName, char DriveChar)
+{
+	CDosFile DosFile;
+	char CopySrc[20];
+
+	char RootPath[] = "C:\\";
+
+	strcpy(CopySrc,RootPath);
+	strcat(CopySrc,FileName);
+	*CopySrc = DriveChar;
+	if(DosFile.Copy(CopySrc,FileName) == -1){
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",FileName);
+		return -1;
+	}
+	return 0;
+}
+
+int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
+{
+	TIPL Ipl;
+
+	if (!PartMan) {
+		XoslFiles.IgnorePartManFiles();
+	}
+	//if (CreateXoslData(GraphicsMode,MouseType) == -1)
+	if(CopyFileForUpgrade(XoslFiles.GetXoslDataName(),DosDrive.DriveChar) == -1)
+		return -1;
+	//if (CreateBootItem(MbrHDSector0) == -1)
+	if(CopyFileForUpgrade(XoslFiles.GetBootItemName(),DosDrive.DriveChar) == -1)
+		return -1;
+	//if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName()) == -1)
+	if(CopyFileForUpgrade(XoslFiles.GetOriginalMbrName(),DosDrive.DriveChar) == -1)
+		return -1; 
+
+	if (SmartBm)
+		InstallSmartBootManager(DosDrive.Drive);
+
+//	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1)
+	if(CopyFileForUpgrade(XoslFiles.GetSmartBmName(),DosDrive.DriveChar) == -1)
+		return -1;
+
+	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+		return -1;
+
+//	if (BackupCurrentMbr(&Ipl) == -1)
+	if(CopyFileForUpgrade(XoslFiles.GetCurrentMbrName(),DosDrive.DriveChar) == -1)
+		return -1;
+
+	if (FatInstall.InstallFiles(DosDrive) == -1)
+		return -1;
+	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+		return -1;
+	TextUI.OutputStr("\Upgrade complete\n");
+	return 0;
+}
+
+int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
+{
+	const TPartition *Partition;
+	TIPL Ipl;
+	CDosDriveList::CDosDrive DosDrive;
+
+	if (!PartMan) {
+		XoslFiles.IgnorePartManFiles();
+	}
+	Partition = PartList.GetPartition(PartIndex);
+	DosDrive.Drive = Partition->Drive;
+	DosDrive.FATType = FATTYPE_FAT16; // dedicated partition always FAT16
+	DosDrive.StartSector = Partition->StartSector;
+
+	if (Partition->FSType != 0x78){ // XOSL FS
+		TextUI.OutputStr("XOSL "XOSL_VERSION". Please select a XOSL FS partition for upgrade\n\n");
+		return -1;
+	}
+
+	if (Partition->SectorCount < 800) {
+		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 400kb\n\n");
+		return -1;
+	}
+		
+	// Save the existing data file and restore 
+	if (PartList.Retain(XoslFiles.GetXoslDataName(),512,Partition) == -1){
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetXoslDataName());
+		return -1;
+	}
+
+	// Save the existing bootitem file, upgrade and restore
+	if (PartList.UpgradeXoslBootItem(Partition,MbrHDSector0) == -1){
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetBootItemName());
+		return -1;
+	}
+
+	if (PartList.Retain(XoslFiles.GetOriginalMbrName(),512,Partition) == -1){
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetOriginalMbrName());
+		return -1;
+	}
+	
+	if (SmartBm) {
+		InstallSmartBootManager(DosDrive.Drive);
+	}
+
+	if (PartList.Retain(XoslFiles.GetSmartBmName(),512,Partition) == -1) {
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetSmartBmName());
+		return -1;
+	}
+
+	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector) == -1){
+		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade in %s \n\n","FsCreator.InstallFs");
+		return -1;
+	}
+	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+		return -1;
+
+	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
+		return -1;
+
+	SetPartId(PartIndex,0x78);
+
+ 	if (MbrHDSector0 != 0xff){
+ 		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+ 			return -1;
+ 		else
+ 			TextUI.OutputStr("\nUpgrade complete\n");
+ 	}else{
+ 		TextUI.OutputStr("\Upgrade complete...\n   for chain loading only.\n");
+ 	}
+	return 0;
+}
 

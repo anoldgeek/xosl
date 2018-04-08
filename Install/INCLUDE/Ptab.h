@@ -75,6 +75,8 @@ class CPartList {
 		void SetAllowActiveHD(int Status);
 		void SetActive(int Index);
 		void SetFsType(int Index, int FsType);
+		int UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0);
+		int Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition);
 	public:
 		typedef struct {
 			int FSID;
@@ -90,6 +92,7 @@ class CPartList {
 		const char *GetFSName(int FSID);
 		void CreatePLUP();
 		void GetPartMbrHDSector0(TPartition *Partition);
+		void ConvertDOS2XoslFsName(const char *DosFileName, char *XoslFsFileName);
 
 		TMBRNode MBRList;
 		TPartNode PartList;

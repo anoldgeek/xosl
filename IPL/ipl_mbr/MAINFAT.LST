@@ -1,4 +1,4 @@
-Turbo Assembler	 Version 3.1	    01/04/18 11:32:04	    Page 1
+Turbo Assembler	 Version 3.1	    08/04/18 08:07:35	    Page 1
 mainfat.asm
 
 
@@ -60,7 +60,7 @@ mainfat.asm
      55	    0130  EA					 db	 0eah		 ;jmp f000:fff0
      56	    0131  F000FFF0				 dd	 0f000fff0h
      57
-Turbo Assembler	 Version 3.1	    01/04/18 11:32:04	    Page 2
+Turbo Assembler	 Version 3.1	    08/04/18 08:07:35	    Page 2
 mainfat.asm
 
 
@@ -76,7 +76,7 @@ mainfat.asm
      66
      67							 end
 1    68						 END @Startup
-Turbo Assembler	 Version 3.1	    01/04/18 11:32:04	    Page 3
+Turbo Assembler	 Version 3.1	    08/04/18 08:07:35	    Page 3
 Symbol Table
 
 
@@ -84,9 +84,9 @@ Symbol Table
 
 Symbol Name			  Type	 Value
 
-??DATE				  Text	 "01/04/18"
+??DATE				  Text	 "08/04/18"
 ??FILENAME			  Text	 "mainfat "
-??TIME				  Text	 "11:32:04"
+??TIME				  Text	 "08:07:34"
 ??VERSION			  Number 030A
 @32BIT				  Text	 0
 @CODE				  Text	 DGROUP
