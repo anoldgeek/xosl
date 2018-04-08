@@ -106,4 +106,22 @@ _chmod          proc
                 ret
 _chmod          endp
 
+;int lseek(int handle,unsigned short origin, int offset);
+_lseek          proc
+                push    bp
+                mov     bp,sp
+                push    ds
+                mov     ah,42h
+                mov     al,[bp+6]
+                mov     bx,[bp + 4]
+                mov     cx,0
+                mov     dx,[bp + 8]
+                int     21h
+                jnc     FSeekOK
+                xor     ax,ax
+FSeekOK:        pop     ds
+                pop     bp
+                ret
+_lseek          endp
+
                 end

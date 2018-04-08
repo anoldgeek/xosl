@@ -85,8 +85,8 @@ void CWindowList::SetPosition(int Left, int Top)
 
 void CWindowList::GetPosition(int &Left, int &Top)
 {
-	Left = this->Left;
-	Top = this->Top;
+	Left = (int)this->Left;
+	Top = (int)this->Top;
 }
 
 void CWindowList::SetMetrics(int Width, int Height)
@@ -97,8 +97,8 @@ void CWindowList::SetMetrics(int Width, int Height)
 
 void CWindowList::GetMetrics(int &Width, int &Height)
 {
-	Width = this->Width;
-	Height = this->Height;
+	Width = (int)this->Width;
+	Height = (int)this->Height;
 }
 
 void CWindowList::SetFocusWnd(CControl *Wnd, int MoveFocused)
@@ -182,8 +182,8 @@ CControl *CWindowList::FocusPrev()
 void CWindowList::FixDamage(long Left, long Top, long Width, long Height)
 {
 	list<CControl *>::iterator DrawEntry;
-	long VPLeft, VPTop;
-	long ClipLeft, ClipTop, ClipWidth, ClipHeight;
+	//long VPLeft, VPTop;
+	//long ClipLeft, ClipTop, ClipWidth, ClipHeight;
 	long lLeft, lTop;
 
 	if (!Visible || AdjustArea(Left,Top,Width,Height) == -1)
@@ -191,18 +191,18 @@ void CWindowList::FixDamage(long Left, long Top, long Width, long Height)
 	lLeft = Left + this->Left;
 	lTop = Top + this->Top;
 	if (hScreen)
-		hScreen->BeforeFix(lLeft, lTop, Width,Height);
+		hScreen->BeforeFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
 	if (hForm)
-		hForm->BeforeFix(lLeft, lTop, Width,Height);
+		hForm->BeforeFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
 
 	for (DrawEntry = DrawList.begin(); DrawEntry != DrawList.end(); ++DrawEntry) {
-		(*DrawEntry)->FixDamage(Left,Top,Width,Height);
+		(*DrawEntry)->FixDamage((int)Left,(int)Top,(int)Width,(int)Height);
 	}
 
 	if (hScreen)
-		hScreen->AfterFix(lLeft, lTop, Width,Height);
+		hScreen->AfterFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
 	if (hForm)
-		hForm->AfterFix(lLeft, lTop, Width,Height);
+		hForm->AfterFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
 
 }
 
@@ -247,7 +247,7 @@ void CWindowList::MouseDown(int Left, int Top)
 
 	do {
 		--DrawEntry;
-	} while ((*DrawEntry)->MouseDown(Left - this->Left,Top - this->Top) == -1 && DrawEntry != DrawList.begin());
+	} while ((*DrawEntry)->MouseDown((int)Left - this->Left,(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
 }
 
 void CWindowList::MouseUp()
@@ -266,14 +266,14 @@ void CWindowList::MouseMove(int Left, int Top)
 
 	do {
 		--DrawEntry;
-	} while ((*DrawEntry)->MouseMove(Left - this->Left,Top - this->Top) == -1 && DrawEntry != DrawList.begin());
+	} while ((*DrawEntry)->MouseMove((int)Left - this->Left,(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
 
 }
 
 int CWindowList::AdjustArea(long &iLeft, long &iTop, long &iWidth, long &iHeight)
 {
 	long iRight, iBottom;
-	long Right, Bottom;
+	//long Right, Bottom;
 
 	iRight = iLeft + iWidth - 1;
 	iBottom = iTop + iHeight - 1;

@@ -16,29 +16,57 @@
                 extrn   @AllocInit$qul: far
                 extrn   _main: far
                 extrn   @ResetTimer$qv: far
-		
+                extrn   _EnableA20: far
+                extrn   _DisableA20: far
+                extrn   _PrintA20Status: far
 
 		.startup
 		call 	_EnableA20
+                push    dx
+                call    _PrintA20Status
+                pop     dx
 
+		ifdef DOS_DEBUG
+		push    dword ptr 65000000h    ;MMU start address for DOS debug version
+		else
                 push    dword ptr 50000000h
+		endif
                 call    @AllocInit$qul
                 pop     eax
                 call    _main
 
                 push    ax              ;boot drive 
-                call    @ResetTimer$qv
+                ;call    @ResetTimer$qv
 		call	_DisableA20
+                push    dx
+                call    _PrintA20Status
+                pop     dx
 		
                 pop     dx              ;Solaris needs drive no. in dl
 
+		;Flush keyboard
+                mov     bx,0040h
+                mov     es,bx         ;set segment to 0040h
+                cli                   ;need head not to be changed
+                mov     bx,es:[001Ah] ;read head
+                mov     es:[001Ch],bx ;set tail
+                sti                   ;now restore IRQs
+                xor     bx, bx
+
+                ifdef DOS_DEBUG
+                db      0eah      ; jmp far 8000:7c00
+                dd      80007c00h
+                else
+                db      0eah      ; jmp far 0000:7c00
+                dd      00007c00h ; standard mbr load address
+                endif
 
                 db      0eah
                 dd      00007c00h
                 
 ;;;;;;;;;;
 
-include		A20LINE.ASM
+;include		A20LINE.ASM
 
 
 

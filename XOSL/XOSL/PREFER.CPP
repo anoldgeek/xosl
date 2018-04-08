@@ -89,7 +89,7 @@ bool CPreference::GotFocus()
 	return Screen.GetFocusWnd() == Form;
 }
 
-int CPreference::GetIgnoreNextKey()
+bool CPreference::GetIgnoreNextKey()
 {
 	if (IgnoreKey) {
 		IgnoreKey = 0;
@@ -133,7 +133,7 @@ void CPreference::CreateControls()
 
 void CPreference::InitializeControls()
 {
-	int Index;
+	//int Index;
 
 	TabControl->SetTabCaption(0,"Graphics");
 	TabControl->SetTabCaption(1,"Color");

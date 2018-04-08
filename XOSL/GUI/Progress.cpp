@@ -89,13 +89,13 @@ void CProgressBar::Draw(long, long, long, long)
 	Graph->VLine(Width - 1,0,Height - 1,21);
 
 	if (Progress == Max)
-		ProgressWidth = Width - 4;
+		ProgressWidth = (int)(Width - 4);
 	else
-		ProgressWidth = ((long)(Width - 4) * Progress) / Max;
+		ProgressWidth = (int)(((long)(Width - 4) * Progress) / Max);
 	Graph->Bar(2,2,ProgressWidth,Height - 4,Color);
 	if (ShowText || GotFocus) {
-		TextLeft = Width - TextWidth >> 1;
-		TextTop = Height - Graph->GetTextHeight() >> 1;
+		TextLeft = (int)(Width - TextWidth >> 1);
+		TextTop = (int)(Height - Graph->GetTextHeight() >> 1);
 		Graph->TextOut(TextLeft,TextTop,Text,STYLE_REGULAR,TextColor);
 	}
 }

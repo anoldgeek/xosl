@@ -77,7 +77,7 @@ _MemCompare	proc    c
                 lds     si,@@Ptr2
                 mov     cx,@@Count
                 cld
-                rep     cmpsb
+                repz     cmpsb	;replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 setne   al
                 pop     ds
                 pop     di

@@ -29,7 +29,7 @@ int CDisk::DriveCount(int Fixed)
 
 int CDisk::Map(int Drive, long StartSector)
 {
-	int Status;
+	//int Status;
 
 	this->Drive = Drive;
 	this->StartSector = StartSector;
@@ -111,9 +111,9 @@ void CDisk::Sector2CHS(long RSector, unsigned short &SectCyl, unsigned short &Dr
 
 	RSector += StartSector;
 
-	Sector = RSector % DrvSectorCount + 1;
+	Sector = (int)RSector % DrvSectorCount + 1;
 	RSector /= DrvSectorCount;
-	Head = RSector % DrvHeadCount;
+	Head = (int)RSector % DrvHeadCount;
 	Cylinder = RSector / DrvHeadCount;
 
 	DrvHead = Drive | (Head << 8);

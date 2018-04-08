@@ -48,7 +48,7 @@ void CLastConfig::SetNewConfig()
 	KeyList = FileData->LastPartList;
 	for (Index = 0; Index < Count; ++Index, ++KeyList) {
 		Partition = PartList->GetPartition(Index);
-		KeyList->Drive = Partition->Drive;
+		KeyList->Drive = (unsigned char) Partition->Drive;  //ML: TPartition->Drive is short, TPartKey->Drive is unsigned char
 		KeyList->StartSector = Partition->StartSector;
 	}
 	FileSystem->WriteFile(LastConfFile,FileData);

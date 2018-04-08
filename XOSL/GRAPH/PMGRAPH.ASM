@@ -700,10 +700,10 @@ _GetViewportOrigin proc
 _GetViewportOrigin endp
 
 ;void MapFontData()
-                public  _MapFontData
-_MapFontData    proc
-                ret
-_MapFontData    endp
+;                public  _MapFontData
+;_MapFontData    proc
+;                ret
+;_MapFontData    endp
 
 ;long PMTextWidth(long PhysStr)
                 public  _PMTextWidth
@@ -711,6 +711,8 @@ _PMTextWidth    proc
                 push    bp
                 mov     bp,sp
                 push    esi
+
+                xor     cx,cx
 
                 mov     esi,[bp + 4]
                 cld

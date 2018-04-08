@@ -315,7 +315,7 @@ void CBootItems::UpdatePartList(int *RelocTable)
 	for (Index = 0; Index < 56; ++Index) {
 		if (!ItemResolved[Index]) {
 			Partition = PartList.GetPartition(Index);
-			ItemFile.PartList[Index].Drive = Partition->Drive;
+			ItemFile.PartList[Index].Drive = (unsigned char) Partition->Drive;
 			ItemFile.PartList[Index].StartSector = Partition->StartSector;
 		}
 		else {

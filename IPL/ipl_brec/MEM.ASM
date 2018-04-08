@@ -28,7 +28,9 @@
                 lds     si,@@Mem2
                 mov     cx,@@ByteCount
                 cld
-                rep     cmpsb
+		; replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+                ; rep     cmpsb
+                repz     cmpsb
                 setne   al
                 pop     ds di si
                 ret

@@ -7,6 +7,24 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; From XOSL116 ML
+;
+;Info on TDesc bit fields
+;  Access[7]      = P <97> Segment present
+;  Access[6:5]    = DPL <97> Descriptor privilege level
+;  Access[4]      = S <97> Descriptor type (0 = system; 1 = code or data)
+;  Access[3:0]    = TYPE <97> Segment type
+;    0x92 1001 0010 => Type=0010: Data Read/Write, expand up
+;    0x9A 1001 1010 => Type=1010: Code Execute/Read
+;  LimitHigh[7]   = G <97> Granularity (0 = byte, 1 = 4 Kbyte)
+;  LimitHigh[6]   = D/B <97> Default operation size (0 = 16-bit segment; 1 = 32-bit segment)
+;  LimitHigh[5]   = 0
+;  LimitHigh[4]   = AVL <97> Available for use by system software
+;  LimitHigh[3:0] = LIMIT <97> Segment Limit[19:16]
+;Info on GDTLimit
+;  The GDT limit should always be one less than an integral multiple 
+;  of eight (that is, 8N <96> 1)
+
 
 		.model  compact
                 .386p
@@ -44,7 +62,7 @@ GraphDesc       TDesc   <0ffffh,0,0ah,92h,0,0>
 BufferDesc      TDesc   <01d5h,0,12h,92h,0c0h,0>
 PhysicalDesc    TDesc   <0ffffh,0,0,92h,0cfh,0>
 GDTR            equ     this fword
-GDTLimit        dw      EndGDT - BeginGDT
+GDTLimit        dw      EndGDT - BeginGDT - 1 ;ML
 GDTBase         dd      ?
 
 ;IDTR            equ     this fword

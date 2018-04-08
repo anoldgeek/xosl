@@ -13,6 +13,7 @@
 #include <mem.h>
 #include <cursor.h>
 #include <grmem.h>
+#include <vpgraph.h>
 
 //Clip is absolute
 long ClipLeft, ClipTop;

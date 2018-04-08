@@ -175,7 +175,7 @@ _strcmp         proc    far
                 not     cx
                 pop     di
                 lds     si,[bp + 6]
-                rep     cmpsb
+                repz     cmpsb		; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 mov     al,[si - 1]
                 mov     bl,[di - 1]
                 sub     ax,bx

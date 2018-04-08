@@ -87,7 +87,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	DosDrive.StartSector = Partition->StartSector;
 
 	if (Partition->SectorCount < 800) {
-		TextUI.OutputStr("XOSL 1.1.5 requires a partition of\nat least 400kb\n\n");
+		TextUI.OutputStr("XOSL 1.1.9 requires a partition of\nat least 400kb\n\n");
 		return -1;
 	}
 		
@@ -129,7 +129,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr)
 {
 	char MbrBuffer[512];
-	const char *MbrFileName;
+	//const char *MbrFileName;
 
 	if (!OriginalMbr || LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetOriginalMbrName(),MbrBuffer) == -1)
 		if (LoadDefaultMbr(MbrBuffer) == -1)
@@ -332,7 +332,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl)
 	}
 
 	TextUI.OutputStr("done\n");
-	return 0;	
+	return 0;
 }
 
 
@@ -357,7 +357,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long StartSector
 
 	TextUI.OutputStr("done\n");
 	delete FileSystem;
-	return 0;	
+	return 0;
 }
 
 
@@ -438,7 +438,7 @@ void CInstaller::SetPartId(int PartIndex, int PartId)
 
 
 const char *SmartBmStatement =
-"XOSL INSTALL UTILITY will now install Smart Boot Manager 3.6.4.\n"
+"XOSL INSTALL UTILITY will now install Smart Boot Manager 3.7.1.\n"
 "\n"
 "* XOSL uses Smart Boot Manager (SBM) to provide CD-ROM booting support.\n"
 "* To install SBM, sbminst.exe will be used. Because of this, XOSL \n"

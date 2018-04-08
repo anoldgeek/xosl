@@ -61,7 +61,8 @@ int CScreen::ShowSplashScreen(TGraphMode &Mode, bool &LinearFB)
 			Result = Graph->SetMode(Mode,false);
 		}
 		if (Result == -1) {
-			--(int)Mode;
+			// --(int)Mode;
+			Mode = (TGraphMode)((int)Mode - 1);   //ML. Need to cast to enum type when assigning an integer to enum
 		}
 	}
 	if (Mode == modeText)
@@ -140,14 +141,14 @@ int CScreen::AdjustArea(int &Left, int &Top, int &Width, int &Height)
 	}
 	Bottom = Top + Height - 1;
 	if (Bottom >= ScrnBottom)
-		Height -= Bottom - ScrnBottom;
+		Height = (int)(Height - (Bottom - ScrnBottom));
 	if (Left < 0) {
 		Width += Left;
 		Left = 0;
 	}
 	Right = Left + Width - 1;
 	if (Right > ScrnRight)
-		Width -= Right - ScrnRight;
+		Width = (int)(Width - (Right - ScrnRight));
 	if (Width > 0 && Height > 0)
 		return true;
 	return false;

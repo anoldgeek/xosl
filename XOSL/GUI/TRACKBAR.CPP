@@ -111,7 +111,7 @@ void CTrackBar::DrawSlider()
 
 void CTrackBar::SetSliderPos()
 {
-	SliderPos = 4 + ((long)(Value - Min) * (Width - 13)) / (Max - Min);
+	SliderPos = (int)(4 + ((long)(Value - Min) * (Width - 13)) / (Max - Min));
 }
 
 void CTrackBar::SetMetrics(int Width, int Height)
@@ -139,7 +139,7 @@ int CTrackBar::MouseMove(int X, int Y)
 	Status = CAnimatedControl::MouseMove(X,Y);
 
 	if (ButtonDown)
-		SetValue(((long)(X - Left - 4) * (Max - Min)) / (Width - 13) + Min);
+		SetValue((int)(((long)(X - Left - 4) * (Max - Min)) / (Width - 13) + Min));
 
 	return Status;
 }

@@ -70,7 +70,7 @@ _memcmp         proc    far
                 lds     si,[bp + 10]
                 mov     cx,[bp + 14]
                 cld
-                rep     cmpsb
+                repz     cmpsb ; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 setne   al
                 pop     ds
                 pop     di

@@ -39,6 +39,7 @@ void WriteHeader(int ifh)
 
 	ofh = creat(DestFile);
 	read(ifh,&ExeHeader,sizeof (ExeHeader));
+	lseek(ofh,0,2);
 	write(ofh,&ExeHeader,sizeof (ExeHeader));
 	Count = ExeHeader.HeaderSize * 16 - sizeof (TExeHeader);
 	read(ifh,Buffer,Count);
@@ -51,6 +52,7 @@ void WriteData(int ifh)
 {
 	unsigned short Bytes;
 	int ofh;
+	int imgcount;
 
 	while ((Bytes = read(ifh,Buffer,32768)) != 0) {
 		ofh = creat(DestFile);
@@ -58,4 +60,11 @@ void WriteData(int ifh)
 		close(ofh);
 		++DestFile[7];
 	}
+
+	//Put (zero based) ImageCount value in xoslimg0.xxf
+	imgcount=DestFile[7]-'1';
+	DestFile[7]='0';
+	ofh = open(DestFile,O_RDWR);
+	write(ofh,&imgcount,sizeof (imgcount));
+	close(ofh);
 }

@@ -21,8 +21,8 @@
                 .data
 
                 extrn   DriveNumber: byte
-                extrn   DiskSectors: dword
-                extrn   DiskHeads: dword
+                ;extrn   DiskSectors: dword
+                ;extrn   DiskHeads: dword
                 extrn   ABSSectorStart: dword
 
                 extrn   LBAPacket: byte

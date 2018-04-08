@@ -18,7 +18,7 @@ public:
 
 protected:
 	bool MouseIsOver;
-
+	virtual void Draw(long Left, long Top, long Width, long Height);   //ML Pure virtual, definition required !!
 };
 
 #endif

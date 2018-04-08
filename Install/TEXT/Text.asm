@@ -45,7 +45,8 @@ LockedData	db	4000 dup (?)
 		push	esi
 		push	ds
 
-		mov	ax,ds
+		;mov	ax,ds			;ML ds != seg LockedData
+		mov	ax,seg LockedData	;ML make sure es = seg LockedData
 		mov	es,ax
 		mov	ax,0b800h
 		mov	ds,ax
@@ -67,10 +68,14 @@ LockedData	db	4000 dup (?)
 @UnlockScreen$qv proc
 		push	edi
 		push	esi
+		push	ds			;ML save ds
 		
 		mov	ax,0b800h
 		mov	es,ax
-		
+
+		mov	ax,seg LockedData	;ML needed because ds != seg LockedData
+		mov	ds,ax			;ML make sure ds = seg LockedData
+
 		mov	esi,offset LockedData
 		xor	edi,edi
 		
@@ -78,6 +83,7 @@ LockedData	db	4000 dup (?)
 		cli
 		rep	movsd
 		
+		pop	ds			;ML restore ds
 		pop	esi
 		pop	edi
 		

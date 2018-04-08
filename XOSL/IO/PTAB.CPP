@@ -76,6 +76,7 @@ void CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned long Ext
                                
 	Entries = PartTable->Entries;
 	for (Index = 0; Index < 4; ++Index)
+	{
 		switch (Entries[Index].FSType) {
 			case FSTYPE_EXTENDED:
 			case FSTYPE_EXTENDEDLBA:
@@ -92,6 +93,7 @@ void CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned long Ext
 			default:
 				break;
 		}
+	}
 }
 
 
@@ -379,12 +381,12 @@ void CPartList::ReadVolumeLabels()
 
 		if (memcmp(BootFAT16->FSID,"FAT1",4) == 0) {
 			Partition->VolumeLabel = new char [12];
-			CreateVolumeLabel(BootFAT16->Label,Partition->VolumeLabel);
+			CreateVolumeLabel((const char*)BootFAT16->Label,Partition->VolumeLabel);
 		}
 		else {
 			if (memcmp(BootFAT32->FSID,"FAT3",4) == 0) {
 				Partition->VolumeLabel = new char [12];
-				CreateVolumeLabel(BootFAT32->Label,Partition->VolumeLabel);
+				CreateVolumeLabel((const char*)BootFAT32->Label,Partition->VolumeLabel);
 			}
 		}
 	}

@@ -6,6 +6,26 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ * - const TMountPart MOUNT_PART = {0x80,0x06,0x000642cf};      
+ *   For debugging the sector number should be the first sector of 
+ *   the XOSL partition on the debugging machine.
+ *   define Int19Reboot() (__emit__(0xcd,0x19)) is not used in the source 
+ *   code, that's why no error caused by __emit__ is raised during compilation. 
+ * - For debugging call void MemoryCheck() in CApplication() construction. 
+ *   Used to check if conventional memory area (used by MMU) can be accessed 
+ *   both for reading and writing. This is relevant only when debugging XOSL 
+ *   as a "normal" DOS application.
+ * - Comment-out unused variables to get rid of Warning! W014: no reference 
+ *   to symbol.
+ * - Flush keyboard buffer in CApplication::Execute() by calling 
+ *   CKeyboard::Flush() to make sure keyboard buffer is empty when it is 
+ *   should be.
+ * - Delete StringTable in CApplication::DestroyCoreClasses(). Xosl115 did not
+ *   delete StringTable and it is unclear why this is. It was the only object 
+ *   that was not explicitly deleted. 
+ * - Change implementation void CApplication::ScanForDebugKeys(int Key).
+ * - Add implementation void MemoryCheck() for debugging.
+ *
  */
 
 #include <xoslapp.h>
@@ -100,12 +120,16 @@ void *AdditionalFont;
 /**/
 const char *DefaultFontFileName = "DEFAULT XFF";
 const char *AddFontFileName     = "EXTRA   XFF";
-const char *LogoFileName        = "XOSLLOGOXBF";
+const char *LogoFileName	 = "XOSLLOGOXBF";
 const char *SplashFileName      = "SPLASHLGXBF";
 const char *WallpaperFileName   = "XOSLWALLXBF";
 
 CApplication::CApplication()
 {
+	#ifdef DOS_DEBUG
+	MemoryCheck();   ///ML: Check if (MMU) memory is accessible.
+	#endif
+
 	TextCapture = new CTextCapture;
 }
 
@@ -124,7 +148,7 @@ int CApplication::Execute()
 	int X, Y;
 	int Status;
 	TMiscPref *MiscPref;
-	CBootItem *BootItem;
+	//CBootItem *BootItem;
 
 	if (BypassRequest())
 		ExecuteBypass();
@@ -150,6 +174,7 @@ int CApplication::Execute()
 		Loader->Show();
 		Screen->InitScreen();
 		DoAppFadeIn();
+		CKeyboard::Flush(); //ML: Flush keyboard buffer
 		Key = 0;
 	}
 	else {
@@ -175,6 +200,7 @@ int CApplication::Execute()
 			CKeyboard::StoreKeyStroke(Key);
 		}
 	}
+
 	/* Main loop */
 	do {
 		while (Key != -1) {
@@ -183,8 +209,10 @@ int CApplication::Execute()
 				Graph->SetCursorXY(X,Y);
 				Screen->MouseStatus(X,Y,Mouse->MouseDown());
 			}
-			if (Loader->CanBoot())
+			if (Loader->CanBoot()){
 				Key = -1;
+				CKeyboard::Flush();  //ML
+			}
 			else {
 				Key = CKeyboard::WaitKeyStroke();
 
@@ -194,7 +222,7 @@ int CApplication::Execute()
 						Screen->FocusNext();
 						//Loader->CycleWindows();
 					else
-#ifndef DOS_DEBUG
+#ifndef DOS_DEBUG_ML
 						if (Key == MiscPref->KeyShutdown) {
 							Loader->HandleAutoSave();
 							Shutdown();
@@ -228,7 +256,7 @@ int CApplication::Execute()
 			}
 		}
 
-#ifdef DOS_DEBUG
+#ifdef DOS_DEBUG_ML
 		if (MiscPref->SetAutoBoot) {
 			BootItems->SetDefault(Loader->GetBootItemIndex());
 			BootItems->Save();
@@ -271,7 +299,7 @@ int CApplication::Execute()
 
 void CApplication::CriticalError(const char *ErrorMsg)
 {
-	int Key;
+	//int Key;
 	CBypass XoslBypass;
 
 	Graph->SetMode(modeText,false);
@@ -343,7 +371,13 @@ void CApplication::InitializeCore()
 	
 	XOSLData = new CXOSLData(FileSystem);
 	GraphData = XOSLData->GetGraphics();
-	if (Screen->ShowSplashScreen(GraphData->VideoMode,GraphData->LinearFB) == -1)
+
+	PartList = new CPartList;
+	BootItems = new CBootItems(*FileSystem,*PartList);
+
+	//if (Screen->ShowSplashScreen(GraphData->VideoMode,GraphData->LinearFB) == -1)
+	bool bTmpLinearFB=GraphData->LinearFB;   //ML: Code Change
+	if (Screen->ShowSplashScreen(GraphData->VideoMode,bTmpLinearFB) == -1)
 		CriticalError("Graphics mode not supported.");
 	/* Load additional data */
 	LoadDefaultFont();
@@ -360,16 +394,14 @@ void CApplication::InitializeCore()
 	LoadXOSLLogo();
 	LoadWallpaper();
 	Screen->SetWallpaper(WALLPAPER_WIDTH,WALLPAPER_HEIGHT,WallpaperBitmap);
-	PartList = new CPartList;
-	BootItems = new CBootItems(*FileSystem,*PartList);
 	/* Additional initialization */
 	InitializeMouse();
 }
 
 void CApplication::FinalizeCore()
 {
-	delete BootItems;
 	delete XOSLData;
+	delete BootItems;
 	delete PartList;
 }
 
@@ -586,7 +618,7 @@ bool CApplication::AutoBootAvail()
 }
 
 
-#ifdef DOS_DEBUG
+#ifdef DOS_DEBUG_ML
 void CApplication::ScanForDebugKeys(int Key)
 /*
  * Keys for debug information
@@ -598,6 +630,19 @@ void CApplication::ScanForDebugKeys(int Key)
  * F4 - Print CoreLeft()
  */
 {
+		TGraphMode graphMode;
+		bool bUseLFB;
+		bool bSwitchToDbgScreen;
+		
+		if ((Key >= KEY_F1) && (Key <= KEY_F9))
+		{
+			bSwitchToDbgScreen=true;
+			Graph->GetMode(graphMode, bUseLFB);
+			Graph->SetMode(modeText,false);
+		}
+		else
+			bSwitchToDbgScreen=false;
+
 	if (Key == KEY_F9) {
 		printf("delete Mouse\n");
 		delete Mouse;
@@ -619,11 +664,20 @@ void CApplication::ScanForDebugKeys(int Key)
 		DumpPalette("pal.dmp");
 	if (Key == KEY_F4) {
 		printf("\nCoreLeft(): %ld\n",CoreLeft());
-		gotoxy(0,0);
+		//gotoxy(0,0);
 	}
 	if (Key == KEY_F1) {
 		printf("\nF4 - Print CoreLeft()\nF5 - Dump RGB palette\nF6 - Screen shot\n");
 		printf("F7 - Set cursor position to (0,0)\nF8 - Refresh screen\nF9 - Terminate XOSL\n");
+	}
+	if (bSwitchToDbgScreen)
+	{
+		printf("\nPress key to leave DBG Screen");
+		CKeyboard::Flush();			 //ML Flush keyboard buffer
+		CKeyboard::WaitKeyStroke(); //   and wait for keypressed
+
+		Graph->SetMode(graphMode,bUseLFB);
+		Screen->Refresh();
 	}
 }
 #endif
@@ -655,7 +709,7 @@ void CApplication::StartPart()
 		xor	ax,ax
 		mov es,ax
 		push 0x1000
-	    push 0x0200
+		push 0x0200
 		retf
 	}
 
@@ -680,3 +734,43 @@ void CApplication::PerformAntiVirus()
 
 	AntiVirus.Sweep();
 }
+
+#ifdef DOS_DEBUG
+void CApplication::MemoryCheck()
+{
+	//ML: Function to test MMU read/write access 
+	long lPageAddr;
+	unsigned char ucOrgMemData[16];
+	unsigned char ucTestMemData[16];
+	int iIndex;
+
+	//void memcpy (void far *dest, void far *str, U16B size);
+	//void memset(void far *dest, U8B value, U16B count);
+	//int memcmp(const void far *s1, const void far *s2, U16B count); 
+
+	for (iIndex=0;iIndex<16;iIndex++)
+	{
+		 ucTestMemData[iIndex]=0x80+iIndex;
+	}
+
+	#define MMU_STARTADDRESS 0x6500 //Value should be in line with value set in starter.asm 
+
+	for (lPageAddr=MMU_STARTADDRESS;lPageAddr<0x9fff;lPageAddr++)
+	{
+		memcpy(ucOrgMemData,(void *)(lPageAddr << 16),16);
+		memcpy((void *)(lPageAddr << 16),ucTestMemData,16);
+		if (memcmp((void *)(lPageAddr << 16),ucTestMemData,16)){
+			//if memcmp return value is not 0 then data in memory is not equal to data written
+			lPageAddr=0x10000;
+			printf("CApplication::MemCheck failed: Abort debugging or press key to continue\n");  //ML->any output ???
+			CKeyboard::Flush();	  //Flush keyboard buffer
+			CKeyboard::WaitKeyStroke(); 
+		} else
+		{
+			//Need to restore original data for memory that already has been allocated by the MMU
+			if (lPageAddr<MMU_STARTADDRESS+0x10)
+				memcpy((void *)(lPageAddr << 16),ucOrgMemData,16);
+		}
+	}
+}
+#endif

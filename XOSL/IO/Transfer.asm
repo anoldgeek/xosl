@@ -11,9 +11,13 @@
                 .model  large
 		.386p
 		.data
-;Scratchpad      dd      90008000h
-Scratchpad      dd      00008000h
-                .code
+ifdef DOS_DEBUG
+Scratchpad      dd      90008000h
+else
+Scratchpad      dd      00008000h      ;ML This results in MCB Chain corrupt 
+endif                                  ;   problem during debugging under DOS
+
+		.code
 
                 public  @CDiskAccess@$bctr$qv
                 public  @CDiskAccess@$bdtr$qv
@@ -37,10 +41,12 @@ Scratchpad      dd      00008000h
 @CDiskAccess@DriveCount$qi proc c
                 arg     @@this: dword, @@Drive: word
 
+		push    di    ;ML
 		mov     ah,8
                 mov     dl,byte ptr @@Drive
 		int     13h
 		movzx   ax,dl
+		pop	di	;ML
                 ret
                 endp
 

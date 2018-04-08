@@ -151,7 +151,7 @@ int CScrollBar::MouseMove(int X, int Y)
 //	}
 
 	if (ScrollButtonClick) {
-		ValueM2 = ((long)(Y - Top - 17) * (Max - Min) * 2) / (Height - 50);
+		ValueM2 = (int)(((long)(Y - Top - 17) * (Max - Min) * 2) / (Height - 50));
 		Value = (ValueM2 >> 1) + Min;
 		if (ValueM2 & 0x01)
 			++Value;
@@ -189,7 +189,7 @@ void CScrollBar::Draw(long, long, long, long)
 	DrawButton(1,TopButtonClick ? BUTTON_DOWN : BUTTON_UP,true,Enabled);
 	DrawButton(Height - 17,BottomButtonClick ? BUTTON_DOWN : BUTTON_UP,false,Enabled);
 	if (Enabled) {
-		ScrollPos = 17 + ((long)(Value - Min) * (Height - 50)) / (Max - Min);
+		ScrollPos = (int)(17 + ((long)(Value - Min) * (Height - 50)) / (Max - Min));
 		DrawButton(ScrollPos,BUTTON_SCROLL,true,true);
 	}
 }

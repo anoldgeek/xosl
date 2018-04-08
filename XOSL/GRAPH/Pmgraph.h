@@ -27,7 +27,7 @@ void PutPixel(long Left, long Top, long Color);
 void HLine(long Left, long Top, long Width, long Color);
 void VLine(long Left, long Top, long Height, long Color);
 void Bar(long Left, long Top, long Width, long Height, long Color);
-void DrawText(long Left, long Top, long PhysStr, long Color);
+//void DrawText(long Left, long Top, long PhysStr, long Color); //ML Not used anywhere
 void PutImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
 void GetImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
 

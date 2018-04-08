@@ -103,7 +103,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long Sector)
 	BootRecord.Drive = Drive;
 	BootRecord.Signature = 0x29;
 	BootRecord.SerialNo = 0x4c534f58;
-	MemCopy(BootRecord.Label,"XOSL114    ",11);
+	MemCopy(BootRecord.Label,"XOSL119    ",11);
 	MemCopy(BootRecord.FSID,"FAT16   ",8);
 	BootRecord.MagicNumber = 0x534f;
 	TextUI.OutputStr("done\n");
@@ -153,7 +153,7 @@ int CFsCreator::PackFiles()
 		// fill last part of the cluster with random data
 		FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
 		if (FileSize != CLUSTER_SIZE)
-			if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,FileSize) != FileSize) {
+			if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
 				TextUI.OutputStr("failed\nDisk full.\n");
 				DosFile.Close(hClusterFile);
 				return -1;
@@ -191,7 +191,7 @@ void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize)
 
 void CFsCreator::AddFatEntries(long FileSize)
 {
-	int ClusterCount = FileSize / CLUSTER_SIZE;
+	int ClusterCount = (int)(FileSize / CLUSTER_SIZE);
 	int Index;
 
 	if ((FileSize % CLUSTER_SIZE) != 0)
@@ -216,7 +216,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 		return -1;
 	}
 
-	TransferCount = (ImageSize >> 11) + 1;
+	TransferCount = (int)((ImageSize >> 11) + 1);
 
 	if (Disk.Map(Drive,Sector) == -1) {
 		TextUI.OutputStr("failed\nUnable to map partition\n");
@@ -290,7 +290,7 @@ void CFsCreator::RestorePartition(unsigned short Drive, unsigned long StartSecto
 	}
 
 	Disk.Lock();
-	TransferCount = (ImageSize - 6) >> 11; // always a multiple of 2048!
+	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
 
 	DosFile.Read(hFile,&BackupDrive,sizeof (unsigned short));
 	DosFile.Read(hFile,&BackupStartSector,sizeof (unsigned long));

@@ -47,7 +47,7 @@ void CEdit::SetReadOnly(int ReadOnly)
 
 void CEdit::Focus()
 {
-	Cursor = Caption.Length();
+	Cursor = (int) Caption.Length();
 	CControl::Focus();
 }
 
@@ -63,7 +63,7 @@ void CEdit::Draw(long,long,long,long)
 	if (!Masked)
 		DisplayStr = Caption;
 	else {
-		Mask.CharFill('*',Caption.Length());
+		Mask.CharFill('*',(int)Caption.Length());
 		DisplayStr = Mask;
 	}
 	if (!GotFocus) {
@@ -152,7 +152,7 @@ void CEdit::KeyPress(unsigned short Key)
 			break;
 		case KEY_END:
 		case KEY_END_EXT:
-			Cursor = Caption.Length();
+			Cursor = (int)Caption.Length();
 			Refresh();
 			break;
 		case KEY_PAGEUP:
@@ -170,7 +170,7 @@ void CEdit::KeyPress(unsigned short Key)
 		case KEY_CTRLR_EXT:
 			Cursor += 4;
 			if (Cursor > Caption.Length())
-				Cursor = Caption.Length();
+				Cursor = (int)Caption.Length();
 			Refresh();
 			break;
 		case KEY_ESCAPE:
@@ -192,7 +192,7 @@ void CEdit::KeyPress(unsigned short Key)
 void CEdit::SetText(const char *Text)
 {
 	SetCaption(Text);
-	Cursor = Caption.Length();
+	Cursor = (int)Caption.Length();
 }
 
 void CEdit::GetText(char *Text)

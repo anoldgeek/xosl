@@ -1,0 +1,50 @@
+1. Allow chose of drive to write mbr too.
+	Fixes:
+	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
+	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
+
+	Implementation:
+	Install\
+		FatInst.cpp
+			int CFatInstall::InstallIpl(void *Ipl) 
+			-> int CFatInstall::InstallIpl(void *Ipl, int Drive)
+		Install.cpp
+			int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm)
+			--> 
+			int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrDrive)
+			
+			int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm)
+			--> 
+			int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrDrive)
+			
+			int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr)
+			--> 
+			int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int Drive)
+			
+			int CInstaller::Uninstall(int PartIndex, int OriginalMbr)
+			--> 
+			int CInstaller::Uninstall(int PartIndex, int OriginalMbr, int Drive)
+			
+			int CInstaller::Restore(int PartIndex)
+			--> 
+			int CInstaller::Restore(int PartIndex, int Drive)
+
+		Menus.cpp
+			TextUI.AddMenuItem(4,"Drv Type System              Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
+			-->
+			TextUI.AddMenuItem(4,"Drv Type System (for XOSL)   Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
+
+			TextUI.AddMenuItem(10,"Start installation","Install Extended Operating System Loader 1.1.9",1);
+			-->
+			TextUI.AddMenuItem(12,"Start installation","Install Extended Operating System Loader 1.1.9",1);
+
+			New
+			TextUI.AddMenuItem(7,"Drv Type System (for MBR)    Size ","Drive to install XOSL 1.1.9 MBR on",1,PartNameCount,(const char **)PartNameList,0);
+
+			TextUI.AddMenuItem(11,"Return to install menu","Return to install menu",1);
+			TextUI.AddMenuItem(13,"Return to install menu","Return to install menu",1);
+
+		main.cpp
+			int CApplication::StartInstallSep()
+				add
+				DriveIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(8));

@@ -28,5 +28,6 @@ _extern void close(int handle);
 _extern unsigned short read(int handle, void *buf, unsigned short len);
 _extern unsigned short write(int handle, void *buf, unsigned short len);
 _extern int chmod(const char *path, int amode);
+_extern int lseek(int handle,unsigned short origin, int offset);
 
 #endif

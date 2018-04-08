@@ -49,3 +49,6 @@ void CAnimatedControl::MouseOut()
 	Refresh();
 }
 
+void CAnimatedControl::Draw(long, long, long, long)   //ML pure virtual function ... implementation required !!!
+{
+}

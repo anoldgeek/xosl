@@ -74,13 +74,26 @@ void *operator new (unsigned int Size)
 		MemDesc->Next = OldDesc->Next;
 		MemDesc->Prev = OldDesc->Prev;
 		OldDesc->Prev->Next = MemDesc;
-		OldDesc->Next->Prev = MemDesc;
+		//OldDesc->Next->Prev = MemDesc;  //ML This is causing problems during debugging
+		//ML: When the New operator gets called for the first time after AllocInit
+		//    OldDesc->Next will contain a NULL pointer. 
+		//    Not a good idea to set NULL->next !!!
+		if (OldDesc->Next)
+			OldDesc->Next->Prev = MemDesc;
+
 		MemDesc->PageCount = OldDesc->PageCount - PageCount;
 		OldDesc->PageCount = PageCount;
 	}
 	OldDesc->MagicNum = 0xabcd0123;
 	return (void *)(0x00010000 + (unsigned long)OldDesc);
 }
+
+/*
+void *operator new [] (unsigned int Size)  //ML - Copied from Watcom cpplib, file opnewarr.cpp
+{
+       return ::operator new( Size );
+}
+*/
 
 void operator delete (void *ptr)
 {
@@ -124,6 +137,13 @@ void operator delete (void *ptr)
 		Next->Prev = New;
 	}
 }
+
+/*
+void operator delete [] (void *ptr)  //ML - Copied from Watcom cpplib, file opdelarr.cpp
+{
+       ::delete ( (char*) ptr);
+}
+*/
 
 long CoreLeft()
 {

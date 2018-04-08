@@ -302,12 +302,12 @@ void CPalette::HSL2RGB(int &Red, int &Green, int &Blue, int Hue, int Saturation,
 int CPalette::GetColor(long Temp1, long Temp2, long Temp3)
 {
 	if (Temp3 < 11)
-		return Temp1 + ((Temp2 - Temp1) * 378 * Temp3) / 3969;
+		return (int)(Temp1 + ((Temp2 - Temp1) * 378 * Temp3) / 3969);
 	if (Temp3 < 32)
-		return Temp2;
+		return (int)Temp2;
 	if (Temp3 < 42)
-		return Temp1 + ((Temp2 - Temp1) * (42 - Temp3) * 378) / 3969;
-	return Temp1;
+		return (int)(Temp1 + ((Temp2 - Temp1) * (42 - Temp3) * 378) / 3969);
+	return (int)Temp1;
 }
 
 void CPalette::MergeColors(TRGBPalette &Back, const TRGBPalette &Front, int Alpha)

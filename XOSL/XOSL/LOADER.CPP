@@ -74,7 +74,7 @@ void printf(const char *format, ...)
 
 
 
-extern char *LogoBitmap;
+extern unsigned char *LogoBitmap;
 
 
 
@@ -599,7 +599,7 @@ void CLoader::CreateBootString(unsigned long TicksPassed)
 	int Sec, Min;
 	
 	TicksPassed *= 3600;
-	Sec = (Timeout * 3600 - TicksPassed) >> 16;
+	Sec = (int)((Timeout * 3600 - TicksPassed) >> 16);
 	
 	if (Sec >= 60) {
 		BootString = StringTable->Loader.TimerMinPre;
@@ -635,7 +635,7 @@ unsigned short CLoader::WaitTimeout()
 		CreateBootString(TimePassed);
 		BootLabel->SetCaption(BootString);
 		Progress = (TimePassed * 3600) >> 12;
-		ProgressBar->SetProgress(Progress);
+		ProgressBar->SetProgress((int)Progress);
 
 		if (CKeyboard::KeyStrokeAvail()) {
 			Key = CKeyboard::WaitKeyStroke();
@@ -643,7 +643,7 @@ unsigned short CLoader::WaitTimeout()
 
 
 		if (Key && Key != KEY_ENTER && Key != KEY_K_ENTER) {
-#ifndef DOS_DEBUG
+#ifndef DOS_DEBUG_ML
 			Label4->Hide();
 			BootLabel->Hide();
 			ProgressBar->Hide();

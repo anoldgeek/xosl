@@ -56,10 +56,11 @@ void CBypass::Execute(const char *ErrorMsg)
 		}
 	}
 	printf("\nF - Boot from floppy\n\nSelect partition to boot --> ");
+	CKeyboard::Flush();   //ML Flush keyboard buffer before entering while loop
 	while (((Key = tolower(CKeyboard::WaitKeyStroke() & 0x00ff)) < '1' || Key > '4') && Key != 'f');
 	printf("%c\n\n",Key);
 
-#ifndef DOS_DEBUG
+#ifndef DOS_DEBUG_ML
 	RawBoot(Key);
 #else
 	asm mov ah,0x4c
@@ -91,7 +92,7 @@ int CBypass::ReadVolumeLabel(int Drive, unsigned long Sector, char *VolumeLabel)
 		return -1;
 
 	if (memcmp(BootFAT16->FSID,"FAT1",4) == 0) {
-		CPartList::CreateVolumeLabel(BootFAT16->Label,VolumeLabel);
+		CPartList::CreateVolumeLabel((const char*)BootFAT16->Label,VolumeLabel);
 		return 0;
 	}
 	else {

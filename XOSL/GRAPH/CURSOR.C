@@ -14,6 +14,7 @@
 #include <mem.h>
 #include <pmlib.h>
 #include <grmem.h>
+#include <cursor.h>
 
 #define CURSOR_WIDTH 11
 #define CURSOR_HEIGHT 19
@@ -25,7 +26,7 @@ int CursorVisible = 0;
 
 void DrawCursor(void)
 {
-	int Pixel;
+	//int Pixel;
 
 	if (!CursorVisible)
 		return;

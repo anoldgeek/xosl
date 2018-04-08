@@ -59,7 +59,7 @@ long GRWidth, GRHeight;
 int GRThisBank;
 long TextHeight;
 
-static long TempVPLeft, TempVPTop;
+//static long TempVPLeft, TempVPTop;
 
 TGraphQueue GraphAction;
 
@@ -86,7 +86,7 @@ void CGraph::DetectVideoModes()
 	TModeInfo ModeInfo;
 	TSVGAInfo SVGAInfo;
 	unsigned short *ModeList;
-	int Index, Count;
+	int Count;
 
 	if (GetSVGAInfo(&SVGAInfo))
 		return;
@@ -180,8 +180,8 @@ int CGraph::SetMode(TGraphMode GraphMode, bool UseLFB)
 			CreateBankswitch(VesaModeList[GraphMode].Granularity,VesaModeList[GraphMode].SwitchAddr);
 		}
 
-		GraphInfo.Width = GRWidth;
-		GraphInfo.Height = GRHeight;
+		GraphInfo.Width = (int)GRWidth;
+		GraphInfo.Height = (int)GRHeight;
 
 		ModeName = VesaModeList[GraphMode].ModeName;
 		InitViewport(GRWidth,GRHeight);

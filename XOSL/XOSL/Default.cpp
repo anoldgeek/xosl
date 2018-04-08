@@ -16,7 +16,7 @@ CDefaultBoot::~CDefaultBoot()
 
 void CDefaultBoot::Show(const char *BootItemName, int TimeoutValue)
 {
-	int Status;
+	//int Status;
 
 	 this->BootItemName = BootItemName;
 	Timeout = ((unsigned long)TimeoutValue << 16) / 3600;
@@ -58,7 +58,7 @@ void CDefaultBoot::CreateBootString(unsigned long TicksPassed)
 	int Sec, Min;
 	
 	TicksPassed *= 3600;
-	Sec = (Timeout * 3600 - TicksPassed) >> 16;
+	Sec = (int)((Timeout * 3600 - TicksPassed) >> 16);
 	
 	BootString = "Booting ";
 	BootString += BootItemName;
@@ -89,6 +89,7 @@ int CDefaultBoot::WaitTimeout()
 	unsigned long Time1, Time2, TimePassed, Progress;
 	unsigned short Key = 0;
 
+	CKeyboard::Flush();  //ML Make sure Keyboard buffer is empty
 	Time1 = GetTimerTicks();
 	for (;;) {
 		Time2 = GetTimerTicks();
@@ -96,7 +97,7 @@ int CDefaultBoot::WaitTimeout()
 		CreateBootString(TimePassed);
 		BootLabel->SetCaption(BootString);
 		Progress = (TimePassed * 3600) >> 12;
-		ProgressBar->SetProgress(Progress);
+		ProgressBar->SetProgress((int)Progress);
 
 		if (CKeyboard::KeyStrokeAvail()) {
 			Key = CKeyboard::WaitKeyStroke();
@@ -104,7 +105,7 @@ int CDefaultBoot::WaitTimeout()
 
 
 		if (Key && Key != KEY_ENTER && Key != KEY_K_ENTER) {
-#ifndef DOS_DEBUG
+#ifndef DOS_DEBUG_ML
 			Form->Hide();
 #endif
 			Loader.Show();

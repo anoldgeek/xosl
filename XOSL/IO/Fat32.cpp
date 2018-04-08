@@ -66,8 +66,8 @@ unsigned short CFAT32::ReadFile(const char *FileName, void *Buffer)
 		Cluster = (long)Entry.StartClusterL + ((long)Entry.StartClusterH << 16);
 		for (; Cluster != 0x0fffffff; GetNextCluster(Cluster)) {
 			ReadCluster(Cluster,ClusterData);
-			memcpy(Buffer,ClusterData,SizeLeft > ClusterSize ? ClusterSize : SizeLeft);
-			(char *)Buffer += ClusterSize;
+			memcpy(Buffer,ClusterData,SizeLeft > ClusterSize ? ClusterSize : (unsigned short) SizeLeft);
+			Buffer = (char *)Buffer + ClusterSize;
 			SizeLeft -= ClusterSize;
 		}
 		delete ClusterData;
@@ -86,7 +86,7 @@ int CFAT32::WriteFile(const char *FileName, const void *Buffer)
 		Cluster = (long)Entry.StartClusterL + ((long)Entry.StartClusterH << 16);
 		for (; Cluster != 0x0fffffff; GetNextCluster(Cluster)) {
 			WriteCluster(Cluster,Buffer);
-			(const char *)Buffer += ClusterSize;
+			Buffer = (char *)Buffer + ClusterSize;
 		}
 	}
 	return 0;
