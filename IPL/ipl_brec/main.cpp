@@ -52,7 +52,9 @@ public:
 
 
 static void  LoadXoslLoad();
-static int LocateXoslLoad();
+//static int LocateXoslLoad();
+static int LocateXoslLoad(unsigned short *StartCluster, unsigned long *FileSize);
+void puts(const char *str);
 
 
 void main()
@@ -65,18 +67,41 @@ void main()
 void LoadXoslLoad()
 // Sector 0 = boot record, sector 1 = FAT, sector 2,3 = root dir, sector 4 = data start (cluster 2)
 {
-	long XoslLoadCluster;
+	unsigned short XoslLoadCluster;
 	unsigned long XoslLoadSector;
+	unsigned long FileSize;
+	CDirectoryEntry Root[16];
+	int Index;
 
-	XoslLoadCluster = LocateXoslLoad();
-	
-	XoslLoadSector = (((unsigned long)XoslLoadCluster - 2) << 4) + 4;
+//	XoslLoadCluster = LocateXoslLoad();
+//	LocateXoslLoad(&XoslLoadCluster,&FileSize);
 
-	// assumption: xoslload <= 8192 byte
-	DiskRead(XoslLoadSector,(void *)0x80000100,16);
+	// assumption: xoslload.xcf is among the first 16 file entries
+	DiskRead(2,Root,1);
+
+	Index = 0;
+	for (; Index < 16; ++Index){
+		if (MemCompare(Root[Index].FileName,"XOSLLOADXCF",11) == 0){
+			XoslLoadSector = (((unsigned long) Root[Index].StartCluster - 2) << 4) + 4;
+
+			// assumption: xoslload <= 8192 byte
+			// DiskRead(XoslLoadSector,(void *)0x80000100,16);
+
+			// Read file size / 512  +1 ( sector size >> 9 )
+			DiskRead(XoslLoadSector,(void *)0x80000100, (Root[Index].FileSize >> 9) + 1 );
+			return;
+		}
+	}
+	// Would like to add puts msg here but not enough space in boot sector
+	// puts(xoslloadxcf); 
+	// puts("?");
+	for (;;); 
 }
 
-int LocateXoslLoad()
+/*
+
+//int LocateXoslLoad()
+int LocateXoslLoad(unsigned short *StartCluster, unsigned long *FileSize)
 {
 	CDirectoryEntry Root[16];
 	int Index;
@@ -84,11 +109,16 @@ int LocateXoslLoad()
 	// assumption: xoslload.xcf is among the first 16 file entries
 	DiskRead(2,Root,1);
 
-	for (Index = 0; Index < 16; ++Index)
-		if (MemCompare(Root[Index].FileName,"XOSLLOADXCF",11) == 0)
-			return Root[Index].StartCluster;
+	for (Index = 0; Index < 16; ++Index){
+		if (MemCompare(Root[Index].FileName,"XOSLLOADXCF",11) == 0){
+			*StartCluster = Root[Index].StartCluster;
+			*FileSize = Root[Index].FileSize;
+			return 0;
+		}
+	}
 
-	//puts("Brec could not find XOSLLOADXCF"); 
+	// Would like to add puts msg here but not enough space in boot sector
+	//puts("XOSLLOADXCF not found"); 
 	for (;;); 
 }
-
+*/

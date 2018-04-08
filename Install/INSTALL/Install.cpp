@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <xoslver.h>
 
+char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
 CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
 	TextUI(TextUIToUse),
@@ -248,7 +249,7 @@ int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouse
 		return -1;
 	}
 	if (DosFile.Write(fh,&XoslData,sizeof (CXoslData)) != sizeof (CXoslData)) {
-		TextUI.OutputStr("failed\nDisk full.\n");
+		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 		DosFile.Close(fh);
 		return -1;
 	}
@@ -274,7 +275,7 @@ int CInstaller::CreateBootItem()
 		return -1;
 	}
 	if (DosFile.Write(hFile,BootItemData,BOOTITEM_FILESIZE) != BOOTITEM_FILESIZE) {
-		TextUI.OutputStr("failed\nDisk full.\n");
+		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 		DosFile.Close(hFile);
 		delete[] BootItemData;
 		return -1;

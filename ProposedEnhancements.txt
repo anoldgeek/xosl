@@ -73,12 +73,13 @@
 
 XOSL11C
 
-**************** TODO ****************
 3. Install assumes a fixed count of XOSLIMGx.XXF files.
 	\install\install\FatInst.cpp line 129
 		int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 	\install\install\Files.cpp line 83
 		const char *CXoslFiles::FileList[] = {
+	\install\install\Files.cpp line 142
+		int CFsCreator::PackFiles()
 	Suggested fix:
 
 	next="1"
@@ -101,9 +102,13 @@ XOSL11C
 		abort
 	fi
 
+XOSL11D
 
 7. Ipl_brec assumes a maxiumum size of XOSLLOAD.XCF of 8192. It is now bigger!!
 	Get size from directory enrty?
 
+XOSL11E
+
+**************** TODO ****************
 
 

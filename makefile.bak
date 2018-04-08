@@ -1,8 +1,5 @@
 # Borland C++ 3.1
 
-XOSL_VERSION="1.1.D"
-XOSL_LABEL="11D"
-
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=-DDOS_DEBUG
 !endif
@@ -54,6 +51,8 @@ arch:
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
+    cmd.exe /c chkbinsz.cmd
+#    dir arch\*.bin
 
 #------------------------- CLEAN ------------------------- #
 

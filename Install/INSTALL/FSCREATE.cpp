@@ -17,6 +17,14 @@
 #include <transfer.h>
 #include <xoslver.h>
 
+//char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
+extern char DiskFullMsg_ss[];
+
+int error_code;
+unsigned char error_class;
+unsigned char action;
+unsigned char locus;
+
 CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
@@ -116,10 +124,15 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 	int AppendStat;
 
 	FileSize = DosFile.FileSize(FileName);
-	AppendStat = DosFile.Append(hClusterFile,FileName);
+	if (FileSize == -1) {
+		TextUI.OutputStr("failed\nin DosFile.FileSize for %s.\n", FileName);
+		DosFile.Close(hClusterFile);
+		return -1;
+	}
 
-	if (FileSize == -1 || AppendStat == -1) {
-		TextUI.OutputStr("failed\n");
+	AppendStat = DosFile.Append(hClusterFile,FileName);
+	if (AppendStat == -1) {
+		TextUI.OutputStr("failed\nin DosFile.Append for %s.\n", FileName);
 		DosFile.Close(hClusterFile);
 		return -1;
 	}
@@ -133,12 +146,19 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 	FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
 	if (FileSize != CLUSTER_SIZE)
 		if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
-			TextUI.OutputStr("failed\nDisk full.\n");
+			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+			DisplayIOError();
 			DosFile.Close(hClusterFile);
 			return -1;
 		}
 	return 0;
 }
+
+void CFsCreator::DisplayIOError()
+{
+	TextUI.OutputStr("ERROR_CODE %d;\n ERROR_CLASS %d;\n ACTION %d;\n LOCUS %d\n", error_code,(int)error_class,(int)action,(int)locus);
+}
+
 int CFsCreator::PackFiles()
 {
 	int hClusterFile;
@@ -147,6 +167,7 @@ int CFsCreator::PackFiles()
 	long FileSize;
 //	int AppendStat;
 	int NextImgFile;
+	int ImgFileCount;
 	char SrcFile2[13];
 
 	TextUI.OutputStr("Packing XOSL files...\n");
@@ -168,9 +189,30 @@ int CFsCreator::PackFiles()
 		return -1;
 	}
 	TextUI.OutputStr("done\n");
-
+/* */
 	// Now the "XOSLIMGx.XXF files
-	strcpy(&SrcFile2[0],XoslFiles.GetXoslImgXName());
+	strcpy(SrcFile2,XoslFiles.GetXoslImgXName());
+#ifndef BADCODE
+	// Get the first one it conatains the image count
+	FileName = SrcFile2;
+	TextUI.OutputStr("Packing %s... ",FileName);
+	if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+		return -1;
+	}
+	TextUI.OutputStr("done\n");
+
+	// Now pack the remaining img files
+	ImgFileCount=(*(short *)CDosFile::TransferBuffer) + 1;  // XOSLIMG0 is still in transfer buffer. zero based img count!
+	for(NextImgFile=1;NextImgFile < ImgFileCount;++NextImgFile){
+		SrcFile2[7] = NextImgFile +'0';
+		FileName = SrcFile2;
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
+		}
+		TextUI.OutputStr("done\n");
+	}
+#else
 	NextImgFile=0;
 	for(;;++NextImgFile){
 		SrcFile2[7] = NextImgFile +'0';
@@ -184,11 +226,12 @@ int CFsCreator::PackFiles()
 			TextUI.OutputStr("done\n");
 		}else{
 			// File does not exist
-			TextUI.OutputStr(" %d XOSL image files packed\n",NextImgFile - 1);
+			// TextUI.OutputStr(" %d XOSL image files packed\n",NextImgFile - 1);
 			break;
 		}
 	}
-
+#endif
+/* */
 	// Now pack the rest
 	Count = XoslFiles.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
@@ -217,7 +260,7 @@ int CFsCreator::PackFiles()
 		FileSize = CLUSTER_SIZE - (FileSize % CLUSTER_SIZE);
 		if (FileSize != CLUSTER_SIZE)
 			if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
-				TextUI.OutputStr("failed\nDisk full.\n");
+				TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 				DosFile.Close(hClusterFile);
 				return -1;
 			}
@@ -293,12 +336,15 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 	}
 
 	if (DosFile.Write(hFile,&Drive,sizeof (unsigned short)) != sizeof (unsigned short)) {
-		TextUI.OutputStr("failed\nDisk full.\n");
+		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+		DisplayIOError();
 		DosFile.Close(hFile);
 		return -1;
 	}
+
 	if (DosFile.Write(hFile,&Sector,sizeof (unsigned long)) != sizeof (unsigned long)) {
-		TextUI.OutputStr("failed\nDisk full.\n");
+		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+		DisplayIOError();
 		DosFile.Close(hFile);
 		return -1;
 	}
@@ -310,7 +356,8 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 			return -1;
 		}
 		if (DosFile.Write(hFile,CDosFile::TransferBuffer,2048) != 2048) {
-			TextUI.OutputStr("failed\nDisk full.\n");
+			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+			DisplayIOError();
 			DosFile.Close(hFile);
 			return -1;
 		}
@@ -389,15 +436,15 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long Sector)
 	}
 	
 	if (Disk.Write(0,&BootRecord,1) == -1) {
-		TextUI.OutputStr("failed\nUnable to write image data\n");
+		TextUI.OutputStr("failed\nUnable to write Boot Record\n");
 		return -1;
 	}
 	if (Disk.Write(1,Fat,1) == -1) {
-		TextUI.OutputStr("failed\nUnable to write image data\n");
+		TextUI.OutputStr("failed\nUnable to write Fat\n");
 		return -1;
 	}
 	if (Disk.Write(2,RootDir,2) == -1) {
-		TextUI.OutputStr("failed\nUnable to write image data\n");
+		TextUI.OutputStr("failed\nUnable to write Root Dir\n");
 		return -1;
 	}
 

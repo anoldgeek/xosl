@@ -51,6 +51,8 @@ arch:
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
+    @cmd.exe /c chkbinsz.cmd
+#    dir arch\*.bin
 
 #------------------------- CLEAN ------------------------- #
 

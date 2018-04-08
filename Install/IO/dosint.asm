@@ -29,6 +29,10 @@ ExecProgArgsPtr	dd	0
                 public  @CDosFile@Unlink$qnxzc
                 public  @CDosFile@LSeek$qil7TWhence
 		
+		extrn	_error_code: word
+		extrn	_error_class: byte
+		extrn	_action: byte
+		extrn	_locus: byte
 
 ;CDosFile::Create(const char *FileName);
 @CDosFile@Create$qnxzc   proc c
@@ -91,14 +95,27 @@ ReadOk:         pop     ds
 @CDosFile@Write$qinxvus proc c
                 arg     @@Handle: word, @@Buffer: dword, @@Length: word
 
-                push    ds
+		push    ds
                 mov     ah,40h
                 mov     bx,@@Handle
                 mov     cx,@@Length
                 lds     dx,@@Buffer
                 int     21h
                 jnc     WriteOK
-                xor     ax,ax
+
+GetExtended:	push	ax bx cx dx
+		push	di si es ds
+		mov	bx,0
+		mov	ax,59h
+		int	21h
+		mov	_error_code,ax
+		mov	_error_class,bh
+		mov	_action,bl
+		mov	_locus,ch
+		pop	ds es si di
+		pop	dx cx bx ax
+		xor	ax,ax
+		
 WriteOk:        pop     ds
                 ret
                 endp
@@ -148,7 +165,6 @@ WriteOk:        pop     ds
 
 LSeekDone:      ret
                 endp
-
 
 		end
 		       

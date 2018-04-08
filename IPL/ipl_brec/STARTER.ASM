@@ -28,14 +28,14 @@ LOADERSEG       equ     8000h
                 .startup
                 jmp     LoaderStart
                 nop
+
 FatBootRec      db      59 dup (?)
 
-LoaderStart:    nop                     ;need to move code two bytes, so
-                nop                     ;it can be alligned on xxxx:0100h
-;0000:7c40:
-                db      0eah            ;jmp 07b4:0145
-                dd      07b00145h
-;07b4:0145:
+LoaderStart:    
+;0000:7c3e:
+                db      0eah            ;jmp 07b4:0143
+		dd      07b00143h
+;07b4:0143:
                 mov     ax,cs
                 mov     ds,ax
                 mov     ss,ax

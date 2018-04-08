@@ -107,6 +107,7 @@ private:
 
 	void AddRootDirEntry(const char *FileName, long FileSize);
 	void AddFatEntries(long FileSize);
+	void CFsCreator::DisplayIOError();
 
 
 };
