@@ -97,7 +97,7 @@ ScreenBuffer    db      160 * 25 dup (?)
                 ret
                 endp
 
-;void CTextScreen::PutStr(int X, int Y, int Attr, const char *Str);
+;void CTextScreen::PutStr(int X, int Y, const char *Str, int Attr);
 @CTextScreen@PutStr$qiinxzci proc    c
                 arg     @@this: dword, @@X: word, @@Y: word, @@Str: dword, @@Attr: word
 

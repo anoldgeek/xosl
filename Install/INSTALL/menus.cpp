@@ -124,16 +124,19 @@ void CInstallMenus::InitInstSepMenu(CTextList::TListItemExecute MenuHandler, voi
 
 	Data.GetGraphicsModeNames(ModeNameList,ModeCount);
 	Data.GetMouseTypeNames(MouseTypeNames,MouseTypeCount);
-	if (!PartNameList)
+	if (!PartNameList){
+		CreateHDList();
 		CreatePartList();
+	}
 
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
 	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
-	TextUI.AddMenuItem(2,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL 1.1.9",1,2,YesNoList,1);
+	TextUI.AddMenuItem(2,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta",1,2,YesNoList,1);
 	TextUI.AddMenuItem(3,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
-	TextUI.AddMenuItem(4,"Drv Type System              Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(4,"Drv Type System (for XOSL)   Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(8,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL 1.1.9 MBR on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(10,"Start installation","Install Extended Operating System Loader 1.1.9",1);
 	TextUI.AddMenuItem(11,"Return to install menu","Return to install menu",1);
 	TextUI.SetItemIndex(0);
@@ -204,14 +207,17 @@ void CInstallMenus::InitUninstallSep(CTextList::TListItemExecute MenuHandler, vo
 {
 	static const char *MbrIplList[2] = { "Original","Default" };
 
-	if (!PartNameList)
+	if (!PartNameList){
+		CreateHDList();
 		CreatePartList();
+	}
 
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Restore MBR","Restore the Master Boot Record with the original or default loader",1,2,MbrIplList,1);
 	TextUI.AddMenuItem(2,"Drv Type System              Size ","Partition XOSL is currently installed on",1,PartNameCount,(const char **)PartNameList,0);
+	TextUI.AddMenuItem(6,"Drv for Sector0 MBR","Drive Sector 0 XOSL 1.1.9 MBR is currently installed on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(8,"Start uninstall","Uninstall Extended Operating System Loader",1);
 	TextUI.AddMenuItem(10,"Return to uninstall menu","Return to uninstall menu",1);
 	TextUI.SetItemIndex(0);
@@ -308,6 +314,49 @@ void CInstallMenus::CreatePartList()
 	}
 
 }
+
+void CInstallMenus::CreateHDList()
+// TODO: Implement the sprintf() function
+{
+	char *HDStr;
+	const TPartition *Partition;
+	int Index, Count;
+	int HDIndex = -1;
+	int HD;
+
+	
+	HDNameCount = 0;
+
+	Count = PartList.GetCount();
+	
+
+	for (Index = 0; Index < Count; ++Index) {
+
+		Partition = PartList.GetPartition(Index);
+		HD = Partition->Drive;
+		if(HD < 0x80){
+			// Floppy
+			continue;
+		}
+		HD = (HD & ~0x80);
+		if( HD != HDIndex ) {
+			HDIndex = HD;
+			HDNameCount++;
+		}
+	}
+	HDNameList = new char *[HDNameCount];
+//	HDResolveList = new int[HDNameCount];
+
+	for(Index=0; Index < HDNameCount ; ++Index){
+			HDStr = new char [4];
+			MemSet(HDStr,0,4);
+			MemCopy(HDStr,"HD",2);
+			HDStr[2] = '0' + Index;
+			HDNameList[Index] = HDStr;
+	}
+
+}
+
 
 int CInstallMenus::ResolvePartIndex(int ListIndex)
 {

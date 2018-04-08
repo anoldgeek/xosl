@@ -36,7 +36,7 @@ CInstaller::~CInstaller()
 {
 }
 
-int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm)
+int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrHDSector0)
 {
 	TIPL Ipl;
 
@@ -65,14 +65,14 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 
 	if (FatInstall.InstallFiles(DosDrive) == -1)
 		return -1;
-	if (FatInstall.InstallIpl(&Ipl) == -1)
+	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
 		return -1;
 
 	TextUI.OutputStr("\nInstall complete\n");
 	return 0;
 }
 
-int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm)
+int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrHDSector0)
 {
 	const TPartition *Partition;
 	TIPL Ipl;
@@ -119,14 +119,14 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	SetPartId(PartIndex,0x78);
 
 
-	if (FatInstall.InstallIpl(&Ipl) == -1)
+	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
 		return -1;
 
 	TextUI.OutputStr("\nInstall complete\n");
 	return 0;
 }
 
-int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr)
+int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int MbrHDSector0)
 {
 	char MbrBuffer[512];
 	//const char *MbrFileName;
@@ -135,7 +135,7 @@ int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int Original
 		if (LoadDefaultMbr(MbrBuffer) == -1)
 			return -1;
 	
-	if (FatInstall.InstallIpl(MbrBuffer) == -1)
+	if (FatInstall.InstallIpl(MbrBuffer, MbrHDSector0) == -1)
 		return -1;
 
 	FatInstall.RemoveXoslFiles(DosDrive.DriveChar);
@@ -143,7 +143,7 @@ int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int Original
 	return 0;
 }
 
-int CInstaller::Uninstall(int PartIndex, int OriginalMbr)
+int CInstaller::Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0)
 {
 	const TPartition *Partition;
 	char OriginalMbrBuffer[512];
@@ -163,7 +163,7 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr)
 		MbrBuffer = OriginalMbrBuffer;
 
 		
-	if (FatInstall.InstallIpl(MbrBuffer) == -1)
+	if (FatInstall.InstallIpl(MbrBuffer,MbrHDSector0) == -1)
 		return -1;
 		
 	Partition = PartList.GetPartition(PartIndex);
@@ -177,21 +177,21 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr)
 
 
 
-int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive)
+int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSector0)
 {
 	char Ipl[512];
 
 	if (LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetCurrentMbrName(),Ipl) == -1)
 		return -1;
 
-	if (FatInstall.InstallIpl(Ipl) == -1)
+	if (FatInstall.InstallIpl(Ipl,MbrHDSector0) == -1)
 		return -1;
 
 	TextUI.OutputStr("\nRestore complete\n");
 	return 0;
 }
 
-int CInstaller::Restore(int PartIndex)
+int CInstaller::Restore(int PartIndex, int MbrHDSector0)
 {
 	char CurrentMbr[512];
 
@@ -199,7 +199,7 @@ int CInstaller::Restore(int PartIndex)
 	if (LoadRawMbr(PartIndex,XoslFiles.GetCurrentMbrName(),CurrentMbr) == -1)
 		return -1;
 
-	if (FatInstall.InstallIpl(CurrentMbr) == -1)
+	if (FatInstall.InstallIpl(CurrentMbr,0x80) == -1)
 		return -1;
 
 	TextUI.OutputStr("\nRestore complete\n");

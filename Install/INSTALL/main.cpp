@@ -119,7 +119,7 @@ int CApplication::StartInstallFat()
 		return -1;
 	}
 
-	if (Installer.Install(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager) == -1) {
+	if (Installer.Install(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,0x80) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
 	}
@@ -132,6 +132,7 @@ int CApplication::StartInstallSep()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 	int PartIndex;
+	int MbrHDSector0;
 	bool PartMan;
 	bool SmartBootManager;
 	
@@ -141,8 +142,9 @@ int CApplication::StartInstallSep()
 	SmartBootManager = TextUI.GetOptionIndex(3) == 0;
 
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(4));
+	MbrHDSector0 = TextUI.GetOptionIndex(8) + 0x80;
 
-	if (Installer.Install(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager) == -1) {
+	if (Installer.Install(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
 	}
@@ -163,7 +165,7 @@ int CApplication::StartRestoreFat()
 		return -1;
 	}
 
-	if (Installer.Restore(DosDrive) == -1) {
+	if (Installer.Restore(DosDrive,0x80) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
 	}
@@ -174,10 +176,12 @@ int CApplication::StartRestoreFat()
 int CApplication::StartRestoreSep()
 {
 	int PartIndex;
+	int MbrHDSector0;
 	
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(0));
+	MbrHDSector0 = TextUI.GetOptionIndex(8) + 0x80;
 
-	if (Installer.Restore(PartIndex) == -1) {
+	if (Installer.Restore(PartIndex,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
 	}
@@ -200,17 +204,19 @@ int CApplication::StartUninstallFat()
 		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}
-	return Installer.Uninstall(DosDrive,OriginalMbr);
+	return Installer.Uninstall(DosDrive,OriginalMbr,0x80);
 }
 
 int CApplication::StartUninstallSep()
 {
 	int PartIndex;
 	int OriginalMbr;
+	int MbrHDSector0;
 	
 	OriginalMbr = !TextUI.GetOptionIndex(0);
 	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(2));
-	return Installer.Uninstall(PartIndex,OriginalMbr);
+	MbrHDSector0 = TextUI.GetOptionIndex(6) + 0x80;
+	return Installer.Uninstall(PartIndex,OriginalMbr,MbrHDSector0);
 }
 
 void CApplication::MainMenuExecute(CApplication *Application, TEnumMainMenu Item)
@@ -247,7 +253,7 @@ void CApplication::InstallMenuExecute(CApplication *Application, TEnumInstallMen
 			break;
 		case enumInstSep:
 			Application->InstallMenus.InitInstSepMenu((CTextList::TListItemExecute)Application->InstSepMenuExecute,Application);
-			Application->TextUI.OutputStr("WARNING:\nAll data on the partition you installXOSL on will be destroyed!\n\n");
+			Application->TextUI.OutputStr("WARNING:\nAll data on the partition you install XOSL on will be destroyed!\n\n");
 			Application->TextUI.ShowPopup(10,4,60,17,InstallWarning);
 			break;
 		case enumInstAbort:

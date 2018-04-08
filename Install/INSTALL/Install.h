@@ -34,14 +34,14 @@ class CInstaller {
 public:
 	CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse);
 	~CInstaller();
-	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm);
-	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm);
+	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, int MbrHDSector0);
+	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, int MbrHDSector0);
 
-	int Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr);
-	int Uninstall(int PartIndex, int OriginalMbr);
+	int Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, int MbrHDSector0);
+	int Uninstall(int PartIndex, int OriginalMbr, int MbrHDSector0);
 
-	int Restore(const CDosDriveList::CDosDrive &DosDrive);
-	int Restore(int PartIndex);
+	int Restore(const CDosDriveList::CDosDrive &DosDrive, int MbrHDSector0);
+	int Restore(int PartIndex, int MbrHDSector0);
 	
 private:
 	CTextUI &TextUI;

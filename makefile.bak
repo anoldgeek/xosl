@@ -1,9 +1,5 @@
 # Borland C++ 3.1
 
-!ifdef DOS_DEBUG
-MAKE_OPTIONS=-DDOS_DEBUG
-!endif
-
 ENTER=cd
 LEAVE=$(ENTER) ..
 COPY=copy
@@ -18,27 +14,27 @@ build: xosl xoslload install ipl
 
 xosl:
     $(ENTER) xosl
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    $(MAKEDIR)\make
     split
     $(LEAVE)
 
 xoslload:
     $(ENTER) xoslload
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    $(MAKEDIR)\make
     $(LEAVE)
 
 install:
     $(ENTER) install
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    $(MAKEDIR)\make
     $(LEAVE)
 
 ipl:
     $(ENTER) ipl
     $(ENTER) ipl_brec
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    $(MAKEDIR)\make
     $(LEAVE)
     $(ENTER) ipl_mbr
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    $(MAKEDIR)\make
     $(LEAVE)
     $(LEAVE)
 

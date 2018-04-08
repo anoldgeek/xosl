@@ -52,6 +52,8 @@ void CTextUI::DrawText()
 	Offset = 80 - strlen(Prog) >> 1;
 	TextScreen.PutStr(Offset,1,Prog,0x1f00);
 	Offset = 80 - strlen(Copyright) >> 1;
+
+	// ;void CTextScreen::PutStr(int X, int Y, const char *Str, int Attr);
 	TextScreen.PutStr(Offset,2,Copyright,0x1f00);
 	TextScreen.PutStr(2,18,StrInfoQuit,0x1f00);
 	TextScreen.PutStr(2,19,StrInfoSelect,0x1f00);
@@ -62,15 +64,18 @@ void CTextUI::DrawText()
 
 void CTextUI::DrawBorders()
 {
+	// ;void CTextScreen::FillX(int X, int Y, int Ch, int Attr, int Count);
 	TextScreen.FillX(1,3,205,0x1f00,78);
 	TextScreen.FillX(1,24,205,0x1f00,78);
 	TextScreen.FillX(1,17,196,0x1f00,78);
 	TextScreen.FillX(1,20,196,0x1f00,78);
 
+	// ;void FillY(int X, int Y, int Ch, int Attr, int Count);
 	TextScreen.FillY(0,4,186,0x1f00,20);
 	TextScreen.FillY(79,4,186,0x1f00,20);
 	TextScreen.FillY(39,4,179,0x1f00,13);
 
+	// ;void CTextScreen::PutChar(int X, int Y, int Ch, int Attr);
 	TextScreen.PutChar(0,3,201,0x1f00);
 	TextScreen.PutChar(79,3,187,0x1f00);
 	TextScreen.PutChar(79,24,188,0x1f00);

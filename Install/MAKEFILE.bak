@@ -1,5 +1,6 @@
 #main makefile for INSTALL.EXE
 
+DOS_DEBUG=yes
 
 LIBPATH=install;io;mouse;vesa;ui;keyboard;text;string
 LIB_FILES=install.lib io.lib mouse.lib string.lib\

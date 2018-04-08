@@ -4,7 +4,7 @@
 	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
 
 	Implementation:
-	Install\
+	Install\INSTALL
 		FatInst.cpp
 			int CFatInstall::InstallIpl(void *Ipl) 
 			-> int CFatInstall::InstallIpl(void *Ipl, int Drive)
@@ -29,7 +29,7 @@
 			--> 
 			int CInstaller::Restore(int PartIndex, int Drive)
 
-		Menus.cpp
+		\INSTALL\Menus.cpp
 			TextUI.AddMenuItem(4,"Drv Type System              Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
 			-->
 			TextUI.AddMenuItem(4,"Drv Type System (for XOSL)   Size ","Partition to install XOSL 1.1.9 on",1,PartNameCount,(const char **)PartNameList,0);
@@ -39,12 +39,17 @@
 			TextUI.AddMenuItem(12,"Start installation","Install Extended Operating System Loader 1.1.9",1);
 
 			New
-			TextUI.AddMenuItem(7,"Drv Type System (for MBR)    Size ","Drive to install XOSL 1.1.9 MBR on",1,PartNameCount,(const char **)PartNameList,0);
+			TextUI.AddMenuItem(8,"Drv Type System (for MBR)    Size ","Drive to install XOSL 1.1.9 MBR on",1,PartNameCount,(const char **)PartNameList,0);
 
 			TextUI.AddMenuItem(11,"Return to install menu","Return to install menu",1);
 			TextUI.AddMenuItem(13,"Return to install menu","Return to install menu",1);
 
-		main.cpp
+		\INSTALL\main.cpp
 			int CApplication::StartInstallSep()
 				add
-				DriveIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(8));
+				DriveMbr = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(8));
+
+
+		Partition = PartList.GetPartition(Index);
+		MbrDrive=Partition->Drive
+		MbrDrive = PartList.GetPartition(Index)->Drive

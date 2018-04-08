@@ -53,6 +53,11 @@ private:
 
 	int *PartResolveList;
 
+	void CreateHDList();
+	char **HDNameList;
+	int HDNameCount;
+	int *HDResolveList;
+
 	int FatAvail;
 };
 
