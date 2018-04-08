@@ -30,9 +30,6 @@ char *far itoa(long value, char far *str, int base);
 int far strcmp(const char far *s1, const char far *s2);
 int far stricmp(const char far *s1, const char far *s2);
 long far atol(const char far *str);
-char *ltoa(long Value, char *Str, int Base);
-char *ultoa(unsigned long Value, char *Str, int Base);
-
 
 #ifdef __cplusplus
 };

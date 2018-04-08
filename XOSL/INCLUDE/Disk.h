@@ -30,7 +30,7 @@ class CDisk {
 		int Map(int Drive, unsigned long StartSector);
 
 		int Read(unsigned long Sector, void *Buffer, int Count);
-		int Write(unsigned long Sector, const void *Buffer, int Count);
+		int Write(unsigned long Sector, void *Buffer, int Count);
 		int Verify(unsigned long Sector, int Count);
 
 	private:

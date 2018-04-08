@@ -88,8 +88,7 @@ class CApplication {
 
 #ifdef DOS_DEBUG
 		void ScanForDebugKeys(int Key);
-//		void MemoryCheck(); //ML: added to check memory read/write access (relevant when debugging XOSL as DOS app)
-		void MemoryCheck(unsigned short StartSeg, unsigned short EndSeg);
+		void MemoryCheck(); //ML: added to check memory read/write access (relevant when debugging XOSL as DOS app)
 #endif
 
 		CTextCapture *TextCapture;

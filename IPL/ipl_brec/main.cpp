@@ -72,8 +72,8 @@ void LoadXoslLoad()
 	
 	XoslLoadSector = (((unsigned long)XoslLoadCluster - 2) << 4) + 4;
 
-	// assumption: xoslload <= 16k byte
-	DiskRead(XoslLoadSector,(void *)0x80000100,32);
+	// assumption: xoslload <= 8192 byte
+	DiskRead(XoslLoadSector,(void *)0x80000100,16);
 }
 
 int LocateXoslLoad()
@@ -88,7 +88,7 @@ int LocateXoslLoad()
 		if (MemCompare(Root[Index].FileName,"XOSLLOADXCF",11) == 0)
 			return Root[Index].StartCluster;
 
-	// halt
+	//puts("Brec could not find XOSLLOADXCF"); 
 	for (;;); 
 }
 

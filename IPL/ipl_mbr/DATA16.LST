@@ -1,0 +1,101 @@
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 1
+data16.asm
+
+
+
+      1					 ;
+      2					 ; Extended Operating System Loader (XOSL)
+      3					 ; Copyright (c) 1999 by Geurt Vos
+      4					 ;
+      5					 ; This	code is	distributed under GNU General Public License (GPL)
+      6					 ;
+      7					 ; The full text of the	license	can be found in	the GPL.TXT file,
+      8					 ; or at http://www.gnu.org
+      9					 ;
+     10
+     11					 ;/*
+     12					 ; * File  : INITDATA.ASM
+     13					 ; * Author: Geurt Vos
+     14					 ; * Date  : March 1999
+     15					 ; *
+     16					 ; * All pre-initialized IPL data.
+     17					 ; */
+     18
+     19	    0000					 .model	 tiny
+     20							 .386p
+     21	    0000					 .code
+     22
+     23							 public	 LoaderName
+     24							 public	 DriveNumber, DiskSectors
+     25							 public	 DiskHeads, ABSSectorStart
+     26							 public	 RootEntries, ClusterSectSize
+     27							 public	 ClusterByteSize, FATStart
+     28							 public	 DirStart, DataStart
+     29
+     30	    0000  09*(00)				 db	 9 dup (0)	 ;Tune filesize	ipl06.bin to 440 bytes
+     31	    0009  58 4F	53 4C 4C 4F 41+	 LoaderName	 db	 'XOSLLOADXCF'
+     32		  44 58	43 46
+     33
+     34	    0014  0000003F		 DiskSectors	 dd	 63
+     35	    0018  00000080		 DiskHeads	 dd	 128
+     36
+     37	    001C  0200			 RootEntries	 dw	 0200h
+     38	    001E  0010			 ClusterSectSize dw	 0010h
+     39	    0020  2000			 ClusterByteSize dw	 2000h
+     40	    0022  00000001		 FATStart	 dd	 00000001h
+     41	    0026  000001F5		 DirStart	 dd	 000001f5h
+     42	    002A  00000215		 DataStart	 dd	 00000215h
+     43
+     44	    002E  06			 FSType		 db	 06h
+     45	    002F  80			 DriveNumber	 db	 80h
+     46	    0030  0031B600		 ABSSectorStart	 dd	 0031b600h
+     47
+     48	    0034  00000000		 Password	 dd	 0
+     49
+     50							 end
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "10/03/18"
+??FILENAME			  Text	 "data16  "
+??TIME				  Text	 "10:51:20"
+??VERSION			  Number 030A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0F8FH
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 DATA16
+@INTERFACE			  Text	 00H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ABSSECTORSTART (ABSSectorStart)	  Dword	 DGROUP:0030
+CLUSTERBYTESIZE		       +  Word	 DGROUP:0020
+(ClusterByteSize)
+CLUSTERSECTSIZE		       +  Word	 DGROUP:001E
+(ClusterSectSize)
+DATASTART (DataStart)		  Dword	 DGROUP:002A
+DIRSTART (DirStart)		  Dword	 DGROUP:0026
+DISKHEADS (DiskHeads)		  Dword	 DGROUP:0018
+DISKSECTORS (DiskSectors)	  Dword	 DGROUP:0014
+DRIVENUMBER (DriveNumber)	  Byte	 DGROUP:002F
+FATSTART (FATStart)		  Dword	 DGROUP:0022
+FSTYPE				  Byte	 DGROUP:002E
+LOADERNAME (LoaderName)		  Byte	 DGROUP:0009
+PASSWORD			  Dword	 DGROUP:0034
+ROOTENTRIES (RootEntries)	  Word	 DGROUP:001C
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _DATA				  16  0000 Word	  Public  DATA
+  _TEXT				  16  0038 Word	  Public  CODE
+

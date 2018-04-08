@@ -1,12 +1,12 @@
 #main makefile for XOSL
 
-LIBPATH=xosl;gui;graph;text;mmu;string;io;mouse;misc;keyboard;timer;debug;quit
+LIBPATH=xosl;gui;graph;text;mmu;string;io;mouse;misc;keyboard;timer;debug;quit;freemem
 LIB_FILES=xosl.lib mmu.lib timer.lib mouse.lib gui.lib graph.lib text.lib \
-          string.lib io.lib misc.lib keyboard.lib quit.lib debug.lib
+          string.lib io.lib misc.lib keyboard.lib quit.lib debug.lib freemem.lib
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=-DDOS_DEBUG
-TLINK_OPTIONS=/v /s
+TLINK_OPTIONS=/v
 !endif
 
 LINK_OPTIONS=/3 /s /L$(LIBPATH)
@@ -96,6 +96,11 @@ debug:
    $(MAKE)
    $(LEAVE)
 
+freemem:
+   $(ENTER) freemem
+   $(MAKE)
+   $(LEAVE)
+
 clean:
    $(ENTER) xosl
    $(MAKEDIR)\make clean
@@ -122,6 +127,8 @@ clean:
    $(ENTER) ..\quit
    $(MAKEDIR)\make clean
    $(ENTER) ..\debug
+   $(MAKEDIR)\make clean
+   $(ENTER) ..\freemem
    $(MAKEDIR)\make clean
    $(LEAVE)
    @del xosl.exe

@@ -11,6 +11,6 @@
 #ifndef __alloc__
 #define __alloc__
 
-unsigned long CoreLeft();
+long CoreLeft();
 
 #endif

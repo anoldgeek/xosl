@@ -54,3 +54,7 @@
 
                 end
 
+		.bss
+		public	_BSS_END
+LABEL _BSS_END		$
+		end bss

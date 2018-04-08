@@ -1,3 +1,5 @@
+
+**************** DONE ****************
 1. Allow chose of drive to write mbr too.
 	Fixes:
 	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
@@ -58,11 +60,27 @@
 
 
 2. Include XOSL118 fixes
+2. Completed.
 
-3. Install assuming fixed count of XOSLIMGx.XXF files.
+4. In "Add Boot Item" menu,fix patition size display to unsigned long instead of long.
+4. Completed
+
+5. Fix partition size display for large disks.
+5. Completed.
+
+6. Fix start of Alloc area to start at seg after end of BSS
+6. Completed
+
+XOSL11C
+
+**************** TODO ****************
+3. Install assumes a fixed count of XOSLIMGx.XXF files.
 	\install\install\FatInst.cpp line 129
 		int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 	\install\install\Files.cpp line 83
 		const char *CXoslFiles::FileList[] = {
 
-4. In "Add Boot Item" menu ,fix patition size display to unsigned long instead of long.
+7. Ipl_brec assumes a maxiumum size of XOSLLOAD.XCF of 8192. It is now bigger!!
+
+
+

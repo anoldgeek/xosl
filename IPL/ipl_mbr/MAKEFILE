@@ -9,7 +9,7 @@
 
 BINPATH=$(MAKEDIR)
 
-ASM_OPTIONS=/mx
+ASM_OPTIONS=/mx /la
 LINK_OPTIONS=/3 /s /t
 
 ASM = $(BINPATH)\tasm $(ASM_OPTIONS)

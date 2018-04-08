@@ -8,9 +8,9 @@
  * or at http://www.gnu.org
  */
 
-#ifndef __alloc__
-#define __alloc__
+#ifndef __freemem__
+#define __freemem__
 
-unsigned long CoreLeft();
+unsigned long FreeMemStart();
 
 #endif

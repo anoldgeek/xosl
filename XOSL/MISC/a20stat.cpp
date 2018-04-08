@@ -39,6 +39,35 @@ void printf(const char *,...);
 //50h: KBC error
 void PrintA20Status(unsigned short Status)
 {
+#define AVOID_LD_CS_BX
+#ifdef AVOID_LD_CS_BX
+
+	char *change,*via;
+
+	if (Status < 0x10){
+		change = "disabled";
+	}else{
+		change = "enabled";
+	}
+	via = "";
+	if (Status == 0x01 || Status == 0x10 )
+		via = "already set";
+	if (Status == 0x02 || Status == 0x20 )
+		via = "using int15";
+	if (Status == 0x03 || Status == 0x30 )
+		via = "using port 92h";
+	if (Status == 0x04 || Status == 0x40 )
+		via = "using KBC";
+	if (Status == 0x05 || Status == 0x50 )
+		via = "KBC error";
+	if (via == "" ){
+		via = "invalid method";
+		change = "failure";
+	}
+	printf("A20 %s: %s\n",change,via);
+
+#else
+// Using the switch statement seems to cause issues here
 	switch (Status) {
 		case 0x01:
 		  printf("A20 Disable: already disabled\n");
@@ -73,4 +102,5 @@ void PrintA20Status(unsigned short Status)
 		default:
 			break;
 	}
+#endif
 }

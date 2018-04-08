@@ -2,10 +2,10 @@
 # String library specific stuff
 #
 
-COMPILE_OBJ=cstring.obj string.obj mem.obj
+COMPILE_OBJ=cstring.obj string.obj mem.obj digits.obj
 LIB_NAME=string.lib
 LIST_FILE=string.lst
-LIB_OBJ=-+cstring.obj -+string.obj -+mem.obj
+LIB_OBJ=-+cstring.obj -+string.obj -+mem.obj -+digits.obj
 
 #
 # Generic library stuff

@@ -1,0 +1,108 @@
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 1
+disklba.asm
+
+
+
+      1					 ;
+      2					 ; Extended Operating System Loader (XOSL)
+      3					 ; Copyright (c) 1999 by Geurt Vos
+      4					 ;
+      5					 ; This	code is	distributed under GNU General Public License (GPL)
+      6					 ;
+      7					 ; The full text of the	license	can be found in	the GPL.TXT file,
+      8					 ; or at http://www.gnu.org
+      9					 ;
+     10
+     11					 ;/*
+     12					 ; * File  : DISK.ASM
+     13					 ; * Author: Geurt Vos
+     14					 ; * Date  : March 1999
+     15					 ; *
+     16					 ; * Reads sectors from	the 'mapped' partition
+     17					 ; */
+     18
+     19	    0000					 .model	 tiny
+     20							 .386p
+     21	    0000					 .data
+     22
+     23							 extrn	 DriveNumber: byte
+     24							 ;extrn	  DiskSectors: dword
+     25							 ;extrn	  DiskHeads: dword
+     26							 extrn	 ABSSectorStart: dword
+     27
+     28							 extrn	 LBAPacket: byte
+     29							 extrn	 SectorCount: word
+     30							 extrn	 TransferBuffer: dword
+     31							 extrn	 Sector: qword
+     32
+     33	    0000					 .code
+     34							 public	 ReadSectors
+     35
+     36					 ;int ReadSectors(long Sector, void *Buffer, int Count)
+     37	    0000			 ReadSectors	 proc
+     38	    0000  55					 push	 bp
+     39	    0001  8B EC					 mov	 bp,sp
+     40	    0003  56					 push	 si
+     41
+     42	    0004  66| 8B 46 04				 mov	 eax,[bp + 4]
+     43	    0008  66| 03 06 0000e			 add	 eax,ABSSectorStart
+     44	    000D  66| A3 0000e				 mov	 dword ptr Sector,eax
+     45	    0011  66| 8B 46 08				 mov	 eax,[bp + 8]
+     46	    0015  66| A3 0000e				 mov	 TransferBuffer,eax
+     47	    0019  8B 46	0C				 mov	 ax,[bp	+ 12]
+     48	    001C  A3 0000e				 mov	 SectorCount,ax
+     49	    001F  B4 42					 mov	 ah,42h
+     50	    0021  8A 16	0000e				 mov	 dl,DriveNumber
+     51	    0025  BE 0000e				 mov	 si,offset LBAPacket
+     52	    0028  CD 13					 int	 13h
+     53	    002A  1B C0					 sbb	 ax,ax			;ax = cf ? -1 :	0
+     54
+     55	    002C  5E					 pop	 si
+     56	    002D  5D					 pop	 bp
+     57	    002E  C3					 ret
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 2
+disklba.asm
+
+
+
+     58	    002F			 ReadSectors	 endp
+     59
+     60							 end
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 3
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "10/03/18"
+??FILENAME			  Text	 "disklba "
+??TIME				  Text	 "10:51:20"
+??VERSION			  Number 030A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0F8FH
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 DISKLBA
+@INTERFACE			  Text	 00H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ABSSECTORSTART (ABSSectorStart)	  Dword	 DGROUP:---- Extern
+DRIVENUMBER (DriveNumber)	  Byte	 DGROUP:---- Extern
+LBAPACKET (LBAPacket)		  Byte	 DGROUP:---- Extern
+READSECTORS (ReadSectors)	  Near	 DGROUP:0000
+SECTOR (Sector)			  Qword	 DGROUP:---- Extern
+SECTORCOUNT (SectorCount)	  Word	 DGROUP:---- Extern
+TRANSFERBUFFER (TransferBuffer)	  Dword	 DGROUP:---- Extern
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _DATA				  16  0000 Word	  Public  DATA
+  _TEXT				  16  002F Word	  Public  CODE
+

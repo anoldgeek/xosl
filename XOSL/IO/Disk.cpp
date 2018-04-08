@@ -52,18 +52,20 @@ int CDisk::Read(unsigned long Sector, void *Buffer, int Count)
 
 	if (!DiskMapped)
 		return -1;
-	Status = Transfer(DISK_READ,Sector,Scratchpad,Count);
-	DiskAccess.CopyFromScratchpad(Buffer,Count);
+	Status = Transfer(DISK_READ,Sector,Buffer,Count);
+//	Status = Transfer(DISK_READ,Sector,Scratchpad,Count);
+//	DiskAccess.CopyFromScratchpad(Buffer,Count);
 	return Status;
 }
 
 
-int CDisk::Write(unsigned long Sector, const void *Buffer, int Count)
+int CDisk::Write(unsigned long Sector, void *Buffer, int Count)
 {
 	if (!DiskMapped)
 		return -1;
-	DiskAccess.CopyToScratchpad(Buffer,Count);
-	return Transfer(DISK_WRITE,Sector,Scratchpad,Count);
+//	DiskAccess.CopyToScratchpad(Buffer,Count);
+//	return Transfer(DISK_WRITE,Sector,Scratchpad,Count);
+	return Transfer(DISK_WRITE,Sector,Buffer,Count);
 }
 
 int CDisk::Verify(unsigned long Sector, int Count)

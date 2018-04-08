@@ -1,0 +1,108 @@
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 1
+dt16lba.asm
+
+
+
+      1					 ;
+      2					 ; Extended Operating System Loader (XOSL)
+      3					 ; Copyright (c) 1999 by Geurt Vos
+      4					 ;
+      5					 ; This	code is	distributed under GNU General Public License (GPL)
+      6					 ;
+      7					 ; The full text of the	license	can be found in	the GPL.TXT file,
+      8					 ; or at http://www.gnu.org
+      9					 ;
+     10
+     11					 ;/*
+     12					 ; * File  : INITDATA.ASM
+     13					 ; * Author: Geurt Vos
+     14					 ; * Date  : March 1999
+     15					 ; *
+     16					 ; * All pre-initialized IPL data.
+     17					 ; */
+     18
+     19	    0000					 .model	 tiny
+     20							 .386p
+     21	    0000					 .code
+     22
+     23							 public	 LoaderName
+     24							 public	 DriveNumber, ABSSectorStart
+     25							 public	 RootEntries, ClusterSectSize
+     26							 public	 ClusterByteSize, FATStart
+     27							 public	 DirStart, DataStart
+     28
+     29							 public	 LBAPacket, SectorCount
+     30							 public	 TransferBuffer, Sector
+     31
+     32	    0000  0D*(00)				 db	 13 dup	(0)	 ;Tune filesize	ipl06lba.bin to	440 bytes
+     33	    000D  58 4F	53 4C 4C 4F 41+	 LoaderName	 db	 'XOSLLOADXCF'
+     34		  44 58	43 46
+     35
+     36		  =DGROUP:0018		 LBAPacket	 equ	 this byte
+     37	    0018  0010					 dw	 0010h
+     38	    001A  0000			 SectorCount	 dw	 0
+     39	    001C  00000000		 TransferBuffer	 dd	 0
+     40	    0020  0000000000000000	 Sector		 dq	 0
+     41
+     42	    0028  0200			 RootEntries	 dw	 0200h
+     43	    002A  0010			 ClusterSectSize dw	 0010h
+     44	    002C  2000			 ClusterByteSize dw	 2000h
+     45	    002E  00000001		 FATStart	 dd	 00000001h
+     46	    0032  000001F5		 DirStart	 dd	 000001f5h
+     47	    0036  00000215		 DataStart	 dd	 00000215h
+     48
+     49	    003A  06			 FSType		 db	 06h
+     50	    003B  80			 DriveNumber	 db	 80h
+     51	    003C  0031B600		 ABSSectorStart	 dd	 0031b600h
+     52
+     53	    0040  00000000		 Password	 dd	 0
+     54
+     55							 end
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 2
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "10/03/18"
+??FILENAME			  Text	 "dt16lba "
+??TIME				  Text	 "10:51:20"
+??VERSION			  Number 030A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0F8FH
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 DT16LBA
+@INTERFACE			  Text	 00H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+ABSSECTORSTART (ABSSectorStart)	  Dword	 DGROUP:003C
+CLUSTERBYTESIZE		       +  Word	 DGROUP:002C
+(ClusterByteSize)
+CLUSTERSECTSIZE		       +  Word	 DGROUP:002A
+(ClusterSectSize)
+DATASTART (DataStart)		  Dword	 DGROUP:0036
+DIRSTART (DirStart)		  Dword	 DGROUP:0032
+DRIVENUMBER (DriveNumber)	  Byte	 DGROUP:003B
+FATSTART (FATStart)		  Dword	 DGROUP:002E
+FSTYPE				  Byte	 DGROUP:003A
+LBAPACKET (LBAPacket)		  Number DGROUP:0018
+LOADERNAME (LoaderName)		  Byte	 DGROUP:000D
+PASSWORD			  Dword	 DGROUP:0040
+ROOTENTRIES (RootEntries)	  Word	 DGROUP:0028
+SECTOR (Sector)			  Qword	 DGROUP:0020
+SECTORCOUNT (SectorCount)	  Word	 DGROUP:001A
+TRANSFERBUFFER (TransferBuffer)	  Dword	 DGROUP:001C
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _DATA				  16  0000 Word	  Public  DATA
+  _TEXT				  16  0044 Word	  Public  CODE
+

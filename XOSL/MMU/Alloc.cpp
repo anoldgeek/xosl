@@ -14,6 +14,7 @@
 
 #include <newdefs.h>
 #include <mem.h>
+#include <freemem.h>
 
 static void wait()
 {
@@ -31,33 +32,13 @@ typedef struct SMemDesc {
 } TMemDesc, *PMemDesc;
 
 static PMemDesc FreeList;
-/*
-void AllocInit(unsigned long MemStart)
+
+void AllocInit(unsigned long MemStartOld)
 {
 	PMemDesc NextItem;
-
-	FreeList = (PMemDesc)MemStart;
-	NextItem = (PMemDesc)(0x00010000 + (long)MemStart);
-	FreeList->Prev = NULL;
-	FreeList->Next = NextItem;
-	FreeList->PageCount = 0;
-	NextItem->Prev = FreeList;
-	NextItem->Next = NULL;
-	NextItem->PageCount = (0x00098000 - PhysAddr(MemStart) >> 4) - 1;
-}
-*/
-void AllocInit(unsigned short MemSegStart, unsigned short MemSegEnd)
-{
 	unsigned long MemStart;
-	unsigned long MemEnd;
-	PMemDesc NextItem;
 
-	MemStart = MemSegStart;
-	MemStart =  MemStart << 16;
-
-	MemEnd = MemSegEnd;
-	MemEnd = MemEnd << 16;
-
+	MemStart = FreeMemStart();  // Returns the start of unused memory
 	FreeList = (PMemDesc)MemStart;
 	NextItem = (PMemDesc)(0x00010000 + MemStart);
 	FreeList->Prev = NULL;
@@ -65,10 +46,9 @@ void AllocInit(unsigned short MemSegStart, unsigned short MemSegEnd)
 	FreeList->PageCount = 0;
 	NextItem->Prev = FreeList;
 	NextItem->Next = NULL;
-
-//	NextItem->PageCount = (0x000a0000 - PhysAddr(MemStart) >> 4) - 1;
-	NextItem->PageCount = (MemEnd - PhysAddr(MemStart) >> 4) - 1;
+	NextItem->PageCount = (0x00098000 - PhysAddr(MemStart) >> 4) - 1;
 }
+
 void *operator new (unsigned int Size)
 {
 	long PageCount;
@@ -93,7 +73,7 @@ void *operator new (unsigned int Size)
 	}
 	else {
 		// shrink free memory block
-		MemDesc = (PMemDesc)((PageCount << 16) + (long)MemDesc);
+		MemDesc = (PMemDesc)((PageCount << 16) + (unsigned long)MemDesc);
 		MemDesc->Next = OldDesc->Next;
 		MemDesc->Prev = OldDesc->Prev;
 		OldDesc->Prev->Next = MemDesc;
@@ -139,7 +119,7 @@ void operator delete (void *ptr)
 		return;
 	}
 
-	MergeNext = (Prev->PageCount << 16) + (long)Prev;
+	MergeNext = (Prev->PageCount << 16) + (unsigned long)Prev;
 	if (MergeNext == (unsigned long)New) {
 		Prev->PageCount += New->PageCount;
 		New = Prev;
@@ -148,7 +128,7 @@ void operator delete (void *ptr)
 		Prev->Next = New;
 		New->Prev = Prev;
 	}
-	MergeNext = (New->PageCount << 16) + (long)New;
+	MergeNext = (New->PageCount << 16) + (unsigned long)New;
 	if (MergeNext == (unsigned long)Next) {
 		New->PageCount += Next->PageCount;
 		New->Next = Next->Next;
@@ -168,10 +148,10 @@ void operator delete [] (void *ptr)  //ML - Copied from Watcom cpplib, file opde
 }
 */
 
-long CoreLeft()
+unsigned long CoreLeft()
 {
 	PMemDesc Entry;
-	long Core = 0;
+	unsigned long Core = 0;
 
 	for (Entry = FreeList->Next; Entry; Entry = Entry->Next)
 		Core += Entry->PageCount;

@@ -52,21 +52,21 @@ void printf(const char *format, ...)
 							++format;
 							ltoa(*(long *)argl++,buf,DEC);
 							argl +=2;
-							PutS(buf);
+							puts(buf);
 							break;
 						}
 						if (format[1] == 'u') {
 							++format;
 							ultoa(*(unsigned long *)argl,buf,DEC);
 						    argl +=2;
-							PutS(buf);
+							puts(buf);
 							break;
 						}
 						if (format[1] == 'x') {
 							++format;
 							ltoa(*(long *)argl,buf,HEX);
 							argl +=2;
-							PutS(buf);
+							puts(buf);
 							break;
 						}
 					default:

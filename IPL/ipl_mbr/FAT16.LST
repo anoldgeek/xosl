@@ -1,0 +1,309 @@
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 1
+fat16.asm
+
+
+
+      1					 ;
+      2					 ; Extended Operating System Loader (XOSL)
+      3					 ; Copyright (c) 1999 by Geurt Vos
+      4					 ;
+      5					 ; This	code is	distributed under GNU General Public License (GPL)
+      6					 ;
+      7					 ; The full text of the	license	can be found in	the GPL.TXT file,
+      8					 ; or at http://www.gnu.org
+      9					 ;
+     10
+     11					 ;/*
+     12					 ; * File  : FAT16.ASM
+     13					 ; * Author: Geurt Vos
+     14					 ; * Date  : March 1999
+     15					 ; *
+     16					 ; * Reads a file from a 'mounted' FAT16 partition
+     17					 ; */
+     18
+     19	    0000					 .model	 tiny
+     20							 .386p
+     21
+     22	00000000			 TFAT16DirEntry	 struc
+     23	00000000  01*(08*(??))			 FileName	 db	 8 dup (?)
+     24	00000008  01*(03*(??))			 Extension	 db	 3 dup (?)
+     25	0000000B  01*(??)			 Attribute	 db	 ?
+     26	0000000C  01*(0A*(??))			 Reserved	 db	 10 dup	(?)
+     27	00000016  01*(????)			 Time		 dw	 ?
+     28	00000018  01*(????)			 Date		 dw	 ?
+     29	0000001A  01*(????)			 StartCluster	 dw	 ?
+     30	0000001C  01*(????????)			 FileSize	 dd	 ?
+     31	00000020			 TFAT16DirEntry	 ends
+     32
+     33		  =1000			 INMEMCLUST	 equ	 4096
+     34		  =000C			 INMEMCLUSTPWR	 equ	 12		 ;4096 == 2**12
+     35		  =-1000		 INMEMCLUSTSCALE equ	 not (INMEMCLUST - 1)
+     36
+     37		  =0010			 FATSECTCOUNT	 equ	 INMEMCLUST / 256
+     38		  =0004			 FATSECTCNTPWR	 equ	 INMEMCLUSTPWR - 8	 ;256 clust/sect
+     39
+     40		  =0020			 INMEMENTRIES	 equ	 32
+     41		  =0005			 INMEMENTRIESPWR equ	 5
+     42
+     43		  =0002			 DIRSECTORCOUNT	 equ	 (INMEMENTRIES / 16)
+     44		  =0001			 DIRSECTORPWR	 equ	 INMEMENTRIESPWR - 4
+     45
+     46		  =00E5			 FILE_DELETED	 equ	 0e5h
+     47
+     48	    0000					 .data?
+     49	    0000  0400*(??)		 Root		 db	 32 * INMEMENTRIES dup (?)
+     50	    0400  1000*(????)		 FAT		 dw	 INMEMCLUST dup	(?)
+     51
+     52	    2400					 .data
+     53							 extrn	 RootEntries: word
+     54							 extrn	 ClusterSectSize: word
+     55							 extrn	 ClusterByteSize: word
+     56							 extrn	 FATStart: dword
+     57							 extrn	 DirStart: dword
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 2
+fat16.asm
+
+
+
+     58							 extrn	 DataStart: dword
+     59
+     60	    0000					 .code
+     61							 public	 ReadFile
+     62							 extrn	 ReadSectors: near
+     63							 extrn	 MemCompare: near
+     64
+     65					 ;int ReadFile(const char *FileName, void *Buffer)
+     66	    0000			 ReadFile	 proc
+     67	    0000  55					 push	 bp
+     68	    0001  8B EC					 mov	 bp,sp
+     69	    0003  56					 push	 si
+     70
+     71	    0004  E8 001D				 call	 Locate
+     72	    0007  0B C0					 or	 ax,ax
+     73	    0009  75 16	90 90				 jne	 ReadFileExit
+     74
+     75	    000D  E8 00AD		 ReadLoop:	 call	 ReadCluster
+     76	    0010  A1 0000e				 mov	 ax,ClusterByteSize
+     77	    0013  01 46	08				 add	 [bp + 8],ax
+     78	    0016  E8 0073				 call	 GetNextCluster
+     79	    0019  81 FE	FFFF				 cmp	 si,0ffffh
+     80	    001D  75 EE					 jne	 ReadLoop
+     81	    001F  33 C0					 xor	 ax,ax
+     82
+     83	    0021  5E			 ReadFileExit:	 pop	 si
+     84	    0022  5D					 pop	 bp
+     85	    0023  C3					 ret
+     86	    0024			 ReadFile	 endp
+     87
+     88					 ;Locate
+     89					 ;	 Locate	the first cluster of a file
+     90					 ; Entry:
+     91					 ;	 dword ptr [bp + 4] -> FileName
+     92					 ; Return:
+     93					 ;	 si = StartCluster
+     94					 ;	 ax = success ?	0 : -1
+     95	    0024			 Locate		 proc
+     96	    0024  57					 push	 di
+     97
+     98	    0025  BF 0020				 mov	 di,INMEMENTRIES
+     99	    0028  33 F6					 xor	 si,si
+    100	    002A  EB 38	90				 jmp	 LTestLoopEnd
+    101
+    102	    002D  83 FF	20		 LocateLoop:	 cmp	 di,INMEMENTRIES
+    103	    0030  75 07	90 90				 jne	 LFindFile
+    104	    0034  33 FF					 xor	 di,di
+    105	    0036  E8 0036				 call	 ReadDirectory
+    106
+    107	    0039  8B DF			 LFindFile:	 mov	 bx,di
+    108	    003B  C1 E3	05				 shl	 bx,5
+    109	    003E  81 C3	0000r				 add	 bx,offset Root
+    110	    0042  80 3F	00				 cmp	 [bx].FileName[0],0
+    111	    0045  74 23	90 90				 je	 NotFoundExit
+    112
+    113							 ;Should check here if file deleted
+    114
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 3
+fat16.asm
+
+
+
+    115	    0049  6A 0B					 push	 word ptr 11
+    116	    004B  66| FF 76 04				 push	 dword ptr [bp + 4]
+    117	    004F  1E					 push	 ds
+    118	    0050  53					 push	 bx
+    119	    0051  E8 0000e				 call	 MemCompare
+    120	    0054  83 C4	0A				 add	 sp,10
+    121	    0057  0B C0					 or	 ax,ax
+    122	    0059  75 07	90 90				 jnz	 LNextEntry
+    123	    005D  8B 77	1A				 mov	 si,[bx].StartCluster
+    124	    0060  5F					 pop	 di
+    125	    0061  C3					 ret
+    126
+    127	    0062  46			 LNextEntry:	 inc	 si
+    128	    0063  47					 inc	 di
+    129	    0064  3B 36	0000e		 LTestLoopEnd:	 cmp	 si,RootEntries
+    130	    0068  72 C3					 jb	 LocateLoop
+    131
+    132	    006A  B8 FFFF		 NotFoundExit:	 mov	 ax,-1
+    133	    006D  5F					 pop	 di
+    134	    006E  C3					 ret
+    135	    006F			 Locate		 endp
+    136
+    137					 ;
+    138					 ; Entry:
+    139					 ;	 si = Index
+    140	    006F			 ReadDirectory	 proc
+    141	    006F  66| 0F B7 C6				 movzx	 eax,si
+    142	    0073  C1 E8	05				 shr	 ax,INMEMENTRIESPWR
+    143	    0076  D1 E0					 shl	 ax,DIRSECTORPWR
+    144	    0078  66| 03 06 0000e			 add	 eax,DirStart
+    145	    007D  6A 02					 push	 word ptr DIRSECTORCOUNT
+    146	    007F  1E					 push	 ds
+    147	    0080  68 0000r				 push	 offset	Root
+    148	    0083  66| 50				 push	 eax
+    149	    0085  E8 0000e				 call	 ReadSectors
+    150	    0088  83 C4	0A				 add	 sp,10
+    151	    008B  C3					 ret
+    152	    008C			 ReadDirectory	 endp
+    153
+    154					 ;GetNextCluster
+    155					 ; Entry:
+    156					 ;	 si = cluster
+    157					 ;
+    158	    008C			 GetNextCluster	 proc
+    159	    008C  E8 000B				 call	 ReadFAT
+    160	    008F  8B DE					 mov	 bx,si
+    161	    0091  2B D8					 sub	 bx,ax
+    162	    0093  D1 E3					 shl	 bx,1
+    163	    0095  8B B7	0400r				 mov	 si,[bx	+ offset FAT]
+    164	    0099  C3					 ret
+    165	    009A			 GetNextCluster	 endp
+    166
+    167					 ;ReadFAT
+    168					 ; Entry:
+    169					 ;	 si = Cluster
+    170	    009A			 ReadFAT	 proc
+    171	    009A  66| 0F B7 C6				 movzx	 eax,si
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 4
+fat16.asm
+
+
+
+    172	    009E  C1 E8	0C				 shr	 ax,INMEMCLUSTPWR
+    173	    00A1  C1 E0	04				 shl	 ax,FATSECTCNTPWR
+    174	    00A4  66| 03 06 0000e			 add	 eax,FATStart
+    175	    00A9  6A 10					 push	 FATSECTCOUNT
+    176	    00AB  1E					 push	 ds
+    177	    00AC  68 0400r				 push	 offset	FAT
+    178	    00AF  66| 50				 push	 eax
+    179	    00B1  E8 0000e				 call	 ReadSectors
+    180	    00B4  83 C4	0A				 add	 sp,10
+    181
+    182	    00B7  8B C6					 mov	 ax,si
+    183	    00B9  25 F000				 and	 ax,INMEMCLUSTSCALE
+    184	    00BC  C3					 ret
+    185	    00BD			 ReadFAT	 endp
+    186
+    187					 ;ReadCluster:
+    188					 ; On entry:
+    189					 ;	 dword ptr [bp + 8] -> Buffer
+    190					 ;	 si = Cluster
+    191	    00BD			 ReadCluster	 proc
+    192	    00BD  66| 0F B7 C6				 movzx	 eax,si
+    193	    00C1  66| 0F B7 0E 0000e			 movzx	 ecx,ClusterSectSize
+    194	    00C7  2D 0002				 sub	 ax,2
+    195	    00CA  66| 0F AF C1				 imul	 eax,ecx
+    196	    00CE  66| 03 06 0000e			 add	 eax,DataStart
+    197	    00D3  FF 36	0000e				 push	 ClusterSectSize
+    198	    00D7  66| FF 76 08				 push	 dword ptr [bp + 8]
+    199	    00DB  66| 50				 push	 eax
+    200	    00DD  E8 0000e				 call	 ReadSectors
+    201	    00E0  83 C4	0A				 add	 sp,10
+    202	    00E3  C3					 ret
+    203	    00E4			 ReadCluster	 endp
+    204
+    205							 end
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 5
+Symbol Table
+
+
+
+
+Symbol Name			  Type	 Value
+
+??DATE				  Text	 "10/03/18"
+??FILENAME			  Text	 "fat16	  "
+??TIME				  Text	 "10:51:20"
+??VERSION			  Number 030A
+@32BIT				  Text	 0
+@CODE				  Text	 DGROUP
+@CODESIZE			  Text	 0
+@CPU				  Text	 0F8FH
+@CURSEG				  Text	 _TEXT
+@DATA				  Text	 DGROUP
+@DATASIZE			  Text	 0
+@FILENAME			  Text	 FAT16
+@INTERFACE			  Text	 00H
+@MODEL				  Text	 1
+@STACK				  Text	 DGROUP
+@WORDSIZE			  Text	 2
+CLUSTERBYTESIZE		       +  Word	 DGROUP:---- Extern
+(ClusterByteSize)
+CLUSTERSECTSIZE		       +  Word	 DGROUP:---- Extern
+(ClusterSectSize)
+DATASTART (DataStart)		  Dword	 DGROUP:---- Extern
+DIRSECTORCOUNT			  Number 0002
+DIRSECTORPWR			  Number 0001
+DIRSTART (DirStart)		  Dword	 DGROUP:---- Extern
+FAT				  Word	 DGROUP:0400
+FATSECTCNTPWR			  Number 0004
+FATSECTCOUNT			  Number 0010
+FATSTART (FATStart)		  Dword	 DGROUP:---- Extern
+FILE_DELETED			  Number 00E5
+GETNEXTCLUSTER			  Near	 DGROUP:008C
+INMEMCLUST			  Number 1000
+INMEMCLUSTPWR			  Number 000C
+INMEMCLUSTSCALE			  Number -1000
+INMEMENTRIES			  Number 0020
+INMEMENTRIESPWR			  Number 0005
+LFINDFILE			  Near	 DGROUP:0039
+LNEXTENTRY			  Near	 DGROUP:0062
+LOCATE				  Near	 DGROUP:0024
+LOCATELOOP			  Near	 DGROUP:002D
+LTESTLOOPEND			  Near	 DGROUP:0064
+MEMCOMPARE (MemCompare)		  Near	 DGROUP:---- Extern
+NOTFOUNDEXIT			  Near	 DGROUP:006A
+READCLUSTER			  Near	 DGROUP:00BD
+READDIRECTORY			  Near	 DGROUP:006F
+READFAT				  Near	 DGROUP:009A
+READFILE (ReadFile)		  Near	 DGROUP:0000
+READFILEEXIT			  Near	 DGROUP:0021
+READLOOP			  Near	 DGROUP:000D
+READSECTORS (ReadSectors)	  Near	 DGROUP:---- Extern
+ROOT				  Byte	 DGROUP:0000
+ROOTENTRIES (RootEntries)	  Word	 DGROUP:---- Extern
+Turbo Assembler	 Version 3.1	    10/03/18 10:51:20	    Page 6
+Symbol Table
+
+
+
+
+Structure Name			  Type	Offset
+
+TFAT16DIRENTRY
+ FILENAME			  Byte	 0000
+ EXTENSION			  Byte	 0008
+ ATTRIBUTE			  Byte	 000B
+ RESERVED			  Byte	 000C
+ TIME				  Word	 0016
+ DATE				  Word	 0018
+ STARTCLUSTER			  Word	 001A
+ FILESIZE			  Dword	 001C
+
+Groups & Segments		  Bit Size Align  Combine Class
+
+DGROUP				  Group
+  _BSS				  16  2400 Word	  Public  BSS
+  _DATA				  16  0000 Word	  Public  DATA
+  _TEXT				  16  00E4 Word	  Public  CODE
+

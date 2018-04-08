@@ -1,11 +1,13 @@
 #
-# XOSLLoad library specific stuff
+# freemem library specific stuff
 #
 
-COMPILE_OBJ=main.obj execute.obj bypass.obj ptab.obj encpwd.obj
-LIB_NAME=xoslload.lib
-LIST_FILE=xoslload.lst
-LIB_OBJ=-+main.obj -+execute.obj -+bypass.obj -+ptab.obj -+encpwd.obj
+COMPILE_OBJ=freemem.obj
+
+LIB_NAME=freemem.lib
+LIST_FILE=freemem.lst
+#LIB_OBJ=-+int.obj -+weird.obj -+ctype.obj
+LIB_OBJ=-+freemem.obj
 
 #
 # Generic library stuff
@@ -13,15 +15,15 @@ LIB_OBJ=-+main.obj -+execute.obj -+bypass.obj -+ptab.obj -+encpwd.obj
 
 INCPATH=..\include;.
 
-CPP_OPTIONS=-O2 -mc -3 -c -d -j6 -I$(INCPATH)
-C_OPTIONS=-O2 -mc -3 -c -d -j6 -I$(INCPATH)
+CPP_OPTIONS=-O2 -ml -3 -c -d -j6 -I$(INCPATH)
+C_OPTIONS=-O2 -mc -3 -c -d -j6 -zCFARCODE -I$(INCPATH)
 ASM_OPTIONS=/mx /m3
 LIB_OPTIONS=
 
 !ifdef DOS_DEBUG
 CPP_OPTIONS=$(CPP_OPTIONS) -DDOS_DEBUG
 C_OPTIONS=$(C_OPTIONS) -DDOS_DEBUG
-ASM_OPTIONS=$(ASM_OPTIONS) /la
+ASM_OPTIONS=$(ASM_OPTIONS) /dDOS_DEBUG
 !endif
 
 
