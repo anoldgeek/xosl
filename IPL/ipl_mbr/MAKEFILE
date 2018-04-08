@@ -35,6 +35,7 @@ clean:
         @if exist *.bak del *.bak
         @if exist *.map del *.map
         @if exist *.bin del *.bin
+	@if exist *.lst del *.lst
 
 .asm.obj:
         $(ASM) $<
