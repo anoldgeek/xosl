@@ -135,18 +135,23 @@ int CApplication::StartInstallSep()
 	unsigned char MbrHDSector0;
 	bool PartMan;
 	bool SmartBootManager;
+	int PartNameIndex;
 	
 	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
 	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
 	PartMan = TextUI.GetOptionIndex(2) == 0;
 	SmartBootManager = TextUI.GetOptionIndex(3) == 0;
 
-	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(4));
+	PartNameIndex = TextUI.GetOptionIndex(4);
+	PartIndex = InstallMenus.ResolvePartIndex(PartNameIndex);
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(8));
 
 	if (Installer.Install(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
+	}else{
+		// Update PartNameList item after FSType change
+		InstallMenus.UpdatePartNameItem(PartNameIndex,PartIndex,MbrHDSector0);
 	}
 	return 0;
 }

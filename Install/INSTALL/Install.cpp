@@ -117,6 +117,8 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 
 	SetPartId(PartIndex,0x78);
+	// Update the partition entries in case user returns to menu
+	PartList.UpdateFSType(PartIndex, (short) 0x78, MbrHDSector0);
 
  	if (MbrHDSector0 != 0xff){
  		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)

@@ -43,6 +43,8 @@ public:
     int ResolveHDIndex(int ListIndex);
 	int GetHDIndex(unsigned char MbrHDSector0);
 	void ResetPartNameList(void);
+	char * UpdatePartNameList(char * PartStr, const TPartition *Partition);
+	void  UpdatePartNameItem(int PartNameIndex, int PartIndex,unsigned char MbrHDSector0);
 
 private:
 	CTextUI &TextUI;

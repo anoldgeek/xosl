@@ -212,6 +212,14 @@ const TPartition *CPartList::GetPartition(int Index)
 	return PLUP[Index]->Partition;
 }
 
+void CPartList::UpdateFSType(int Index, short FSType, unsigned char MbrHDSector0)
+{
+	PLUP[Index]->Partition->FSType = FSType;
+	PLUP[Index]->Partition->FSName = GetFSName(FSType);
+	PLUP[Index]->Partition->MbrHDSector0 = MbrHDSector0;
+	PLUP[Index]->Entry->FSType = FSType;
+}
+
 int CPartList::Locate(int Drive, unsigned long StartSector)
 {
 	int Index;

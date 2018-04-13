@@ -151,9 +151,12 @@ XOSL11H
 	Convert to new release and restore after install OR update existing files to new release and avoid installing new ones.
 
 XOSL120a1	
-**************** TODO ****************
 
 11. Fix updating partlist when returning to main memu after installing XOSL
+
+XOSL120a2
+**************** TODO ****************
+
 
 12. Add boot from GPT via bios (msdos).
 

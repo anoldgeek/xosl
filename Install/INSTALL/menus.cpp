@@ -356,9 +356,6 @@ void CInstallMenus::CreatePartList()
 	char *PartStr;
 	const TPartition *Partition;
 	int Index, Count;
-	unsigned long PartitionSize;
-	char PartitionSizeSuffix;
-	char SPartitionSize[16];
 
 	Count = PartList.GetCount();
 	PartNameList = new char *[Count];
@@ -380,6 +377,7 @@ void CInstallMenus::CreatePartList()
 						PartResolveList[Index] = PartNameCount;
 
 						PartStr = new char [48];
+/*
 						MemSet(PartStr,' ',32);
 						MemCopy(PartStr,"HD",2);
 						PartStr[2] = '0' + (Partition->Drive & ~0x80);
@@ -395,7 +393,8 @@ void CInstallMenus::CreatePartList()
 						}
 						//MemCopy(&PartStr[29], SPartitionSize, strlen(SPartitionSize));
 						strcpy(&PartStr[29], SPartitionSize);
-
+*/
+						PartStr = UpdatePartNameList(PartStr, Partition);
 						//ultoa((Partition->SectorCount >> 11),&PartStr[29],10);
 						PartNameList[PartNameCount] = PartStr;
 
@@ -404,6 +403,7 @@ void CInstallMenus::CreatePartList()
 						}else{
 							MbrHDSector0List[PartNameCount] = 0; // HD0
 						}
+
 						PartNameCount++;
 						break;
 				}
@@ -413,6 +413,37 @@ void CInstallMenus::CreatePartList()
 		}
 	}
 
+}
+char * CInstallMenus::UpdatePartNameList(char * PartStr, const TPartition *Partition)
+{
+	unsigned long PartitionSize;
+	char SPartitionSize[16];
+
+	MemSet(PartStr,' ',32);
+	MemCopy(PartStr,"HD",2);
+	PartStr[2] = '0' + (Partition->Drive & ~0x80);
+	MemCopy(&PartStr[4],Partition->Type == PART_PRIMARY ? "pri" : "log",3);
+	MemCopy(&PartStr[9],Partition->FSName,strlen(Partition->FSName));
+
+	// Shorten partition size display by using M of G suffix
+	PartitionSize = (Partition->SectorCount >> 11); // Get size in Mb
+	if (PartitionSize < 1024L){
+		strcat(ultoa(PartitionSize,&SPartitionSize[0],10),"M");
+	}else{ 
+		strcat(ultoa(PartitionSize >> 10,&SPartitionSize[0],10),"G");
+	}
+	//MemCopy(&PartStr[29], SPartitionSize, strlen(SPartitionSize));
+	strcpy(&PartStr[29], SPartitionSize);
+	return PartStr;
+}
+void  CInstallMenus::UpdatePartNameItem(int PartNameIndex, int PartIndex, unsigned char MbrHDSector0)
+{
+	const TPartition *Partition;
+
+	Partition = PartList.GetPartition(PartIndex);
+
+	PartNameList[PartNameIndex] = UpdatePartNameList(PartNameList[PartNameIndex], Partition);
+	MbrHDSector0List[PartNameIndex] = GetHDIndex(MbrHDSector0);
 }
 
 void CInstallMenus::CreateHDList()

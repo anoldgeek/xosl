@@ -1,1 +1,10 @@
 *.bak
+*.OBJ
+*.LIB
+*.LST
+*.MAP
+*.EXE
+*.XCF
+*.BIN
+*.XDF
+*.XXF

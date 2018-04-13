@@ -77,6 +77,7 @@ class CPartList {
 		void SetFsType(int Index, int FsType);
 		int UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0);
 		int Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition);
+		void UpdateFSType(int Index, short FSType, unsigned char MbrHDSector0);
 	public:
 		typedef struct {
 			int FSID;
