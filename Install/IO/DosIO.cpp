@@ -6,13 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "memory.h" to "memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
  */
 
 
 
 #include <dosio.h>
 #include <string.h>
-#include <memory.h>
+#include <memory_x.h>
 
 char CDosFile::TransferBuffer[32768];
 
@@ -48,7 +53,7 @@ int CDosFile::Copy(const char *Src, const char *Dest)
 	while ((Size = Read(hInFile,TransferBuffer,32768)) != 0)
 		Write(hOutFile,TransferBuffer,Size);
 
-	asm{
+	_asm{
 		// Copy the dat/time stamps
 		mov al,0
 		mov bx,hInFile
@@ -99,7 +104,7 @@ int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsig
 
 	if ((fh = Open(FileName,accessReadOnly)) == -1)
 		return -1;
-	asm{
+	_asm{
 		mov bx,fh
 		mov al,0		// ;Get
 		mov ah,057h		// File Date and time
@@ -141,7 +146,7 @@ void CDosFile::SetFileDateTime(int hFile)
 
 	GetCurFatDateTime(&fatdate, &fattime);
 
-	asm{
+	_asm{
 		mov bx,hFile
 		mov cx,fattime
 		mov dx,fatdate
@@ -163,7 +168,7 @@ void CDosFile::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfatti
 
 	int temp;
 
-	asm{
+	_asm{
 		mov	ah,2 //; get rtc time 
 		int 1ah
 		mov	bcdhrmin,cx

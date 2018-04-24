@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Comment-out function DrawText. Not used.
  */
 
 #ifndef __pmgraph__
@@ -17,29 +22,29 @@
 extern "C" {
 #endif
 
-void UltraFlush(void);
-void FlushArea(long Left, long Top, long Width, long Height);
-void UltraFlushVBE2(void);
-void FlushAreaVBE2(long Left, long Top, long Width, long Height);
-void StoreBuffer(long Left, long Top, long Width, long Height);
-void RestoreBuffer(long Left, long Top, long Width, long Height);
-void PutPixel(long Left, long Top, long Color);
-void HLine(long Left, long Top, long Width, long Color);
-void VLine(long Left, long Top, long Height, long Color);
-void Bar(long Left, long Top, long Width, long Height, long Color);
-//void DrawText(long Left, long Top, long PhysStr, long Color); //ML Not used anywhere
-void PutImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
-void GetImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
+void __cdecl UltraFlush(void);
+void __cdecl FlushArea(long Left, long Top, long Width, long Height);
+void __cdecl UltraFlushVBE2(void);
+void __cdecl FlushAreaVBE2(long Left, long Top, long Width, long Height);
+void __cdecl StoreBuffer(long Left, long Top, long Width, long Height);
+void __cdecl RestoreBuffer(long Left, long Top, long Width, long Height);
+void __cdecl PutPixel(long Left, long Top, long Color);
+void __cdecl HLine(long Left, long Top, long Width, long Color);
+void __cdecl VLine(long Left, long Top, long Height, long Color);
+void __cdecl Bar(long Left, long Top, long Width, long Height, long Color);
+//void DrawText(long Left, long Top, long PhysStr, long Color);    //ML Not used anywhere
+void __cdecl PutImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
+void __cdecl GetImage(long Left, long Top, long Width, long Height, long IAdd, long PhysImage);
 
-void SetClippingRegion(long PhysLeft, long PhysTop, long PhysWidth, long PhysHeight);
-void GetClippingRegion(long PhysLeft, long PhysTop, long PhysWidth, long PhysHeight);
-void SetViewportOrigin(long PhysLeft, long PhysTop);
-void GetViewportOrigin(long PhysLeft, long PhysTop);
+void __cdecl SetClippingRegion(long PhysLeft, long PhysTop, long PhysWidth, long PhysHeight);
+void __cdecl GetClippingRegion(long PhysLeft, long PhysTop, long PhysWidth, long PhysHeight);
+void __cdecl SetViewportOrigin(long PhysLeft, long PhysTop);
+void __cdecl GetViewportOrigin(long PhysLeft, long PhysTop);
 
 
-//extern void MapFontData();
-long PMTextWidth(long PhysStr);
-void CreateText(long Width, long PhysStr, long Color);
+//extern void MapFontData();   //ML Comment out function in GRAPH\PMGRAPH.ASM
+long __cdecl PMTextWidth(long PhysStr);
+void __cdecl CreateText(long Width, long PhysStr, long Color);
 //extern void CreateText(long Left, long Top, long PhysStr, long Color);
 
 extern long PhysFontHeader;

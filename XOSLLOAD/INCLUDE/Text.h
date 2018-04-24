@@ -12,9 +12,14 @@
 #define __text__
 
 #include <defs.h>
-
+/*
 _extern void PutS(const char far *Str);
 _extern void PutCh(int Ch);
 _extern int GetCh(void);
+*/
+void PutS(const char far *Str);
+void PutCh(int Ch);
+int GetCh(void);
+
 
 #endif

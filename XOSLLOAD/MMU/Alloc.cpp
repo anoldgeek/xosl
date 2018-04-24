@@ -24,7 +24,7 @@ typedef struct SMemDesc {
 
 static PMemDesc FreeList;
 
-_extern void AllocInit(unsigned long MemStart)
+void AllocInit(unsigned long MemStart)
 {
 	PMemDesc NextItem;
 
@@ -69,6 +69,11 @@ void *operator new (unsigned int Size)
 	return (void *)(0x00010000 + (long)OldDesc);
 }
 
+void *operator new [] (unsigned int Size)  //ML - Copied from Watcom cpplib, file opnewarr.cpp
+{
+       return ::operator new( Size );
+}
+
 void operator delete (void *ptr)
 {
 	PMemDesc Prev, Next, New;
@@ -101,6 +106,11 @@ void operator delete (void *ptr)
 		New->Next = Next;
 		Next->Prev = New;
 	}
+}
+
+void operator delete [] (void *ptr)  //ML - Copied from Watcom cpplib, file opdelarr.cpp
+{
+       ::delete ( (char*) ptr);
 }
 
 long CoreLeft()

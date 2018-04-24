@@ -7,16 +7,21 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
                 .code
-                public  @DosCreate$qnxzc
-                public  @DosClose$qi
-                public  @DosWrite$qinxvus
+                public `W?DosCreate$f(pfxa)i`
+                public `W?DosClose$f(i)v`
+                public `W?DosWrite$f(ipfxvus)v`
 
 ;int DosCreate(const char *FileName)
-@DosCreate$qnxzc proc   c
-                arg     @@FileName: dword
+`W?DosCreate$f(pfxa)i` proc   c,
+                @@FileName: dword
 
                 push    ds
                 mov     ah,3ch
@@ -25,22 +30,22 @@
                 int     21h
                 pop     ds
                 ret
-                endp
+`W?DosCreate$f(pfxa)i` endp                
 
 ;void DosClose(int FileHandle)
-@DosClose$qi    proc    c
-                arg     @@FileHandle: word
+`W?DosClose$f(i)v` proc    c,
+                @@FileHandle: word
 
                 mov     ah,3eh
                 mov     bx,@@FileHandle
                 int     21h
                 ret
-                endp
+`W?DosClose$f(i)v` endp                
 
 ;void far DosWrite(int FileHandle, const void *Data, unsigned short Size)
-@DosWrite$qinxvus proc  c
-                arg     @@FileHandle: word, @@Data: dword
-                arg     @@Size: word
+`W?DosWrite$f(ipfxvus)v` proc  c,
+                @@FileHandle: word, @@Data: dword,
+                @@Size: word
 
                 push    ds
                 mov     ah,40h
@@ -50,7 +55,7 @@
                 int     21h
                 pop     ds
                 ret
-                endp
+`W?DosWrite$f(ipfxvus)v` endp                
 
                 end
 

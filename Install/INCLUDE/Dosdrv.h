@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __dosdrv__
@@ -34,7 +39,7 @@ class CDosDriveList {
 	private:
 		CPartList &PartList;
 
-		unsigned long GetDosSerialNo(int DriveNum);
+		unsigned long __cdecl GetDosSerialNo(int DriveNum);
 		unsigned long GetBRecSerialNo(int Index);
 
 };

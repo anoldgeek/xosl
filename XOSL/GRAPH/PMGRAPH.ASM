@@ -7,6 +7,22 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Watcom Assembler does not support pop/push with multiple parameters
+;   For example change
+;     push    es fs
+;   into   
+;     push    es
+;     push    fs
+; - PMTextWidth implementation modified (set CX=0 on entry)
+;   Assumption CX=0 on entry not valid for Open Watcom !!!!!
+;   Need to set CX = 0 to get rid of graphics artifacts 
+;   when calling Loader->Show() and Screen->InitScreen() in
+;   CApplication::Execute()
+; - Comment-out MapFontData. Not used anywhere
+;
 
 ;**
 ; * File: PMGRAPH.ASM
@@ -115,12 +131,14 @@ _DoPMGraphics   endp
 
 PMBankSwitch    proc
                 pushad
-                push    es fs
+                push    es
+		push	fs
 		call    SwitchRM
 		xor     bx,bx
                 call    _BankSwitch
 		call    SwitchPM
-                pop     fs es
+                pop     fs
+		pop	es
                 popad
 		ret
 PMBankSwitch    endp
@@ -456,6 +474,7 @@ VLDrawLine:     mov     es:[ebx],al
 _VLine          endp
 
 ;void Bar(long Left, long Top, long Width, long Height, long Color)
+;            [bp+4],   [bp+8],    [bp+12],     [bp+16],    [bp+20]     ;ML arguments on stack
 		public _Bar
 _Bar            proc
 		push    bp

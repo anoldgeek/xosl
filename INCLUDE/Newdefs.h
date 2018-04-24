@@ -33,7 +33,7 @@
 #define IPL_ADDR ( (void *)0x00007c00 )
 
 #ifndef HAVE_FULLCPP
-typedef int bool;
+//typedef int bool;
 
 #ifndef TRUE
 #	define TRUE (1 == 1)
@@ -41,17 +41,23 @@ typedef int bool;
 #ifndef FALSE
 #	define FALSE (1 == 0)
 #endif
+#ifndef false
 #define false FALSE
-#define true TRUE
+#endif
+
+#ifndef true
+#define true FALSE
+#endif
 
 
 #define typename class
 #endif
 
+/*
 #ifndef _SIZE_T
 #define _SIZE_T
 typedef unsigned short size_t;
 #endif
-
+*/
 
 #endif

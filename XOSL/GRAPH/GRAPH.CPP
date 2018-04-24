@@ -6,7 +6,26 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
- */
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Correct linker Error! E2028: undefined reference. Use "C" name mangling. 
+ * - Comment-out unused variables to get rid of Warning! W014: no reference 
+ *   to symbol.
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization in:
+ *   GraphInfo.Width = GRWidth;
+ *   GraphInfo.Height = GRHeight;
+ *   return TextHeight;
+ * - Change code in function CGraph::CreateBankswitch to get rid of 
+ *   Error! E591: operand must be an lvalue (cast produces rvalue)
+ *   *((unsigned short far *)switchproc)++ = 0xe2c1; // shl dx,...
+ *   *((unsigned long far *)switchproc)++ = SwitchAddr;
+ * - In function CGraph::PerformPMAction: Are the comments below still relevant ????
+ *     GRAPH.CPP: Error! E498: syntax error before '_seg'; probable cause: 
+ *     incorrectly spelled type name. Errors caused in include/mem.h
+ *
+  */
 
 /*
  * Changes: Linear frame buffer isn't 'detected' anymore when the
@@ -54,14 +73,22 @@ static struct {
 	{-1,1600,1200,false,0,0,0,"1600x1200"}
 };
 
+extern "C" {     //ML Linker: correct Error! E2028: undefined reference
 
-long GRWidth, GRHeight;
-int GRThisBank;
-long TextHeight;
+       long GRWidth;
+       long GRHeight;
+       int GRThisBank;
+       long TextHeight;
+       TGraphQueue GraphAction;
+};
+
+
+//int GRThisBank;
+//long TextHeight;
 
 //static long TempVPLeft, TempVPTop;
 
-TGraphQueue GraphAction;
+//TGraphQueue GraphAction;
 
 
 CGraph *Graph;
@@ -286,11 +313,15 @@ void CGraph::CreateBankswitch(int Granularity, unsigned long SwitchAddr)
 	for (; bmul >>= 1; ++shl);
 	if (shl) {
 		*switchproc++ = 0x52; // push dx
-		*((unsigned short far *)switchproc)++ = 0xe2c1; // shl dx,...
+		*switchproc++ = 0xc1;
+		*switchproc++ = 0xe2;
 		*switchproc++ = shl; // shl dx,_shl
 	}
 	*switchproc++ = 0x9a; // call ....:....
-	*((unsigned long far *)switchproc)++ = SwitchAddr;
+	*switchproc++ = (char) (SwitchAddr & 0x000000FF);
+	*switchproc++ = (char)((SwitchAddr & 0x0000FF00)>>8);
+	*switchproc++ = (char)((SwitchAddr & 0x00FF0000)>>16);
+	*switchproc++ = (char)((SwitchAddr & 0xFF000000)>>24);
 	if (shl)
 		*switchproc++ = 0x5a; // pop dx
 	*switchproc = 0xc3; // ret
@@ -459,7 +490,7 @@ int CGraph::GetTextWidth(const char *Str, int Style)
 
 int CGraph::GetTextHeight()
 {
-	return TextHeight;
+	return (int) TextHeight;
 }
 
 void CGraph::TextOut(int Left, int Top, const char *Str, int Style, int Color)

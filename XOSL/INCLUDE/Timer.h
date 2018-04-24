@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __timer__
@@ -13,6 +18,6 @@
 
 #include <newdefs.h>
 
-unsigned long GetTimerTicks(void);
+unsigned long __cdecl GetTimerTicks(void);
 
 #endif

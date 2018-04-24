@@ -6,6 +6,20 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Include vpgraph.h to ensure constistent name mangling
+ * - Use __cdecl calling convention
+ * - No need to define VPRestoreBuffer extern ???
+ * - Multiplication of variables of type long in Function VPBlockTransfer
+ *   generates a triple fault. 
+ *   This is solved by the following approach: 
+ *     Cast multiplication operands to integers so that the WPP compiler
+ *     will generate code for integer multiplation and not for long 
+ *     multiplication.
+ *     Casting multiplication operands to int is allowed here because
+ *     the result of the multiplication does will not exceed the range of int
+ *
  */
 
 #include <newdefs.h>
@@ -13,6 +27,7 @@
 #include <mem.h>
 #include <cursor.h>
 #include <grmem.h>
+
 #include <vpgraph.h>
 
 //Clip is absolute
@@ -110,7 +125,8 @@ void VPStoreBuffer(long Left, long Top, long Width, long Height)
 		StoreBuffer(Left,Top,Width,Height);
 }
 
-extern void VPRestoreBuffer(long Left, long Top, long Width, long Height)
+void VPRestoreBuffer(long Left, long Top, long Width, long Height)
+//extern void VPRestoreBuffer(long Left, long Top, long Width, long Height)    //ML Why extern ????
 {
 	long Right, Bottom;
 
@@ -216,7 +232,7 @@ void VPBar(long Left, long Top, long Width, long Height, long Color)
 
 void VPPutImage(long Left, long Top, long Width, long Height, long PhysImage)
 {
-	VPBlockTransfer(Left,Top,Width,Height,PhysImage,true);
+ 	VPBlockTransfer(Left,Top,Width,Height,PhysImage,true);
 }
 
 void VPGetImage(long Left, long Top, long Width, long Height, long PhysImage)
@@ -229,13 +245,19 @@ static void VPBlockTransfer(long Left, long Top, long Width, long Height,
 {
 	long IAdd;
 	long Bottom, Right;
+	//long  lTemp;
 
 	Left += VPLeft;
 	Top += VPTop;
 	if (Top > ClipBottom || Left > ClipRight)
 		return;
+
 	if (Top < ClipTop) {
-		PhysImage += (ClipTop - Top) * Width;
+		//PhysImage += (ClipTop - Top) * Width;       //ML: Generates a triple fault
+		PhysImage += (int)(ClipTop - Top) * (int)Width;
+		//lTemp=(int)(ClipTop -Top)*(int)Width;
+		//PhysImage+=lTemp;
+
 		Height -= ClipTop - Top;
 		Top = ClipTop;
 	}
@@ -318,9 +340,9 @@ void VPTextOut(long Left, long Top, long PhysStr, long Color)
 	Width = PMTextWidth(PhysStr);
 
 
-	VPGetImage(Left,Top,Width,TextHeight,GrTextBuffer);
-	CreateText(Width,PhysStr,Color);
-	VPPutImage(Left,Top,Width,TextHeight,GrTextBuffer);
+  VPGetImage(Left,Top,Width,TextHeight,GrTextBuffer);
+  CreateText(Width,PhysStr,Color);
+  VPPutImage(Left,Top,Width,TextHeight,GrTextBuffer);
 
 }
 

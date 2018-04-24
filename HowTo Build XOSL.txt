@@ -1,0 +1,42 @@
+XOSL Open Watcom Port
+Copyright (c) 2010 by Mario Looijkens:
+
+Build Host: WindowXP
+Build with Open Watcom version 1.8
+http://www.openwatcom.org/index.php/Download
+Open Watcom Installer: open-watcom-c-win32-1.8.exe
+
+
+How to build XOSL-OW
+====================
+
+In case Open Watcom version 1.8 has been installed on the PC using
+the Open Watcom Windows Installer (open-watcom-c-win32-1.8.exe) there
+is no need to modify the WatcomEnv.bat batch file before building 
+xosl-ow.
+
+In case open-watcom-c-win32-1.8.exe was opened as archive and files
+have been extracted instead of being installed the WatcomEnv.bat batch 
+file needs to be modified before building xosl-ow.
+
+change 
+  rem set WATCOM=[Drive]:\[Path]\WATCOM
+into
+  set WATCOM=[Drive]:\[Path]\WATCOM
+
+with 
+  [Drive] is the drive on which the extracted Open Watcom files are
+	        located
+	[Path]  is the path to the Open Watcom files, assuming 
+	        files have been extracted to a folder named WATCOM
+
+
+To build xosl-ow open a command prompt, navigate to the folder
+containing the xosl-ow116 source files and execute the domake.bat 
+batch file. 
+After a successful build the Arch folder contains a total of 27 files. 
+The file named install.exe is the XOSL installer. The other files are 
+xosl specific files which are needed during XOSL installation. 
+
+To remove all intermediate results from a previous build session use
+the cleanmake.bat batch file.

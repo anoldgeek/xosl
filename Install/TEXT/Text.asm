@@ -7,18 +7,25 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - Modify LockScreen to make sure LockedData is addressed correctly
+; - Modify UnlockScreen to make sure LockedData is addressed correctly
+;
 
                 .model  compact
                 .386p
 		.data?
 LockedData	db	4000 dup (?)		
                 .code
-		public	@ClearScreen$qv
-		public	@LockScreen$qv
-		public	@UnlockScreen$qv
+                public  `W?ClearScreen$n()v`
+                public  `W?LockScreen$n()v`
+                public  `W?UnlockScreen$n()v`
 
 ;void ClearScreen();
-@ClearScreen$qv	proc
+`W?ClearScreen$n()v` proc
 		push	edi
 		
 		mov	ax,0b800h
@@ -37,10 +44,10 @@ LockedData	db	4000 dup (?)
 
 		pop	edi
 		ret
-		endp
+`W?ClearScreen$n()v`	endp
 
 
-@LockScreen$qv	proc
+`W?LockScreen$n()v`  proc
 		push	edi
 		push	esi
 		push	ds
@@ -63,9 +70,9 @@ LockedData	db	4000 dup (?)
 		pop	esi
 		pop	edi
 		ret
-		endp
+`W?LockScreen$n()v` 	endp
 
-@UnlockScreen$qv proc
+`W?UnlockScreen$n()v` proc
 		push	edi
 		push	esi
 		push	ds			;ML save ds
@@ -88,7 +95,7 @@ LockedData	db	4000 dup (?)
 		pop	edi
 		
 		ret
-		endp
+`W?UnlockScreen$n()v`		endp
 
 
                 end

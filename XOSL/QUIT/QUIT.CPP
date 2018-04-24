@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Symbol __emit__ not defined
+ *   To get rid of Error! E029: symbol '__emit__' has not been declared, use
+ *   #pragma aux instead
+ *
  */
 
 #include <quit.h>
@@ -15,10 +22,12 @@
 #include <apm.h>
 
 #define AddrIpl ( (void *)0x00007c00 )
-#define IplJmp() (__emit__(0xea,0x00,0x7c,0x00,0x00)) // jmp 0000:7c00
+//#define IplJmp() (__emit__(0xea,0x00,0x7c,0x00,0x00))    // jmp 0000:7c00
+#pragma aux IplJmp = 0xea 0x00 0x7c 0x00 0x00;
 
 #define PostResetFlags ( *(unsigned short *)0x00000472 )
-#define RebootJmp() (__emit__(0xea,0xf0,0xff,0x00,0xf0)) // jmp f000:fff0
+//#define RebootJmp() (__emit__(0xea,0xf0,0xff,0x00,0xf0)) // jmp f000:fff0
+#pragma aux RebootJmp = 0xea 0xf0 0xff 0x00 0xf0;
 
 CQuit::CQuit(CMouse *MouseToUse)
 {
@@ -56,7 +65,7 @@ void CQuit::Reboot()
 	if (Mouse)
 		delete Mouse;
 	Graph->SetMode(modeText,false);
-	// PostResetFlags = 0x0000; // cold boot. 0x1234 for warm boot
-	// RebootJmp();
+	//PostResetFlags = 0x0000; // cold boot. 0x1234 for warm boot
+	//RebootJmp();
 	RebootASM();
 }

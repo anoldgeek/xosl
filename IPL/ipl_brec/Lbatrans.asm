@@ -7,27 +7,33 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
-
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
                 .model  compact
 		.386p
                 .code
 
-                public  @LBARead$qimx10TLBAPacket
+                public  `W?LBARead$n(irfx$__5fds00TLBAPacket$$)v`
 
 
 ;void LBARead(int Drive, const TLBAPacket &LBAPacket)
-@LBARead$qimx10TLBAPacket proc c
-                arg     @@Drive: word, @@LBAPacket: dword
+`W?LBARead$n(irfx$__5fds00TLBAPacket$$)v` proc c,
+                @@Drive: word, @@LBAPacket: dword
 
-                push    si ds
+                push    si
+                push    ds
 
                 mov     ah,42h
                 mov     dx,@@Drive
                 lds     si,@@LBAPacket
                 int     13h
 
-                pop     ds si
+                pop     ds
+                pop     si
                 ret
-                endp
+`W?LBARead$n(irfx$__5fds00TLBAPacket$$)v` endp
 
 		end

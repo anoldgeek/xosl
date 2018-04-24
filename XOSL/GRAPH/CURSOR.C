@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Include header cursor.h to ensure constistent name mangling
+ *   when used in *.c and in *.cpp source files
+ * - Comment out local variable Pixel to get rid of W202 Warning! W202: 
+ *   Symbol 'Pixel' has been defined, but not referenced
+ *
  */
 
 

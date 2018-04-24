@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   ProgressWidth = Width - 4;  
+ *   ProgressWidth = ((long)(Width - 4) * Progress) / Max;
+ *   TextLeft = Width - TextWidth >> 1;
+ *   TextTop = Height - Graph->GetTextHeight() >> 1;
+ * - For function void CProgressBar::Draw do we have to use the
+ *   same paramter list as the one specified in the header file ???
+ *
  */
 
 #include <progress.h>
@@ -78,7 +90,8 @@ void CProgressBar::SetTextColor(int TextColor)
 	Refresh();
 }
 
-void CProgressBar::Draw(long, long, long, long)
+//void CProgressBar::Draw(long, long, long, long)
+void CProgressBar::Draw(long /*Left*/, long /*Top*/, long Width, long Height)
 {
 	int ProgressWidth;
 	int TextLeft, TextTop;
@@ -89,12 +102,12 @@ void CProgressBar::Draw(long, long, long, long)
 	Graph->VLine(Width - 1,0,Height - 1,21);
 
 	if (Progress == Max)
-		ProgressWidth = (int)(Width - 4);
+		ProgressWidth = (int)(Width - 4); 
 	else
 		ProgressWidth = (int)(((long)(Width - 4) * Progress) / Max);
 	Graph->Bar(2,2,ProgressWidth,Height - 4,Color);
 	if (ShowText || GotFocus) {
-		TextLeft = (int)(Width - TextWidth >> 1);
+		TextLeft = (int) (Width - TextWidth >> 1);
 		TextTop = (int)(Height - Graph->GetTextHeight() >> 1);
 		Graph->TextOut(TextLeft,TextTop,Text,STYLE_REGULAR,TextColor);
 	}

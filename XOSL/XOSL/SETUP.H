@@ -6,6 +6,12 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Change code to get rid of Warning! W297: class friend declaration needs
+ *   'class' or 'struct' keyword
+ * 
  */
 
 #ifndef __setup__
@@ -27,9 +33,13 @@
 class CLoader;
 
 class CSetup {
-	friend CBootKeys;
-	friend CGeneral;
-	friend CPassword;
+//	friend CBootKeys;
+//	friend CGeneral;
+//	friend CPassword;
+  friend class CBootKeys;
+  friend class CGeneral;
+  friend class CPassword;
+
 public:
 	CSetup(CLoader &LoaderToUse, CScreen &ScreenToUse, CPartList &PartListToUse, 
 		   CBootItems &BootItemsToUse, CXOSLData &XoslDataToUse);

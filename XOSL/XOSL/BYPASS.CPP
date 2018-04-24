@@ -1,3 +1,23 @@
+/*
+ * Extended Operating System Loader (XOSL)
+ * Copyright (c) 1999 by Geurt Vos
+ *
+ * This code is distributed under GNU General Public License (GPL)
+ *
+ * The full text of the license can be found in the GPL.TXT file,
+ * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Symbol __emit__ not defined
+ *   To get rid of Error! E029: symbol '__emit__' has not been declared, use
+ *   #pragma aux instead
+ * - Use proper casting to get rid of Error! E473: function argument(s) do not 
+ *   match those in prototype.
+ * - Add call to CKeyboard::Flush() in function CBypass::Execute to make sure
+ *   keyboard buffer is empty before entering while loop
+ * 
+ */
 
 #include <Bypass.h>
 #include <disk.h>
@@ -12,7 +32,8 @@
 #include <mbrpass.h>
 #include <encpwd.h>
 
-#define BootJump() (__emit__(0xea,0x00,0x7c,0x00,0x00))
+//#define BootJump() (__emit__(0xea,0x00,0x7c,0x00,0x00))   //Error! E029
+#pragma aux BootJump = 0xea 0x00 0x7c 0x00 0x00;            //EA JMP FAR seg:offs
 
 
 void printf(const char *,...);
@@ -63,8 +84,8 @@ void CBypass::Execute(const char *ErrorMsg)
 #ifndef DOS_DEBUG_ML
 	RawBoot(Key);
 #else
-	asm mov ah,0x4c
-	asm int 0x21
+	_asm mov ah,0x4c
+	_asm int 0x21
 #endif
 
 }
@@ -97,7 +118,7 @@ int CBypass::ReadVolumeLabel(int Drive, unsigned long Sector, char *VolumeLabel)
 	}
 	else {
 		if (memcmp(BootFAT32->FSID,"FAT3",4) == 0) {
-			CPartList::CreateVolumeLabel(BootFAT32->Label,VolumeLabel);
+			CPartList::CreateVolumeLabel((const char*)BootFAT32->Label,VolumeLabel);
 			return 0;
 		}
 	}

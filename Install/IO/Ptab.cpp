@@ -16,10 +16,11 @@
 #include <bootrec.h>
 #include <items.h>
 //#include <mem.h>
-#include <memory.h>
+#include <memory_x.h>
 #include <dosio.h>
 #include <files.h>
 #include <xosldata.h>
+#include <gptab.h>
 
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
@@ -66,6 +67,12 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned lon
 	if (Disk.Read(0,PartTable,1) == -1 || PartTable->MagicNumber != 0xaa55) {
 		delete PartTable;
 		return MBRList;
+	}
+	if (PartTable->Entries[0].FSType == 0xee){
+		// GPT Protective MBR
+		unsigned __int64 guid = 0x0ULL;
+		guid++;
+
 	}
 	MBRList = MBRList->Next = new TMBRNode;
 	MBRList->AbsoluteSector = StartSector;
@@ -333,6 +340,7 @@ CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0x85,"Linux Extended"},
 	{0xa5,"FreeBSD, BSD/386"},
 	{0xeb,"BeOS"},
+	{0xee,"GPT Protective MBR"},
 	{0xff,"Unknown"}
 };
 /*

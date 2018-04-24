@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Add line at end of file to get rid of WCC Compiler 
+ *   Warning! W138: No newline at end of file.
+ *
  */
 
 #ifndef __mouse__
@@ -29,8 +36,8 @@ private:
 
 	static const char *PortNames[6];
 
-	static int Ps2Initialize(int PackSize);
-	static int MouseAvailable(int PortAddr);
+	static int __cdecl Ps2Initialize(int PackSize);
+	static int __cdecl MouseAvailable(int PortAddr);
 
 };
 

@@ -6,6 +6,15 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * The full text of the license can be found in the GPL.TXT file,
+ * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Code change in function ReadVolumeLabels to get rid of 
+ *   Error! E473: function argument(s) do not match those in prototype
+ *
  */
 
 #include <ptab.h>

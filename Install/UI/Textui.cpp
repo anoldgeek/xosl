@@ -6,6 +6,22 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Modify string values for new XOSL version
+ * - To get rid of Warning! W389:  integral value may be truncated during 
+ *   assignment or initialization use proper casting in:
+ *   itoa(*(unsigned long *)argl++,buf,DEC);
+ *   itoa defined in stdlib.h in $(%watcom)/h
+ *   _WCRTLINK extern char *itoa( int __value, char *__buf, int __radix );
+ *   itoa(*(int *)argl++,buf,DEC);
+ * - Change MenuItems(3,5,35,11,TextScreenToUse,HelpText) to 
+ *   MenuItems(3,5,35,12,TextScreenToUse,HelpText) for proper array size 
+ *   definition of CListItem objects (ListItems) to be instantiated in the 
+ *   CTextList constructor (textlist.cpp). 
+ *   Minimum Array size should be 12, not 11.
+ *
  */
 
 #include <textui.h>
@@ -97,7 +113,7 @@ void CTextUI::AddMenuItem(int Index, const char *Caption,
 }
 
 void CTextUI::AddMenuItem(int Index, const char *Caption, const char *HelpText,
-	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, char *MbrHDSector0List)
+	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, unsigned char *MbrHDSector0List)
 {
 	MenuItems.AddItem(Index,Caption,HelpText,Enabled,OptionCount,OptionList,IsCombo,LinkedListItemIndex,MbrHDSector0List);
 }

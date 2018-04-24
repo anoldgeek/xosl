@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Explicitly declare pointers to be far
+ *
  */
 
 
@@ -22,7 +27,7 @@ void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
 	StartSector = StartSectorToUse;
 }
 
-void DiskRead(unsigned long Sector, void *Buffer, int Count)
+void DiskRead(unsigned long Sector, void far *Buffer, int Count)
 {
 	TLBAPacket LBAPacket;
 

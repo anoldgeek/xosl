@@ -1,0 +1,2 @@
+//#line "..\include\mem.h" 41
+extern void memcpy( void * p1, void const * p2, unsigned short p3);

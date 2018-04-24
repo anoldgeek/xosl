@@ -21,7 +21,7 @@
 // Borland also compiles template functions that are not used,
 // hence operator-> is not implemented. 
 
-
+typedef unsigned short size_t;
 
 template <class TType>
 class list {

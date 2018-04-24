@@ -30,9 +30,9 @@
 
 	.code
 
-	public  @CQuit@RebootASM$qv
+	public  `W?RebootASM$:CQuit$f()v`
 
-@CQuit@RebootASM$qv proc
+`W?RebootASM$:CQuit$f()v` proc
 
 ; Note: as this code does not run from a DOS environment, but from XOSL BIOS-only,
 ; we must avoid all calls into any DOS (SW) interrupts...
@@ -90,6 +90,6 @@
 			
 		bootpt	dw 0,0ffffh	; boot entry point is FFFF:0000
 	
-@CQuit@RebootASM$qv endp
+`W?RebootASM$:CQuit$f()v` endp
 
 	end

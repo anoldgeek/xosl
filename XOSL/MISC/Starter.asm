@@ -7,6 +7,15 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - ToDo: Rename function main to mymain
+; - Different MMU start address for DOS debug version and release version
+; - Use better A20 line switching implementation
+; - Flush keyboard before handing over control to OS bootsector
+;
 
                 .model  compact
                 .386p
@@ -14,9 +23,10 @@
                 .data
 		.code
 
-                extrn   @AllocInit$qul: far
-                extrn   _main: far
-                extrn   @ResetTimer$qv: far
+;                extrn   `W?AllocInit$f(ul)v`: far
+                ;extrn   _mymain: far                     ;ML
+                extrn   main_: far
+                extrn   `W?ResetTimer$f()v`: far
                 extrn   _EnableA20: far
                 extrn   _DisableA20: far
                 extrn   _PrintA20Status: far
@@ -28,7 +38,7 @@
                 call    _PrintA20Status
                 pop     dx
 
-		call    _main
+		call    main_
                 push    ax              ;boot drive 
 
 		call	_DisableA20

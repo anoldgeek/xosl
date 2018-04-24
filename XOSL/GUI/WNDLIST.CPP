@@ -6,8 +6,26 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   Left = this->Left;
+ *   Top = this->Top;
+ *   Width = this->Width;
+ *   Height = this->Height;
+ *   hScreen->BeforeFix(lLeft, lTop, Width,Height);
+ *   hForm->BeforeFix(lLeft, lTop, Width,Height);
+ *   (*DrawEntry)->FixDamage(Left,Top,Width,Height);
+ *   hScreen->AfterFix(lLeft, lTop, Width,Height);
+ *   hForm->AfterFix(lLeft, lTop, Width,Height);
+ *   MouseDown(Left - this->Left,Top - this->Top)
+ *     MouseDown defined in Control.h, arguments are type int
+ * - Comment-out unused variables to get rid of Warning! W014: no reference to symbol
+ *
  */
-
+ 
 #include <wndlist.h>
 #include <graph.h>
 #include <screen.h>
@@ -85,8 +103,8 @@ void CWindowList::SetPosition(int Left, int Top)
 
 void CWindowList::GetPosition(int &Left, int &Top)
 {
-	Left = (int)this->Left;
-	Top = (int)this->Top;
+	Left = (int) this->Left;
+	Top = (int) this->Top;
 }
 
 void CWindowList::SetMetrics(int Width, int Height)
@@ -97,8 +115,8 @@ void CWindowList::SetMetrics(int Width, int Height)
 
 void CWindowList::GetMetrics(int &Width, int &Height)
 {
-	Width = (int)this->Width;
-	Height = (int)this->Height;
+	Width = (int) this->Width;
+	Height = (int) this->Height;
 }
 
 void CWindowList::SetFocusWnd(CControl *Wnd, int MoveFocused)
@@ -191,18 +209,18 @@ void CWindowList::FixDamage(long Left, long Top, long Width, long Height)
 	lLeft = Left + this->Left;
 	lTop = Top + this->Top;
 	if (hScreen)
-		hScreen->BeforeFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
+		hScreen->BeforeFix((int)lLeft, (int)lTop, (int)Width, (int)Height);
 	if (hForm)
-		hForm->BeforeFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
+		hForm->BeforeFix((int)lLeft, (int)lTop, (int)Width, (int)Height);
 
 	for (DrawEntry = DrawList.begin(); DrawEntry != DrawList.end(); ++DrawEntry) {
 		(*DrawEntry)->FixDamage((int)Left,(int)Top,(int)Width,(int)Height);
 	}
 
 	if (hScreen)
-		hScreen->AfterFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
+		hScreen->AfterFix((int)lLeft, (int)lTop, (int)Width, (int)Height);
 	if (hForm)
-		hForm->AfterFix((int)lLeft, (int)lTop, (int)Width,(int)Height);
+		hForm->AfterFix((int)lLeft, (int)lTop, (int)Width, (int)Height);
 
 }
 
@@ -247,7 +265,7 @@ void CWindowList::MouseDown(int Left, int Top)
 
 	do {
 		--DrawEntry;
-	} while ((*DrawEntry)->MouseDown((int)Left - this->Left,(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
+	} while ((*DrawEntry)->MouseDown((int)(Left - this->Left),(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
 }
 
 void CWindowList::MouseUp()
@@ -266,14 +284,14 @@ void CWindowList::MouseMove(int Left, int Top)
 
 	do {
 		--DrawEntry;
-	} while ((*DrawEntry)->MouseMove((int)Left - this->Left,(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
+	} while ((*DrawEntry)->MouseMove((int)(Left - this->Left),(int)(Top - this->Top)) == -1 && DrawEntry != DrawList.begin());
 
 }
 
 int CWindowList::AdjustArea(long &iLeft, long &iTop, long &iWidth, long &iHeight)
 {
 	long iRight, iBottom;
-	//long Right, Bottom;
+	//long Right, Bottom;  //Warning! W014: no reference to symbol
 
 	iRight = iLeft + iWidth - 1;
 	iBottom = iTop + iHeight - 1;

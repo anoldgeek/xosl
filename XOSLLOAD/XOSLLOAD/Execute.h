@@ -13,7 +13,7 @@
 
 #include <defs.h>
 
-_extern void Execute(unsigned short StartSeg, unsigned short ReloSS,
+void Execute(unsigned short StartSeg, unsigned short ReloSS,
 				 unsigned short ExeSP, unsigned short ReloCS,
 				 unsigned short ExeIP);
 

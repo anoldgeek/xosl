@@ -7,6 +7,11 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
                 .386p
@@ -15,10 +20,10 @@ HourSec         dd      3600
 
                 .code
 
-                public  @ResetTimer$qv
+                public  `W?ResetTimer$f()v`
 
 ;void ResetTimer()
-@ResetTimer$qv  proc
+`W?ResetTimer$f()v` proc
                 push    bp
                 mov     bp,5
 
@@ -56,7 +61,7 @@ TimeRead:       movzx   bx,ch
 
 RTDone:         pop     bp
                 ret
-                endp
+`W?ResetTimer$f()v` endp
 
 BCD2Hex         proc    near
                 push    bp

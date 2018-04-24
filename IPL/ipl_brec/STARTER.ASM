@@ -15,6 +15,16 @@
 ; *
 ; * Main routine for either FAT IPL
 ; */
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Rename function main to mymain
+; - Need to comment out .startup to get rid of Warning W1019: 
+;   segment relocation at 0000:0001
+; -    Need to add label start:
+; - Why no ORG 100h here ????
+; - Add label to directive end. Need label (end start) to get rid of 
+;   Warning! W1023: no starting address found, using 0000:0000.
+;
 
                 .model  tiny
                 .386p
@@ -23,9 +33,10 @@ LOADERADDR      equ     80000100h
 LOADERSEG       equ     8000h
 
 		.code
-                extrn   _main: near
+                extrn   _mymain: near
 
-                .startup
+;                .startup
+start:
                 jmp     LoaderStart
                 nop
 
@@ -42,7 +53,7 @@ LoaderStart:
                 mov     sp,0fffeh
 
 
-                call    _main
+                call    _mymain
 
 
 RunLoader:
@@ -54,4 +65,4 @@ RunLoader:
                 db      0eah            ;execute com file
                 dd      LOADERADDR
 
-                end
+                end	start

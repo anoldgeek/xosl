@@ -7,14 +7,14 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
-
+;PutS( char const far * )
                 .model  compact
                 .386p
                 .code
-                public  _PutS, _GetCh, _PutCh
+                public  `W?PutS$f(pfxa)v`, `W?GetCh$f()i`, `W?PutCh$f(i)v`
 
 ;void PutS(char *Str);
-_PutS           proc    
+`W?PutS$f(pfxa)v` proc    
                 push    bp
                 mov     bp,sp
                 push    si
@@ -31,26 +31,26 @@ PSLods:         lods    es:byte ptr [si]
                 pop     si
                 pop     bp
                 ret
-_PutS           endp
+`W?PutS$f(pfxa)v` endp
 
 ;void PutCh(int Ch);
-_PutCh          proc    c
-                arg     @@ch: word
+`W?PutCh$f(i)v`   proc    c,
+                @@ch: word
 
                 mov     ah,0eh
                 mov     al,byte ptr @@ch
                 mov     bx,7
                 int     10h
                 ret
-                endp
+`W?PutCh$f(i)v` endp
 
 
 
 ;int GetCh(void);
-_GetCh          proc
+`W?GetCh$f()i` proc
                 xor     ah,ah
                 int     16h
                 ret
-_GetCh          endp
+`W?GetCh$f()i` endp
 
                 end

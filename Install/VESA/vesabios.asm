@@ -7,18 +7,24 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
                 .code
 
 
-                public  @CVesa@GetSvgaInfo$qm15CVesa@CSvgaInfo
-                public  @CVesa@GetModeInfo$qim15CVesa@CModeInfo
+                public  `W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i`
+                public  `W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i`
 
 ;static int CVesa::GetSvgaInfo(CVesa::CSvgaInfo &SvgaInfo);
-@CVesa@GetSvgaInfo$qm15CVesa@CSvgaInfo proc c
-                arg     @@SvgaInfo: dword
+`W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i` proc c,
+                @@SvgaInfo: dword
 
                 push    di
 
@@ -33,12 +39,11 @@
 GSISuccess:     xor     ax,ax
 GSIExit:        pop     di
                 ret
-                endp
+`W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i` endp
 
 ;int CVesa::GetModeInfo(int VesaMode, CModeInfo &ModeInfo)
-@CVesa@GetModeInfo$qim15CVesa@CModeInfo proc c
-
-                arg     @@VesaMode: word, @@ModeInfo: dword
+`W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i` proc c,
+                @@VesaMode: word, @@ModeInfo: dword
 
                 push    di
                 mov     ax,4f01h
@@ -51,7 +56,7 @@ GSIExit:        pop     di
 
 MIExit:         pop     di
                 ret
-                endp
+`W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i` endp
 
 
 

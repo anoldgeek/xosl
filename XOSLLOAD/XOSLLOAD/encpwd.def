@@ -1,0 +1,2 @@
+//#line "encpwd.cpp" 11
+extern unsigned long EncodePassword( char const * Password);

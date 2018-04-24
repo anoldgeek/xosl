@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __int10__
@@ -65,12 +70,12 @@ typedef struct {
 extern "C" {
 #endif
 
-void far BankSwitch(void);
-void far DoPMGraphics(void);
-void far InitDesc(void);
-int far GetSVGAInfo(TSVGAInfo *SVGAInfo);
-int far GetModeInfo(int Mode, TModeInfo *ModeInfo);
-int far SwitchTo(unsigned short Mode);
+void far __cdecl BankSwitch(void);
+void far __cdecl DoPMGraphics(void);
+void far __cdecl InitDesc(void);
+int far __cdecl GetSVGAInfo(TSVGAInfo *SVGAInfo);
+int far __cdecl GetModeInfo(int Mode, TModeInfo *ModeInfo);
+int far __cdecl SwitchTo(unsigned short Mode);
 
 #ifdef __cplusplus
 };

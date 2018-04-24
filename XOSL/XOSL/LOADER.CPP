@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Correct Error! E2028: char far * far LogoBitmap is an undefined reference
+ *   by using a the same type as in the declaration in file XOSLAPP.CPP
+ *   (unsigned char instead of char)
+ * - Comment-out unused variables to get rid of Warning! W014: no reference 
+ *   to symbol.
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization.
+ * - Instantiate CLabel objects for additional GUI sting values
+ *
  */
 
 #include <loader.h>
@@ -19,6 +31,14 @@
 #include <Timer.h>
 
 #include <strtable.h>
+
+//The printf implementation expects unsigned short or unsigned long
+//  arguments
+//Pointer arithmetic used in printf is not ok for Open Watcom version 1.8
+//  Cast to pointer to different base type does not generate a compiler warning
+//  or compiler error.
+//  But a pointer increment will be based on the original pointer's base type.
+//  Casting has no effect on the increment operator.
 
 void printf(const char *format, ...)
 {
@@ -50,22 +70,23 @@ void printf(const char *format, ...)
 					case 'l':
 						if (format[1] == 'd') {
 							++format;
-							ltoa(*(long *)argl++,buf,DEC);
-							argl +=2;
+							//itoa(*(unsigned long *)argl++,buf,DEC);  //Pointer arithmetic not ok for Open Watcom version 1.8
+							itoa(*(unsigned long *)argl,buf,DEC);
+							argl+=sizeof(unsigned long)/sizeof(unsigned short);
 							puts(buf);
 							break;
 						}
 						if (format[1] == 'u') {
 							++format;
 							ultoa(*(unsigned long *)argl,buf,DEC);
-						    argl +=2;
+							argl+=sizeof(unsigned long)/sizeof(unsigned short);
 							puts(buf);
 							break;
 						}
 						if (format[1] == 'x') {
 							++format;
 							ltoa(*(long *)argl,buf,HEX);
-							argl +=2;
+							argl+=sizeof(unsigned long)/sizeof(unsigned short);
 							puts(buf);
 							break;
 						}
@@ -81,11 +102,7 @@ void printf(const char *format, ...)
 		}
 }
 
-
-
 extern unsigned char *LogoBitmap;
-
-
 
 static const char *IndexPrefix = "123456789ABCDEFGHIJKLMNO";
 
@@ -233,7 +250,7 @@ void CLoader::ConnectEventHandlers()
 
 void CLoader::InstallControls()
 {
-	int Index;
+	//int Index;
 
 	Form->AddControl(Bevel);
 	Form->AddControl(Image);

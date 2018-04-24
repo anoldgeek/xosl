@@ -11,6 +11,6 @@
 #ifndef __freemem__
 #define __freemem__
 
-unsigned long FreeMemStart();
+unsigned long far FreeMemStart(void);
 
 #endif

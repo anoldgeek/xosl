@@ -7,29 +7,34 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
 
                 .code
 
-                public  @CData@GetDriveCount$qv
-                public  @CData@GetDosVersion$qv
+                public  `W?GetDriveCount$:CData$n()i`
+                public  `W?GetDosVersion$:CData$n()us`
                 
 ;int CData::GetDriveCount();
-@CData@GetDriveCount$qv proc
+`W?GetDriveCount$:CData$n()i` proc
                 mov     ah,52h
                 int     21h
                 movzx   ax,es:byte ptr [bx + 20h]
                 ret
-                endp
+`W?GetDriveCount$:CData$n()i`  endp
 
 ;unsigned short CData::GetDosVersion();
-@CData@GetDosVersion$qv proc
+`W?GetDosVersion$:CData$n()us` proc
                 mov     ah,30h
                 int     21h
                 ret
-                endp
+`W?GetDosVersion$:CData$n()us` endp
 
                 end
                 

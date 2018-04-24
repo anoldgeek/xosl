@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Add line at end of file to get rid of WCC Compiler 
+ *   Warning! W138: No newline at end of file.
+ *
  */
 
 #ifndef __vesa__
@@ -59,37 +66,37 @@ private:
 	class CModeInfo {
 	public:
 
-		int ModeAttr;				// mode attribute (bit 0: mode supported)
-		char AttrWinA;				// attribute window A
-		char AttrWinB;				// attribute window B
+		int ModeAttr;			   // mode attribute (bit 0: mode supported)
+		char AttrWinA;			  // attribute window A
+		char AttrWinB;			  // attribute window B
 		int Granularity;
-		int WinSize;				// window size
+		int WinSize;			    // window size
 		unsigned short SegWinA;     // segment window A
 		unsigned short SegWinB;     // segment window B
-		unsigned long SwitchAddr;		// -> FAR call bankswitch function
-		int BytesScanline;			// bytes per scanline
-		int Width;					// screen width
-		int Height;					// screen height
-		char CharCellWidth;			// charcell with in pixels
-		char CharCellHeight;		// charcell height in pixels
-		char MemPlanes;				// number of memory planes
-		char BitsPixel;				// number of bits per pixel
-		char Banks;					// number of memory banks
+		unsigned long SwitchAddr;	       // -> FAR call bankswitch function
+		int BytesScanline;		      // bytes per scanline
+		int Width;				      // screen width
+		int Height;				     // screen height
+		char CharCellWidth;		     // charcell with in pixels
+		char CharCellHeight;	    // charcell height in pixels
+		char MemPlanes;			 // number of memory planes
+		char BitsPixel;			 // number of bits per pixel
+		char Banks;				     // number of memory banks
 		char MemoryModel;
 		char BankSize;
 		char ImagePages;
 		char Reserver0;
-		char RedSize;				// red mask size
-		char RedPos;				// red field position
-		char GreenSize;				// green mask size
-		char GreenPos;				// green field position
-		char BlueSize;				// blue mask size
-		char BluePos;				// blue field position
-		char ResSize;				// reserved mask size
-		char ResPos;				// reserved field position
+		char RedSize;			   // red mask size
+		char RedPos;			    // red field position
+		char GreenSize;			 // green mask size
+		char GreenPos;			  // green field position
+		char BlueSize;			  // blue mask size
+		char BluePos;			   // blue field position
+		char ResSize;			   // reserved mask size
+		char ResPos;			    // reserved field position
 		char DirectModeInfo;
-		unsigned long LinearBuffer;	// physical address of linear frame buffer
-		unsigned long OffScrnMem;	// address of offscreen memory
+		unsigned long LinearBuffer;     // physical address of linear frame buffer
+		unsigned long OffScrnMem;       // address of offscreen memory
 		int OffScrnSize;			// offscreen memory size (kb)
 		char Reserved1[206];
 	};
@@ -101,7 +108,7 @@ private:
 
 	void DetectGraphicsModes();
 	static int GetSvgaInfo(CSvgaInfo &SvgaInfo);
-	static int GetModeInfo(int VesaMode, CModeInfo &ModeInfo);
+	static int __cdecl GetModeInfo(int VesaMode, CModeInfo &ModeInfo);
 	static const char *GraphicsModeNames[6];
 
 

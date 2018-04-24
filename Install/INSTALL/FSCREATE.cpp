@@ -6,12 +6,30 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "Memory.h" to "Memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ * - To get rid of Warning! W389:  integral value may be truncated during 
+ *   assignment or initialization use proper casting in:
+ *   DosFile.Write(hClusterFile,CDosFile::TransferBuffer,FileSize)
+ *   int ClusterCount = FileSize / CLUSTER_SIZE;
+ *   TransferCount = (ImageSize >> 11) + 1;
+ *   TransferCount = (ImageSize - 6) >> 11;
+ * - Comment out local variable unsigned short Checksum    
+ *   to get rid of Warning! W014: 
+ *   no reference to symbol 'Checksum'
+ * - Comment out local variable int Index
+ *   to get rid of Warning! W014: 
+ *   no reference to symbol 'Index'
+ *
  */
 
 
 #include <FsCreate.h>
 #include <string.h>
-#include <memory.h>
+#include <memory_x.h>
 
 #include <disk.h>
 #include <transfer.h>
@@ -20,11 +38,6 @@
 
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
-
-int error_code;
-unsigned char error_class;
-unsigned char action;
-unsigned char locus;
 
 CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
@@ -155,24 +168,19 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 		if (DosFile.Write(hClusterFile,CDosFile::TransferBuffer,(unsigned short)FileSize) != FileSize) {
 //		if (DosFile.LSeek(hClusterFile,FileSize, DosFile.seekCurrent) != FileSize) {
 			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-			DisplayIOError();
 			DosFile.Close(hClusterFile);
 			return -1;
 		}
 	return 0;
 }
 
-void CFsCreator::DisplayIOError()
-{
-	TextUI.OutputStr("ERROR_CODE %d;\n ERROR_CLASS %d;\n ACTION %d;\n LOCUS %d\n", error_code,(int)error_class,(int)action,(int)locus);
-}
 
 int CFsCreator::PackFiles()
 {
 	int hClusterFile;
 	int Index, Count;
 	const char *FileName;
-	long FileSize;
+//	long FileSize;
 //	int AppendStat;
 	int NextImgFile;
 	int ImgFileCount;
@@ -301,14 +309,12 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 
 	if (DosFile.Write(hFile,&Drive,sizeof (unsigned short)) != sizeof (unsigned short)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-		DisplayIOError();
 		DosFile.Close(hFile);
 		return -1;
 	}
 
 	if (DosFile.Write(hFile,&Sector,sizeof (unsigned long)) != sizeof (unsigned long)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-		DisplayIOError();
 		DosFile.Close(hFile);
 		return -1;
 	}
@@ -321,7 +327,6 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 		}
 		if (DosFile.Write(hFile,CDosFile::TransferBuffer,2048) != 2048) {
 			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-			DisplayIOError();
 			DosFile.Close(hFile);
 			return -1;
 		}

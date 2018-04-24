@@ -7,66 +7,71 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
                 .386p
 
                 .code
 
-		public	@CKeyboard@WaitKeyStrokeDef$qv
-		public	@CKeyboard@WaitKeyStrokeEnh$qv
-		public	@CKeyboard@StoreKeyStroke$qus
-		public	@CKeyboard@KeyStrokeAvailDef$qv
-		public	@CKeyboard@KeyStrokeAvailEnh$qv
+                public  `W?WaitKeyStrokeDef$:CKeyboard$f()us`
+                public  `W?WaitKeyStrokeEnh$:CKeyboard$f()us`
+                public  `W?StoreKeyStroke$:CKeyboard$f(us)v`
+                public  `W?KeyStrokeAvailDef$:CKeyboard$f()q`
+                public  `W?KeyStrokeAvailEnh$:CKeyboard$f()q`
 
 
 
 
 ;unsigned short CKeyboard::WaitKeyStrokeDef()
-@CKeyboard@WaitKeyStrokeDef$qv proc
+`W?WaitKeyStrokeDef$:CKeyboard$f()us` proc
                 xor     ah,ah
                 int     16h
                 ret
-                endp
+`W?WaitKeyStrokeDef$:CKeyboard$f()us` endp
 
-@CKeyboard@WaitKeyStrokeEnh$qv proc
+`W?WaitKeyStrokeEnh$:CKeyboard$f()us` proc
 		mov	ah,10h
 		int	16h
 		ret
-		endp
+`W?WaitKeyStrokeEnh$:CKeyboard$f()us` endp
 
 
 ;void CKeyboard::StoreKeyStroke(unsigned short KeyCode)
-@CKeyboard@StoreKeyStroke$qus proc c
-                arg     @@KeyCode: word
+`W?StoreKeyStroke$:CKeyboard$f(us)v` proc c,
+                @@KeyCode: word
 
                 mov     ah,5
                 mov     cx,@@KeyCode
                 int     16h
                 ret
-                endp
+`W?StoreKeyStroke$:CKeyboard$f(us)v` endp
 
 
 ;bool CKeyboard::KeyStrokeAvailDef();
-@CKeyboard@KeyStrokeAvailDef$qv proc
+`W?KeyStrokeAvailDef$:CKeyboard$f()q` proc
                 mov     ah,1
                 int     16h
                 mov     ax,1
                 jnz     KHDEnd
                 dec     ax
 KHDEnd:         ret
-                endp
+`W?KeyStrokeAvailDef$:CKeyboard$f()q` endp
 
 
 ;bool CKeyboard::KeyStrokeAvailEnh();
-@CKeyboard@KeyStrokeAvailEnh$qv proc
+`W?KeyStrokeAvailEnh$:CKeyboard$f()q` proc
                 mov     ah,11h
                 int     16h
                 mov     ax,1
                 jnz     KHEEnd
                 dec     ax
 KHEEnd:         ret
-                endp
+`W?KeyStrokeAvailEnh$:CKeyboard$f()q` endp
 
 
 

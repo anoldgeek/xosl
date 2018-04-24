@@ -7,6 +7,10 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Tune filesize ipl06lba.bin to 440 bytes
+;
 
 ;/*
 ; * File  : INITDATA.ASM
@@ -32,7 +36,8 @@
 		db	13 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
 LoaderName      db      'XOSLLOADXCF'
 
-LBAPacket       equ     this byte
+;LBAPacket       equ     this byte
+LBAPacket       label   byte
                 dw      0010h
 SectorCount     dw      0
 TransferBuffer  dd      0

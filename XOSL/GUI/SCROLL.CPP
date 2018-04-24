@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   ValueM2 = ((long)(Y - Top - 17) * (Max - Min) * 2) / (Height - 50);
+ *   ScrollPos = 17 + ((long)(Value - Min) * (Height - 50)) / (Max - Min);
+ *
  */
 
 #include <scroll.h>

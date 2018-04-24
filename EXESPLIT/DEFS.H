@@ -6,23 +6,34 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * -  Allow compilation with small memory model
+ * -  Add line at end of file to get rid of 
+ *    Warning! W138: No newline at end of file
+ *
  */
 
 #ifndef __defs__
 #define __defs__
+
+#if !defined(__SMALL__)
 
 #if !defined(__COMPACT__)
 #	if !defined(__LARGE__)
 #		if !defined(__HUGE__)
 #			if defined(__TINY__)
 #				error tiny memory model not supported, use compact, large or huge.
-#			elif defined(__SMALL__)
-#				error small memory model not supported, use compact, large or huge.
+//#			elif defined(__SMALL__)
+//#				error small memory model not supported, use compact, large or huge.
 #			else
 #				error medium memory model not supported, use compact, large or huge.
 #			endif
 #		endif
 #	endif
+#endif
+
 #endif
 
 #ifndef NULL

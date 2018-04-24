@@ -107,7 +107,6 @@ private:
 
 	void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
 	void AddFatEntries(long FileSize);
-	void CFsCreator::DisplayIOError();
 
 
 };

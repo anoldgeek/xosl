@@ -7,7 +7,13 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
-
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Comment out extrn DiskSectors: dword to correct 
+;   Error! E2028: DiskSectors is an undefined reference
+; - Comment out extrn DiskHeads: dword to correct 
+;   Error! E2028: DiskHeads is an undefined reference 
+;
 ;/*
 ; * File  : DISK.ASM
 ; * Author: Geurt Vos

@@ -7,25 +7,42 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - Correct Error! E523: Segment name is missing by commenting out ends
+;   Is the use of ends before .code a mistake? 
+;   This file is the only *.asm file in the xosl project where it is used.
+; - When using 
+;     DosDriveInfo    equ     this byte
+;   the instruction
+;     mov     dx,offset DosDriveInfo
+;   results in Error! E066: Operand is expected
+;   When using
+;     DosDriveInfo    label   byte
+;   compilation is without errors
+;
 
                 .model  compact
                 .386p
                 .data?
-DosDriveInfo    equ     this byte
+;DosDriveInfo    equ     this byte
+DosDriveInfo    label   byte
 Reserved        dw      ?       ;0000
 SerialNumLo     dw      ?
 SerialNumHi     dw      ?
 VolumeLabel     db      11 dup (?)
 FSType          db      8 dup (?)
-                ends
+;                ends
 
                 .code
 
-                public  @CDOSDriveList@GetDOSSerialNo$qi
+                public  `W?GetDosSerialNo$:CDosDriveList$n(i)ul`
 
 ;unsigned long CDOSDriveList::GetDOSSerialNo(int DriveNum);
-@CDOSDriveList@GetDOSSerialNo$qi proc c
-                arg     @@this: dword, @@DriveNum: word
+`W?GetDosSerialNo$:CDosDriveList$n(i)ul` proc c,
+                @@this: dword, @@DriveNum: word
 
                 mov     ax,6900h
                 mov     bx,@@DriveNum
@@ -41,6 +58,6 @@ GSNFound:       mov     ax,SerialNumLo
                 mov     dx,SerialNumHi
 
 GSNExit:        ret
-                endp
+`W?GetDosSerialNo$:CDosDriveList$n(i)ul` endp
 
                 end

@@ -7,17 +7,22 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
 		.386p
                 .code
 
-                public  @CDiskAccess@LBAAccessAvail$qi
-                public  @CDiskAccess@LBATransfer$qiimx10TLBAPacket
+                public  `W?LBAAccessAvail$:CDiskAccess$f(i)i`
+                public  `W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
-@CDiskAccess@LBAAccessAvail$qi proc c
-                arg     @@this: dword, @@Drive: word
+`W?LBAAccessAvail$:CDiskAccess$f(i)i` proc c,
+                @@this: dword, @@Drive: word
 
                 mov     ah,41h
                 mov     bx,55aah
@@ -33,14 +38,15 @@
 
 NoLBA:          mov     ax,-1
 LBA_AAEnd:      ret
-                endp
+`W?LBAAccessAvail$:CDiskAccess$f(i)i` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
-@CDiskAccess@LBATransfer$qiimx10TLBAPacket proc c
-                arg     @@this: dword, @@Action: word
-                arg     @@Drive: word, @@LBAPacket: dword
+`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` proc c,
+                @@this: dword, @@Action: word,
+                @@Drive: word, @@LBAPacket: dword
 
-                push    si ds
+                push    si
+		push	ds
 
                 mov     ax,@@Action
                 or      ax,4000h
@@ -49,10 +55,11 @@ LBA_AAEnd:      ret
                 int     13h
                 sbb     ax,ax
 
-                pop     ds si
+                pop     ds
+		pop	si
                 ret
-                endp
-
+`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` endp
+ 
 
 
 		end

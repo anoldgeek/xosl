@@ -1,78 +1,92 @@
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+# Copyright (c) 2018 by Norman Back:
+
 #main makefile for xoslload.xcf
 
 LIBPATH=xoslload;mmu;io;string;text;misc
-LIB_FILES=xoslload.lib mmu.lib io.lib string.lib text.lib misc.lib
+LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib
           
 
 !ifdef DOS_DEBUG
-MAKE_OPTIONS=-DDOS_DEBUG
+MAKE_OPTIONS=-DDOS_DEBUG=1
 !endif
 
-LINK_OPTIONS=/3 /s /t /L$(LIBPATH)
-
-OBJ_FILES=misc\starter.obj
+OBJ_FILES=misc\starter.obj,
 LNK_FILE=xoslload.xcf
 MAP_FILE=xoslload.map
 
-LINK=$(MAKEDIR)\tlink
-MAKE=$(MAKEDIR)\make $(MAKE_OPTIONS)
+!ifdef DOS_DEBUG
+MAKE_OPTIONS=DOS_DEBUG=1
+LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+!else
+LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+!endif
 
-ENTER=@cd
+LINK=wlink
+MAKE=wmake $(MAKE_OPTIONS)
+
+ENTER=cd
 LEAVE=$(ENTER) ..
+DELETE=del
 
-$(LNK_FILE): xoslload mmu io string text misc
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(LNK_FILE), $(MAP_FILE), $(LIB_FILES)
-!
+all: xoslload mmu io string text misc .SYMBOLIC
+   $(LINK) name $(LNK_FILE) $(LINK_OPTIONS)
 
-link:
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(LNK_FILE), $(MAP_FILE), $(LIB_FILES)
-!
+link: .SYMBOLIC
+   $(LINK) name $(OBJ_FILES) $(LNK_FILE) $(LINK_OPTIONS)
 
-xoslload:
+xoslload: .SYMBOLIC
    $(ENTER) xoslload
    $(MAKE)
    $(LEAVE)
 
-mmu:
+mmu: .SYMBOLIC
    $(ENTER) mmu
    $(MAKE)
    $(LEAVE)
 
-io:
+io: .SYMBOLIC
    $(ENTER) io
    $(MAKE)
    $(LEAVE)
 
-string:
+string: .SYMBOLIC
    $(ENTER) string
    $(MAKE)
    $(LEAVE)
 
-text:
+text: .SYMBOLIC
    $(ENTER) text
    $(MAKE)
    $(LEAVE)
 
-misc:
+misc: .SYMBOLIC
    $(ENTER) misc
    $(MAKE)
    $(LEAVE)
 
-clean:
+clean: .SYMBOLIC
    $(ENTER) xoslload
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\mmu
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\io
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\string
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\text
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\misc
-   $(MAKEDIR)\make clean
+   wmake clean
    $(LEAVE)
    @del xoslload.xcf
    @del xoslload.map

@@ -7,6 +7,15 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Need to comment out .startup to get rid of Warning W1019: 
+;   segment relocation at 0000:0001
+; -    Need to add label start:
+; - Why is ORG 100h needed here ????
+; - Add label to directive end. Need label (end start) to get rid of 
+;   Warning! W1023: no starting address found, using 0000:0000.
+;
 
 ;/*
 ; * File  : MAIN.ASM
@@ -28,7 +37,9 @@ LOADERSEG       equ     8000h
 		.code
                 extrn   ReadFile: near
 
-		.startup
+;		.startup
+		ORG 100h
+start:
                 db      0eah            ;jmp 07b0:0105
                 dd      07b00105h
 ;07b0:0105:
@@ -62,4 +73,4 @@ RunLoader:      mov     ax,LOADERSEG
                 db      0eah            ;execute com file
                 dd      LOADERADDR
 
-                end
+                end start

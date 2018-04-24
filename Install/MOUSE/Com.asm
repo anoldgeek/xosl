@@ -7,16 +7,21 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
                 .code
 
-                public  @CMouse@MouseAvailable$qi
+                public  `W?MouseAvailable$:CMouse$n(i)i`
 
 ;CMouse::MouseAvailable(int PortAddr);
-@CMouse@MouseAvailable$qi proc c
-                arg     @@PortAddr: word
+`W?MouseAvailable$:CMouse$n(i)i` proc c,
+                @@PortAddr: word
 
                 mov     dx,@@PortAddr
                 or      dx,dx
@@ -47,7 +52,7 @@ _52ed:          mov     al,0ffh
 _52f4:          xor     ah,ah
                 movsx   ax,al
                 ret
-                endp
+`W?MouseAvailable$:CMouse$n(i)i` endp
                 
 
 TestAndSet      proc

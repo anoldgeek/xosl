@@ -1,135 +1,146 @@
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+#
+
 #main makefile for XOSL
 
-LIBPATH=xosl;gui;graph;text;mmu;string;io;mouse;misc;keyboard;timer;debug;quit;freemem
-LIB_FILES=xosl.lib mmu.lib timer.lib mouse.lib gui.lib graph.lib text.lib \
-          string.lib io.lib misc.lib keyboard.lib quit.lib debug.lib freemem.lib
+LIBPATH=mmu;timer;text;string;xosl;mouse;misc;graph;keyboard;gui;quit;io;debug;freemem
+LIB_FILES=xosl.lib,mmu.lib,timer.lib,text.lib,string.lib,mouse.lib,misc.lib,&
+          graph.lib,keyboard.lib,gui.lib,io.lib,quit.lib,debug.lib,freemem.lib
+
+OBJ_FILES=misc\starter.obj,misc\a20line.obj,misc\a20stat.obj,
+EXE_FILE=xosl
+MAP_FILE=xosl.map
+#EXE_FILE=xosl.exe
 
 !ifdef DOS_DEBUG
-MAKE_OPTIONS=-DDOS_DEBUG
-TLINK_OPTIONS=/v
+MAKE_OPTIONS=DOS_DEBUG=1
+LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+!else
+LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !endif
 
-LINK_OPTIONS=/3 /s /L$(LIBPATH)
+LINK=wlink
+MAKE=wmake $(MAKE_OPTIONS)
 
-OBJ_FILES=misc\starter.obj misc\a20line.obj misc\a20stat.obj
-EXE_FILE=xosl.exe
-MAP_FILE=xosl.map
-
-LINK=$(MAKEDIR)\tlink $(TLINK_OPTIONS)
-MAKE=$(MAKEDIR)\make $(MAKE_OPTIONS)
-
-ENTER=@cd
+#ENTER=@cd
+ENTER=cd
 LEAVE=$(ENTER) ..
 
-all: xosl gui graph text mmu string io mouse misc keyboard timer quit debug freemem 
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(EXE_FILE), $(MAP_FILE), $(LIB_FILES)
-!
+all: xosl gui graph text mmu string io mouse misc keyboard timer quit debug freemem .SYMBOLIC
+   $(LINK) name $(EXE_FILE) $(LINK_OPTIONS)
 
-link:
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(EXE_FILE), $(MAP_FILE), $(LIB_FILES)
-!
+link: .SYMBOLIC
+   $(LINK) name $(EXE_FILE) $(LINK_OPTIONS)
 
-xosl:
+xosl: .SYMBOLIC
    $(ENTER) xosl
    $(MAKE)
    $(LEAVE)
 
-misc:
+misc: .SYMBOLIC
    $(ENTER) misc
    $(MAKE)
    $(LEAVE)
 
-gui:
+gui: .SYMBOLIC
    $(ENTER) gui
    $(MAKE)
    $(LEAVE)
 
-graph:
+graph: .SYMBOLIC
    $(ENTER) graph
    $(MAKE)
    $(LEAVE)
 
-text:
+text: .SYMBOLIC
    $(ENTER) text
    $(MAKE)
    $(LEAVE)
 
-mmu:
+mmu: .SYMBOLIC
    $(ENTER) mmu
    $(MAKE)
    $(LEAVE)
 
-string:
+string: .SYMBOLIC
    $(ENTER) string
    $(MAKE)
    $(LEAVE)
 
-io:
+io: .SYMBOLIC
    $(ENTER) io
    $(MAKE)
    $(LEAVE)
 
-mouse:
+mouse: .SYMBOLIC
    $(ENTER) mouse
    $(MAKE)
    $(LEAVE)
 
-keyboard:
+keyboard: .SYMBOLIC
    $(ENTER) keyboard
    $(MAKE)
    $(LEAVE)
 
-timer:
+timer: .SYMBOLIC
    $(ENTER) timer
    $(MAKE)
    $(LEAVE)
 
-quit:
+quit: .SYMBOLIC
    $(ENTER) quit
    $(MAKE)
    $(LEAVE)
 
-debug:
+debug: .SYMBOLIC
    $(ENTER) debug
    $(MAKE)
    $(LEAVE)
 
-freemem:
+freemem: .SYMBOLIC
    $(ENTER) freemem
    $(MAKE)
    $(LEAVE)
 
-clean:
+clean: .SYMBOLIC
    $(ENTER) xosl
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\misc
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\gui
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\graph
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\text
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\mmu
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\string
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\io
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\mouse
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\keyboard
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\timer
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\quit
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\debug
-   $(MAKEDIR)\make clean
-   $(ENTER) ..\freemem
-   $(MAKEDIR)\make clean
+   wmake clean
    $(LEAVE)
-   @del xosl.exe
-   @del xosl.map
+   @if exist xosl.exe del xosl.exe
+   @if exist xosl.map del xosl.map
+   @if exist xosl.sym del xosl.sym
+   @if exist *.XXF del *.XXF
+	 

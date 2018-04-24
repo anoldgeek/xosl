@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   SliderPos = 4 + ((long)(Value - Min) * (Width - 13)) / (Max - Min);
+ *   SetValue(((long)(X - Left - 4) * (Max - Min)) / (Width - 13) + Min);
+ *
  */
 
 #include <trackbar.h>

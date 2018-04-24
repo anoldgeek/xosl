@@ -6,6 +6,12 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Add line at end of file to get rid of Warning! W138: No newline at end of file
+ * 
  */
 
 #ifndef __vpgraph__
@@ -17,19 +23,19 @@
 extern "C" {
 #endif
 
-void VPUltraFlush(void);
-void VPFlushArea(long Left, long Top, long Width, long Height);
-void VPStoreBuffer(long Left, long Top, long Width, long Height);
-void VPRestoreBuffer(long Left, long Top, long Width, long Height);
-void VPPutPixel(long Left, long Top, long Color);
-void VPHLine(long Left, long Top, long Width, long Color);
-void VPVLine(long Left, long Top, long Height, long Color);
-void VPRectangle(long Left, long Top, long Width, long Height, long Color);
-void VPBar(long Left, long Top, long Width, long Height, long Color);
-void VPPutImage(long Left, long Top, long Width, long Height, long PhysImage);
-void VPGetImage(long Left, long Top, long Width, long Height, long PhysImage);
-void VPLine(long X1, long Y1, long X2, long Y2, long Color);
-void VPTextOut(long Left, long Top, long PhysStr, long Color);
+void __cdecl VPUltraFlush(void);
+void __cdecl VPFlushArea(long Left, long Top, long Width, long Height);
+void __cdecl VPStoreBuffer(long Left, long Top, long Width, long Height);
+void __cdecl VPRestoreBuffer(long Left, long Top, long Width, long Height);
+void __cdecl VPPutPixel(long Left, long Top, long Color);
+void __cdecl VPHLine(long Left, long Top, long Width, long Color);
+void __cdecl VPVLine(long Left, long Top, long Height, long Color);
+void __cdecl VPRectangle(long Left, long Top, long Width, long Height, long Color);
+void __cdecl VPBar(long Left, long Top, long Width, long Height, long Color);
+void __cdecl VPPutImage(long Left, long Top, long Width, long Height, long PhysImage);
+void __cdecl VPGetImage(long Left, long Top, long Width, long Height, long PhysImage);
+void __cdecl VPLine(long X1, long Y1, long X2, long Y2, long Color);
+void __cdecl VPTextOut(long Left, long Top, long PhysStr, long Color);
 
 #ifdef __cplusplus
 };

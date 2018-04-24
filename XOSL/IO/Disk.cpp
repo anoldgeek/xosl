@@ -6,6 +6,16 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *     Sector = RSector % DrvSectorCount + 1;
+ *     Head = RSector % DrvHeadCount;
+ *     Cylinder = RSector / DrvHeadCount;
+ * - Comment-out unused variables to get rid of Warning! W014: no reference to symbol
+ *
  */
 
 #include <disk.h>

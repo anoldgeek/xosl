@@ -14,7 +14,9 @@
 
 #include <string.h>
 
-#define BootJump() (__emit__(0xea,0x00,0x7c,0x00,0x00))
+//#define BootJump() (__emit__(0xea,0x00,0x7c,0x00,0x00))   //Error! E029
+#pragma aux BootJump = 0xea 0x00 0x7c 0x00 0x00;            //EA JMP FAR seg:offs
+
 #define KEY_ENTER 0x1c0d 
 #define IPL_ADDR ( (void *)0x00007c00 )
 
@@ -152,12 +154,12 @@ int CBypass::ReadVolumeLabel(int Drive, unsigned long Sector, char *VolumeLabel)
 		return -1;
 
 	if (memcmp(BootFAT16->FSID,"FAT1",4) == 0) {
-		CPartList::CreateVolumeLabel(BootFAT16->Label,VolumeLabel);
+		CPartList::CreateVolumeLabel((const char*)BootFAT16->Label,VolumeLabel);
 		return 0;
 	}
 	else {
 		if (memcmp(BootFAT32->FSID,"FAT3",4) == 0) {
-			CPartList::CreateVolumeLabel(BootFAT32->Label,VolumeLabel);
+			CPartList::CreateVolumeLabel((const char*)BootFAT32->Label,VolumeLabel);
 			return 0;
 		}
 	}

@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * The full text of the license can be found in the GPL.TXT file,
+ * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Modify code to get rid of Error! E592: left operand must be an lvalue (cast produces rvalue)
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ * - Comment-out unused variables to get rid of Warning! W014: no reference to symbol
+ * - Modify code to get rid of Warning! W919: delete of a pointer to void
+ *
  */
 
 #include <fat32.h>
@@ -55,7 +67,7 @@ unsigned short CFAT32::ReadFile(const char *FileName, void *Buffer)
 {
 	long Cluster;
 	TFAT32DirEntry Entry;
-	void *ClusterData;
+	char *ClusterData;
 	unsigned long SizeLeft;
 
 	if (Locate(FileName,Entry) == -1)
@@ -72,7 +84,7 @@ unsigned short CFAT32::ReadFile(const char *FileName, void *Buffer)
 		}
 		delete ClusterData;
 	}
-	return Entry.FileSize;
+	return (unsigned short) Entry.FileSize;
 }
 
 int CFAT32::WriteFile(const char *FileName, void *Buffer)
@@ -206,7 +218,7 @@ void CFAT32::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime
 
 	int temp;
 
-	asm{
+	_asm{
 		mov	ah,2 //; get rtc time 
 		int 1ah
 		mov	bcdhrmin,cx

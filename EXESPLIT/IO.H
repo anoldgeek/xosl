@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Explicitely declare function argument pointers of type far so
+ *   that they match the assembly language function implementations
+ * - Add lseek declaration. 
+ *
  */
 
 #ifndef __io__
@@ -22,12 +29,12 @@
 #define S_ISYSTEM 0x0004
 #define S_IATTRIB 0x0020
 
-_extern int creat(const char *path);
-_extern int open(const char *path, int access);
-_extern void close(int handle);
-_extern unsigned short read(int handle, void *buf, unsigned short len);
-_extern unsigned short write(int handle, void *buf, unsigned short len);
-_extern int chmod(const char *path, int amode);
-_extern int lseek(int handle,unsigned short origin, int offset);
+_extern int __cdecl creat(const char far *path);             //ML const char far
+_extern int __cdecl open(const char far *path, int access);  //ML const char far
+_extern void __cdecl close(int handle);
+_extern unsigned short __cdecl read(int handle, void far *buf, unsigned short len);
+_extern unsigned short __cdecl write(int handle, void far *buf, unsigned short len);
+_extern int __cdecl chmod(const char far *path, int amode);
+_extern int __cdecl lseek(int handle,unsigned short origin, int offset);
 
 #endif

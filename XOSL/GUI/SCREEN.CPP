@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   Height -= Bottom - ScrnBottom;
+ *   Width -= Right - ScrnRight;
+ * - Need to cast to enum type when assigning an integer to enum
+ *     Mode = (TGraphMode)((int)Mode - 1)
+ *   to get rid of Error! E591: operand must be an lvalue (cast produces rvalue) 
+ *   and E139: enumeration variable is not assigned a constant from its enumeration
+ *
  */
 
 #include <screen.h>
@@ -61,7 +73,8 @@ int CScreen::ShowSplashScreen(TGraphMode &Mode, bool &LinearFB)
 			Result = Graph->SetMode(Mode,false);
 		}
 		if (Result == -1) {
-			// --(int)Mode;
+			//--(int)Mode;           //Error! E591: operand must be an lvalue (cast produces rvalue)
+			//Mode = (int)Mode - 1;  //Error! E139: enumeration variable is not assigned a constant from its enumeration
 			Mode = (TGraphMode)((int)Mode - 1);   //ML. Need to cast to enum type when assigning an integer to enum
 		}
 	}
@@ -77,7 +90,7 @@ int CScreen::ShowSplashScreen(TGraphMode &Mode, bool &LinearFB)
 void CScreen::ShowSubTitle()
 {
 	int Width, Height;
-    
+
 	Graph->GetModeMetrics(Width,Height);
 	Background->ShowSubTitle(Width,Height);
 }

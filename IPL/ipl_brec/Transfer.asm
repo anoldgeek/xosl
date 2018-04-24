@@ -1,4 +1,19 @@
-                .model  compact
+;
+; Extended Operating System Loader (XOSL)
+; Copyright (c) 1999 by Geurt Vos
+;
+; This code is distributed under GNU General Public License (GPL)
+;
+; The full text of the license can be found in the GPL.TXT file,
+; or at http://www.gnu.org
+;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
+
+		.model  compact
 		.386p
                 .data?
 
@@ -20,16 +35,15 @@ Sector          dw      ?
 
                 .code
 
-                public  @ConvRead$qususnvi
-                public  @GetDriveInfo$qi
-                ;public  @Sector2CHS$qlmust2
-		public @Sector2CHS$qulmust2
+	       public `W?ConvRead$n(ususpfvi)v`
+	       public `W?GetDriveInfo$n(i)v`
+	       public `W?Sector2CHS$n(lrfusrfus)v`
 
 ;void ConvRead(unsigned short SectCyl,unsigned short DrvHead,
 ;             void *Buffer, int Count);
-@ConvRead$qususnvi      proc c
-                arg     @@SectCyl: word, @@DrvHead: word
-                arg     @@Buffer: dword, @@Count: word
+`W?ConvRead$n(ususpfvi)v`      proc c,
+                @@SectCyl: word, @@DrvHead: word,
+                @@Buffer: dword, @@Count: word
 
                 mov     ah,02h
                 mov     al,byte ptr @@Count
@@ -39,11 +53,11 @@ Sector          dw      ?
 
 		int     13h
                 ret
-                endp
+`W?ConvRead$n(ususpfvi)v` endp
 
 ;void GetDriveInfo(int Drive);
-@GetDriveInfo$qi        proc c
-                arg     @@Drive: word
+`W?GetDriveInfo$n(i)v`        proc c,
+                @@Drive: word
 
 		push    di
 
@@ -61,14 +75,12 @@ Sector          dw      ?
 
 		pop     di
                 ret
-                endp
+`W?GetDriveInfo$n(i)v` endp
 
 ;void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
-; @Sector2CHS$qlmust2     proc c
-@Sector2CHS$qulmust2     proc c
-     proc c
-                arg     @@RSector: dword
-                arg     @@SectCyl: dword, @@DrvHead: dword
+`W?Sector2CHS$n(ulrfusrfus)v`   proc c,
+                @@RSector: dword,
+                @@SectCyl: dword, @@DrvHead: dword
 
                 ;RSector += StartSector
                 mov     eax,@@RSector
@@ -106,6 +118,6 @@ Sector          dw      ?
 
 
                 ret
-                endp
+                `W?Sector2CHS$n(ulrfusrfus)v` endp
 
 		end

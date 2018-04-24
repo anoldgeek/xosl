@@ -1,23 +1,45 @@
-C_OPTIONS=-O2 -mc -3 -c -d -j6 -I.
-ASM_OPTIONS=/mx /m3
-LINK_OPTIONS=/3 /s
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+#
 
-C=$(MAKEDIR)\bcc $(C_OPTIONS)
-ASM=$(MAKEDIR)\tasm $(ASM_OPTIONS)
-LINK=$(MAKEDIR)\tlink $(LINK_OPTIONS)
+#main makefile for split
 
-split.exe: starter.obj split.obj io.obj
-        $(LINK) starter split io, split.exe
+EXE_FILE=split
+MAP_FILE=split.map
 
-clean:
-        @del *.obj
-        @del *.bak
-        @del *.map
-        @del *.exe
+OBJ=starter.obj split.obj io.obj
+FIL_OBJ=starter.obj, split.obj, io.obj
+
+INCPATH=.
+
+C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zls -od -s -d2 -3 -bt=dos -fo=.obj -ms -i$(INCPATH)
+ASM_OPTIONS=-zq
+LINK_OPTIONS=FORMAT dos op m op nod op maxe=25 op d op q op symf
+
+C=wcc $(C_OPTIONS)
+ASM=wasm $(ASM_OPTIONS)
+LINK=wlink
+
+$(EXE_FILE): .SYMBOLIC $(OBJ)
+    $(LINK) name $(EXE_FILE) $(LINK_OPTIONS) FIL $(FIL_OBJ)
+
+clean: .SYMBOLIC
+    @if exist *.obj del *.obj
+    @if exist *.bak del *.bak
+    @if exist *.exe del *.exe
+    @if exist *.map del *.map
 
 .c.obj:
-        $(C) $<
+    $(C) $<
 
 .asm.obj:
-        $(ASM) $<
+    $(ASM) $<
 

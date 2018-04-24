@@ -1,4 +1,14 @@
-# Borland C++ 3.1
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+# Copyright (c) 2018 by Norman Back:
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=-DDOS_DEBUG
@@ -13,38 +23,38 @@ all: build arch
 
 #------------------------- BUILD ------------------------- #
 
-build: xosl xoslload install ipl
+build: .SYMBOLIC xosl xoslload install ipl
 
 
-xosl:
+xosl: .SYMBOLIC
     $(ENTER) xosl
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    wmake $(MAKE_OPTIONS)
     split
     $(LEAVE)
 
-xoslload:
+xoslload: .SYMBOLIC
     $(ENTER) xoslload
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    wmake $(MAKE_OPTIONS)
     $(LEAVE)
 
-install:
+install: .SYMBOLIC
     $(ENTER) install
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    wmake $(MAKE_OPTIONS)
     $(LEAVE)
 
-ipl:
+ipl: .SYMBOLIC
     $(ENTER) ipl
     $(ENTER) ipl_brec
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    wmake $(MAKE_OPTIONS)
     $(LEAVE)
     $(ENTER) ipl_mbr
-    $(MAKEDIR)\make $(MAKE_OPTIONS)
+    wmake $(MAKE_OPTIONS)
     $(LEAVE)
     $(LEAVE)
 
 #------------------------- ARCHIVE ------------------------- #
 
-arch:
+arch: .SYMBOLIC
     $(COPY) xosl\*.xxf arch
     $(COPY) xoslload\xoslload.xcf arch
     $(COPY) install\install.exe arch
@@ -59,32 +69,32 @@ arch:
 clean: clean_xosl clean_xoslload clean_install clean_ipl clean_arch
 
 
-clean_xosl:
+clean_xosl: .SYMBOLIC
     $(ENTER) xosl
-    $(MAKEDIR)\make clean
+    wmake clean
     $(LEAVE)
 
-clean_xoslload:
+clean_xoslload: .SYMBOLIC
     $(ENTER) xoslload
-    $(MAKEDIR)\make clean
+    wmake clean
     $(LEAVE)
 
-clean_install:
+clean_install: .SYMBOLIC
     $(ENTER) install
-    $(MAKEDIR)\make clean
+    wmake clean
     $(LEAVE)
 
-clean_ipl:
+clean_ipl: .SYMBOLIC
     $(ENTER) ipl
     $(ENTER) ipl_brec
-    $(MAKEDIR)\make clean
+    wmake clean
     $(LEAVE)
     $(ENTER) ipl_mbr
-    $(MAKEDIR)\make clean
+    wmake clean
     $(LEAVE)
     $(LEAVE)
 
-clean_arch:
+clean_arch: .SYMBOLIC
     $(ENTER) arch
     $(DELETE) *.xxf
     $(DELETE) *.xcf

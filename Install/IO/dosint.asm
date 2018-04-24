@@ -7,6 +7,11 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
@@ -20,23 +25,18 @@ ExecProgArgsPtr	dd	0
 
 
                 .code
-                public  @CDosFile@Create$qnxzc
-                public  @CDosFile@Open$qnxzc11TFileAccess
-                public  @CDosFile@Close$qi
-                public  @CDosFile@Read$qinvus
-                public  @CDosFile@Write$qinxvus
-                public  @CDosFile@SetAttrib$qnxzci
-                public  @CDosFile@Unlink$qnxzc
-                public  @CDosFile@LSeek$qil7TWhence
-		
-		extrn	_error_code: word
-		extrn	_error_class: byte
-		extrn	_action: byte
-		extrn	_locus: byte
+                public  `W?Create$:CDosFile$n(pfxa)i`
+                public  `W?Open$:CDosFile$n(pfxa$TFileAccess$:1$)i`
+                public  `W?Close$:CDosFile$n(i)v`
+                public  `W?Read$:CDosFile$n(ipfvus)us`
+                public  `W?Write$:CDosFile$n(ipfxvus)us`
+                public  `W?SetAttrib$:CDosFile$n(pfxai)i`
+                public  `W?Unlink$:CDosFile$n(pfxa)i`
+                public  `W?LSeek$:CDosFile$n(il$TWhence$:1$)l`
 
 ;CDosFile::Create(const char *FileName);
-@CDosFile@Create$qnxzc   proc c
-                arg     @@FileName: dword
+`W?Create$:CDosFile$n(pfxa)i`   proc c,
+                @@FileName: dword
 
                 push    ds
                 mov     ah,3ch
@@ -47,11 +47,11 @@ ExecProgArgsPtr	dd	0
                 mov     ax,-1
 CreatOk:        pop     ds
                 ret
-                endp
+`W?Create$:CDosFile$n(pfxa)i`  endp
 
 ;int CDosFile::Open(const char *FileName, TFileAccess Access);
-@CDosFile@Open$qnxzc11TFileAccess proc c
-                arg     @@FileName: dword, @@Access: word
+`W?Open$:CDosFile$n(pfxa$TFileAccess$:1$)i` proc c,
+                @@FileName: dword, @@Access: word
 
                 push    ds
                 mov     ah,3dh
@@ -63,21 +63,21 @@ CreatOk:        pop     ds
                 mov     ax,-1
 OpenOk:         pop     ds
                 ret
-                endp
+`W?Open$:CDosFile$n(pfxa$TFileAccess$:1$)i` endp
 
 ;void CDosFile::Close(int Handle);
-@CDosFile@Close$qi      proc c
-                arg     @@Handle: word
+`W?Close$:CDosFile$n(i)v`      proc c,
+                @@Handle: word
 
                 mov     ah,3eh
                 mov     bx,@@Handle
                 int     21h
                 ret
-                endp
+`W?Close$:CDosFile$n(i)v` endp
 
 ;unsigned short CDosFile::Read(int Handle, void *Buffer, unsigned short Length)
-@CDosFile@Read$qinvus   proc c
-                arg     @@Handle: word, @@Buffer: dword, @@Length: word
+`W?Read$:CDosFile$n(ipfvus)us`   proc c,
+                @@Handle: word, @@Buffer: dword, @@Length: word
 
                 push    ds
                 mov     ah,3fh
@@ -89,11 +89,11 @@ OpenOk:         pop     ds
                 xor     ax,ax
 ReadOk:         pop     ds
                 ret
-                endp
+`W?Read$:CDosFile$n(ipfvus)us`  endp
 
 ;unsigned short CDosFile::Write(int Handle, void *Buffer, unsigned short Len);
-@CDosFile@Write$qinxvus proc c
-                arg     @@Handle: word, @@Buffer: dword, @@Length: word
+`W?Write$:CDosFile$n(ipfxvus)us` proc c,
+                @@Handle: word, @@Buffer: dword, @@Length: word
 
 		push    ds
                 mov     ah,40h
@@ -114,17 +114,17 @@ ReadOk:         pop     ds
 ;		mov	_locus,ch
 ;		pop	ds es si di
 ;		pop	dx cx bx ax
+;		mov	_error_code,ax
 
-		mov	_error_code,ax
 		xor	ax,ax
 		
 WriteOk:        pop     ds
                 ret
-                endp
+`W?Write$:CDosFile$n(ipfxvus)us` endp
 
 ;int CDosFile::SetAttrib(const char *FileName, int Attributes)
-@CDosFile@SetAttrib$qnxzci proc c
-                arg     @@FileName: dword, @@Attributes: word
+`W?SetAttrib$:CDosFile$n(pfxai)i` proc c,
+                @@FileName: dword, @@Attributes: word
 
                 push    ds
                 mov     ax,4301h
@@ -134,11 +134,11 @@ WriteOk:        pop     ds
                 sbb     ax,ax
                 pop     ds
                 ret
-                endp
+`W?SetAttrib$:CDosFile$n(pfxai)i` endp
 
 ;int CDosFile::Unlink(const char *FileName);
-@CDosFile@Unlink$qnxzc   proc c
-                arg     @@FileName: dword
+`W?Unlink$:CDosFile$n(pfxa)i`   proc c,
+                @@FileName: dword
 
                 push    ds
                 mov     ah,41h
@@ -148,12 +148,12 @@ WriteOk:        pop     ds
                 sbb     ax,ax
                 pop     ds
                 ret
-                endp
+`W?Unlink$:CDosFile$n(pfxa)i` endp
 
 ;long CDosFile::LSeek(int Handle, long Offset, TWhence Whence)
-@CDosFile@LSeek$qil7TWhence proc c
-                arg     @@Handle: word, @@OffsetLow: word
-                arg     @@OffsetHigh: word, @@Whence: word
+`W?LSeek$:CDosFile$n(il$TWhence$:1$)l` proc c,
+                @@Handle: word, @@OffsetLow: word, 
+                @@OffsetHigh: word, @@Whence: word 
 
                 mov     ah,42h
                 mov     al,byte ptr @@Whence
@@ -166,7 +166,6 @@ WriteOk:        pop     ds
                 mov     dx,ax
 
 LSeekDone:      ret
-                endp
-
+`W?LSeek$:CDosFile$n(il$TWhence$:1$)l` endp
 		end
 		       

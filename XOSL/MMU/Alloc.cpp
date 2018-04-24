@@ -6,6 +6,21 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Change code in function static void wait() to get rid of 
+ *   Error! E121: syntax error.
+ * - In function void *operator new (unsigned int Size) the instruction
+ *   OldDesc->Next->Prev = MemDesc is causing problems during debugging.
+ *      When the New operator gets called for the first time after AllocInit
+ *   OldDesc->Next will contain a NULL pointer. 
+ *   Not a good idea to set NULL->next !!!
+ * - Add function void *operator new [] (unsigned int Size)
+ *   Copied from Watcom cpplib, file opnewarr.cpp.
+ * - Add function void operator delete [] (void *ptr)  
+ *   Copied from Watcom cpplib, file opdelarr.cpp
+ *
  */
 
 /*
@@ -18,8 +33,12 @@
 
 static void wait()
 {
-	asm xor	ah,ah
-	asm int	0x16
+       //asm xor       ah,ah  //Error! E121: syntax error
+       //asm int       0x16   //Error! E121: syntax error
+  _asm{
+     xor ah,ah
+     int 0x16
+  };
 }
 extern void printf(const char *fmt, ...);
 
@@ -33,7 +52,7 @@ typedef struct SMemDesc {
 
 static PMemDesc FreeList;
 
-void AllocInit(unsigned long MemStartOld)
+void AllocInit(void)
 {
 	PMemDesc NextItem;
 	unsigned long MemStart;
@@ -91,12 +110,12 @@ void *operator new (unsigned int Size)
 	return (void *)(0x00010000 + (unsigned long)OldDesc);
 }
 
-/*
+
 void *operator new [] (unsigned int Size)  //ML - Copied from Watcom cpplib, file opnewarr.cpp
 {
        return ::operator new( Size );
 }
-*/
+
 
 void operator delete (void *ptr)
 {
@@ -141,12 +160,12 @@ void operator delete (void *ptr)
 	}
 }
 
-/*
+
 void operator delete [] (void *ptr)  //ML - Copied from Watcom cpplib, file opdelarr.cpp
 {
        ::delete ( (char*) ptr);
 }
-*/
+
 
 unsigned long CoreLeft()
 {

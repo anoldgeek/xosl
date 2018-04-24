@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "Memory.h" to "Memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ * - Comment out local variable unsigned short Checksum    
+ *   to get rid of Warning! W014: 
+ *   no reference to symbol 'Checksum'
+ * - Comment out local variable int Index
+ *   to get rid of Warning! W014: 
+ *   no reference to symbol 'Index'
+ *
  */
 
 
@@ -14,7 +26,7 @@
 #include <bootrec.h>
 #include <string.h>
 #include <install.h>
-#include <memory.h>
+#include <memory_x.h>
 
 CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
@@ -225,8 +237,8 @@ int CFatInstall::InstallIpl(void *Ipl,unsigned char MbrHDSector0)
 {
 	CDisk Disk;
 	unsigned char Mbr[512];
-	unsigned short Checksum;
-	int Index;
+	//unsigned short Checksum;
+	//int Index;
 
 	TextUI.OutputStr("Installing IPL...");
 	if (Disk.Map(MbrHDSector0,0) == -1) {

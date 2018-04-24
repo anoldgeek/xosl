@@ -7,6 +7,15 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Open Watcom WASM will generate Error! E083: Label is expected
+;   on the instruction:  mov  si,[bx + offset FAT]
+;   To correct this error the instruction is replaced with:
+;     mov     cx, offset FAT
+;                add     bx,cx
+;                      mov     si, [bx]
+;
 
 ;/*
 ; * File  : FAT16.ASM
@@ -160,7 +169,10 @@ GetNextCluster  proc
                 mov     bx,si
                 sub     bx,ax
                 shl     bx,1
-                mov     si,[bx + offset FAT]
+                ;mov     si,[bx + offset FAT]  ;Error! E083: Label is expected
+                mov     cx, offset FAT
+                add     bx,cx
+                mov     si, [bx]
                 ret
 GetNextCluster  endp
 

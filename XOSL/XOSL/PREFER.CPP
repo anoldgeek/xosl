@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use correct return type to correct Error! E385: attempt to overload 
+ *   function 'CPreference::GetIgnoreNextKey' with a different return type.
+ * - Comment-out unused variables to get rid of Warning! W014: no reference 
+ *   to symbol.
+ *
  */
 
 #include <prefer.h>

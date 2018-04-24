@@ -7,16 +7,21 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
                 .386p
                 .code
 
-                public  @tolower$qi
+                public  `W?tolower$f(i)i`
 
 ;int tolower(int ch);
-@tolower$qi     proc    c
-                arg     @@ch: word
+`W?tolower$f(i)i` proc    c,
+                @@ch: word
 
                 mov     ax,@@ch
                 cmp     ax,'A'
@@ -25,6 +30,6 @@
                 ja      TLExit
                 or      ax,20h
 TLExit:         ret
-                endp
+`W?tolower$f(i)i` endp
 
                 end

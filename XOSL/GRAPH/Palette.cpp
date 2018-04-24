@@ -6,6 +6,15 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Symbol __emit__ not defined
+ *   To get rid of Error! E029: symbol '__emit__' has not been declared, use
+ *   #pragma aux instead
+ * - Code changes to get rid of W389: integral value may be truncated during 
+ *   assignment or initialization
+ *
  */
 
 #include <palette.h>
@@ -13,8 +22,8 @@
 #include <mem.h>
 #include <graph.h>
 
-#define Cli() (__emit__(0xfa))
-#define Sti() (__emit__(0xfb))
+#pragma aux Cli = 0xfa;
+#pragma aux Sti = 0xfb;
 
 extern THSLPalette DefaultPalette[256];
 extern THSLPalette ColorSchemes[16][8];
@@ -94,8 +103,8 @@ void CPalette::UpdatePalette()
 			if (Palette->HSLPalette[Index].Saturation < 0)
 				Palette->HSLPalette[Index].Saturation = 0;
 		HSL2RGB(Palette->RGBPalette[Index].Red,Palette->RGBPalette[Index].Green,
-				  Palette->RGBPalette[Index].Blue,Palette->HSLPalette[Index].Hue,
-				  Palette->HSLPalette[Index].Saturation,Palette->HSLPalette[Index].Luminance);
+					Palette->RGBPalette[Index].Blue,Palette->HSLPalette[Index].Hue,
+					Palette->HSLPalette[Index].Saturation,Palette->HSLPalette[Index].Luminance);
 	}
 	// update title bar
 	memcpy(TitleBar,&Palette->RGBPalette[22],sizeof (TRGBPalette[2]));

@@ -7,6 +7,18 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - Watcom Assembler does not support pop/push with multiple parameters
+;   For example change
+;     push    si di ds
+;   into   
+;     push    si
+;     push    di
+;     push    ds
+;
 
                 .model  compact
                 .386p
@@ -21,22 +33,21 @@ CursorSize      dw      ?
 ScreenBuffer    db      160 * 25 dup (?)
                 .code
 
-                extrn   _MemCopy: near
+                extrn   MemCopy_: near
 
-                public  @CTextScreen@$bdtr$qv
-                public  @CTextScreen@$bctr$qi
+                public  `W?$ct:CTextScreen$n(i)_`
+                public  `W?$dt:CTextScreen$n()_`
 
-                public  @CTextScreen@PutStr$qiinxzci
-                public  @CTextScreen@PutChar$qiiii
-                public  @CTextScreen@FillX$qiiiii
-                public  @CTextScreen@FillY$qiiiii
-                public  @CTextScreen@PutImage$qiiiinus
-                public  @CTextScreen@GetImage$qiiiinus
+                public  `W?PutStr$:CTextScreen$n(iipfxai)v`
+                public  `W?PutChar$:CTextScreen$n(iiii)v`
+                public  `W?FillX$:CTextScreen$n(iiiii)v`
+                public  `W?FillY$:CTextScreen$n(iiiii)v`
+                public  `W?PutImage$:CTextScreen$n(iiiipfus)v`
+                public  `W?GetImage$:CTextScreen$n(iiiipfus)v`
 
 ;CTextScreen(int Attr)
-@CTextScreen@$bctr$qi   proc    c
-
-                arg     @@this: dword, @@Attr: word
+`W?$ct:CTextScreen$n(i)_`   proc    c,
+                @@this: dword, @@Attr: word
 
                 push    di
 
@@ -57,7 +68,7 @@ ScreenBuffer    db      160 * 25 dup (?)
                 push    TextScreenPtr
                 push    ds
                 push    offset ScreenBuffer
-                call    _MemCopy
+                call    MemCopy_
                 add     sp,10
 
                 ;clear screen
@@ -70,17 +81,17 @@ ScreenBuffer    db      160 * 25 dup (?)
 
                 pop     di
                 ret
-                endp                
+`W?$ct:CTextScreen$n(i)_` endp                
 
 ;~ClearScreen()
-@CTextScreen@$bdtr$qv   proc    c
+`W?$dt:CTextScreen$n()_`   proc    c
 
                 ;restore text screen
                 push    160 * 25
                 push    ds
                 push    offset ScreenBuffer
                 push    TextScreenPtr
-                call    _MemCopy
+                call    MemCopy_
                 add     sp,10
 
                 ;restore cursor pos
@@ -95,13 +106,15 @@ ScreenBuffer    db      160 * 25 dup (?)
                 int     10h
 
                 ret
-                endp
+`W?$dt:CTextScreen$n()_`  endp
 
 ;void CTextScreen::PutStr(int X, int Y, const char *Str, int Attr);
-@CTextScreen@PutStr$qiinxzci proc    c
-                arg     @@this: dword, @@X: word, @@Y: word, @@Str: dword, @@Attr: word
+`W?PutStr$:CTextScreen$n(iipfxai)v` proc    c,
+                @@this: dword, @@X: word, @@Y: word, @@Str: dword, @@Attr: word
 
-                push    si di ds
+                push    si
+                push    di
+                push    ds
 
                 mov     es,TextScreenSeg
                 mov     di,@@Y
@@ -117,14 +130,16 @@ PSXYGetChar:    lodsb
                 or      al,al
                 jnz     PSXYPutChar
 
-                pop     ds di si
+                pop     ds
+                pop     di
+                pop     si
                 ret
-                endp
+`W?PutStr$:CTextScreen$n(iipfxai)v` endp
 
 ;void CTextScreen::PutChar(int X, int Y, int Ch, int Attr);
-@CTextScreen@PutChar$qiiii proc c
-                arg     @@this: dword, @@X: word, @@Y: word
-                arg     @@Ch: word, @@Attr: word
+`W?PutChar$:CTextScreen$n(iiii)v` proc c,
+                @@this: dword, @@X: word, @@Y: word,
+                @@Ch: word, @@Attr: word
 
                 mov     es,TextScreenSeg
                 mov     bx,@@Y
@@ -135,12 +150,12 @@ PSXYGetChar:    lodsb
                 or      ax,@@Attr
                 mov     es:[bx],ax
                 ret
-                endp
+`W?PutChar$:CTextScreen$n(iiii)v` endp
 
 ;void CTextScreen::FillX(int X, int Y, int Ch, int Attr, int Count);
-@CTextScreen@FillX$qiiiii proc  c
-                arg     @@this: dword, @@X: word, @@Y: word
-                arg     @@Ch: word, @@Attr: word, @@Count: word
+`W?FillX$:CTextScreen$n(iiiii)v` proc  c,
+                @@this: dword, @@X: word, @@Y: word,
+                @@Ch: word, @@Attr: word, @@Count: word
 
                 push    di
 
@@ -158,12 +173,12 @@ PSXYGetChar:    lodsb
 
                 pop     di
                 ret
-                endp
+`W?FillX$:CTextScreen$n(iiiii)v` endp
 
 ;void FillY(int X, int Y, int Ch, int Attr, int Count);
-@CTextScreen@FillY$qiiiii proc  c
-                arg     @@this: dword, @@X: word, @@Y: word
-                arg     @@Ch: word, @@Attr: word, @@Count: word
+`W?FillY$:CTextScreen$n(iiiii)v` proc  c,
+                @@this: dword, @@X: word, @@Y: word,
+                @@Ch: word, @@Attr: word, @@Count: word
 
                 mov     es,TextScreenSeg
                 mov     bx,@@Y
@@ -182,14 +197,16 @@ FYDrawChar:     mov     es:[bx],ax
 
 FYTestEnd:      loop    FYDrawChar
                 ret
-                endp
+`W?FillY$:CTextScreen$n(iiiii)v` endp
 
 ;void PutImage(int X, int Y, int Width, int Height, unsigned short *Image);
-@CTextScreen@PutImage$qiiiinus proc c
-                arg     @@this: dword, @@X: word, @@Y: word
-                arg     @@Width: word, @@Height: word, @@Image: dword
+`W?PutImage$:CTextScreen$n(iiiipfus)v` proc c,
+                @@this: dword, @@X: word, @@Y: word,
+                @@Width: word, @@Height: word, @@Image: dword
 
-                push    si di ds
+                push    si
+                push    di
+                push    ds
 
                 mov     es,TextScreenSeg
                 mov     di,@@Y
@@ -210,17 +227,21 @@ PITestEnd:      dec     @@Height
                 jns     PIDrawLine
 
 
-                pop     ds di si
+                pop     ds
+                pop     di
+                pop     si
                 ret
-                endp
+`W?PutImage$:CTextScreen$n(iiiipfus)v` endp
 
 
 ;void GetImage(int X, int Y, int Width, int Height, unsigned short *Image);
-@CTextScreen@GetImage$qiiiinus proc c
-                arg     @@this: dword, @@X: word, @@Y: word
-                arg     @@Width: word, @@Height: word, @@Image: dword
+`W?GetImage$:CTextScreen$n(iiiipfus)v` proc c,
+                @@this: dword, @@X: word, @@Y: word,
+                @@Width: word, @@Height: word, @@Image: dword
 
-                push    si di ds
+                push    si
+                push    di
+                push    ds
 
                 mov     ds,TextScreenSeg
                 mov     si,@@Y
@@ -242,7 +263,9 @@ GITestEnd:      dec     @@Height
                 jns     GIDrawLine
 
 
-                pop     ds di si
+                pop     ds
+                pop     di
+                pop     si
                 ret
-                endp
+`W?GetImage$:CTextScreen$n(iiiipfus)v` endp
                 end

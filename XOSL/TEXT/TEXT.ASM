@@ -7,19 +7,24 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
-
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
+ 
                 .model  large
                 .386p
                 .code
 
-                public  @gotoxy$qii
-                public  @wherexy$qnit1
-                public  @puts$qnxzc
-                public  @putch$qi
+                public  `W?gotoxy$f(ii)v`
+                public  `W?wherexy$f(pfipfi)v`
+                public  `W?puts$f(pfxa)v`
+                public  `W?putch$f(i)v`
 
 ;void gotoxy(int x, int y)
-@gotoxy$qii     proc    c
-                arg     @@x: word, @@y: word
+`W?gotoxy$f(ii)v` proc    c,
+                @@x: word, @@y: word
 
                 mov     dl,byte ptr @@x
                 mov     dh,byte ptr @@y
@@ -27,11 +32,11 @@
                 xor     bh,bh
                 int     10h
                 ret
-                endp
+`W?gotoxy$f(ii)v` endp
 
 ;void wherexy(int *x, int *y)
-@wherexy$qnit1  proc    c
-                arg     @@x:  dword, @@y: dword
+`W?wherexy$f(pfipfi)v` proc    c,
+                @@x:  dword, @@y: dword
 
                 mov     ah,3
                 xor     bh,bh
@@ -43,11 +48,11 @@
                 mov     al,dh
                 mov     es:[bx],ax
                 ret
-                endp
+`W?wherexy$f(pfipfi)v` endp
 
 ;void puts(const char *str);
-@puts$qnxzc     proc    c
-                arg     @@str: dword
+`W?puts$f(pfxa)v` proc    c,
+                @@str: dword
 
                 push    si
                 les     si,@@str
@@ -62,17 +67,17 @@ PSLods:         lods    es:byte ptr [si]
                 jnz     Teletype
                 pop     si
                 ret
-                endp
+`W?puts$f(pfxa)v` endp
 
 ;void putch(int ch);
-@putch$qi       proc    c
-                arg     @@ch: word
+`W?putch$f(i)v` proc    c,
+                @@ch: word
 
                 mov     ah,0eh
                 mov     al,byte ptr @@ch
                 mov     bx,7
                 int     10h
                 ret
-                endp
+`W?putch$f(i)v` endp
 
                 end

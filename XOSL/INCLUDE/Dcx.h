@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Add line at end of file to get rid of WCC Compiler Warning! W138: 
+ *   No newline at end of file.
+ *
  */
 
 #ifndef __dcx__
@@ -17,8 +24,8 @@
 extern "C" {
 #endif
 
-void CreateCursor(unsigned long CursorFGnd);
-void far InvertCursor(int Invert);
+void __cdecl CreateCursor(unsigned long CursorFGnd);
+void far __cdecl InvertCursor(int Invert);
 
 #ifdef __cplusplus
 };

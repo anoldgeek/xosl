@@ -7,43 +7,55 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - Watcom Assembler does not support pop/push with multiple parameters
+;   For example change
+;     push    si ds
+;   into   
+;     push    si
+;     push    ds
+;
 
                 .model  compact
 		.386p
 		.data
-Scratchpad      dd      90008000h
 ;Scratchpad      dd      00008000h
+Scratchpad      dd      90008000h
+
                 .code
 
-                public  @CDiskAccess@$bctr$qv
-                public  @CDiskAccess@$bdtr$qv
-                public  @CDiskAccess@DriveCount$qi
-                public  @CDiskAccess@Transfer$qiususnvi
-                public  @CDiskAccess@GetDriveInfo$qimit2
-                public  @CDiskAccess@CopyFromScratchpad$qnvi
-                public  @CDiskAccess@CopyToScratchpad$qnxvi
+                public  `W?$ct:CDiskAccess$n()_`
+                public  `W?$dt:CDiskAccess$n()_`
+                public  `W?DriveCount$:CDiskAccess$n(i)i`
+                public  `W?Transfer$:CDiskAccess$n(iususpfvi)i`
+                public  `W?GetDriveInfo$:CDiskAccess$n(irfirfi)i`
+                public  `W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i`
+                public  `W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i`
 
 ; constructor and destructor are not used
-@CDiskAccess@$bctr$qv:
-@CDiskAccess@$bdtr$qv:
+`W?$ct:CDiskAccess$n()_`:
+`W?$dt:CDiskAccess$n()_`:
                 ret
 
 ;int CDiskAccess::DriveCount(int Drive)
-@CDiskAccess@DriveCount$qi proc c
-                arg     @@this: dword, @@Drive: word
+`W?DriveCount$:CDiskAccess$n(i)i` proc c,
+                @@this: dword, @@Drive: word
 
 		mov     ah,8
                 mov     dl,byte ptr @@Drive
 		int     13h
 		movzx   ax,dl
                 ret
-                endp
+`W?DriveCount$:CDiskAccess$n(i)i` endp
 
 ;int CDiskAccess::Transfer(int Action, unsigned short SectCyl,
 ;                          unsigned short DrvHead, void *Buffer, int Count);
-@CDiskAccess@Transfer$qiususnvi proc c
-                arg     @@this: dword, @@Action: word, @@SectCyl: word
-                arg     @@DrvHead: word, @@Buffer: dword, @@Count: word
+`W?Transfer$:CDiskAccess$n(iususpfvi)i` proc c,
+                @@this: dword, @@Action: word, @@SectCyl: word,
+                @@DrvHead: word, @@Buffer: dword, @@Count: word
 
                 test    byte ptr @@DrvHead,80h
 		jz      FloppyTransfer
@@ -88,12 +100,12 @@ TransTestEnd:   dec     @@Count
 FloppyDone:     pop     di
 
 TransDone:      ret
-                endp
+`W?Transfer$:CDiskAccess$n(iususpfvi)i` endp
 
 ;int CDiskAccess::GetDriveInfo(int Drive, int &Heads, int &Sectors);
-@CDiskAccess@GetDriveInfo$qimit2 proc c
-                arg     @@this: dword, @@Drive: word
-                arg     @@Heads: dword, @@Sectors: dword
+`W?GetDriveInfo$:CDiskAccess$n(irfirfi)i` proc c,
+                @@this: dword, @@Drive: word,
+                @@Heads: dword, @@Sectors: dword
 
 		push    di
 
@@ -111,13 +123,15 @@ TransDone:      ret
 
 		pop     di
                 ret
-                endp
+`W?GetDriveInfo$:CDiskAccess$n(irfirfi)i` endp
 
 ;void CDiskAccess::CopyFromScratchpad(void *Buffer, int Sectors)
-@CDiskAccess@CopyFromScratchpad$qnvi proc c
-                arg     @@this: dword, @@Buffer: dword, @@Sectors: word
+`W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i` proc c,
+                @@this: dword, @@Buffer: dword, @@Sectors: word
 
-                push    si di ds
+                push    si
+                push    di
+                push    ds
 
 		xor     esi,esi
 		xor     edi,edi
@@ -131,15 +145,19 @@ TransDone:      ret
 		cld
 		rep     movsd
 
-                pop     ds di si
+                pop     ds
+                pop     di
+                pop     si
                 ret
-                endp
+`W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i` endp
 
 ;void CDiskAccess::CopyToScratchpad(void *Buffer, int Sectors)
-@CDiskAccess@CopyToScratchpad$qnxvi proc c
-                arg     @@this: dword, @@Buffer: dword, @@Sectors: word
+`W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i` proc c,
+                @@this: dword, @@Buffer: dword, @@Sectors: word
 
-                push    si di ds
+                push    si
+                push    di
+                push    ds
 
 		xor     esi,esi
 		xor     edi,edi
@@ -153,8 +171,10 @@ TransDone:      ret
 		cld
 		rep     movsd
 
-                pop     ds di si
+                pop     ds
+                pop     di
+                pop     si
                 ret
-                endp
+`W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i` endp
 
 		end

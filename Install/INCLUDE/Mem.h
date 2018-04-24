@@ -13,11 +13,18 @@
 
 #include <newdefs.h>
 
-#define MK_FP(s,o) ((void _seg *)(s) + (void near *)(o))
-#define peekb(s,o) (*(unsigned char *)MK_FP(s,o))
+//#define MK_FP(s,o) ((void _seg *)(s) + (void near *)(o))
+//#define peekb(s,o) (*(unsigned char *)MK_FP(s,o))
 
-#define FP_SEG(ptr) ((unsigned short)(void _seg *)(void far *)(ptr))
-#define FP_OFS(ptr) ((unsigned short)(ptr))
+//#define FP_SEG(ptr) ((unsigned short)(void _seg *)(void far *)(ptr))
+//#define FP_OFS(ptr) ((unsigned short)(ptr))
+
+//Open Watcom C/C++:
+#define MK_FP(__s,__o) (((unsigned short)(__s)):>((void __near *)(__o)))
+#define peekb(s,o) (*(char far *)MK_FP(s,o))
+
+#define FP_SEG(__p) ((unsigned)((unsigned long)(void __far*)(__p) >> 16))
+#define FP_OFS(__p) ((unsigned)(__p))
 
 #define PhysAddr(lAddr) ( ((long)FP_SEG(lAddr) << 4) + (long)FP_OFS(lAddr) )
 

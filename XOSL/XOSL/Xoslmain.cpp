@@ -12,13 +12,13 @@
 
 void puts(const char *str);
 
-void AllocInit(unsigned long MemStartOld);
+void AllocInit(void);
 
 int main(void)
 {
 	int BootDrive;
 
-	AllocInit(0);
+	AllocInit();
 
 	CApplication *Application;
 

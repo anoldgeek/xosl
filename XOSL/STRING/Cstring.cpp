@@ -6,6 +6,12 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - To correct Error E814 in GUI\COMBOBOX.CPP need to use const in
+ *   function CString::CString(const CString &Str)
+ *
  */
 
 //---------------------------------------------------------------------------
@@ -26,7 +32,7 @@ CString::CString()
    CaseSense = 1;
 }
 
-CString::CString(CString &Str)
+CString::CString(const CString &Str)
 {
    StrLen = Str.StrLen;
 	String = new char [StrLen + 1];

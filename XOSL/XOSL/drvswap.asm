@@ -5,6 +5,15 @@
 ; Created by Sergio Costas Rodriguez
 ; http://www.arrakis.es/~scostas/SOFTWARE/GAG/gageng.htm
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
+; - Code change in Function CDriveFix::SwapDrive
+;   WASM does not support mov es:word ptr AddrInt13ISR,SwapISREntry
+;   Use mov es:word ptr AddrInt13ISR,(offset ISREntry - offset SwapDrive) instead
+;
         
 		.model  large
                 .386p
@@ -13,12 +22,12 @@
 BaseMemorySize	equ	word ptr 0413h
 AddrInt13ISR	equ	dword ptr [13h * 4]
 
-                public  @CDriveFix@SwapDrive$qi
+                public  `W?SwapDrive$:CDriveFix$f(i)v`
 
 
 ;static void CDriveFix::SwapDrive(int Drive);
-@CDriveFix@SwapDrive$qi proc c
-		arg	@@Drive: word
+`W?SwapDrive$:CDriveFix$f(i)v` proc c,
+                @@Drive: word
 
 		push	ds
 	
@@ -36,7 +45,8 @@ AddrInt13ISR	equ	dword ptr [13h * 4]
 		mov	ecx,es:AddrInt13ISR
 		mov	cs:Int13Addr,ecx
 		
-		mov	es:word ptr AddrInt13ISR,SwapISREntry
+                ;mov     es:word ptr AddrInt13ISR,SwapISREntry  ;ML: Not supported by WASM
+                mov     es:word ptr AddrInt13ISR,(offset ISREntry - offset SwapDrive)
 		mov	es:word ptr AddrInt13ISR[2],ax
 
 		;Copy ISR to allocated memory
@@ -53,7 +63,7 @@ AddrInt13ISR	equ	dword ptr [13h * 4]
 	
 		pop	ds
 		ret
-		endp
+`W?SwapDrive$:CDriveFix$f(i)v` endp        
 	
 
 ; *************************************************

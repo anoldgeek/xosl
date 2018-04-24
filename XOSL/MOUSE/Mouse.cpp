@@ -6,6 +6,26 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Which syntax to use to replace 
+ *   #define SetProgramDSeg() (__emit__(0x1e,0xb8,(void _seg *)&MouseX,0x8e,0xd8))
+ *   to make it compatible with Open Watcom. 
+ * - Correct Error! E329: modifiers of 'MouseHandler' conflict with previous 
+ *   declaration by specifying signed char dY and signed char dX in 
+ *   parameter list of function
+ *   void MouseHandler(short P0, signed char dY, signed char dX, short Status)
+ * - Is far __cdecl calling convention needed for function 
+ *   void far __cdecl MouseHandler(short P0, signed char dY, signed char dX, short Status)
+ *     removing the far specifier results in identical binary files, hence far 
+ *     seems to be redundant !
+ *   What about the __cdecl specifier ????
+ * - Comment out static short MouseX, MouseY, MouseClick to get rid of 
+ *   Error! E042: symbol already defined
+ * - Correct Error! E473: function argument(s) do not match those in prototype in
+ *     PS2SetHandler(MouseHandler);
+ *
  */
 
 #include <mouse.h>
@@ -18,17 +38,41 @@
 
 #include <text.h>
 
-#define Cli() (__emit__(0xfa))
-#define Sti() (__emit__(0xfb))
-#define SetProgramDSeg() (__emit__(0x1e,0xb8,(void _seg *)&MouseX,0x8e,0xd8))
-#define SetHandlerDSeg() (__emit__(0x1f))
+//#define Cli() (__emit__(0xfa))
+//#define Sti() (__emit__(0xfb))
+//#define SetProgramDSeg() (__emit__(0x1e,0xb8,(void _seg *)&MouseX,0x8e,0xd8))
+//#define SetHandlerDSeg() (__emit__(0x1f))
+static short MouseX, MouseY, MouseClick;
+void * pV = &MouseX;
+#define VarAddr pV
+//#define VarAddr (void *) &MouseX
+//#pragma aux [MouseX] loadds;
 
-void MouseHandler(short P0, char dY, char dX, short Status);
+#pragma aux Cli = 0xfa;
+#pragma aux Sti = 0xfb;
+//ML Need to correct this stuff!!!!
+//FA                        cli
+//1E                        push        ds
+//B8 00 00                  mov         ax,seg void far * far pV 
+//8E D8                     mov         ds,ax
+//1F                        pop         ds 
+//FB                        sti         
+
+#pragma aux SetProgramDSeg = 0x1e \
+                             0xb8 \
+                             seg VarAddr \
+                             0x8e 0xd8;   /*(void _seg *) &MouseX \*/
+#pragma aux SetHandlerDSeg = 0x1f;
+
+
+//void MouseHandler(short P0, char dY, char dX, short Status);  //Error! E329
+//void __cdecl MouseHandler(short P0, signed char dY, signed char dX, short Status);  //Seems like far specifier is not needed
+void far __cdecl MouseHandler(short P0, signed char dY, signed char dX, short Status);
 void AdjustXY(void);
 
 static int ComShift;
 static short WinLeft, WinTop, WinRight, WinBottom;
-static short MouseX, MouseY, MouseClick;
+//static short MouseX, MouseY, MouseClick;   //Error! E042
 static void interrupt (*MouseOld)(void);
 static const char *PortName[5] = {
 	"COM1","COM2","COM3","COM4","PS/2"
@@ -71,7 +115,8 @@ int CMouse::SetMouse(int Port)
 	if (Port == MOUSE_PS2) {
 		if (PS2Initialize(3))
 			return -1;
-		PS2SetHandler(MouseHandler);
+		//PS2SetHandler(MouseHandler);  //Error! E473
+		PS2SetHandler((TPS2Handler)MouseHandler);
 		this->Port = MOUSE_PS2;
 		PS2Enable();
 		ComPort = -1;
@@ -200,7 +245,8 @@ void AdjustXY(void)
 			MouseY = WinBottom;
 }
 
-void far MouseHandler(short P0, char dY, char dX, short Status)
+//void far MouseHandler(short P0, char dY, char dX, short Status)    //Error! E329
+void far MouseHandler(short P0, signed char dY, signed char dX, short Status)
 {
 
 	if (P0)
@@ -212,8 +258,8 @@ void far MouseHandler(short P0, char dY, char dX, short Status)
 		dY = (dY << 3) >> ComShift;
 		dX = (dX << 3) >> ComShift;
 	}
-	else
-		ClearCDNW();
+	//else
+	//	ClearCDNW();  //ML
 
 	MouseX += dX;
 	MouseY -= dY;

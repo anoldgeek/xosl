@@ -6,6 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *   Cursor = Caption.Length();
+ *     Caption is member variable of type CString (Cstring.h), defined in class 
+ *     CControl. CString.Length() returns long
+ *   Mask.CharFill('*',Caption.Length());
+ *     Mask is CString, CharFill is CString member function expecting 
+ *     int arguments
+ *
  */
 
 #include <edit.h>
@@ -170,7 +182,7 @@ void CEdit::KeyPress(unsigned short Key)
 		case KEY_CTRLR_EXT:
 			Cursor += 4;
 			if (Cursor > Caption.Length())
-				Cursor = (int)Caption.Length();
+				Cursor = (int) Caption.Length();
 			Refresh();
 			break;
 		case KEY_ESCAPE:
@@ -192,7 +204,7 @@ void CEdit::KeyPress(unsigned short Key)
 void CEdit::SetText(const char *Text)
 {
 	SetCaption(Text);
-	Cursor = (int)Caption.Length();
+	Cursor = (int) Caption.Length();
 }
 
 void CEdit::GetText(char *Text)

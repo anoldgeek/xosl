@@ -1,3 +1,20 @@
+/*
+ * Extended Operating System Loader (XOSL)
+ * Copyright (c) 1999 by Geurt Vos
+ *
+ * This code is distributed under GNU General Public License (GPL)
+ *
+ * The full text of the license can be found in the GPL.TXT file,
+ * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Declare virtual void Draw(long Left, long Top, long Width, long Height).
+ *   Function is Pure virtual. Definition derived class required.
+ * - Add line at end of file to get rid of WCC Compiler Warning! W138: 
+ *   No newline at end of file.
+ * 
+ */
 
 #ifndef AniCntrlH
 #define AniCntrlH
@@ -18,7 +35,8 @@ public:
 
 protected:
 	bool MouseIsOver;
-	virtual void Draw(long Left, long Top, long Width, long Height);   //ML Pure virtual, definition required !!
+	virtual void Draw(long Left, long Top, long Width, long Height);   //ML Pure virtual, definition required !!!
+
 };
 
-#endif
+#endif  //ML Add line to get rid of Warning! W138: No newline at end of file

@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ * - Add line at end of file to get rid of WCC Compiler 
+ *   Warning! W138: No newline at end of file.
+ *
  */
 
 #ifndef __textscr__
@@ -13,14 +20,14 @@
 
 class CTextScreen {
 	public:
-		CTextScreen(int Attr);
-		~CTextScreen();
-		void PutStr(int X, int Y, const char *Str, int Attr);
-		void PutChar(int X, int Y, int Ch, int Attr);
-		void FillX(int X, int Y, int Ch, int Attr, int Count);
-		void FillY(int X, int Y, int Ch, int Attr, int Count);
-		void PutImage(int X, int Y, int Width, int Height, unsigned short *Image);
-		void GetImage(int X, int Y, int Width, int Height, unsigned short *Image);
+		__cdecl CTextScreen(int Attr);
+		__cdecl ~CTextScreen();
+		void __cdecl PutStr(int X, int Y, const char *Str, int Attr);
+		void __cdecl PutChar(int X, int Y, int Ch, int Attr);
+		void __cdecl FillX(int X, int Y, int Ch, int Attr, int Count);
+		void __cdecl FillY(int X, int Y, int Ch, int Attr, int Count);
+		void __cdecl PutImage(int X, int Y, int Width, int Height, unsigned short *Image);
+		void __cdecl GetImage(int X, int Y, int Width, int Height, unsigned short *Image);
 	private:
 };
 

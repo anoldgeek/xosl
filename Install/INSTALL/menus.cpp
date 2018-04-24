@@ -6,13 +6,23 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "Memory.h" to "Memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ * - Modify string values for new XOSL version
+ * - To get rid of Warning! W389: integral value may be truncated during 
+ *   assignment or initialization use proper casting in:
+ *   itoa(Partition->SectorCount >> 11,&PartStr[29],10);
+ *
  */
 
 
 #include "menus.h"
 #include <string.h>
 #include <stdlib.h>
-#include <memory.h>
+#include <memory_x.h>
 #include <xoslver.h>
 
 static const char *YesNoList[2] = {"Yes", "No"};
@@ -346,7 +356,7 @@ void CInstallMenus::CreateDosDriveList()
 			DosDriveList[Index] = (char *)&Buffer[Index];
 		}
 	} else {
-		DosDriveList = (char *) 0;
+		DosDriveList = (char **) 0;
 	}
 }
 
@@ -360,7 +370,7 @@ void CInstallMenus::CreatePartList()
 	Count = PartList.GetCount();
 	PartNameList = new char *[Count];
 	PartResolveList = new int[Count];
-	MbrHDSector0List = new unsigned char[Count];
+	MbrHDSector0List = new unsigned char [Count];
 
 	for (PartNameCount = Index = 0; Index < Count; ++Index) {
 		Partition = PartList.GetPartition(Index);

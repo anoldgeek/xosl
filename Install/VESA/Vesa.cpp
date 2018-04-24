@@ -6,12 +6,18 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "memory.h" to "memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ *
  */
 
 
 #include <vesa.h>
 #include <string.h>
-#include <memory.h>
+#include <memory_x.h>
 
 
 #include <textui.h>

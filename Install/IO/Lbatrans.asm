@@ -7,18 +7,29 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - Watcom Assembler does not support pop/push with multiple parameters
+;   For example change
+;     push    si ds
+;   into   
+;     push    si
+;     push    ds
+;
 
                 .model  compact
 		.386p
                 .code
 
-                public  @CDiskAccess@LBAAccessAvail$qi
-                public  @CDiskAccess@LBATransfer$qiimx10TLBAPacket
-                public  @CDiskAccess@SetLockStatus$qii
+                public  `W?LBAAccessAvail$:CDiskAccess$n(i)i`
+                public  `W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i`
+                public  `W?SetLockStatus$:CDiskAccess$n(ii)v`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
-@CDiskAccess@LBAAccessAvail$qi proc c
-                arg     @@this: dword, @@Drive: word
+`W?LBAAccessAvail$:CDiskAccess$n(i)i` proc c,
+                @@this: dword, @@Drive: word
 
                 mov     ah,41h
                 mov     bx,55aah
@@ -34,14 +45,15 @@
 
 NoLBA:          mov     ax,-1
 LBA_AAEnd:      ret
-                endp
+`W?LBAAccessAvail$:CDiskAccess$n(i)i` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
-@CDiskAccess@LBATransfer$qiimx10TLBAPacket proc c
-                arg     @@this: dword, @@Action: word
-                arg     @@Drive: word, @@LBAPacket: dword
+`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` proc c,
+                @@this: dword, @@Action: word,
+                @@Drive: word, @@LBAPacket: dword
 
-                push    si ds
+                push    si
+                push    ds
 
                 mov     ax,@@Action
                 or      ax,4000h
@@ -50,20 +62,21 @@ LBA_AAEnd:      ret
                 int     13h
                 sbb     ax,ax
 
-                pop     ds si
+                push    si
+                push    ds
                 ret
-                endp
+`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` endp
 
 ;void CDiskAccess::SetLockStatus(int Drive, int Status)
-@CDiskAccess@SetLockStatus$qii proc c
-                arg     @@this: dword
-                arg     @@Drive: word, @@Status: word
+`W?SetLockStatus$:CDiskAccess$n(ii)v` proc c,
+                @@this: dword,
+                @@Drive: word, @@Status: word
 
                 mov     ah,45h
                 mov     al,byte ptr @@Status
                 mov     dl,byte ptr @@Drive
                 int     13h
                 ret
-                endp
+`W?SetLockStatus$:CDiskAccess$n(ii)v` endp
 
 		end

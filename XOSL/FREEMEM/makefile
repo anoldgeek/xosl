@@ -1,3 +1,16 @@
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+#
+
+
 #
 # freemem library specific stuff
 #
@@ -6,49 +19,14 @@ COMPILE_OBJ=freemem.obj
 
 LIB_NAME=freemem.lib
 LIST_FILE=freemem.lst
-#LIB_OBJ=-+int.obj -+weird.obj -+ctype.obj
 LIB_OBJ=-+freemem.obj
 
 #
 # Generic library stuff
 #
 
-INCPATH=..\include;..\..\include;.
+#
+# Generic library stuff
+#
 
-CPP_OPTIONS=-O2 -ml -3 -c -d -j6 -I$(INCPATH)
-C_OPTIONS=-O2 -mc -3 -c -d -j6 -zCFARCODE -I$(INCPATH)
-ASM_OPTIONS=/mx /m3
-LIB_OPTIONS=
-
-!ifdef DOS_DEBUG
-CPP_OPTIONS=$(CPP_OPTIONS) -DDOS_DEBUG
-C_OPTIONS=$(C_OPTIONS) -DDOS_DEBUG
-ASM_OPTIONS=$(ASM_OPTIONS) /dDOS_DEBUG
-!endif
-
-
-CPP=$(MAKEDIR)\bcc $(CPP_OPTIONS)
-C=$(MAKEDIR)\bcc $(C_OPTIONS)
-ASM=$(MAKEDIR)\tasm $(ASM_OPTIONS)
-LIB=$(MAKEDIR)\tlib
-
-$(LIB_NAME): $(COMPILE_OBJ)
-   $(LIB) @&&!
-         $(LIB_NAME) $(LIB_OPTIONS) $(LIB_OBJ), $(LIST_FILE)
-!
-
-clean:
-   @del *.obj
-   @del *.bak
-   @del *.lib
-   @del *.lst
-
-.cpp.obj:
-   $(CPP) $<
-
-.c.obj:
-   $(C) $<
-
-.asm.obj:
-   $(ASM) $<
-
+!include ..\MakeCommon.mak

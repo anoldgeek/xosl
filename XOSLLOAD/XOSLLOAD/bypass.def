@@ -1,0 +1,2 @@
+//#line "bypass.cpp" 23
+extern void printf( char const * format, ... );

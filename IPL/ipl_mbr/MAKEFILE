@@ -1,3 +1,15 @@
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+#
+
 #
 #makefile for IPL to load XOSL
 #
@@ -7,35 +19,31 @@
 #IPL0BLBA - Initial Program Loader for Filsystem type 0b (==FAT32)
 #
 
-BINPATH=$(MAKEDIR)
+ASM_OPTIONS=-w4 -e25 -zq
+LINK_OPTIONS=FORMAT dos com op m op nod op maxe=25 op d op q op symf
 
-ASM_OPTIONS=/mx /la
-LINK_OPTIONS=/3 /s /t
-
-ASM = $(BINPATH)\tasm $(ASM_OPTIONS)
-LINK = $(BINPATH)\tlink $(LINK_OPTIONS)
+ASM=wasm $(ASM_OPTIONS)
+LINK=wlink
 
 all: ipl06.bin ipl0b.bin ipl06lba.bin ipl0blba.bin
 
-ipl06.bin: mainfat.obj disk.obj fat16.obj mem.obj data16.obj
-        $(LINK) mainfat disk fat16 mem data16, ipl06.bin
+ipl06.bin: .SYMBOLIC mainfat.obj disk.obj fat16.obj mem.obj data16.obj
+        $(LINK) name ipl06.bin $(LINK_OPTIONS) FIL MainFat.obj,DISK.obj,FAT16.obj,MEM.obj,DATA16.obj
 
-ipl0b.bin: mainfat.obj disk.obj fat32.obj mem.obj data32.obj
-        $(LINK) mainfat disk fat32 mem data32, ipl0b.bin
+ipl0b.bin: .SYMBOLIC mainfat.obj disk.obj fat32.obj mem.obj data32.obj
+        $(LINK) name ipl0b.bin $(LINK_OPTIONS) FIL MainFat.obj,DISK.obj,FAT32.obj,MEM.obj,DATA32.obj
 
-ipl06lba.bin: mainfat.obj disklba.obj fat16.obj mem.obj dt16lba.obj
-        $(LINK) mainfat disklba fat16 mem dt16lba, ipl06lba.bin
+ipl06lba.bin: .SYMBOLIC mainfat.obj disklba.obj fat16.obj mem.obj dt16lba.obj
+        $(LINK) name ipl06lba.bin $(LINK_OPTIONS) FIL MainFat.obj,disklba.obj,fat16.obj,mem.obj,dt16lba.obj
 
-ipl0blba.bin: mainfat.obj disklba.obj fat32.obj mem.obj dt32lba.obj
-        $(LINK) mainfat disklba fat32 mem dt32lba, ipl0blba.bin
+ipl0blba.bin: .SYMBOLIC mainfat.obj disklba.obj fat32.obj mem.obj dt32lba.obj
+        $(LINK) name ipl0blba.bin $(LINK_OPTIONS) FIL MainFat.obj,disklba.obj,fat32.obj,mem.obj,dt32lba.obj
 
-
-clean:
+clean: .SYMBOLIC
         @if exist *.obj del *.obj
         @if exist *.bak del *.bak
         @if exist *.map del *.map
         @if exist *.bin del *.bin
-	@if exist *.lst del *.lst
 
 .asm.obj:
         $(ASM) $<

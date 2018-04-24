@@ -62,7 +62,7 @@ void CTextList::AddItem(int Index, const char *Caption, const char *HelpText, in
 }
 
 void CTextList::AddItem(int Index, const char *Caption, const char *HelpText,
-	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, char *MbrHDSector0List)
+	int Enabled, int OptionCount, const char **OptionList, int IsCombo, int LinkedListItemIndex, unsigned char *MbrHDSector0List)
 {
 	CListItem *Node;
 	int ItemWidth, MaxWidth;

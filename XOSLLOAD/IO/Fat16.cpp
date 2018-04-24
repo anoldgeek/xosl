@@ -64,13 +64,13 @@ unsigned short CFAT16::ReadFile(const char *FileName, void *Buffer)
 		SizeLeft = Entry.FileSize;
 		for (Cluster = Entry.StartCluster; Cluster != 0xffff; GetNextCluster(Cluster)) {
 			ReadCluster(Cluster,ClusterData);
-			memcpy(Buffer,ClusterData,SizeLeft > ClusterSize ? ClusterSize : SizeLeft);
-			(char *)Buffer += ClusterSize;
+			memcpy(Buffer,ClusterData,(unsigned short)(SizeLeft > ClusterSize ? ClusterSize : SizeLeft));
+			Buffer = ((char *)Buffer + ClusterSize);
 			SizeLeft -= ClusterSize;
 		}
-		delete ClusterData;
+		delete (char *)ClusterData;
 	}
-	return Entry.FileSize;
+	return (unsigned short) Entry.FileSize;
 }
 
 void CFAT16::ReadFAT(unsigned short Cluster)

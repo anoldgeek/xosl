@@ -67,12 +67,13 @@
 void printf(const char *format, ...);
 /*void getch()
 {
-	asm xor ah,ah
-	asm int 0x16
+	_asm xor ah,ah
+	_asm int 0x16
 }	*/
 
 unsigned long CoreLeft();
-void *operator new (unsigned long Size);
+//void *operator new (unsigned long Size);
+void *operator new (size_t Size);
 
 /**/
 
@@ -268,8 +269,8 @@ int CApplication::Execute()
 		delete Mouse;
 		Graph->SetMode(modeText,false);
 		puts(BootItems->Get(Loader->GetBootItemIndex())->ItemName);
-		asm mov ah,0x4c
-		asm int 0x21
+		_asm mov ah,0x4c
+		_asm int 0x21
 #endif
 
 		// save settings _before_ drive swapping is done!
@@ -655,8 +656,8 @@ void CApplication::ScanForDebugKeys(int Key)
 		printf("Graph->SetMode(modeText,false);\n");
 		Graph->SetMode(modeText,false);
 		printf(".exit\n");
-		asm mov ah,0x4c
-		asm int 0x21
+		_asm mov ah,0x4c
+		_asm int 0x21
 	}
 	if (Key == KEY_F8)
 		Screen->Refresh();
@@ -711,7 +712,7 @@ void CApplication::StartPart()
 	FinalizeCore();
 	DestroyCoreClasses();
 
-	asm {
+	_asm {
 		xor	ax,ax
 		mov es,ax
 		push 0x1000

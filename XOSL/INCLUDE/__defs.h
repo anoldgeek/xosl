@@ -29,14 +29,8 @@
 #define NULL 0L
 #endif
 
-#ifndef TRUE
-#	define TRUE (1 == 1)
-#endif
-#ifndef FALSE
-#	define FALSE (1 == 0)
-#endif
-#define FALSE 0
-#define TRUE 1
+#define true 1
+#define false 0
 
 #define FONT_SMALL 0
 #define FONT_LARGE 1

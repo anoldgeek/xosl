@@ -7,6 +7,13 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - To correct Error! E004: REP prefix is not allowed on this instruction
+;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+; - Function strcat: need to use directive callf instead of call
+;
 
                 .model  large
                 .386p
@@ -64,13 +71,15 @@ _strcat         proc    far
                 mov     bp,sp
 
                 push    dword ptr [bp + 6]
-                call    _strlen
+                ;call    _strlen
+                callf   _strlen     ;ML Code Change
                 pop     ecx
                 mov     ecx,[bp + 6]
                 add     cx,ax
                 push    dword ptr [bp + 10]
                 push    ecx
-                call    _strcpy
+                ;call    _strcpy
+                callf   _strcpy     ;ML Code Change
                 add     sp,8
                 mov     ax,[bp + 6]
                 mov     dx,[bp + 8]
@@ -175,7 +184,8 @@ _strcmp         proc    far
                 not     cx
                 pop     di
                 lds     si,[bp + 6]
-                repz     cmpsb		; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+                ;rep     cmpsb  ;Error! E004
+                repz    cmpsb
                 mov     al,[si - 1]
                 mov     bl,[di - 1]
                 sub     ax,bx

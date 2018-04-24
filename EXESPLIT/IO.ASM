@@ -7,11 +7,15 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Add lseek implementation. 
+; 
 
                 .model  compact
                 .386p
                 .code
-                public  _creat, _open, _close, _read, _write, _chmod
+                public  _creat, _open, _close, _read, _write, _chmod, _lseek
 
 ;int creat(const char *path);
 _creat          proc

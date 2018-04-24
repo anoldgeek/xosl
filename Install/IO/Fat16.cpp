@@ -6,11 +6,27 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "memory.h" to "memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ * - To get rid of Warning! W389:  integral value may be truncated during 
+ *   assignment or initialization use proper casting in:
+ *      MemCopy(Buffer,ClusterData,SizeLeft > ClusterSize ? ClusterSize : SizeLeft)
+ *   return Entry.FileSize
+ * - To get rid of Error! E592: left operand must be an lvalue (cast produces rvalue)
+ *   change (char *)Buffer += ClusterSize
+ *   into   Buffer = (char *)Buffer + ClusterSize
+ * - To get rid of Warning! W919: delete of a pointer to void
+ *   use proper casting in:
+ *   delete ClusterData;
+ *
  */
 
 #include <fat16.h>
 #include <disk.h>
-#include <memory.h>
+#include <memory_x.h>
 #include <string.h>
 #include <ctype.h>
 

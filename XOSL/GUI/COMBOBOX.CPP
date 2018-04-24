@@ -1,9 +1,24 @@
+/*
+ * Extended Operating System Loader (XOSL)
+ * Copyright (c) 1999 by Geurt Vos
+ *
+ * This code is distributed under GNU General Public License (GPL)
+ *
+ * The full text of the license can be found in the GPL.TXT file,
+ * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Need to specify printf return type to get rid of 
+ *   Error! E913: 'printf' does not have a return type specified
+ *
+ */
 
 #include <ComboBox.h>
 #include <Graph.h>
 #include <key.h>
 
-printf(const char *,...);
+void printf(const char *,...);
 
 CComboBox::CComboBox(int DropDownCount, int Left, int Top, int Width, int Visible, void *HandlerClass):
 	CAnimatedControl(Left,Top,Width,21 + 2 + (Graph->GetTextHeight() + 1) * DropDownCount,Visible,true,HandlerClass)

@@ -7,7 +7,11 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
-; From XOSL116 ML
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - GDT/IDT changes result in correct behavior but still need
+;   to double check all is ok 
 ;
 ;Info on TDesc bit fields
 ;  Access[7]      = P <97> Segment present
@@ -53,7 +57,8 @@ GraphSelect     equ     20h
 BufferSelect    equ     28h
 PhysicalSelect  equ     30h
 
-BeginGDT        equ     this byte
+;BeginGDT        equ     this byte   ;ML: Open Watcom WASM doesn't like equ: use label instead
+BeginGDT        label   byte
 DummyDesc       TDesc   <>
 CodeDesc        TDesc   <0ffffh,0,0,9ah,0,0>
 DataDesc        TDesc   <0ffffh,0,0,92h,0,0>
@@ -61,7 +66,9 @@ StackDesc       TDesc   <0ffffh,0,0,92h,0,0>
 GraphDesc       TDesc   <0ffffh,0,0ah,92h,0,0>
 BufferDesc      TDesc   <01d5h,0,12h,92h,0c0h,0>
 PhysicalDesc    TDesc   <0ffffh,0,0,92h,0cfh,0>
-GDTR            equ     this fword
+EndGDT          label    byte
+;GDTR            equ     this fword  ;ML: Open Watcom WASM doesn't like equ: use label instead
+GDTR            label   fword
 GDTLimit        dw      EndGDT - BeginGDT - 1 ;ML
 GDTBase         dd      ?
 
@@ -71,7 +78,6 @@ GDTBase         dd      ?
 
 ;RM_IDTR         df      0
 
-EndGDT          equ     this byte
 
                 assume  cs:FARCODE
 

@@ -67,7 +67,7 @@ static void CriticalError(const char *Msg);
 
 static char HeaderData[32768];
 
-_extern void CPPMain()
+void CPPMain()
 {
 	CFileSystem *FileSystem;
 	void *ImageData;
@@ -122,7 +122,7 @@ CFileSystem *MountFileSystem()
 void *LoadImage(CFileSystem *FileSystem)
 {
 	void *Dest;
-	int ImgIndex;
+	//int ImgIndex;
 	char *ImageName = IMAGE_NAME;
 	char  *ImageLogErrorMsg = "Unable to load XOSL image ";
 	char ErrorMsg[80];
@@ -143,7 +143,7 @@ void *LoadImage(CFileSystem *FileSystem)
 			CriticalError(ErrorMsg);
 		}
 		++ImageName[7];
-		(unsigned long)Dest += 0x08000000;
+		Dest = (void *)((unsigned long)Dest + 0x08000000);
 	}
 	return (void *)IMAGE_DESTADDR;
 }
@@ -195,7 +195,7 @@ char *strcat( char *to, const char *from )
 	temp = to ;
 	while( *to++ ) ;
 	to-- ;
-	while( *to++ = *from++ ) ;
+	while( (*to++ = *from++) ) ;
 	return temp ;
 }
 
@@ -205,7 +205,7 @@ char *strcpy( char *to, const char *from )
 	char *temp ;
 
 	temp = to ;
-	while( *to++ = *from++ ) ;
+	while( (*to++ = *from++) ) ;
 	return temp ;
 }
 

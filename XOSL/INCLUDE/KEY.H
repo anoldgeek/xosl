@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef KeyH
@@ -67,7 +72,7 @@
 #include <newdefs.h>
 #include <../keyboard/keylist.h>
 		 
-#define KEY_COUNT 512
+#define KEY_COUNT 316
 		 
 class CKeyboard {
 public:
@@ -77,7 +82,7 @@ public:
 	enum TKeyLayout { enumLayoutUS = 0, enumLayoutFrench = 1, enumLayoutGR = 2};
 	
 	static unsigned short WaitKeyStroke();
-	static void StoreKeyStroke(unsigned short KeyCode);
+	static void __cdecl StoreKeyStroke(unsigned short KeyCode);
 	static bool KeyStrokeAvail();
 	static void Flush();
 	static void SetEnhancedSupport(bool Status);
@@ -99,10 +104,10 @@ private:
 
 	static bool EnhancedSupport;
 
-	static unsigned short WaitKeyStrokeEnh();
-	static unsigned short WaitKeyStrokeDef();
-	static bool KeyStrokeAvailEnh();
-	static bool KeyStrokeAvailDef();
+	static unsigned short __cdecl WaitKeyStrokeEnh();
+	static unsigned short __cdecl WaitKeyStrokeDef();
+	static bool __cdecl KeyStrokeAvailEnh();
+	static bool __cdecl KeyStrokeAvailDef();
 };
 
 		 

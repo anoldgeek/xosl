@@ -21,7 +21,10 @@ void __cdecl  unsigned long FreememStart(unsigned short Status);
 #endif 
 */
 
-unsigned long FreeMemStart()
+#include <freemem.h>
+
+
+unsigned long far FreeMemStart(void)
 {
 	// Place this in BSS. So that it is at the end of BSS, this must be the last linked object.
 	static unsigned long addr;

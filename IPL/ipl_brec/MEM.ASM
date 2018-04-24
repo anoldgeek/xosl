@@ -7,21 +7,30 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - To correct Error! E004: REP prefix is not allowed on this instruction
+;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+;
 
                 .model  compact
                 .386p
                 .code
 
                 
-                public  @MemCompare$qnxvt1i
+                public  `W?MemCompare$n(pfxvpfxvi)i`
 
 ;int MemCompare(const void *Mem1, const void *Mem2, int ByteCount)
-@MemCompare$qnxvt1i     proc c
-                arg     @@Mem1: dword, @@Mem2: dword
-                arg     @@ByteCount: word
+`W?MemCompare$n(pfxvpfxvi)i`  proc c,
+                @@Mem1: dword, @@Mem2: dword,
+                @@ByteCount: word
 
 
-                push    si di ds
+                push    si 
+                push    di 
+                push    ds
 
                 xor     ax,ax
                 les     di,@@Mem1
@@ -32,9 +41,11 @@
                 ; rep     cmpsb
                 repz     cmpsb
                 setne   al
-                pop     ds di si
+                pop     ds 
+                pop     di
+                pop     si
                 ret
-                endp
+`W?MemCompare$n(pfxvpfxvi)i` endp
 
 
                 end

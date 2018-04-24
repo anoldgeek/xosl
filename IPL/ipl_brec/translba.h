@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Explicitly declare pointers to be far
+ *
  */
 
 #ifndef __transfer__
@@ -14,11 +19,11 @@
 typedef struct {
 	int PacketSize;
 	int SectorCount;
-	void *TransferBuffer;
+	void far *TransferBuffer;
 	unsigned long SectorLow;
 	unsigned long SectorHigh;
 } TLBAPacket;
 
-void LBARead(int Drive, const TLBAPacket &LBAPacket);
+void LBARead(int Drive, const TLBAPacket far &LBAPacket);
 
 #endif

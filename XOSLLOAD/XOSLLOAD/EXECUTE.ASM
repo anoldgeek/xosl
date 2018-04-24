@@ -1,16 +1,18 @@
                 .model  compact
                 .386p
                 .code
-                public  _Execute
+;                public  _Execute
+		public  `W?Execute$f(ususususus)v`
 
 ;void Execute(unsigned short StartSeg, unsigned short ReloSS,
 ;             unsigned short ExeSP, unsigned short ReloCS,
 ;             unsigned short ExeIP);
 
-_Execute        proc    c
-                arg     @@StartSeg: word, @@ReloSS: word
-                arg     @@ExeSP: word, @@ReloCS: word
-                arg     @@ExeIP: word
+;_Execute        proc    c
+`W?Execute$f(ususususus)v` proc c,
+                @@StartSeg: word, @@ReloSS: word,
+                @@ExeSP: word, @@ReloCS: word,
+                @@ExeIP: word
 
                 mov     ax,@@StartSeg
                 sub     ax,0010h
@@ -28,6 +30,6 @@ _Execute        proc    c
                 push    cx
                 push    dx
                 retf
-_Execute        endp
+`W?Execute$f(ususususus)v`  endp
                 
                 end

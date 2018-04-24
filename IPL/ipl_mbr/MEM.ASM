@@ -7,6 +7,13 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+; - To correct Error! E004: REP prefix is not allowed on this instruction
+;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+;
 
 ;/*
 ; * File  : MEM.ASM

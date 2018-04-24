@@ -6,6 +6,12 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use proper casting to get rid of Warning! W389: integral value may be 
+ *   truncated during assignment or initialization
+ *
  */
 
 #include <Control.h>
@@ -283,9 +289,9 @@ int CControl::AdjustArea(int &iLeft, int &iTop, int &iWidth, int &iHeight)
 		iTop = Top;
 	}
 	if (iRight > Right)
-		iWidth -= iRight - Right;
+		iWidth = iWidth - (int)(iRight - Right);
 	if (iBottom > Bottom)
-		iHeight -= iBottom - Bottom;
+		iHeight -= (int)(iBottom - Bottom);
 	return 0;
 }
 

@@ -1,0 +1,6 @@
+//#line "string.cpp" 4
+extern char * ltoa( long Value, char * Str, int Base);
+//#line "string.cpp" 28
+extern char * ultoa( unsigned long Value, char * Str, int Base);
+//#line "string.cpp" 47
+extern char * itoa( int Value, char * Str, int Base);

@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __serial__
@@ -16,10 +21,10 @@
 #define COMPORT ((unsigned short far *)0x00400000)
 #define COMINT(Port) (((Port) & 1) ? 0x0b : 0x0c)
 
-int ComDetect(int port);
+int __cdecl ComDetect(int port);
 
-void ComInit(int port, void far (*MouseHandler)(short P0, char dY, char dX, short Status));
-void ComIRQMask(int enable);
+void __cdecl ComInit(int port, void far __cdecl (*MouseHandler)(short P0, signed char dY, signed char dX, short Status));  //ML
+void __cdecl ComIRQMask(int enable);
 void interrupt ComHandler(void);
 
 extern int ComPort;

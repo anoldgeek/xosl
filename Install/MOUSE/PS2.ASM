@@ -7,15 +7,20 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
                 .code
-                public  @CMouse@Ps2Initialize$qi
+                public  `W?Ps2Initialize$:CMouse$n(i)i`
 
 ;int CMouse::PS2Initialize(int PackSize);
-@CMouse@Ps2Initialize$qi proc c
-                arg     @@PackSize: word
+`W?Ps2Initialize$:CMouse$n(i)i` proc c,
+                @@PackSize: word
 
                 mov     ax,0c205h
                 mov     bh,byte ptr @@PackSize
@@ -30,7 +35,7 @@
 PS2IErr:        mov     ah,1
 PS2IEnd:        shr     ax,8
                 ret
-                endp
+`W?Ps2Initialize$:CMouse$n(i)i` endp
 
                 end
 

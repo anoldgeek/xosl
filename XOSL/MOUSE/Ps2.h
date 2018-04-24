@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __PS2__
@@ -36,8 +41,8 @@
 
 typedef void far (* TPS2Handler)(short, char dX, char dY, short Status);
 
-int PS2Initialize(int PackSize);
-void PS2Call(unsigned short Func, int Value);
-void PS2SetHandler(TPS2Handler Handler);
+int __cdecl PS2Initialize(int PackSize); //ML
+void __cdecl PS2Call(unsigned short Func, int Value); //ML
+void __cdecl PS2SetHandler(TPS2Handler Handler); //ML
 
 #endif

@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Correct Error! 125: invalid redefinition of typedef name 'bool' 
+ *   No need to define typedef bool in Open Watcom
+ * - Add line at end of file to get rid of WCC Compiler 
+ *   Warning! W138: No newline at end of file.
+ *
  */
 
 /*
@@ -53,8 +61,9 @@
 #endif
 
 
-typedef int bool;
+//typedef int bool;
 #define false FALSE
-#define true TRUE
+#define true TRUE;
+
 
 #endif

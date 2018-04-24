@@ -7,21 +7,27 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - To correct Error! E004: REP prefix is not allowed on this instruction
+;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+;
 
                 .model  compact
                 .386p
                 .code
-	        public	_MemCopy
-		public	_MemSet
-		public	_MemCompare 		
+	        public	MemCopy_
+		public	MemSet_
+		public	MemCompare_
 
 
 ;void memcpy (void far *dest, void far *src, U16B size);
                 
-_MemCopy        proc    c
-		arg	@@Dest: dword
-		arg	@@Src: dword
-		arg	@@Count: word
+MemCopy_        proc    c,
+                @@Dest: dword,
+                @@Src: dword,
+                @@Count: word
 
                 push    si
                 push    di
@@ -39,13 +45,13 @@ MemCpyDone:     pop     ds
                 pop     di
                 pop     si
                 ret
-		endp
+MemCopy_        endp
 
 ;void memset(void far *dest, U8B value, U16B count);
-_MemSet        	proc    c
-		arg	@@Dest: dword
-		arg	@@Value: word
-		arg	@@Count: word
+MemSet_         proc    c,
+                @@Dest: dword,
+                @@Value: word,
+                @@Count: word
 		
                 push    di
                 les     di,@@Dest
@@ -60,13 +66,13 @@ _MemSet        	proc    c
 
 MemSetDone:     pop     di
                 ret
-		endp
+MemSet_         endp
 
 ;int memcmp(const void far *s1, const void far *s2, U16B count); 
-_MemCompare	proc    c
-		arg	@@Ptr1: dword
-		arg	@@Ptr2: dword
-		arg	@@Count: word
+MemCompare_     proc    c,
+                @@Ptr1: dword,
+                @@Ptr2: dword,
+                @@Count: word
 
                 push    si
                 push    di
@@ -83,7 +89,7 @@ _MemCompare	proc    c
                 pop     di
                 pop     si
                 ret
-		endp
+MemCompare_		endp
 
 
                 end

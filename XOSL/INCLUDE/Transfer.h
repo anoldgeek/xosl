@@ -6,6 +6,13 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use different physical memory address for debug and release versions
+ *   for #define Scratchpad
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __transfer__
@@ -18,7 +25,6 @@
 #else
 #define Scratchpad ( (void *)0x00008000 )
 #endif
- 
 
 #define DISK_READ   0x0200
 #define DISK_WRITE  0x0300
@@ -38,16 +44,16 @@ class CDiskAccess {
 		~CDiskAccess();
 
 		// conventional stuff
-		int DriveCount(int Fixed);
-		int Transfer(int Action, unsigned short SectCyl,
+		int __cdecl DriveCount(int Fixed);
+		int __cdecl Transfer(int Action, unsigned short SectCyl,
 						 unsigned short DrvHead, void *Buffer, int Count);
-		int GetDriveInfo(int Drive, int &Heads, int &Sectors);
-		int CopyFromScratchpad(void *Buffer, int Sectors);
-		int CopyToScratchpad(const void *Buffer, int Sectors);
+		int __cdecl GetDriveInfo(int Drive, int &Heads, int &Sectors);
+		int __cdecl CopyFromScratchpad(void *Buffer, int Sectors);
+		int __cdecl CopyToScratchpad(const void *Buffer, int Sectors);
 
 		// lba stuff
-		int LBAAccessAvail(int Drive);
-		int LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket);
+		int __cdecl LBAAccessAvail(int Drive);
+		int __cdecl LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket);
 };
 
 #endif

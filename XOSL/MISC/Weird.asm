@@ -7,6 +7,11 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
 ; Weird stuff to satisfy Borland C++ 
 
@@ -25,12 +30,12 @@ __fpure_error_  proc    far
 __fpure_error_  endp
 
 
-                public  @ClearCDNW$qv
-@ClearCDNW$qv   proc
+                public  `W?ClearCDNW$f()v`
+`W?ClearCDNW$f()v`   proc
 ;                mov     eax,cr0
 ;                and     eax,9fffffffh
 ;                mov     cr0,eax
                 ret
-                endp
+`W?ClearCDNW$f()v` endp
 
                 end

@@ -6,6 +6,14 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename function main to mymain to get rid of Warning! W914:
+ *   'main' must return 'int'
+ * - Add mymain function declaration using extern "C" to force 
+ *   C language naming convention
+ *
  */
 
 #include <disk.h>
@@ -52,12 +60,22 @@ public:
 
 
 static void  LoadXoslLoad();
+
+#ifdef __cplusplus
+extern "C" {
+#endif
 //static int LocateXoslLoad();
 static int LocateXoslLoad(unsigned short *StartCluster, unsigned long *FileSize);
 void puts(const char *str);
 
+void mymain();
 
-void main()
+#ifdef __cplusplus
+};
+#endif
+
+
+void mymain()
 {
 	CBootRecord *BootRecord = (CBootRecord *)0x00007c00;
 	DiskMap(BootRecord->Drive,BootRecord->HiddenSectors);

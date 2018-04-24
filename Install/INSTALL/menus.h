@@ -65,7 +65,7 @@ private:
 	char **HDNameList;
 	int HDNameCount;
 	unsigned char *HDResolveList;
-	char *MbrHDSector0List;
+	unsigned char *MbrHDSector0List;
 
 	int FatAvail;
 };

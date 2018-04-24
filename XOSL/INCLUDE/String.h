@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __STRING__
@@ -22,17 +27,16 @@
 extern "C" {
 #endif
 
-int far strlen(const char far *str);
-char *far strcpy(char far *dest, const char far *src);
-char *far strcat(char far *dest, const char far *src);
-char *far strchr(const char far *str, int c);
-char *far itoa(long value, char far *str, int base);
-int far strcmp(const char far *s1, const char far *s2);
-int far stricmp(const char far *s1, const char far *s2);
-long far atol(const char far *str);
-char *ltoa(long Value, char *Str, int Base);
-char *ultoa(unsigned long Value, char *Str, int Base);
-
+int far __cdecl strlen(const char far *str);
+char *far __cdecl strcpy(char far *dest, const char far *src);
+char *far __cdecl strcat(char far *dest, const char far *src);
+char *far __cdecl strchr(const char far *str, int c);
+char *far __cdecl itoa(long value, char far *str, int base);
+int far __cdecl strcmp(const char far *s1, const char far *s2);
+int far __cdecl stricmp(const char far *s1, const char far *s2);
+long far __cdecl atol(const char far *str);
+char far __cdecl *ultoa(unsigned long Value, char *Str, int Base);
+char  far __cdecl*ltoa(long Value, char *Str, int Base);
 
 #ifdef __cplusplus
 };

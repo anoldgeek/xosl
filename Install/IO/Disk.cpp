@@ -6,6 +6,20 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Rename header file from "mem.h" to "memory_x.h" to make sure that
+ *   the XOSL header file is used and not the Open Watcon header file.
+ * - To get rid of Warning! W389:  integral value may be truncated during 
+ *   assignment or initialization use proper casting in:
+ *   Sector = RSector % DrvSectorCount + 1;
+ *   Head = RSector % DrvHeadCount;
+ *   Cylinder = RSector / DrvHeadCount;
+ * - Comment out local variable int Status    
+ *   to get rid of Warning! W014: 
+ *   no reference to symbol 'Status'
+ *
  */
 
 #include <disk.h>

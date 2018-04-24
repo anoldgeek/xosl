@@ -20,9 +20,9 @@ static const char *StrHttpXosl = "http://www.xosl.org";
 
 
 
-static const char *StrLogoInfo = "XOSL logo created by:";
-static const char *StrLogoCreator = "Mark Monciardini";
-static const char *StrHttpLogo = "http://www.designsbymark.com";
+//static const char *StrLogoInfo = "XOSL logo created by:";
+//static const char *StrLogoCreator = "Mark Monciardini";
+//static const char *StrHttpLogo = "http://www.designsbymark.com";
 /*
 static const char *StrPartInfo = "Ranish Partition Manager";
 static const char *StrPartCreator = "Created by: Mikhail Ranish";

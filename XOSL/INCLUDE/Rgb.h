@@ -6,6 +6,11 @@
  *
  * The full text of the license can be found in the GPL.TXT file,
  * or at http://www.gnu.org
+ *
+ * Open Watcom Migration
+ * Copyright (c) 2010 by Mario Looijkens:
+ * - Use __cdecl calling convention
+ *
  */
 
 #ifndef __rgb__
@@ -17,8 +22,8 @@
 extern "C" {
 #endif
 
-void far SetRGB(int Index, int Red, int Green, int Blue);
-void far GetRGB(int Index, int &Red, int &Green, int &Blue);
+void far __cdecl SetRGB(int Index, int Red, int Green, int Blue);
+void far __cdecl GetRGB(int Index, int &Red, int &Green, int &Blue);
 
 #ifdef __cplusplus
 };

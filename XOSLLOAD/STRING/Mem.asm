@@ -7,14 +7,21 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - To correct Error! E004: REP prefix is not allowed on this instruction
+;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+;
 
                 .model  compact
                 .386p
                 .code
 
 ;void memcpy (void far *dest, void far *str, U16B size);
-                public  _memcpy
-_memcpy         proc    
+;                public  _memcpy
+		public  `W?memcpy$f(pfvpfxvus)v`
+`W?memcpy$f(pfvpfxvus)v` proc    
                 push    bp
                 mov     bp,sp
                 push    si
@@ -34,7 +41,7 @@ MemCpyDone:     pop     ds
                 pop     si
                 pop     bp
                 ret
-_memcpy         endp
+`W?memcpy$f(pfvpfxvus)v` endp
 
 ;void memset(void far *dest, U8B value, U16B count);
                 public  _memset
@@ -58,27 +65,27 @@ MemSetDone:     pop     di
 _memset         endp
 
 ;int memcmp(const void far *s1, const void far *s2, U16B count); 
-                public  _memcmp
-_memcmp         proc    
-                push    bp
-                mov     bp,sp
+;int far memcmp( void const far *, void const far *, short unsigned )
+;                public  _memcmp
+		public `W?memcmp$f(pfxvpfxvus)i`
+`W?memcmp$f(pfxvpfxvus)i` proc c,
+		@@s1: dword, @@s2: dword, @@count: word
                 push    si
                 push    di
                 push    ds
 
                 xor     ax,ax
-                les     di,[bp + 4]
-                lds     si,[bp + 8]
-                mov     cx,[bp + 12]
+                les     di,@@s1
+                lds     si,@@s2
+                mov     cx,@@count
                 cld
-                rep     cmpsb
+                repz     cmpsb ; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 setne   al
                 pop     ds
                 pop     di
                 pop     si
-                pop     bp
                 ret
-_memcmp         endp
+`W?memcmp$f(pfxvpfxvus)i` endp
 
 
                 end

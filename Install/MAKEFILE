@@ -1,116 +1,120 @@
+# Open Watcom MAKEFILE
+#
+# Extended Operating System Loader (XOSL)
+# Copyright (c) 1999 by Geurt Vos
+# This code is distributed under GNU General Public License (GPL)
+# The full text of the license can be found in the GPL.TXT file,
+# or at http://www.gnu.org
+#
+# Open Watcom Migration
+# Copyright (c) 2010 by Mario Looijkens:
+#
+
 #main makefile for INSTALL.EXE
 
-
 LIBPATH=install;io;mouse;vesa;ui;keyboard;text;string
-LIB_FILES=install.lib io.lib mouse.lib string.lib\
-          vesa.lib ui.lib keyboard.lib text.lib cc.lib
+LIB_FILES=install.lib,io.lib,mouse.lib,string.lib,&
+          vesa.lib,ui.lib,keyboard.lib,text.lib
 
-!ifdef DOS_DEBUG
-MAKE_OPTIONS=-DDOS_DEBUG
-TLINK_OPTIONS=/v
-!endif
-
-MAKEROOT=$(MAKEDIR)\..
-
-LINK_OPTIONS=/3 /s /L$(LIBPATH);$(MAKEROOT)\lib
-
-OBJ_FILES=$(MAKEROOT)\lib\C0C.obj
+OBJ_FILES=
 LNK_FILE=install.exe
 MAP_FILE=install.map
 
-LINK=$(MAKEDIR)\tlink $(TLINK_OPTIONS)
-MAKE=$(MAKEDIR)\make $(MAKE_OPTIONS)
+!ifdef DOS_DEBUG
+MAKE_OPTIONS=DOS_DEBUG=1
+LINK_OPTIONS=d all SYS dos op m op maxe=25 op q op symf libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
+!else
+LINK_OPTIONS=d all SYS dos op m op maxe=25 op q op symf libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
+!endif
 
-ENTER=@cd
+LINK=wlink
+MAKE=wmake $(MAKE_OPTIONS)
+
+#ENTER=@cd
+ENTER=cd
 LEAVE=$(ENTER) ..
 
 all: $(LNK_FILE)
 
+$(LNK_FILE): install io mouse vesa ui keyboard text string .SYMBOLIC
+   $(LINK) name $(LNK_FILE) $(LINK_OPTIONS)
 
-$(LNK_FILE): install io mouse vesa ui keyboard text string
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(LNK_FILE), $(MAP_FILE), $(LIB_FILES)
-!
+link: .SYMBOLIC
+   $(LINK) name $(LNK_FILE) $(LINK_OPTIONS)
 
-link:
-   $(LINK) @&&!
-         $(LINK_OPTIONS) $(OBJ_FILES), $(LNK_FILE), $(MAP_FILE), $(LIB_FILES)
-!
-
-
-install:
+install: .SYMBOLIC
    $(ENTER) install
    $(MAKE)
    $(LEAVE)
 
-mmu:
+mmu: .SYMBOLIC
    $(ENTER) mmu
    $(MAKE)
    $(LEAVE)
 
-io:
+io: .SYMBOLIC
    $(ENTER) io
    $(MAKE)
    $(LEAVE)
 
-mouse:
+mouse: .SYMBOLIC
    $(ENTER) mouse
    $(MAKE)
    $(LEAVE)
 
-string:
+string: .SYMBOLIC
    $(ENTER) string
    $(MAKE)
    $(LEAVE)
 
-vesa:
+vesa: .SYMBOLIC
    $(ENTER) vesa
    $(MAKE)
    $(LEAVE)
 
-misc:
+misc: .SYMBOLIC
    $(ENTER) misc
    $(MAKE)
    $(LEAVE)
 
-ui:
+ui: .SYMBOLIC
    $(ENTER) ui
    $(MAKE)
    $(LEAVE)
 
-keyboard:
+keyboard: .SYMBOLIC
    $(ENTER) keyboard
    $(MAKE)
    $(LEAVE)
 
-text:
+text: .SYMBOLIC
    $(ENTER) text
    $(MAKE)
    $(LEAVE)
 
 
-clean:
+clean: .SYMBOLIC
    $(ENTER) install
-   $(MAKEDIR)\make clean
-   $(ENTER) ..\mmu
-   $(MAKEDIR)\make clean
+   wmake clean
+   #$(ENTER) ..\mmu
+   #wmake clean
    $(ENTER) ..\io
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\mouse
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\string
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\vesa
-   $(MAKEDIR)\make clean
-   $(ENTER) ..\misc
-   $(MAKEDIR)\make clean
+   wmake clean
+   #$(ENTER) ..\misc
+   #wmake clean
    $(ENTER) ..\ui
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\keyboard
-   $(MAKEDIR)\make clean
+   wmake clean
    $(ENTER) ..\text
-   $(MAKEDIR)\make clean
+   wmake clean
    $(LEAVE)
-   @del install.exe
-   @del install.map
-
+   @if exist install.exe del install.exe
+   @if exist install.map del install.map
+   @if exist install.sym del install.sym

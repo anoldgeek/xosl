@@ -7,27 +7,32 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2010 by Mario Looijkens:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  large
                 .386p
                 .data?
-                public  _ComPort
-_ComPort        dw      ?
+                public  `W?ComPort$fi`
+`W?ComPort$fi`  dw      ?
 ByteNo          dw      ?
 MouseData       db      ?,?,?,?
 MouseHandler    dd      ?
                 .data
-                public  _MouseInt
-_MouseInt       dw      0
+                public  `W?MouseInt$fi`
+`W?MouseInt$fi` dw      0
                 .code
 
-                public  @ComDetect$qi
-                public  @ComInit$qinqszczcs$v
-                public  @ComIRQMask$qi
+                public  `W?ComDetect$f(i)i`
+                public  `W?ComInit$f(ipf(sccs)v)v`
+                public  `W?ComIRQMask$f(i)v`
 
 ;void ComDetect(int Port);
-@ComDetect$qi   proc    c
-                arg     @@Port: word
+`W?ComDetect$f(i)i` proc    c,
+                @@Port: word
 
                 mov     dx,@@Port
                 or      dx,dx
@@ -58,12 +63,12 @@ _52ed:          mov     al,0ffh
 _52f4:          xor     ah,ah
                 movsx   ax,al
                 ret
-                endp
+`W?ComDetect$f(i)i` endp
 
 ;void ComInit(int Port, void (*MouseHandler)());
-@ComInit$qinqszczcs$v proc c
-
-                arg     @@Port: word, @@MouseHandler: dword
+;void __cdecl ComInit(int port, void far __cdecl (*MouseHandler)(short P0, signed char dY, signed char dX, short Status));  //ML
+`W?ComInit$f(ipf(sccs)v)v` proc c,
+                @@Port: word, @@MouseHandler: dword
 
                 mov     eax,@@MouseHandler
                 mov     MouseHandler,eax
@@ -102,7 +107,7 @@ SI6:            mov     dx,[bp + 6]
 SI7:            mov     dx,[bp + 6]
                 in      al,dx
                 ret
-                endp
+`W?ComInit$f(ipf(sccs)v)v` endp
 
 TestAndSet      proc    near
                 push    cx
@@ -198,8 +203,8 @@ TO2:            ret
 Timeout         endp
 
 ;void com_irqmask(int enable);
-@ComIRQMask$qi  proc    c
-                arg     @@Enable: word
+`W?ComIRQMask$f(i)v` proc    c,
+                @@Enable: word
 
                 in      al,21h
                 cmp     byte ptr @@Enable,0
@@ -209,17 +214,18 @@ Timeout         endp
 CIMBlock:       or      al,18h
 CIMSetMask:     out     21h,al
                 ret
-                endp
+`W?ComIRQMask$f(i)v` endp
 
 ;void interupt com_handler(void);
-                public  @ComHandler$qv
-@ComHandler$qv  proc
+                public  `W?ComHandler$f()v`
+`W?ComHandler$f()v` proc
                 cli
                 pushad
-                push    ds es
+                push    ds
+		push	es
                 mov     ax,DGROUP
                 mov     ds,ax
-                mov     dx,_ComPort
+                mov     dx,`W?ComPort$fi`
 
                 in      al,dx
                 test    al,40h
@@ -238,10 +244,11 @@ CHDone:
                 sti
                 mov     al,20h
                 out     20h,al
-                pop     es ds
+                pop     es
+		pop	ds
                 popad
                 iret
-                endp
+`W?ComHandler$f()v` endp
 
 COMNewData      proc    near
                 xor     ax,ax
