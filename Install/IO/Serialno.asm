@@ -24,7 +24,7 @@
 ;   compilation is without errors
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .data?
 ;DosDriveInfo    equ     this byte
@@ -38,10 +38,10 @@ FSType          db      8 dup (?)
 
                 .code
 
-                public  `W?GetDosSerialNo$:CDosDriveList$n(i)ul`
+                public  `W?GetDosSerialNo$:CDosDriveList$f(i)ul`
 
 ;unsigned long CDOSDriveList::GetDOSSerialNo(int DriveNum);
-`W?GetDosSerialNo$:CDosDriveList$n(i)ul` proc c,
+`W?GetDosSerialNo$:CDosDriveList$f(i)ul` proc c,
                 @@this: dword, @@DriveNum: word
 
                 mov     ax,6900h
@@ -58,6 +58,6 @@ GSNFound:       mov     ax,SerialNumLo
                 mov     dx,SerialNumHi
 
 GSNExit:        ret
-`W?GetDosSerialNo$:CDosDriveList$n(i)ul` endp
+`W?GetDosSerialNo$:CDosDriveList$f(i)ul` endp
 
                 end

@@ -15,17 +15,17 @@
 ; - Modify UnlockScreen to make sure LockedData is addressed correctly
 ;
 
-                .model  compact
+                .model  large
                 .386p
 		.data?
 LockedData	db	4000 dup (?)		
                 .code
-                public  `W?ClearScreen$n()v`
-                public  `W?LockScreen$n()v`
-                public  `W?UnlockScreen$n()v`
+                public  `W?ClearScreen$f()v`
+                public  `W?LockScreen$f()v`
+                public  `W?UnlockScreen$f()v`
 
 ;void ClearScreen();
-`W?ClearScreen$n()v` proc
+`W?ClearScreen$f()v` proc
 		push	edi
 		
 		mov	ax,0b800h
@@ -44,10 +44,10 @@ LockedData	db	4000 dup (?)
 
 		pop	edi
 		ret
-`W?ClearScreen$n()v`	endp
+`W?ClearScreen$f()v`	endp
 
 
-`W?LockScreen$n()v`  proc
+`W?LockScreen$f()v`  proc
 		push	edi
 		push	esi
 		push	ds
@@ -70,9 +70,9 @@ LockedData	db	4000 dup (?)
 		pop	esi
 		pop	edi
 		ret
-`W?LockScreen$n()v` 	endp
+`W?LockScreen$f()v` 	endp
 
-`W?UnlockScreen$n()v` proc
+`W?UnlockScreen$f()v` proc
 		push	edi
 		push	esi
 		push	ds			;ML save ds
@@ -95,7 +95,7 @@ LockedData	db	4000 dup (?)
 		pop	edi
 		
 		ret
-`W?UnlockScreen$n()v`		endp
+`W?UnlockScreen$f()v`		endp
 
 
                 end

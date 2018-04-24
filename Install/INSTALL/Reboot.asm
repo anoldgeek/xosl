@@ -25,14 +25,14 @@
 ; Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307 USA
 ; (or try http://www.gnu.org/licenses/ at http://www.gnu.org).
 
-                .model  compact
+                .model  large
                 .386p
                 .code
 
-                public  @CApplication@Reboot$qv
+                public  `W?Reboot$:CApplication$f()v`
 
 ;CApplication::Reboot();
-@CApplication@Reboot$qv proc c
+`W?Reboot$:CApplication$f()v` proc c
 
 			mov ah,0dh	; DOS filesystem reset (never fails)
 			int 21h
@@ -87,6 +87,6 @@
 			
 		bootpt	dw 0,0ffffh	; boot entry point is FFFF:0000
 	
-@CApplication@Reboot$qv endp
+`W?Reboot$:CApplication$f()v` endp
 
 			end

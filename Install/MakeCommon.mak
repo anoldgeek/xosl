@@ -12,9 +12,12 @@
 
 INCPATH=..\include;.;$(%watcom)\h;..\..\include;..\install
 
-CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -mc -xd -xr -i$(INCPATH)
-C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -mc -xd -xr -i$(INCPATH)
-ASM_OPTIONS=-mc -d1 -w4 -e25 -zq
+#CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -mc -xd -xr -i$(INCPATH)
+#C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -mc -xd -xr -i$(INCPATH)
+#ASM_OPTIONS=-mc -d1 -w4 -e25 -zq
+CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i$(INCPATH)
+C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i$(INCPATH)
+ASM_OPTIONS=-ml -d1 -w4 -e25 -zq
 LIB_OPTIONS=-b -c -m -n -q -p=512 -l=$(LIST_FILE)
 
 !ifdef DOS_DEBUG

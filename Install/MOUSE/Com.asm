@@ -13,14 +13,14 @@
 ; - Use Open Watcom Name Mangling
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .code
 
-                public  `W?MouseAvailable$:CMouse$n(i)i`
+                public  `W?MouseAvailable$:CMouse$f(i)i`
 
 ;CMouse::MouseAvailable(int PortAddr);
-`W?MouseAvailable$:CMouse$n(i)i` proc c,
+`W?MouseAvailable$:CMouse$f(i)i` proc c,
                 @@PortAddr: word
 
                 mov     dx,@@PortAddr
@@ -52,7 +52,7 @@ _52ed:          mov     al,0ffh
 _52f4:          xor     ah,ah
                 movsx   ax,al
                 ret
-`W?MouseAvailable$:CMouse$n(i)i` endp
+`W?MouseAvailable$:CMouse$f(i)i` endp
                 
 
 TestAndSet      proc

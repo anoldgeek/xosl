@@ -13,33 +13,33 @@
 ; - Use Open Watcom Name Mangling
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .data?
 
                 .code
 
-                public  `W?$ct:CKeyboard$n()_`
-                public  `W?$dt:CKeyboard$n()_`
-                public  `W?GetCh$:CKeyboard$n()i`
-                public  `W?KbHit$:CKeyboard$n()i`
-                public  `W?Flush$:CKeyboard$n()v`
-                public  `W?StoreCh$:CKeyboard$n(i)v`
+                public  `W?$ct:CKeyboard$f()_`
+                public  `W?$dt:CKeyboard$f()_`
+                public  `W?GetCh$:CKeyboard$f()i`
+                public  `W?KbHit$:CKeyboard$f()i`
+                public  `W?Flush$:CKeyboard$f()v`
+                public  `W?StoreCh$:CKeyboard$f(i)v`
 
 ;constructure and destructor are not needed
-`W?$ct:CKeyboard$n()_`:
-`W?$dt:CKeyboard$n()_`: ret
+`W?$ct:CKeyboard$f()_`:
+`W?$dt:CKeyboard$f()_`: ret
 
 
 ;int CKeyboard::Getch()
-`W?GetCh$:CKeyboard$n()i`     proc
+`W?GetCh$:CKeyboard$f()i`     proc
                 xor     ah,ah
                 int     16h
                 ret
-`W?GetCh$:CKeyboard$n()i` endp
+`W?GetCh$:CKeyboard$f()i` endp
 
 ;int CKeyboard::KbHit()
-`W?KbHit$:CKeyboard$n()i`     proc
+`W?KbHit$:CKeyboard$f()i`     proc
                 mov     ah,1
                 int     16h
                 jz      KBHNoKey
@@ -47,11 +47,11 @@
                 ret
 KBHNoKey:       xor     ax,ax
                 ret
-`W?KbHit$:CKeyboard$n()i` endp
+`W?KbHit$:CKeyboard$f()i` endp
 
 
 ;void CKeyboard::Flush()
-`W?Flush$:CKeyboard$n()v`     proc
+`W?Flush$:CKeyboard$f()v`     proc
                 jmp     FCheckBuffer
 FGetKey:        xor     ah,ah
                 int     16h
@@ -59,15 +59,15 @@ FCheckBuffer:   mov     ah,1
                 int     16h
                 jnz     FGetKey
                 ret
-`W?Flush$:CKeyboard$n()v`     endp
+`W?Flush$:CKeyboard$f()v`     endp
 
 ;void CKeyboard::StoreCh()
-`W?StoreCh$:CKeyboard$n(i)v`     proc    c,
+`W?StoreCh$:CKeyboard$f(i)v`     proc    c,
                 @@this: dword, @@Key: word
 
                 mov     ah,5
                 mov     cx,@@Key
                 int     16h
                 ret
-`W?StoreCh$:CKeyboard$n(i)v`     endp
+`W?StoreCh$:CKeyboard$f(i)v`     endp
 		end

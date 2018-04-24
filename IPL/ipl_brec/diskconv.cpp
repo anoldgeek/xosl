@@ -19,6 +19,9 @@
 
 //static void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead);
 
+long unsigned near StartSector2;
+
+int near Drive2;
 
 void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
 {

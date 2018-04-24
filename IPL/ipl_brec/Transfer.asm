@@ -17,13 +17,17 @@
 		.386p
                 .data?
 
-                public  _Drive
-                public  _StartSector
+;                public  Drive
+;                public  StartSector
+
+                public  `W?Drive$ni`
+                public  `W?StartSector$nul`
+
 
 DrvHeadCount    dd      ?
 DrvSectorCount  dd      ?
-_Drive          dw      ?
-_StartSector    dd      ?
+`W?Drive$ni`          dw      ?
+`W?StartSector$nul`    dd      ?
 
 
 ;'local' vars for Sector2CHS
@@ -37,7 +41,7 @@ Sector          dw      ?
 
 	       public `W?ConvRead$n(ususpfvi)v`
 	       public `W?GetDriveInfo$n(i)v`
-	       public `W?Sector2CHS$n(lrfusrfus)v`
+	       public `W?Sector2CHS$n(ulrnusrnus)v`
 
 ;void ConvRead(unsigned short SectCyl,unsigned short DrvHead,
 ;             void *Buffer, int Count);
@@ -77,14 +81,16 @@ Sector          dw      ?
                 ret
 `W?GetDriveInfo$n(i)v` endp
 
+
 ;void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
-`W?Sector2CHS$n(ulrfusrfus)v`   proc c,
+;void near Sector2CHS( long unsigned, short unsigned near &, short unsigned near & )
+`W?Sector2CHS$n(ulrnusrnus)v`   proc c,
                 @@RSector: dword,
                 @@SectCyl: dword, @@DrvHead: dword
 
                 ;RSector += StartSector
                 mov     eax,@@RSector
-                add     eax,_StartSector
+                add     eax,`W?StartSector$nul`
 
                 ;Sector = RSector % DrvSectorCount + 1
                 ;RSector /= DrvSectorCount
@@ -100,7 +106,7 @@ Sector          dw      ?
 
                 ;DrvHead = Drive | (Head << 8)
                 mov     dh,dl
-                mov     dl,byte ptr _Drive
+                mov     dl,byte ptr `W?Drive$ni`
                 les     bx,@@DrvHead
                 mov     es:[bx],dx
 
@@ -118,6 +124,6 @@ Sector          dw      ?
 
 
                 ret
-                `W?Sector2CHS$n(ulrfusrfus)v` endp
+`W?Sector2CHS$n(ulrnusrnus)v` endp
 
 		end

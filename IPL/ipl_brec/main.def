@@ -1,0 +1,2 @@
+//#line "main.cpp" 78
+extern void mymain( void );

@@ -13,28 +13,28 @@
 ; - Use Open Watcom Name Mangling
 ;
 
-                .model  compact
+                .model  large
                 .386p
 
                 .code
 
-                public  `W?GetDriveCount$:CData$n()i`
-                public  `W?GetDosVersion$:CData$n()us`
+                public  `W?GetDriveCount$:CData$f()i`
+                public  `W?GetDosVersion$:CData$f()us`
                 
 ;int CData::GetDriveCount();
-`W?GetDriveCount$:CData$n()i` proc
+`W?GetDriveCount$:CData$f()i` proc
                 mov     ah,52h
                 int     21h
                 movzx   ax,es:byte ptr [bx + 20h]
                 ret
-`W?GetDriveCount$:CData$n()i`  endp
+`W?GetDriveCount$:CData$f()i`  endp
 
 ;unsigned short CData::GetDosVersion();
-`W?GetDosVersion$:CData$n()us` proc
+`W?GetDosVersion$:CData$f()us` proc
                 mov     ah,30h
                 int     21h
                 ret
-`W?GetDosVersion$:CData$n()us` endp
+`W?GetDosVersion$:CData$f()us` endp
 
                 end
                 

@@ -24,7 +24,7 @@ LBA_MAP=iplslba.map
 INCPATH=.
 
 #-zdp ?
-CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -i$(INCPATH)
+CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -v -i$(INCPATH)
 ASM_OPTIONS=-zq
 LINK_OPTIONS=FORMAT dos com op m op nod op maxe=25 op d op q op symf
 

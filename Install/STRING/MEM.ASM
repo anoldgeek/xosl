@@ -14,7 +14,7 @@
 ;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .code
 	        public	MemCopy_

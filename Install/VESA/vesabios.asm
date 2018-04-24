@@ -14,16 +14,16 @@
 ; - Use Open Watcom Name Mangling
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .code
 
 
-                public  `W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i`
-                public  `W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i`
+                public  `W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i`
+                public  `W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i`
 
 ;static int CVesa::GetSvgaInfo(CVesa::CSvgaInfo &SvgaInfo);
-`W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i` proc c,
+`W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i` proc c,
                 @@SvgaInfo: dword
 
                 push    di
@@ -39,10 +39,10 @@
 GSISuccess:     xor     ax,ax
 GSIExit:        pop     di
                 ret
-`W?GetSvgaInfo$:CVesa$n(rf$CSvgaInfo$:1$)i` endp
+`W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i` endp
 
 ;int CVesa::GetModeInfo(int VesaMode, CModeInfo &ModeInfo)
-`W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i` proc c,
+`W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i` proc c,
                 @@VesaMode: word, @@ModeInfo: dword
 
                 push    di
@@ -56,7 +56,7 @@ GSIExit:        pop     di
 
 MIExit:         pop     di
                 ret
-`W?GetModeInfo$:CVesa$n(irf$CModeInfo$:1$)i` endp
+`W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i` endp
 
 
 

@@ -1,0 +1,4 @@
+com.asm(31): Warning! W604: Far call is converted to near call.
+com.asm(38): Warning! W604: Far call is converted to near call.
+com.asm(40): Warning! W604: Far call is converted to near call.
+com.asm(46): Warning! W604: Far call is converted to near call.

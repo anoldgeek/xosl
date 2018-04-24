@@ -19,16 +19,16 @@
 ;     push    ds
 ;
 
-                .model  compact
+                .model  large
 		.386p
                 .code
 
-                public  `W?LBAAccessAvail$:CDiskAccess$n(i)i`
-                public  `W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i`
-                public  `W?SetLockStatus$:CDiskAccess$n(ii)v`
+                public  `W?LBAAccessAvail$:CDiskAccess$f(i)i`
+                public  `W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i`
+                public  `W?SetLockStatus$:CDiskAccess$f(ii)v`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
-`W?LBAAccessAvail$:CDiskAccess$n(i)i` proc c,
+`W?LBAAccessAvail$:CDiskAccess$f(i)i` proc c,
                 @@this: dword, @@Drive: word
 
                 mov     ah,41h
@@ -45,10 +45,10 @@
 
 NoLBA:          mov     ax,-1
 LBA_AAEnd:      ret
-`W?LBAAccessAvail$:CDiskAccess$n(i)i` endp
+`W?LBAAccessAvail$:CDiskAccess$f(i)i` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
-`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` proc c,
+`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` proc c,
                 @@this: dword, @@Action: word,
                 @@Drive: word, @@LBAPacket: dword
 
@@ -65,10 +65,10 @@ LBA_AAEnd:      ret
                 push    si
                 push    ds
                 ret
-`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` endp
+`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` endp
 
 ;void CDiskAccess::SetLockStatus(int Drive, int Status)
-`W?SetLockStatus$:CDiskAccess$n(ii)v` proc c,
+`W?SetLockStatus$:CDiskAccess$f(ii)v` proc c,
                 @@this: dword,
                 @@Drive: word, @@Status: word
 
@@ -77,6 +77,6 @@ LBA_AAEnd:      ret
                 mov     dl,byte ptr @@Drive
                 int     13h
                 ret
-`W?SetLockStatus$:CDiskAccess$n(ii)v` endp
+`W?SetLockStatus$:CDiskAccess$f(ii)v` endp
 
 		end

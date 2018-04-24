@@ -65,7 +65,7 @@ static void  LoadXoslLoad();
 extern "C" {
 #endif
 //static int LocateXoslLoad();
-static int LocateXoslLoad(unsigned short *StartCluster, unsigned long *FileSize);
+//static int LocateXoslLoad(unsigned short *StartCluster, unsigned long *FileSize);
 void puts(const char *str);
 
 void mymain();
@@ -85,9 +85,9 @@ void mymain()
 void LoadXoslLoad()
 // Sector 0 = boot record, sector 1 = FAT, sector 2,3 = root dir, sector 4 = data start (cluster 2)
 {
-	unsigned short XoslLoadCluster;
+	//unsigned short XoslLoadCluster;
 	unsigned long XoslLoadSector;
-	unsigned long FileSize;
+	//unsigned long FileSize;
 	CDirectoryEntry Root[16];
 	int Index;
 

@@ -16,6 +16,6 @@
                 .386p
                 .data
 ;                db      100 dup (0)
-		db       98 dup (0)  ;Tune filesize iplslba.bin to 512 bytes
+		db       112 dup (0)  ;Tune filesize iplslba.bin to 512 bytes
 
                 end

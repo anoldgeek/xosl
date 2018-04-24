@@ -20,7 +20,7 @@
 ;     push    ds
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .data
 TextScreenPtr   equ     0b8000000h
@@ -33,20 +33,20 @@ CursorSize      dw      ?
 ScreenBuffer    db      160 * 25 dup (?)
                 .code
 
-                extrn   MemCopy_: near
+                extrn   MemCopy_: far
 
-                public  `W?$ct:CTextScreen$n(i)_`
-                public  `W?$dt:CTextScreen$n()_`
+                public  `W?$ct:CTextScreen$f(i)_`
+                public  `W?$dt:CTextScreen$f()_`
 
-                public  `W?PutStr$:CTextScreen$n(iipfxai)v`
-                public  `W?PutChar$:CTextScreen$n(iiii)v`
-                public  `W?FillX$:CTextScreen$n(iiiii)v`
-                public  `W?FillY$:CTextScreen$n(iiiii)v`
-                public  `W?PutImage$:CTextScreen$n(iiiipfus)v`
-                public  `W?GetImage$:CTextScreen$n(iiiipfus)v`
+                public  `W?PutStr$:CTextScreen$f(iipfxai)v`
+                public  `W?PutChar$:CTextScreen$f(iiii)v`
+                public  `W?FillX$:CTextScreen$f(iiiii)v`
+                public  `W?FillY$:CTextScreen$f(iiiii)v`
+                public  `W?PutImage$:CTextScreen$f(iiiipfus)v`
+                public  `W?GetImage$:CTextScreen$f(iiiipfus)v`
 
 ;CTextScreen(int Attr)
-`W?$ct:CTextScreen$n(i)_`   proc    c,
+`W?$ct:CTextScreen$f(i)_`   proc    c,
                 @@this: dword, @@Attr: word
 
                 push    di
@@ -81,10 +81,10 @@ ScreenBuffer    db      160 * 25 dup (?)
 
                 pop     di
                 ret
-`W?$ct:CTextScreen$n(i)_` endp                
+`W?$ct:CTextScreen$f(i)_` endp                
 
 ;~ClearScreen()
-`W?$dt:CTextScreen$n()_`   proc    c
+`W?$dt:CTextScreen$f()_`   proc    c
 
                 ;restore text screen
                 push    160 * 25
@@ -106,10 +106,10 @@ ScreenBuffer    db      160 * 25 dup (?)
                 int     10h
 
                 ret
-`W?$dt:CTextScreen$n()_`  endp
+`W?$dt:CTextScreen$f()_`  endp
 
 ;void CTextScreen::PutStr(int X, int Y, const char *Str, int Attr);
-`W?PutStr$:CTextScreen$n(iipfxai)v` proc    c,
+`W?PutStr$:CTextScreen$f(iipfxai)v` proc    c,
                 @@this: dword, @@X: word, @@Y: word, @@Str: dword, @@Attr: word
 
                 push    si
@@ -134,10 +134,10 @@ PSXYGetChar:    lodsb
                 pop     di
                 pop     si
                 ret
-`W?PutStr$:CTextScreen$n(iipfxai)v` endp
+`W?PutStr$:CTextScreen$f(iipfxai)v` endp
 
 ;void CTextScreen::PutChar(int X, int Y, int Ch, int Attr);
-`W?PutChar$:CTextScreen$n(iiii)v` proc c,
+`W?PutChar$:CTextScreen$f(iiii)v` proc c,
                 @@this: dword, @@X: word, @@Y: word,
                 @@Ch: word, @@Attr: word
 
@@ -150,10 +150,10 @@ PSXYGetChar:    lodsb
                 or      ax,@@Attr
                 mov     es:[bx],ax
                 ret
-`W?PutChar$:CTextScreen$n(iiii)v` endp
+`W?PutChar$:CTextScreen$f(iiii)v` endp
 
 ;void CTextScreen::FillX(int X, int Y, int Ch, int Attr, int Count);
-`W?FillX$:CTextScreen$n(iiiii)v` proc  c,
+`W?FillX$:CTextScreen$f(iiiii)v` proc  c,
                 @@this: dword, @@X: word, @@Y: word,
                 @@Ch: word, @@Attr: word, @@Count: word
 
@@ -173,10 +173,10 @@ PSXYGetChar:    lodsb
 
                 pop     di
                 ret
-`W?FillX$:CTextScreen$n(iiiii)v` endp
+`W?FillX$:CTextScreen$f(iiiii)v` endp
 
 ;void FillY(int X, int Y, int Ch, int Attr, int Count);
-`W?FillY$:CTextScreen$n(iiiii)v` proc  c,
+`W?FillY$:CTextScreen$f(iiiii)v` proc  c,
                 @@this: dword, @@X: word, @@Y: word,
                 @@Ch: word, @@Attr: word, @@Count: word
 
@@ -197,10 +197,10 @@ FYDrawChar:     mov     es:[bx],ax
 
 FYTestEnd:      loop    FYDrawChar
                 ret
-`W?FillY$:CTextScreen$n(iiiii)v` endp
+`W?FillY$:CTextScreen$f(iiiii)v` endp
 
 ;void PutImage(int X, int Y, int Width, int Height, unsigned short *Image);
-`W?PutImage$:CTextScreen$n(iiiipfus)v` proc c,
+`W?PutImage$:CTextScreen$f(iiiipfus)v` proc c,
                 @@this: dword, @@X: word, @@Y: word,
                 @@Width: word, @@Height: word, @@Image: dword
 
@@ -231,11 +231,11 @@ PITestEnd:      dec     @@Height
                 pop     di
                 pop     si
                 ret
-`W?PutImage$:CTextScreen$n(iiiipfus)v` endp
+`W?PutImage$:CTextScreen$f(iiiipfus)v` endp
 
 
 ;void GetImage(int X, int Y, int Width, int Height, unsigned short *Image);
-`W?GetImage$:CTextScreen$n(iiiipfus)v` proc c,
+`W?GetImage$:CTextScreen$f(iiiipfus)v` proc c,
                 @@this: dword, @@X: word, @@Y: word,
                 @@Width: word, @@Height: word, @@Image: dword
 
@@ -267,5 +267,5 @@ GITestEnd:      dec     @@Height
                 pop     di
                 pop     si
                 ret
-`W?GetImage$:CTextScreen$n(iiiipfus)v` endp
+`W?GetImage$:CTextScreen$f(iiiipfus)v` endp
                 end

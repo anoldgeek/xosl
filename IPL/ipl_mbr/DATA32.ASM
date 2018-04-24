@@ -31,7 +31,7 @@
                 public  FATStart, DataStart
                 public  RootCluster
 
-                db      1 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+                db      3 dup (0)	;Tune filesize ipl06.bin to 440 bytes
 
 LoaderName      db      'XOSLLOADXCF'
 

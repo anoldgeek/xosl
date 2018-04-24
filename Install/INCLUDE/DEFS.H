@@ -25,7 +25,7 @@
 
 #ifndef __DEFS__
 #define __DEFS__
-
+/*
 #if !defined(__COMPACT__)
 #	if defined(__TINY__)
 #		error tiny memory model not supported, use compact memory model.
@@ -39,6 +39,23 @@
 #		error huge memory model not supported, use compact memory model.
 #	endif
 #endif
+*/
+
+#if !defined(__LARGE__)
+#	if defined(__TINY__)
+#		error tiny memory model not supported, use large memory model.
+#	elif defined(__SMALL__)
+#		error small memory model not supported, use large memory model.
+#	elif defined(__MEDIUM__)
+#		error medium memory model not supported, use large memory model.
+#	elif defined(__COMPACT__)
+#		error large memory model not supported, use large memory model.
+#	elif defined(__HUGE__)
+#		error huge memory model not supported, use large memory model.
+#	endif
+#endif
+
+
 
 #ifndef NULL
 #	define NULL 0L

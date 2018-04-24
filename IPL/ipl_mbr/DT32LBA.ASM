@@ -41,7 +41,7 @@ SectorCount     dw      0
 TransferBuffer  dd      0
 Sector          dq      0
 
-                db      5 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
+                db      7 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
 
 ClusterSectSize dw      0008h
 ClusterByteSize dw      1000h

@@ -13,13 +13,13 @@
 ; - Use Open Watcom Name Mangling
 ;
 
-                .model  compact
+                .model  large
                 .386p
                 .code
-                public  `W?Ps2Initialize$:CMouse$n(i)i`
+                public  `W?Ps2Initialize$:CMouse$f(i)i`
 
 ;int CMouse::PS2Initialize(int PackSize);
-`W?Ps2Initialize$:CMouse$n(i)i` proc c,
+`W?Ps2Initialize$:CMouse$f(i)i` proc c,
                 @@PackSize: word
 
                 mov     ax,0c205h
@@ -35,7 +35,7 @@
 PS2IErr:        mov     ah,1
 PS2IEnd:        shr     ax,8
                 ret
-`W?Ps2Initialize$:CMouse$n(i)i` endp
+`W?Ps2Initialize$:CMouse$f(i)i` endp
 
                 end
 

@@ -1,0 +1,4 @@
+//#line "diskconv.cpp" 26
+extern void DiskMap( int DriveToUse, unsigned long StartSectorToUse);
+//#line "diskconv.cpp" 33
+extern void DiskRead( unsigned long Sector, void __far * Buffer, int Count);

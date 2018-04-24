@@ -1,9 +1,0 @@
-..\..\include\fat32.h(99): Warning! W849: col(1) base class virtual function has not been overridden
-..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
-..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\items.h(18)
-..\..\include\fat32.h(99): Note! N393: col(1) included from .\loader.h(16)
-..\..\include\fat32.h(99): Note! N393: col(1) included from .\xoslapp.h(31)
-..\..\include\fat32.h(99): Note! N393: col(1) included from xoslmain.cpp(11)
-..\..\include\fat32.h(99): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
-..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void * )'
-..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
