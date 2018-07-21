@@ -32,7 +32,17 @@
                 extrn   _PrintA20Status: far
 
 
-		.startup
+;		.startup
+		mov	dx,DGROUP
+		mov	ds,dx
+;		mov	dx,STACK
+;		mov	ax,1000;
+;		add	ax,dx
+		mov	ss,dx
+		mov	ax,0fffeh
+		mov	sp,ax
+		mov	bp,ax
+
 		call 	_EnableA20
                 push    dx
                 call    _PrintA20Status

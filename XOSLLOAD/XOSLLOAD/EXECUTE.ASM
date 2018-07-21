@@ -1,35 +1,61 @@
-                .model  compact
+;
+; Extended Operating System Loader (XOSL)
+; Copyright (c) 1999 by Geurt Vos
+;
+; This code is distributed under GNU General Public License (GPL)
+;
+; The full text of the license can be found in the GPL.TXT file,
+; or at http://www.gnu.org
+;
+; Open Watcom Migration
+; Copyright (c) 2018 by Norman Back:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+
+		.model  compact
                 .386p
                 .code
 ;                public  _Execute
-		public  `W?Execute$f(ususususus)v`
+		public  `W?Execute$n(ususususus)v`
 
 ;void Execute(unsigned short StartSeg, unsigned short ReloSS,
 ;             unsigned short ExeSP, unsigned short ReloCS,
 ;             unsigned short ExeIP);
 
 ;_Execute        proc    c
-`W?Execute$f(ususususus)v` proc c,
-                @@StartSeg: word, @@ReloSS: word,
-                @@ExeSP: word, @@ReloCS: word,
+;                @@StartSeg: word, @@ReloSS: word,
+;                @@ExeSP: word, @@ReloCS: word,
+;                @@ExeIP: word
+; Watcom calling convention.
+;	ax		dx		bx		cx
+;	@@StartSeg	@@ReloSS	@@ExeSP		@@ReloCS
+; No need to preserve registers as this does not return
+`W?Execute$n(ususususus)v` proc c,
                 @@ExeIP: word
+;                mov     ax,@@StartSeg	; Already done
+		push	ax	; @@StartSeg
 
-                mov     ax,@@StartSeg
-                sub     ax,0010h
+		sub     ax,0010h
                 mov     ds,ax
                 mov     es,ax
 
-                mov     ax,@@ReloSS
-                add     ax,@@StartSeg
-                mov     bx,@@ExeSP
-                mov     cx,@@ReloCS
-                add     cx,@@StartSeg
+;                mov     ax,@@ReloSS
+		pop	ax	; @@StartSeg
+		push	ax	; @@StartSeg
+
+;                add     ax,@@StartSeg
+		add	ax,dx
+;                mov     bx,@@ExeSP	; Already loaded
+;                mov     cx,@@ReloCS	; Already loaded
+		pop	dx	; @@StartSeg
+;                add     cx,@@StartSeg
+		add	cx,dx
                 mov     dx,@@ExeIP
                 mov     ss,ax
                 mov     sp,bx
                 push    cx
                 push    dx
-                retf
-`W?Execute$f(ususususus)v`  endp
+                retf	2
+`W?Execute$n(ususususus)v`  endp
                 
                 end

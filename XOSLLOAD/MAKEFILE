@@ -12,8 +12,8 @@
 
 #main makefile for xoslload.xcf
 
-LIBPATH=xoslload;mmu;io;string;text;misc
-LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib
+LIBPATH=xoslload;mmu;io;string;text;misc;freemem
+LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib,freemem.lib
           
 
 !ifdef DOS_DEBUG
@@ -21,14 +21,16 @@ MAKE_OPTIONS=-DDOS_DEBUG=1
 !endif
 
 OBJ_FILES=misc\starter.obj,
-LNK_FILE=xoslload.xcf
+LNK_FILE=xoslload.exe
 MAP_FILE=xoslload.map
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=DOS_DEBUG=1
 LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+#LINK_OPTIONS=FORMAT dos com op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !else
 LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+#LINK_OPTIONS=FORMAT dos com op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !endif
 
 LINK=wlink
@@ -40,6 +42,10 @@ DELETE=del
 
 all: xoslload mmu io string text misc .SYMBOLIC
    $(LINK) name $(LNK_FILE) $(LINK_OPTIONS)
+   exe2bin -h -r -l=0x6000 $(LNK_FILE)
+   copy	xoslload.bin xoslload.com
+   copy xoslload.com xoslload.xcf
+
 
 link: .SYMBOLIC
    $(LINK) name $(OBJ_FILES) $(LNK_FILE) $(LINK_OPTIONS)

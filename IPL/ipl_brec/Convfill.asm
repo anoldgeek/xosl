@@ -15,6 +15,6 @@
                 .model  tiny
                 .386p
                 .data
-                db      32 dup (0)	;Tune filesize ipls.bin to 512 bytes
+                db      26 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
 
                 end

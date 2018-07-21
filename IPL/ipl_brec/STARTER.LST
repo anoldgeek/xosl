@@ -1,115 +1,161 @@
-Turbo Assembler	 Version 3.1	    12/03/18 11:57:22	    Page 1
-starter.asm
+Module: C:\XOSLDEV\xosl\ipl\ipl_brec\starter.asm
+GROUP: 'DGROUP' _TEXT,_DATA
 
+Segment: _TEXT WORD USE16 0000015E bytes
+0000    00 00                     add         byte ptr [bx+si],al 
+0002    00 00                     add         byte ptr [bx+si],al 
+0004    00 00                     add         byte ptr [bx+si],al 
+0006    00 00                     add         byte ptr [bx+si],al 
+0008    00 00                     add         byte ptr [bx+si],al 
+000A    00 00                     add         byte ptr [bx+si],al 
+000C    00 00                     add         byte ptr [bx+si],al 
+000E    00 00                     add         byte ptr [bx+si],al 
+0010    00 00                     add         byte ptr [bx+si],al 
+0012    00 00                     add         byte ptr [bx+si],al 
+0014    00 00                     add         byte ptr [bx+si],al 
+0016    00 00                     add         byte ptr [bx+si],al 
+0018    00 00                     add         byte ptr [bx+si],al 
+001A    00 00                     add         byte ptr [bx+si],al 
+001C    00 00                     add         byte ptr [bx+si],al 
+001E    00 00                     add         byte ptr [bx+si],al 
+0020    00 00                     add         byte ptr [bx+si],al 
+0022    00 00                     add         byte ptr [bx+si],al 
+0024    00 00                     add         byte ptr [bx+si],al 
+0026    00 00                     add         byte ptr [bx+si],al 
+0028    00 00                     add         byte ptr [bx+si],al 
+002A    00 00                     add         byte ptr [bx+si],al 
+002C    00 00                     add         byte ptr [bx+si],al 
+002E    00 00                     add         byte ptr [bx+si],al 
+0030    00 00                     add         byte ptr [bx+si],al 
+0032    00 00                     add         byte ptr [bx+si],al 
+0034    00 00                     add         byte ptr [bx+si],al 
+0036    00 00                     add         byte ptr [bx+si],al 
+0038    00 00                     add         byte ptr [bx+si],al 
+003A    00 00                     add         byte ptr [bx+si],al 
+003C    00 00                     add         byte ptr [bx+si],al 
+003E    00 00                     add         byte ptr [bx+si],al 
+0040    00 00                     add         byte ptr [bx+si],al 
+0042    00 00                     add         byte ptr [bx+si],al 
+0044    00 00                     add         byte ptr [bx+si],al 
+0046    00 00                     add         byte ptr [bx+si],al 
+0048    00 00                     add         byte ptr [bx+si],al 
+004A    00 00                     add         byte ptr [bx+si],al 
+004C    00 00                     add         byte ptr [bx+si],al 
+004E    00 00                     add         byte ptr [bx+si],al 
+0050    00 00                     add         byte ptr [bx+si],al 
+0052    00 00                     add         byte ptr [bx+si],al 
+0054    00 00                     add         byte ptr [bx+si],al 
+0056    00 00                     add         byte ptr [bx+si],al 
+0058    00 00                     add         byte ptr [bx+si],al 
+005A    00 00                     add         byte ptr [bx+si],al 
+005C    00 00                     add         byte ptr [bx+si],al 
+005E    00 00                     add         byte ptr [bx+si],al 
+0060    00 00                     add         byte ptr [bx+si],al 
+0062    00 00                     add         byte ptr [bx+si],al 
+0064    00 00                     add         byte ptr [bx+si],al 
+0066    00 00                     add         byte ptr [bx+si],al 
+0068    00 00                     add         byte ptr [bx+si],al 
+006A    00 00                     add         byte ptr [bx+si],al 
+006C    00 00                     add         byte ptr [bx+si],al 
+006E    00 00                     add         byte ptr [bx+si],al 
+0070    00 00                     add         byte ptr [bx+si],al 
+0072    00 00                     add         byte ptr [bx+si],al 
+0074    00 00                     add         byte ptr [bx+si],al 
+0076    00 00                     add         byte ptr [bx+si],al 
+0078    00 00                     add         byte ptr [bx+si],al 
+007A    00 00                     add         byte ptr [bx+si],al 
+007C    00 00                     add         byte ptr [bx+si],al 
+007E    00 00                     add         byte ptr [bx+si],al 
+0080    00 00                     add         byte ptr [bx+si],al 
+0082    00 00                     add         byte ptr [bx+si],al 
+0084    00 00                     add         byte ptr [bx+si],al 
+0086    00 00                     add         byte ptr [bx+si],al 
+0088    00 00                     add         byte ptr [bx+si],al 
+008A    00 00                     add         byte ptr [bx+si],al 
+008C    00 00                     add         byte ptr [bx+si],al 
+008E    00 00                     add         byte ptr [bx+si],al 
+0090    00 00                     add         byte ptr [bx+si],al 
+0092    00 00                     add         byte ptr [bx+si],al 
+0094    00 00                     add         byte ptr [bx+si],al 
+0096    00 00                     add         byte ptr [bx+si],al 
+0098    00 00                     add         byte ptr [bx+si],al 
+009A    00 00                     add         byte ptr [bx+si],al 
+009C    00 00                     add         byte ptr [bx+si],al 
+009E    00 00                     add         byte ptr [bx+si],al 
+00A0    00 00                     add         byte ptr [bx+si],al 
+00A2    00 00                     add         byte ptr [bx+si],al 
+00A4    00 00                     add         byte ptr [bx+si],al 
+00A6    00 00                     add         byte ptr [bx+si],al 
+00A8    00 00                     add         byte ptr [bx+si],al 
+00AA    00 00                     add         byte ptr [bx+si],al 
+00AC    00 00                     add         byte ptr [bx+si],al 
+00AE    00 00                     add         byte ptr [bx+si],al 
+00B0    00 00                     add         byte ptr [bx+si],al 
+00B2    00 00                     add         byte ptr [bx+si],al 
+00B4    00 00                     add         byte ptr [bx+si],al 
+00B6    00 00                     add         byte ptr [bx+si],al 
+00B8    00 00                     add         byte ptr [bx+si],al 
+00BA    00 00                     add         byte ptr [bx+si],al 
+00BC    00 00                     add         byte ptr [bx+si],al 
+00BE    00 00                     add         byte ptr [bx+si],al 
+00C0    00 00                     add         byte ptr [bx+si],al 
+00C2    00 00                     add         byte ptr [bx+si],al 
+00C4    00 00                     add         byte ptr [bx+si],al 
+00C6    00 00                     add         byte ptr [bx+si],al 
+00C8    00 00                     add         byte ptr [bx+si],al 
+00CA    00 00                     add         byte ptr [bx+si],al 
+00CC    00 00                     add         byte ptr [bx+si],al 
+00CE    00 00                     add         byte ptr [bx+si],al 
+00D0    00 00                     add         byte ptr [bx+si],al 
+00D2    00 00                     add         byte ptr [bx+si],al 
+00D4    00 00                     add         byte ptr [bx+si],al 
+00D6    00 00                     add         byte ptr [bx+si],al 
+00D8    00 00                     add         byte ptr [bx+si],al 
+00DA    00 00                     add         byte ptr [bx+si],al 
+00DC    00 00                     add         byte ptr [bx+si],al 
+00DE    00 00                     add         byte ptr [bx+si],al 
+00E0    00 00                     add         byte ptr [bx+si],al 
+00E2    00 00                     add         byte ptr [bx+si],al 
+00E4    00 00                     add         byte ptr [bx+si],al 
+00E6    00 00                     add         byte ptr [bx+si],al 
+00E8    00 00                     add         byte ptr [bx+si],al 
+00EA    00 00                     add         byte ptr [bx+si],al 
+00EC    00 00                     add         byte ptr [bx+si],al 
+00EE    00 00                     add         byte ptr [bx+si],al 
+00F0    00 00                     add         byte ptr [bx+si],al 
+00F2    00 00                     add         byte ptr [bx+si],al 
+00F4    00 00                     add         byte ptr [bx+si],al 
+00F6    00 00                     add         byte ptr [bx+si],al 
+00F8    00 00                     add         byte ptr [bx+si],al 
+00FA    00 00                     add         byte ptr [bx+si],al 
+00FC    00 00                     add         byte ptr [bx+si],al 
+00FE    00 00                     add         byte ptr [bx+si],al 
+0100    EB 3C                     jmp         L$1 
+0102    90                        nop         
+0103    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0113    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0123    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0133    00 00 00 00 00 00 00 00 00 00 00                ...........
+013E                          L$1:
+013E    EA 43 01 B0 07                                  .C...
+0143    8C C8                     mov         ax,cs 
+0145    8E D8                     mov         ds,ax 
+0147    8E D0                     mov         ss,ax 
+0149    BC FE FF                  mov         sp,0xfffe 
+014C    E8 00 00                  call        _mymain 
+014F    B8 00 80                  mov         ax,0x8000 
+0152    8E D8                     mov         ds,ax 
+0154    8E D0                     mov         ss,ax 
+0156    BC FE FF                  mov         sp,0xfffe 
+0159    EA 00 01 00 80                                  .....
 
+Routine Size: 350 bytes,    Routine Base: _TEXT + 0000
 
-      1					 ;
-      2					 ; Extended Operating System Loader (XOSL)
-      3					 ; Copyright (c) 1999 by Geurt Vos
-      4					 ;
-      5					 ; This	code is	distributed under GNU General Public License (GPL)
-      6					 ;
-      7					 ; The full text of the	license	can be found in	the GPL.TXT file,
-      8					 ; or at http://www.gnu.org
-      9					 ;
-     10
-     11					 ;/*
-     12					 ; * File  : MAIN.ASM
-     13					 ; * Author: Geurt Vos
-     14					 ; * Date  : March 1999
-     15					 ; *
-     16					 ; * Main routine for either FAT IPL
-     17					 ; */
-     18
-     19	    0000					 .model	 tiny
-     20							 .386p
-     21	    0000					 .data
-     22		  =80000100		 LOADERADDR	 equ	 80000100h
-     23		  =8000			 LOADERSEG	 equ	 8000h
-     24
-     25	    0000					 .code
-     26							 extrn	 _main:	near
-     27
-     28							 .startup
-1    29						 ORG	 100h
-1    30	    0100			 @Startup:
-     31	    0100  EB 3C					 jmp	 LoaderStart
-     32	    0102  90					 nop
-     33
-     34	    0103  3B*(??)		 FatBootRec	 db	 59 dup	(?)
-     35
-     36	    013E			 LoaderStart:
-     37					 ;		 nop			 ;need to move code two	bytes, so
-     38					 ;		  nop			  ;it can be alligned on xxxx:0100h
-     39					 ;0000:7c40:
-     40					 ;0000:7c3e:
-     41					 ;		 db	 0eah		 ;jmp 07b4:0145
-     42					 ;		 dd	 07b00145h
-     43	    013E  EA					 db	 0eah		 ;jmp 07b4:0143
-     44	    013F  07B00143				 dd	 07b00143h
-     45
-     46					 ;07b4:0145:
-     47					 ;07b4:0143:
-     48	    0143  8C C8					 mov	 ax,cs
-     49	    0145  8E D8					 mov	 ds,ax
-     50	    0147  8E D0					 mov	 ss,ax
-     51	    0149  BC FFFE				 mov	 sp,0fffeh
-     52
-     53
-     54	    014C  E8 0000e				 call	 _main
-     55
-     56
-     57	    014F			 RunLoader:
-Turbo Assembler	 Version 3.1	    12/03/18 11:57:22	    Page 2
-starter.asm
+No disassembly errors
 
+Segment: _DATA WORD USE16 00000000 bytes
 
+List of public symbols
 
-     58	    014F  B8 8000				 mov	 ax,LOADERSEG
-     59	    0152  8E D8					 mov	 ds,ax
-     60	    0154  8E D0					 mov	 ss,ax
-     61	    0156  BC FFFE				 mov	 sp,0fffeh
-     62
-     63	    0159  EA					 db	 0eah		 ;execute com file
-     64	    015A  80000100				 dd	 LOADERADDR
-     65
-     66							 end
-1    67						 END @Startup
-Turbo Assembler	 Version 3.1	    12/03/18 11:57:22	    Page 3
-Symbol Table
-
-
-
-
-Symbol Name			  Type	 Value
-
-??DATE				  Text	 "12/03/18"
-??FILENAME			  Text	 "starter "
-??TIME				  Text	 "11:57:22"
-??VERSION			  Number 030A
-@32BIT				  Text	 0
-@CODE				  Text	 DGROUP
-@CODESIZE			  Text	 0
-@CPU				  Text	 0F8FH
-@CURSEG				  Text	 _TEXT
-@DATA				  Text	 DGROUP
-@DATASIZE			  Text	 0
-@FILENAME			  Text	 STARTER
-@INTERFACE			  Text	 00H
-@MODEL				  Text	 1
-@STACK				  Text	 DGROUP
-@STARTUP			  Near	 DGROUP:0100
-@WORDSIZE			  Text	 2
-FATBOOTREC			  Byte	 DGROUP:0103
-LOADERADDR			  Number 80000100
-LOADERSEG			  Number 8000
-LOADERSTART			  Near	 DGROUP:013E
-RUNLOADER			  Near	 DGROUP:014F
-_MAIN (_main)			  Near	 DGROUP:---- Extern
-
-Groups & Segments		  Bit Size Align  Combine Class
-
-DGROUP				  Group
-  _DATA				  16  0000 Word	  Public  DATA
-  _TEXT				  16  015E Word	  Public  CODE
-
+SYMBOL			SECTION			OFFSET
+--------------------------------------------------------

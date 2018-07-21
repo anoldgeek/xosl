@@ -24,13 +24,16 @@
 
 #include <Bypass.h>
 #include <xoslver.h>
+#include <alloc.h>
 
 /**/
 
 
 
-#define Ipl ( (TFat16Ipl *)0x00007c00 )
-#define BootRecord ( (TBootFAT16 *)0x00007c00 )
+//#define Ipl ( (TFat16Ipl *)0x00007c00 )
+//#define BootRecord ( (TBootFAT16 *)0x00007c00 )
+#define Ipl ( (TFat16Ipl far*)BrecLoadAddr )
+#define BootRecord ( (TBootFAT16 far*)BrecLoadAddr )
 
 
 typedef struct {
@@ -40,7 +43,8 @@ typedef struct {
 } TMountPart;
 
 // address where XOSL expects to find which partition it is located on.
-#define XoslMountPart ( *(TMountPart *)0x00007c00 )
+//#define XoslMountPart ( *(TMountPart *)0x00007c00 )
+#define XoslMountPart ( *(TMountPart far*)BrecLoadAddr )
 
 // location to load the XOSL image files
 #define IMAGE_DESTADDR 0x20000000
@@ -65,12 +69,36 @@ static void *LoadImage(CFileSystem *FileSystem);
 static void HandleRelocate(const void *ImageData);
 static void CriticalError(const char *Msg);
 
-static char HeaderData[32768];
+//static char HeaderData[32768];
 
-void CPPMain()
+//static char far *HeaderData = (char far *)0x80008000;
+static char far *HeaderData;
+static char far *BrecLoadAddr;
+
+void CPPMain(char far* Caller)
 {
+
+	unsigned long mmu_addr;
+	BrecLoadAddr = Caller;
+	
+	// Calculate the first seg above the top of stack
+	// for the MMU
+	_asm{
+		mov	dx,ss
+		add	dx,1000h
+		xor ax,ax
+		mov	word ptr mmu_addr,ax
+		mov word ptr mmu_addr+02,dx
+	}
+
+	AllocInit(mmu_addr);
+
+
 	CFileSystem *FileSystem;
 	void *ImageData;
+
+	HeaderData = new char[0x8000];
+
 	TExeHeader *ExeHeader = (TExeHeader *)&HeaderData[2];
 
 	PutS("\r\nExtended Operating System Loader "XOSL_VERSION"\r\n\n");

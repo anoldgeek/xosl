@@ -1,2 +1,2 @@
-main.cpp(198): Warning! W391: col(23) assignment found in boolean expression
-main.cpp(208): Warning! W391: col(23) assignment found in boolean expression
+main.cpp(226): Warning! W391: col(23) assignment found in boolean expression
+main.cpp(236): Warning! W391: col(23) assignment found in boolean expression

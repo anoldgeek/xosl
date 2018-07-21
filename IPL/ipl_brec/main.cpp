@@ -77,7 +77,8 @@ void mymain();
 
 void mymain()
 {
-	CBootRecord *BootRecord = (CBootRecord *)0x00007c00;
+//	CBootRecord *BootRecord = (CBootRecord *)0x00007c00;
+	CBootRecord *BootRecord = (CBootRecord *)0x0100;
 	DiskMap(BootRecord->Drive,BootRecord->HiddenSectors);
 	LoadXoslLoad();
 }
@@ -106,7 +107,7 @@ void LoadXoslLoad()
 			// DiskRead(XoslLoadSector,(void *)0x80000100,16);
 
 			// Read file size / 512  +1 ( sector size >> 9 )
-			DiskRead(XoslLoadSector,(void *)0x80000100, (Root[Index].FileSize >> 9) + 1 );
+			DiskRead(XoslLoadSector,(void *)0x60000000, (Root[Index].FileSize >> 9) + 1 );
 			return;
 		}
 	}

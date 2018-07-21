@@ -26,9 +26,9 @@
                 push    si
                 push    ds
 
-                mov     ah,42h
                 mov     dx,@@Drive
                 lds     si,@@LBAPacket
+                mov     ah,42h
                 int     13h
 
                 pop     ds

@@ -1,6 +1,6 @@
-//#line "main.cpp" 70
-extern void CPPMain( void );
-//#line "main.cpp" 191
+//#line "main.cpp" 78
+extern void CPPMain( char * Caller);
+//#line "main.cpp" 219
 extern char * strcat( char * to, char const * from);
-//#line "main.cpp" 203
+//#line "main.cpp" 231
 extern char * strcpy( char * to, char const * from);

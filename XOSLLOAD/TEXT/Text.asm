@@ -7,18 +7,31 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2018 by Norman Back:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
+;
 ;PutS( char const far * )
                 .model  compact
                 .386p
                 .code
-                public  `W?PutS$f(pfxa)v`, `W?GetCh$f()i`, `W?PutCh$f(i)v`
+                public  `W?PutS$n(pfxa)v`, `W?GetCh$n()i`, `W?PutCh$n(i)v`
 
 ;void PutS(char *Str);
-`W?PutS$f(pfxa)v` proc    
-                push    bp
-                mov     bp,sp
+;		@@str: dword
+; Watcom calling convention.
+;	ax,dx	bx,cx
+;	@@str
+`W?PutS$n(pfxa)v` proc c
                 push    si
-                les     si,[bp + 4]
+		push	es
+		push	bx
+ ;               les     si,@@str
+		mov	es,dx
+		mov	si,ax
+
                 cld
                 jmp     PSLods
 
@@ -28,29 +41,32 @@ Teletype:       mov     ah,0eh
 PSLods:         lods    es:byte ptr [si]
                 or      al,al
                 jnz     Teletype
-                pop     si
-                pop     bp
+		pop	bx
+		pop	es
+		pop	si
                 ret
-`W?PutS$f(pfxa)v` endp
+`W?PutS$n(pfxa)v` endp
 
 ;void PutCh(int Ch);
-`W?PutCh$f(i)v`   proc    c,
-                @@ch: word
-
+;                @@ch: word
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;	@@ch
+`W?PutCh$n(i)v`   proc    c
                 mov     ah,0eh
-                mov     al,byte ptr @@ch
+;                mov     al,byte ptr @@ch	; Already loaded
                 mov     bx,7
                 int     10h
                 ret
-`W?PutCh$f(i)v` endp
+`W?PutCh$n(i)v` endp
 
 
 
 ;int GetCh(void);
-`W?GetCh$f()i` proc
+`W?GetCh$n()i` proc c
                 xor     ah,ah
                 int     16h
                 ret
-`W?GetCh$f()i` endp
+`W?GetCh$n()i` endp
 
                 end

@@ -29,13 +29,8 @@
 
 #define PhysAddr(lAddr) ( ((long)FP_SEG(lAddr) << 4) + (long)FP_OFS(lAddr) )
 
-/*
-_extern void memset(void *dest, int value, unsigned short count);
-_extern void memcpy(void *dest, const void *src, unsigned short size);
-_extern int memcmp(const void *s1, const void *s2, unsigned short count);
-*/
 void memset(void *dest, int value, unsigned short count);
-void memcpy(void *dest, const void *src, unsigned short size);
-int memcmp(const void *s1, const void *s2, unsigned short count);
+void memcpy(void far *dest, const void far *src, unsigned short size);
+int memcmp(const void far *s1, const void far *s2, unsigned short count);
 
 #endif

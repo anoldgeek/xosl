@@ -7,24 +7,30 @@
 ; The full text of the license can be found in the GPL.TXT file,
 ; or at http://www.gnu.org
 ;
+; Open Watcom Migration
+; Copyright (c) 2018 by Norman Back:
+; - Adapt to Open Watcom (version 1.8) WASM syntax
+; - Use Open Watcom Name Mangling
+;
 
                 .model  compact
                 .386p
                 .code
 
-                public  `W?tolower$f(i)i`
+                public  `W?tolower$n(i)i`
 
 ;int tolower(int ch);
-`W?tolower$f(i)i`     proc    c,
-                @@ch: word
-
-                mov     ax,@@ch
+; Watcom calling convention.
+;	ax	dx	bx,cx
+;       @@ch: word
+`W?tolower$n(i)i`     proc    c
+                ;mov     ax,@@ch	; Already loaded
                 cmp     ax,'A'
                 jb      TLExit
                 cmp     ax,'Z'
                 ja      TLExit
                 or      ax,20h
 TLExit:         ret
-`W?tolower$f(i)i` endp
+`W?tolower$n(i)i` endp
 
                 end

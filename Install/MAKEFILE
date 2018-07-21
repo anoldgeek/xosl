@@ -24,7 +24,8 @@ MAP_FILE=install.map
 MAKE_OPTIONS=DOS_DEBUG=1
 LINK_OPTIONS=d all SYS dos op m op maxe=25 op q op symf libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
 !else
-LINK_OPTIONS=d all SYS dos op m op maxe=25 op q op symf libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
+#LINK_OPTIONS=d all SYS dos op m op maxe=25 op q op symf libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
+LINK_OPTIONS=debug dwarf  SYS dos op m op maxe=25 op symf op stack=4096 libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
 !endif
 
 LINK=wlink

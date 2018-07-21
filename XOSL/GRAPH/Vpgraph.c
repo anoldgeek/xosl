@@ -30,6 +30,7 @@
 
 #include <vpgraph.h>
 
+
 //Clip is absolute
 long ClipLeft, ClipTop;
 long ClipWidth, ClipHeight;

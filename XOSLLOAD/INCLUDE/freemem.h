@@ -8,14 +8,9 @@
  * or at http://www.gnu.org
  */
 
-#ifndef __text__
-#define __text__
+#ifndef __freemem__
+#define __freemem__
 
-#include <defs.h>
-
-void PutS(const char *Str);
-void PutCh(int Ch);
-int GetCh(void);
-
+unsigned long far FreeMemStart(void);
 
 #endif

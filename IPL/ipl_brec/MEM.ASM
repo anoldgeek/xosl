@@ -32,10 +32,12 @@
                 push    di 
                 push    ds
 
-                xor     ax,ax
                 les     di,@@Mem1
+
                 lds     si,@@Mem2
+
                 mov     cx,@@ByteCount
+                xor     ax,ax
                 cld
 		; replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 ; rep     cmpsb

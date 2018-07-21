@@ -46,7 +46,7 @@
 #endif
 
 #ifndef true
-#define true FALSE
+#define true TRUE
 #endif
 
 

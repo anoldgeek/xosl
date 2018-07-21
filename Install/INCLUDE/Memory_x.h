@@ -23,9 +23,9 @@
 
 extern "C" {
 
-void MemSet(void *dest, int value, unsigned short count);
-void MemCopy(void *dest, const void *src, unsigned short size);
-int MemCompare(const void *s1, const void *s2, unsigned short count);
+void __cdecl MemSet(void *dest, int value, unsigned short count);
+void __cdecl MemCopy(void *dest, const void *src, unsigned short size);
+int __cdecl MemCompare(const void *s1, const void *s2, unsigned short count);
 
 }
 

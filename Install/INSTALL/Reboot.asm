@@ -75,7 +75,7 @@
 			jnz countWaiting
 			pop cx
 			loop countBar
-			ret
+			retn
 
 		getTicks:	; get low word of timer tick count into AX
 			push ds
@@ -83,7 +83,7 @@
 			mov ds,ax
 			mov ax,[ds:46ch]
 			pop ds
-			ret
+			retn
 			
 		bootpt	dw 0,0ffffh	; boot entry point is FFFF:0000
 	

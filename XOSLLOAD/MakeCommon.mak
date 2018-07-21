@@ -12,8 +12,8 @@
 
 INCPATH=..\include;.;..\..\include
 
-CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -v -i$(INCPATH)
-C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -ntFARCODE -3 -bt=dos -fo=.obj -mc -i$(INCPATH)
+CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i$(INCPATH)
+C_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -i$(INCPATH)
 ASM_OPTIONS=-mc -d1 -w4 -e25 -zq
 LIB_OPTIONS=-b -c -m -n -q -p=512 -l=$(LIST_FILE)
 

@@ -28,8 +28,8 @@
                 .model  tiny
                 .386p
                 .data
-LOADERADDR      equ     80000100h
-LOADERSEG       equ     8000h
+LOADERADDR      equ     60000000h	; xoslloader load address
+LOADERSEG       equ     6000h
 
                 .data
                 extrn   LoaderName: near
@@ -65,10 +65,16 @@ start:
                 dd      0f000fff0h      
 
 
-RunLoader:      mov     ax,LOADERSEG
-                mov     ds,ax
-                mov     ss,ax
-                mov     sp,0fffeh
+RunLoader:      
+; Leave XOSL loader to setup ds,ss & sp
+;		mov     ax,LOADERSEG
+;                mov     ds,ax
+;                mov     ss,ax
+;                mov     sp,0fffeh
+
+; Pass mbr segment to xoslload in ax,dx
+		mov	ax,start
+		mov	dx,cs
 
                 db      0eah            ;execute com file
                 dd      LOADERADDR

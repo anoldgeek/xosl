@@ -17,14 +17,14 @@
                 .model  large
                 .386p
                 .code
-	        public	MemCopy_
-		public	MemSet_
-		public	MemCompare_
+	        public	_MemCopy
+		public	_MemSet
+		public	_MemCompare
 
 
 ;void memcpy (void far *dest, void far *src, U16B size);
                 
-MemCopy_        proc    c,
+_MemCopy        proc    c,
                 @@Dest: dword,
                 @@Src: dword,
                 @@Count: word
@@ -45,10 +45,10 @@ MemCpyDone:     pop     ds
                 pop     di
                 pop     si
                 ret
-MemCopy_        endp
+_MemCopy        endp
 
 ;void memset(void far *dest, U8B value, U16B count);
-MemSet_         proc    c,
+_MemSet         proc    c,
                 @@Dest: dword,
                 @@Value: word,
                 @@Count: word
@@ -66,10 +66,10 @@ MemSet_         proc    c,
 
 MemSetDone:     pop     di
                 ret
-MemSet_         endp
+_MemSet         endp
 
 ;int memcmp(const void far *s1, const void far *s2, U16B count); 
-MemCompare_     proc    c,
+_MemCompare     proc    c,
                 @@Ptr1: dword,
                 @@Ptr2: dword,
                 @@Count: word
@@ -89,7 +89,7 @@ MemCompare_     proc    c,
                 pop     di
                 pop     si
                 ret
-MemCompare_		endp
+_MemCompare		endp
 
 
                 end

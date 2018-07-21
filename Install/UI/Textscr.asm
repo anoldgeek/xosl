@@ -33,7 +33,7 @@ CursorSize      dw      ?
 ScreenBuffer    db      160 * 25 dup (?)
                 .code
 
-                extrn   MemCopy_: far
+                extrn   _MemCopy: far
 
                 public  `W?$ct:CTextScreen$f(i)_`
                 public  `W?$dt:CTextScreen$f()_`
@@ -68,7 +68,7 @@ ScreenBuffer    db      160 * 25 dup (?)
                 push    TextScreenPtr
                 push    ds
                 push    offset ScreenBuffer
-                call    MemCopy_
+                call    _MemCopy
                 add     sp,10
 
                 ;clear screen
@@ -91,7 +91,7 @@ ScreenBuffer    db      160 * 25 dup (?)
                 push    ds
                 push    offset ScreenBuffer
                 push    TextScreenPtr
-                call    MemCopy_
+                call    _MemCopy
                 add     sp,10
 
                 ;restore cursor pos

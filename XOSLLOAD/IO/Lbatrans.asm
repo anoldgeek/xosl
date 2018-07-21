@@ -8,7 +8,7 @@
 ; or at http://www.gnu.org
 ;
 ; Open Watcom Migration
-; Copyright (c) 2010 by Mario Looijkens:
+; Copyright (c) 2018 by Norman Back:
 ; - Adapt to Open Watcom (version 1.8) WASM syntax
 ; - Use Open Watcom Name Mangling
 ;
@@ -17,16 +17,22 @@
 		.386p
                 .code
 
-                public  `W?LBAAccessAvail$:CDiskAccess$f(i)i`
-                public  `W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i`
+                public  `W?LBAAccessAvail$:CDiskAccess$n(i)i`
+                public  `W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
-`W?LBAAccessAvail$:CDiskAccess$f(i)i` proc c,
-                @@this: dword, @@Drive: word
+;                @@this: dword, @@Drive: word
+; Watcom calling convention.
+;	ax,dx		bx	cx
+;       @@this: dword, @@Drive: word
 
+`W?LBAAccessAvail$:CDiskAccess$n(i)i` proc c
+		push	bx
+		push	cx
                 mov     ah,41h
+;                mov     dx,@@Drive
+		mov	dx,bx
                 mov     bx,55aah
-                mov     dx,@@Drive
                 int     13h
                 jc      NoLBA
                 cmp     bx,0aa55h
@@ -37,28 +43,38 @@
                 jmp     LBA_AAEnd
 
 NoLBA:          mov     ax,-1
-LBA_AAEnd:      ret
-`W?LBAAccessAvail$:CDiskAccess$f(i)i` endp
+LBA_AAEnd:	pop	cx
+		pop	bx
+		ret
+`W?LBAAccessAvail$:CDiskAccess$n(i)i` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
-`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` proc c,
-                @@this: dword, @@Action: word,
-                @@Drive: word, @@LBAPacket: dword
+;                @@this: dword, @@Action: word,
+;		@@Drive: word, @@LBAPacket: dword
+; Watcom calling convention.
+;	ax,dx		bx		cx
+;	@@this		@@action	@@drive
+`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` proc c,
+		@@LBAPacket: dword
 
                 push    si
 		push	ds
 
-                mov     ax,@@Action
+;                mov     ax,@@Action
+		mov	ax,bx
+
                 or      ax,4000h
-                mov     dx,@@Drive
+;                mov     dx,@@Drive
+		mov	dx,cx
+
                 lds     si,@@LBAPacket
                 int     13h
                 sbb     ax,ax
 
                 pop     ds
 		pop	si
-                ret
-`W?LBATransfer$:CDiskAccess$f(iirfx$__3b5thaTLBAPacket$$)i` endp
+                ret 2
+`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` endp
 
 
 

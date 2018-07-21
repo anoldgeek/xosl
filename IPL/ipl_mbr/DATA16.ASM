@@ -31,7 +31,8 @@
                 public  ClusterByteSize, FATStart
                 public  DirStart, DataStart
 
-                db      15 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+;                db      15 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+                db      19 dup (0)	;Tune filesize ipl06.bin to 440 bytes
 LoaderName      db      'XOSLLOADXCF'
 
 DiskSectors     dd      63

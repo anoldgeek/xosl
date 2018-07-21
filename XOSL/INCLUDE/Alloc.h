@@ -12,5 +12,6 @@
 #define __alloc__
 
 unsigned long CoreLeft();
+void AllocInit(unsigned long mmu_start_addr);
 
 #endif

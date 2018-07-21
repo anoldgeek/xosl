@@ -8,3 +8,7 @@
 *.BIN
 *.XDF
 *.XXF
+*.def
+*.err
+*.map
+*.sym

@@ -46,15 +46,14 @@ Sector          dw      ?
 ;void ConvRead(unsigned short SectCyl,unsigned short DrvHead,
 ;             void *Buffer, int Count);
 `W?ConvRead$n(ususpfvi)v`      proc c,
-                @@SectCyl: word, @@DrvHead: word,
-                @@Buffer: dword, @@Count: word
+                @@SectCyl: word, @@DrvHead: word, @@Buffer: dword,
+		@@Count: word
 
-                mov     ah,02h
-                mov     al,byte ptr @@Count
                 les     bx,@@Buffer
                 mov     cx,@@SectCyl
                 mov     dx,@@DrvHead
-
+                mov     ah,02h
+                mov     al,byte ptr @@Count
 		int     13h
                 ret
 `W?ConvRead$n(ususpfvi)v` endp
@@ -65,8 +64,8 @@ Sector          dw      ?
 
 		push    di
 
-		mov     ah,8
                 mov     dl,byte ptr @@Drive
+		mov     ah,8
 		int     13h
 
                 and     cl,3fh
@@ -81,12 +80,10 @@ Sector          dw      ?
                 ret
 `W?GetDriveInfo$n(i)v` endp
 
-
 ;void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
-;void near Sector2CHS( long unsigned, short unsigned near &, short unsigned near & )
 `W?Sector2CHS$n(ulrnusrnus)v`   proc c,
-                @@RSector: dword,
-                @@SectCyl: dword, @@DrvHead: dword
+                @@RSector: dword, 
+		@@SectCyl: dword, @@DrvHead: dword
 
                 ;RSector += StartSector
                 mov     eax,@@RSector

@@ -14,5 +14,6 @@
 #include <defs.h>
 
 long CoreLeft();
+void AllocInit(unsigned long mmu_start_addr);
 
 #endif

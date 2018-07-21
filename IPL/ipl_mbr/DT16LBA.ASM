@@ -33,7 +33,8 @@
                 public  LBAPacket, SectorCount
                 public  TransferBuffer, Sector
 
-		db	19 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
+;		db	19 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
+		db	23 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
 LoaderName      db      'XOSLLOADXCF'
 
 ;LBAPacket       equ     this byte

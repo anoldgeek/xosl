@@ -8,10 +8,9 @@
 ; or at http://www.gnu.org
 ;
 ; Open Watcom Migration
-; Copyright (c) 2010 by Mario Looijkens:
+; Copyright (c) 2018 by Norman Back:
 ; - Adapt to Open Watcom (version 1.8) WASM syntax
-; - To correct Error! E004: REP prefix is not allowed on this instruction
-;   replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
+; - Use Open Watcom Name Mangling
 ;
 
                 .model  compact
@@ -19,40 +18,59 @@
                 .code
 
 ;void memcpy (void far *dest, void far *str, U16B size);
-;                public  _memcpy
-		public  `W?memcpy$f(pfvpfxvus)v`
-`W?memcpy$f(pfvpfxvus)v` proc    
-                push    bp
-                mov     bp,sp
+                public  `W?memcpy$n(pfvpfxvus)v`
+
+;		@@dest: dword, @@str: dword, 
+;		@@size: word
+; Watcom calling convention.
+;	ax,dx	bx,cx
+;	@@dest  @@str
+`W?memcpy$n(pfvpfxvus)v`	proc	c,
+		@@size: word
                 push    si
                 push    di
                 push    ds
-                les     di,[bp + 4]
-                lds     si,[bp + 8]
-                mov     cx,[bp + 12]
+		push	cx
+		push	es
+;                les     di,@@dest
+		mov	es,dx
+		mov	di,ax
+
+;                lds     si,@@str
+		mov	ds,cx
+		mov	si,bx
+
+                mov     cx,@@size
                 shr     cx,1
                 cld
                 rep     movsw
                 jnc     MemCpyDone
                 movsb
 
-MemCpyDone:     pop     ds
+MemCpyDone:     pop	es
+		pop	cx
+		pop     ds
                 pop     di
                 pop     si
-                pop     bp
-                ret
-`W?memcpy$f(pfvpfxvus)v` endp
+                ret	2
+`W?memcpy$n(pfvpfxvus)v`	endp
 
-;void memset(void far *dest, U8B value, U16B count);
-                public  _memset
-_memset         proc    
-                push    bp
-                mov     bp,sp
+;void memset(void *dest, int value, unsigned short count);
+                public  `W?memset$n(pnvius)v`
+;		@@dest: dword, @@value: word, @@count: word
+; Watcom calling convention.
+;	ax,dx	bx	 cx
+;	@@dest  @@value @@count		
+`W?memset$n(pnvius)v` proc c
                 push    di
-                les     di,[bp + 4]
-                mov     ax,[bp + 8]
+;                les     di,@@dest
+		mov	es,dx
+		mov	di,ax
+		
+;                mov     ax,@@value
+		mov	ax,bx
                 mov     ah,al
-                mov     cx,[bp + 10]
+;                mov     cx,@@count	; already loaded
                 shr     cx,1
                 cld
                 rep     stosw
@@ -60,32 +78,42 @@ _memset         proc
                 stosb
 
 MemSetDone:     pop     di
-                pop     bp
                 ret
-_memset         endp
+`W?memset$n(pnvius)v` endp
 
-;int memcmp(const void far *s1, const void far *s2, U16B count); 
-;int far memcmp( void const far *, void const far *, short unsigned )
-;                public  _memcmp
-		public `W?memcmp$f(pfxvpfxvus)i`
-`W?memcmp$f(pfxvpfxvus)i` proc c,
-		@@s1: dword, @@s2: dword, @@count: word
+;int memcmp( void const far *, void const far*, short unsigned )
+                public  `W?memcmp$n(pfxvpfxvus)i`
+;		@@s1: dword, @@s2: dword, 
+;		@@count: word
+; Watcom calling convention.
+;	ax,dx	bx,cx
+;	@@s1	@@s2
+`W?memcmp$n(pfxvpfxvus)i` proc c,
+		@@count: word
                 push    si
                 push    di
                 push    ds
+		push	cx
 
-                xor     ax,ax
-                les     di,@@s1
-                lds     si,@@s2
+;                les     di,@@s1
+		mov	es,dx
+		mov	di,ax
+
+;                lds     si,@@s2
+		mov	ds,cx
+		mov	si,bx
+
                 mov     cx,@@count
+                xor     ax,ax
                 cld
                 repz     cmpsb ; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
                 setne   al
+		pop	cx
                 pop     ds
                 pop     di
                 pop     si
-                ret
-`W?memcmp$f(pfxvpfxvus)i` endp
+                ret	2
+`W?memcmp$n(pfxvpfxvus)i` endp
 
 
                 end

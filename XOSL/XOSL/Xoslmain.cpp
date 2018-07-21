@@ -9,16 +9,28 @@
  */
 
 #include <xoslapp.h>
+#include <alloc.h>
 
 void puts(const char *str);
 
-void AllocInit(void);
+//void AllocInit(void);
 
 int main(void)
 {
 	int BootDrive;
+	unsigned long mmu_addr;
 
-	AllocInit();
+	// Calculate the first seg above the top of stack
+	// for the MMU
+	_asm{
+		mov	dx,ss
+		add	dx,1000h
+		xor ax,ax
+		mov	word ptr mmu_addr,ax
+		mov word ptr mmu_addr+02,dx
+	}
+	AllocInit(mmu_addr);
+//	AllocInit(0x60000000);
 
 	CApplication *Application;
 
