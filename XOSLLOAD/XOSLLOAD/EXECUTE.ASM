@@ -16,7 +16,7 @@
                 .386p
                 .code
 ;                public  _Execute
-		public  `W?Execute$n(ususususus)v`
+		public  `W?Execute$N(USUSUSUSUS)V`
 
 ;void Execute(unsigned short StartSeg, unsigned short ReloSS,
 ;             unsigned short ExeSP, unsigned short ReloCS,
@@ -30,7 +30,7 @@
 ;	ax		dx		bx		cx
 ;	@@StartSeg	@@ReloSS	@@ExeSP		@@ReloCS
 ; No need to preserve registers as this does not return
-`W?Execute$n(ususususus)v` proc c,
+`W?Execute$N(USUSUSUSUS)V` proc syscall,
                 @@ExeIP: word
 ;                mov     ax,@@StartSeg	; Already done
 		push	ax	; @@StartSeg
@@ -56,6 +56,6 @@
                 push    cx
                 push    dx
                 retf	2
-`W?Execute$n(ususususus)v`  endp
+`W?Execute$N(USUSUSUSUS)V`  endp
                 
                 end

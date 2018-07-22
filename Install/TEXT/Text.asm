@@ -20,12 +20,12 @@
 		.data?
 LockedData	db	4000 dup (?)		
                 .code
-                public  `W?ClearScreen$f()v`
-                public  `W?LockScreen$f()v`
-                public  `W?UnlockScreen$f()v`
+                public  `W?ClearScreen$F()V`
+                public  `W?LockScreen$F()V`
+                public  `W?UnlockScreen$F()V`
 
 ;void ClearScreen();
-`W?ClearScreen$f()v` proc
+`W?ClearScreen$F()V` proc
 		push	edi
 		
 		mov	ax,0b800h
@@ -44,10 +44,10 @@ LockedData	db	4000 dup (?)
 
 		pop	edi
 		ret
-`W?ClearScreen$f()v`	endp
+`W?ClearScreen$F()V`	endp
 
 
-`W?LockScreen$f()v`  proc
+`W?LockScreen$F()V`  proc
 		push	edi
 		push	esi
 		push	ds
@@ -70,9 +70,9 @@ LockedData	db	4000 dup (?)
 		pop	esi
 		pop	edi
 		ret
-`W?LockScreen$f()v` 	endp
+`W?LockScreen$F()V` 	endp
 
-`W?UnlockScreen$f()v` proc
+`W?UnlockScreen$F()V` proc
 		push	edi
 		push	esi
 		push	ds			;ML save ds
@@ -95,7 +95,7 @@ LockedData	db	4000 dup (?)
 		pop	edi
 		
 		ret
-`W?UnlockScreen$f()v`		endp
+`W?UnlockScreen$F()V`		endp
 
 
                 end

@@ -20,11 +20,11 @@
                 .386p
                 .code
 
-                public  `W?GetVect$f(i)pf()v`       ;ML: is this correct???
-                public  `W?SetVect$f(ipf()v)v`
+                public  `W?GetVect$F(I)PF()V`       ;ML: is this correct???
+                public  `W?SetVect$F(IPF()V)V`
 
 ;void interrupt (*GetVect(int Vect))(void);
-`W?GetVect$f(i)pf()v`  proc    c,
+`W?GetVect$f(i)pf()v`  proc    syscall,
                 @@Vect: word
 
                 xor     ax,ax
@@ -34,10 +34,10 @@
                 mov     ax,es:[bx]
                 mov     dx,es:[bx + 2]
                 ret
-`W?GetVect$f(i)pf()v` endp
+`W?GetVect$F(I)PF()V` endp
 
 ;void interrupt SetVect(int Vect, void interrupt (*Handler)(void));
-`W?SetVect$f(ipf()v)v` proc    c,
+`W?SetVect$F(IPF()V)V` proc    syscall,
                 @@Vect: word, @@Handler: dword
 
                 xor     ax,ax
@@ -49,6 +49,6 @@
                 mov     es:[bx],eax
                 sti
                 ret
-`W?SetVect$f(ipf()v)v` endp
+`W?SetVect$F(IPF()V)V` endp
 
                 end

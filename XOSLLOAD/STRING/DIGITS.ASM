@@ -3,12 +3,12 @@
                 .data
 Digits          db      '0123456789abcdef'
                 .code
-                public  GetDigit_
+                public  `W?GetDigit$N(I)A`
 ;                @@Digit: word
 ; Watcom calling convention.
 ;	ax		dx		bx		cx
 ;	@@Digit
-GetDigit_       proc    c
+`W?GetDigit$N(I)A`      proc    
 		push	bx
                 mov     bx,offset Digits
 ;                add     bx,@@Digit
@@ -16,6 +16,6 @@ GetDigit_       proc    c
                 mov     al,[bx]
 		pop	bx
                 ret
-GetDigit_       endp
+`W?GetDigit$N(I)A` endp
 
                 end

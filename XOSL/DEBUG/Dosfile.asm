@@ -15,12 +15,12 @@
 
                 .model  large
                 .code
-                public `W?DosCreate$f(pfxa)i`
-                public `W?DosClose$f(i)v`
-                public `W?DosWrite$f(ipfxvus)v`
+                public `W?DosCreate$F(PFXA)I`
+                public `W?DosClose$F(I)V`
+                public `W?DosWrite$F(IPFXVUS)V`
 
 ;int DosCreate(const char *FileName)
-`W?DosCreate$f(pfxa)i` proc   c,
+`W?DosCreate$F(PFXA)I` proc   syscall,
                 @@FileName: dword
 
                 push    ds
@@ -30,20 +30,20 @@
                 int     21h
                 pop     ds
                 ret
-`W?DosCreate$f(pfxa)i` endp                
+`W?DosCreate$F(PFXA)I` endp                
 
 ;void DosClose(int FileHandle)
-`W?DosClose$f(i)v` proc    c,
+`W?DosClose$F(I)V` proc    syscall,
                 @@FileHandle: word
 
                 mov     ah,3eh
                 mov     bx,@@FileHandle
                 int     21h
                 ret
-`W?DosClose$f(i)v` endp                
+`W?DosClose$F(I)V` endp                
 
 ;void far DosWrite(int FileHandle, const void *Data, unsigned short Size)
-`W?DosWrite$f(ipfxvus)v` proc  c,
+`W?DosWrite$F(IPFXVUS)V` proc  syscall,
                 @@FileHandle: word, @@Data: dword,
                 @@Size: word
 
@@ -55,11 +55,13 @@
                 int     21h
                 pop     ds
                 ret
-`W?DosWrite$f(ipfxvus)v` endp                
+`W?DosWrite$F(IPFXVUS)V` endp                
 
                 end
 
-		.bss
-		public	_BSS_END
-LABEL _BSS_END		$
-		end bss
+;		.bss
+;		public	_BSS_END
+;LABEL _BSS_END		$
+;		end bss
+;
+;		end

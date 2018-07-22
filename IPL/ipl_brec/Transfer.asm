@@ -20,14 +20,14 @@
 ;                public  Drive
 ;                public  StartSector
 
-                public  `W?Drive$ni`
-                public  `W?StartSector$nul`
+                public  `W?Drive$NI`
+                public  `W?StartSector$NUL`
 
 
 DrvHeadCount    dd      ?
 DrvSectorCount  dd      ?
-`W?Drive$ni`          dw      ?
-`W?StartSector$nul`    dd      ?
+`W?Drive$NI`          dw      ?
+`W?StartSector$NUL`    dd      ?
 
 
 ;'local' vars for Sector2CHS
@@ -39,13 +39,13 @@ Sector          dw      ?
 
                 .code
 
-	       public `W?ConvRead$n(ususpfvi)v`
-	       public `W?GetDriveInfo$n(i)v`
-	       public `W?Sector2CHS$n(ulrnusrnus)v`
+	       public `W?ConvRead$N(USUSPFVI)V`
+	       public `W?GetDriveInfo$N(I)V`
+	       public `W?Sector2CHS$N(ULRNUSRNUS)V`
 
 ;void ConvRead(unsigned short SectCyl,unsigned short DrvHead,
 ;             void *Buffer, int Count);
-`W?ConvRead$n(ususpfvi)v`      proc c,
+`W?ConvRead$N(USUSPFVI)V`      proc syscall,
                 @@SectCyl: word, @@DrvHead: word, @@Buffer: dword,
 		@@Count: word
 
@@ -56,10 +56,10 @@ Sector          dw      ?
                 mov     al,byte ptr @@Count
 		int     13h
                 ret
-`W?ConvRead$n(ususpfvi)v` endp
+`W?ConvRead$N(USUSPFVI)V` endp
 
 ;void GetDriveInfo(int Drive);
-`W?GetDriveInfo$n(i)v`        proc c,
+`W?GetDriveInfo$N(I)V`        proc syscall,
                 @@Drive: word
 
 		push    di
@@ -78,10 +78,10 @@ Sector          dw      ?
 
 		pop     di
                 ret
-`W?GetDriveInfo$n(i)v` endp
+`W?GetDriveInfo$N(I)V` endp
 
 ;void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
-`W?Sector2CHS$n(ulrnusrnus)v`   proc c,
+`W?Sector2CHS$N(ULRNUSRNUS)V`   proc syscall,
                 @@RSector: dword, 
 		@@SectCyl: dword, @@DrvHead: dword
 
@@ -121,6 +121,6 @@ Sector          dw      ?
 
 
                 ret
-`W?Sector2CHS$n(ulrnusrnus)v` endp
+`W?Sector2CHS$N(ULRNUSRNUS)V` endp
 
 		end

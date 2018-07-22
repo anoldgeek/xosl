@@ -17,14 +17,14 @@
                 .model  compact
                 .386p
                 .code
-                public  `W?PutS$n(pfxa)v`, `W?GetCh$n()i`, `W?PutCh$n(i)v`
+                public  `W?PutS$N(PFXA)V`, `W?GetCh$N()I`, `W?PutCh$N(I)V`
 
 ;void PutS(char *Str);
 ;		@@str: dword
 ; Watcom calling convention.
 ;	ax,dx	bx,cx
 ;	@@str
-`W?PutS$n(pfxa)v` proc c
+`W?PutS$N(PFXA)V` proc 
                 push    si
 		push	es
 		push	bx
@@ -45,28 +45,28 @@ PSLods:         lods    es:byte ptr [si]
 		pop	es
 		pop	si
                 ret
-`W?PutS$n(pfxa)v` endp
+`W?PutS$N(PFXA)V` endp
 
 ;void PutCh(int Ch);
 ;                @@ch: word
 ; Watcom calling convention.
 ;	ax  dx	bx,cx
 ;	@@ch
-`W?PutCh$n(i)v`   proc    c
+`W?PutCh$N(I)V`   proc    
                 mov     ah,0eh
 ;                mov     al,byte ptr @@ch	; Already loaded
                 mov     bx,7
                 int     10h
                 ret
-`W?PutCh$n(i)v` endp
+`W?PutCh$N(I)V` endp
 
 
 
 ;int GetCh(void);
-`W?GetCh$n()i` proc c
+`W?GetCh$N()I` proc 
                 xor     ah,ah
                 int     16h
                 ret
-`W?GetCh$n()i` endp
+`W?GetCh$N()I` endp
 
                 end

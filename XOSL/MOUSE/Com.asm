@@ -16,22 +16,22 @@
                 .model  large
                 .386p
                 .data?
-                public  `W?ComPort$fi`
-`W?ComPort$fi`  dw      ?
+                public  `W?ComPort$FI`
+`W?ComPort$FI`  dw      ?
 ByteNo          dw      ?
 MouseData       db      ?,?,?,?
 MouseHandler    dd      ?
                 .data
-                public  `W?MouseInt$fi`
-`W?MouseInt$fi` dw      0
+                public  `W?MouseInt$FI`
+`W?MouseInt$FI` dw      0
                 .code
 
-                public  `W?ComDetect$f(i)i`
-                public  `W?ComInit$f(ipf(sccs)v)v`
-                public  `W?ComIRQMask$f(i)v`
+                public  `W?ComDetect$F(I)I`
+                public  `W?ComInit$F(IPF(SCCS)V)V`
+                public  `W?ComIRQMask$F(I)V`
 
 ;void ComDetect(int Port);
-`W?ComDetect$f(i)i` proc    c,
+`W?ComDetect$F(I)I` proc    syscall,
                 @@Port: word
 
                 mov     dx,@@Port
@@ -63,11 +63,11 @@ _52ed:          mov     al,0ffh
 _52f4:          xor     ah,ah
                 movsx   ax,al
                 ret
-`W?ComDetect$f(i)i` endp
+`W?ComDetect$F(I)I` endp
 
 ;void ComInit(int Port, void (*MouseHandler)());
 ;void __cdecl ComInit(int port, void far __cdecl (*MouseHandler)(short P0, signed char dY, signed char dX, short Status));  //ML
-`W?ComInit$f(ipf(sccs)v)v` proc c,
+`W?ComInit$F(IPF(SCCS)V)V` proc syscall,
                 @@Port: word, @@MouseHandler: dword
 
                 mov     eax,@@MouseHandler
@@ -107,7 +107,7 @@ SI6:            mov     dx,[bp + 6]
 SI7:            mov     dx,[bp + 6]
                 in      al,dx
                 ret
-`W?ComInit$f(ipf(sccs)v)v` endp
+`W?ComInit$F(IPF(SCCS)V)V` endp
 
 TestAndSet      proc    near
                 push    cx
@@ -203,7 +203,7 @@ TO2:            ret
 Timeout         endp
 
 ;void com_irqmask(int enable);
-`W?ComIRQMask$f(i)v` proc    c,
+`W?ComIRQMask$F(I)V` proc    syscall,
                 @@Enable: word
 
                 in      al,21h
@@ -214,18 +214,18 @@ Timeout         endp
 CIMBlock:       or      al,18h
 CIMSetMask:     out     21h,al
                 ret
-`W?ComIRQMask$f(i)v` endp
+`W?ComIRQMask$F(I)V` endp
 
 ;void interupt com_handler(void);
-                public  `W?ComHandler$f()v`
-`W?ComHandler$f()v` proc
+                public  `W?ComHandler$F()V`
+`W?ComHandler$F()V` proc
                 cli
                 pushad
                 push    ds
 		push	es
                 mov     ax,DGROUP
                 mov     ds,ax
-                mov     dx,`W?ComPort$fi`
+                mov     dx,`W?ComPort$FI`
 
                 in      al,dx
                 test    al,40h
@@ -248,7 +248,7 @@ CHDone:
 		pop	ds
                 popad
                 iret
-`W?ComHandler$f()v` endp
+`W?ComHandler$F()V` endp
 
 COMNewData      proc    near
                 xor     ax,ax

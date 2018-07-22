@@ -17,45 +17,67 @@
                 .386p
                 .code
 
-                public  `W?gotoxy$f(ii)v`
-                public  `W?wherexy$f(pfipfi)v`
-                public  `W?puts$f(pfxa)v`
-                public  `W?putch$f(i)v`
+                public  `W?gotoxy$F(II)V`
+                public  `W?wherexy$F(PFIPFI)V`
+                public  `W?puts$F(PFXA)V`
+                public  `W?putch$F(I)V`
 
 ;void gotoxy(int x, int y)
-`W?gotoxy$f(ii)v` proc    c,
-                @@x: word, @@y: word
-
-                mov     dl,byte ptr @@x
-                mov     dh,byte ptr @@y
+;`W?gotoxy$F(II)V` proc c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@x: word, @@y: word
+`W?gotoxy$F(II)V` proc 
+;                mov     dl,byte ptr @@x
+;                mov     dh,byte ptr @@y
+		mov	dh,dl
+		mov	dl,al
                 mov     ah,2
                 xor     bh,bh
                 int     10h
                 ret
-`W?gotoxy$f(ii)v` endp
+`W?gotoxy$F(II)V` endp
 
 ;void wherexy(int *x, int *y)
-`W?wherexy$f(pfipfi)v` proc    c,
-                @@x:  dword, @@y: dword
-
+;`W?wherexy$F(PFIPFI)V` proc    c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@x:  dword, @@y: dword
+`W?wherexy$F(PFIPFI)V` proc  
+		push	es
+		push	bx
+		push	cx
+		push	ax
+		push	dx
                 mov     ah,3
                 xor     bh,bh
                 int     10h
-                les     bx,@@x
+;                les     bx,@@x
+		pop	es	; pushed dx
+		pop	bx	; pushed ax
+
                 movzx   ax,dl
                 mov     es:[bx],ax
-                les     bx,@@y
+;                les     bx,@@y
+		pop	es	; pushed cx
+		pop	bx	; pushed bx
                 mov     al,dh
                 mov     es:[bx],ax
+		pop	es
                 ret
-`W?wherexy$f(pfipfi)v` endp
+`W?wherexy$F(PFIPFI)V` endp
 
 ;void puts(const char *str);
-`W?puts$f(pfxa)v` proc    c,
-                @@str: dword
+;`W?puts$F(PFXA)V` proc    c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@str: dword
+`W?puts$F(PFXA)V` proc    
 
                 push    si
-                les     si,@@str
+;                les     si,@@str
+		mov	es,dx
+		mov	si,ax
                 cld
                 jmp     PSLods
 
@@ -67,17 +89,20 @@ PSLods:         lods    es:byte ptr [si]
                 jnz     Teletype
                 pop     si
                 ret
-`W?puts$f(pfxa)v` endp
+`W?puts$F(PFXA)V` endp
 
 ;void putch(int ch);
-`W?putch$f(i)v` proc    c,
-                @@ch: word
+;`W?putch$F(I)V` proc    c
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@ch: word
+`W?putch$F(I)V` proc    
 
                 mov     ah,0eh
-                mov     al,byte ptr @@ch
+                ;mov     al,byte ptr @@ch ; already loaded
                 mov     bx,7
                 int     10h
                 ret
-`W?putch$f(i)v` endp
+`W?putch$F(I)V` endp
 
                 end

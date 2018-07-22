@@ -18,8 +18,7 @@
                 .386p
 		.code
 
-;                extrn   `W?AllocInit$n(ul)v`: near
-                extrn   `W?CPPMain$n(pfa)v`: near
+                extrn   `W?CPPMain$N(PFA)V`: near
 		
 		org	0h
 

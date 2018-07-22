@@ -17,13 +17,13 @@
                 .386p
                 .code
 
-                public  `W?tolower$n(i)i`
+                public  `W?tolower$N(I)I`
 
 ;int tolower(int ch);
 ; Watcom calling convention.
 ;	ax	dx	bx,cx
 ;       @@ch: word
-`W?tolower$n(i)i`     proc    c
+`W?tolower$N(I)I`     proc    
                 ;mov     ax,@@ch	; Already loaded
                 cmp     ax,'A'
                 jb      TLExit
@@ -31,6 +31,6 @@
                 ja      TLExit
                 or      ax,20h
 TLExit:         ret
-`W?tolower$n(i)i` endp
+`W?tolower$N(I)I` endp
 
                 end

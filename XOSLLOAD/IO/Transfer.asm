@@ -28,39 +28,39 @@ Scratchpad      dd      90008000h
 ;                public  @CDiskAccess@CopyFromScratchpad$qnvi
 ;                public  @CDiskAccess@CopyToScratchpad$qnxvi
 
-                public  `W?$ct:CDiskAccess$n()_`
-                public  `W?$dt:CDiskAccess$n()_`
-                public  `W?DriveCount$:CDiskAccess$n(i)i`
-                public  `W?Transfer$:CDiskAccess$n(iususpfvi)i`
-                public  `W?GetDriveInfo$:CDiskAccess$n(irfirfi)i`
-                public  `W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i`
-                public  `W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i`
+                public  `W?$CT:CDiskAccess$N()_`
+                public  `W?$DT:CDiskAccess$N()_`
+                public  `W?DriveCount$:CDiskAccess$N(I)I`
+                public  `W?Transfer$:CDiskAccess$N(IUSUSPFVI)I`
+                public  `W?GetDriveInfo$:CDiskAccess$N(IRFIRFI)I`
+                public  `W?CopyFromScratchpad$:CDiskAccess$N(PFVI)I`
+                public  `W?CopyToScratchpad$:CDiskAccess$N(PFXVI)I`
 
 
 
 ;CDiskAccess::CDiskAccess()
-`W?$ct:CDiskAccess$n()_` proc
+`W?$CT:CDiskAccess$N()_` proc
                 ret
-`W?$ct:CDiskAccess$n()_` endp
+`W?$CT:CDiskAccess$N()_` endp
 
 ;CDiskAccess::~CDiskAccess()
-`W?$dt:CDiskAccess$n()_` proc
+`W?$DT:CDiskAccess$N()_` proc
                 ret
-`W?$dt:CDiskAccess$n()_` endp
+`W?$DT:CDiskAccess$N()_` endp
 
 ;int CDiskAccess::DriveCount(int Drive)
 ;                @@this: dword, @@Drive: word
 ; Watcom calling convention.
 ;	ax,dx		bx		cx
 ;	@@this		@@drive
-`W?DriveCount$:CDiskAccess$n(i)i` proc c
+`W?DriveCount$:CDiskAccess$N(I)I` proc
 		mov     ah,8
 ;                mov     dl,byte ptr @@Drive
 		mov	dl,bl
 		int     13h
 		movzx   ax,dl
                 ret
-`W?DriveCount$:CDiskAccess$n(i)i` endp
+`W?DriveCount$:CDiskAccess$N(I)I` endp
 
 ;int CDiskAccess::Transfer(int Action, unsigned short SectCyl,
 ;                          unsigned short DrvHead, void *Buffer, int Count);
@@ -69,7 +69,7 @@ Scratchpad      dd      90008000h
 ; Watcom calling convention.
 ;	ax,dx		bx		cx
 ;	@@this		@@action	@@SectCyl
-`W?Transfer$:CDiskAccess$n(iususpfvi)i` proc c,
+`W?Transfer$:CDiskAccess$N(IUSUSPFVI)I` proc syscall,
                 @@DrvHead: word, @@Buffer: dword, @@Count: word
 		push	di
 		push	bx
@@ -125,7 +125,7 @@ FloppyDone:
 		pop     di
 
 TransDone:      ret 8
-`W?Transfer$:CDiskAccess$n(iususpfvi)i` endp
+`W?Transfer$:CDiskAccess$N(IUSUSPFVI)I` endp
 
 ;int CDiskAccess::GetDriveInfo(int Drive, int &Heads, int &Sectors);
 ;                @@this: dword, @@Drive: word,
@@ -134,7 +134,7 @@ TransDone:      ret 8
 ;	ax,dx		bx		cx
 ;	@@this		@@Drive
 
-`W?GetDriveInfo$:CDiskAccess$n(irfirfi)i` proc c,
+`W?GetDriveInfo$:CDiskAccess$N(IRFIRFI)I` proc syscall,
                 @@Heads: dword, @@Sectors: dword
 
 		push    di
@@ -158,7 +158,7 @@ TransDone:      ret 8
 		pop	bx
 		pop     di
                 ret	8
-`W?GetDriveInfo$:CDiskAccess$n(irfirfi)i` endp
+`W?GetDriveInfo$:CDiskAccess$N(IRFIRFI)I` endp
 
 ;void CDiskAccess::CopyFromScratchpad(void *Buffer, int Sectors)
 ;               @@this: dword, @@Buffer: dword, 
@@ -166,7 +166,7 @@ TransDone:      ret 8
 ; Watcom calling convention.
 ;	ax,dx		bx,cx
 ;	@@this		@@Buffer
-`W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i` proc c,
+`W?CopyFromScratchpad$:CDiskAccess$N(PFVI)I` proc syscall,
  		@@Sectors: word
 
                 push    si
@@ -195,7 +195,7 @@ TransDone:      ret 8
 		pop	di
 		pop	si
                 ret	2
-`W?CopyFromScratchpad$:CDiskAccess$n(pfvi)i` endp
+`W?CopyFromScratchpad$:CDiskAccess$N(PFVI)I` endp
 
 ;void CDiskAccess::CopyToScratchpad(void *Buffer, int Sectors)
 ;                @@this: dword, @@Buffer: dword, 
@@ -203,7 +203,7 @@ TransDone:      ret 8
 ; Watcom calling convention.
 ;	ax,dx		bx,cx
 ;	@@this		@@Buffer
-`W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i` proc c,
+`W?CopyToScratchpad$:CDiskAccess$N(PFXVI)I` proc syscall,
  		@@Sectors: word
 
                 push    si
@@ -232,6 +232,6 @@ TransDone:      ret 8
 		pop	di
 		pop	si
                 ret	2
-`W?CopyToScratchpad$:CDiskAccess$n(pfxvi)i` endp
+`W?CopyToScratchpad$:CDiskAccess$N(PFXVI)I` endp
 
 		end

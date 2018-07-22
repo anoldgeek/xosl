@@ -16,6 +16,7 @@
 #ifndef __ctype__
 #define __ctype__
 
-int __cdecl tolower(int ch);
+//int __cdecl tolower(int ch);
+int tolower(int ch);
 
 #endif

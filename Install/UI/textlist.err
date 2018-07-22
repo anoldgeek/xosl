@@ -1,3 +1,0 @@
-textlist.cpp(88): Warning! W737: col(32) implicit conversion of pointers to integral types of same size
-textlist.cpp(88): Note! N630: col(32) source conversion type is 'unsigned char *'
-textlist.cpp(88): Note! N631: col(32) target conversion type is 'char *'

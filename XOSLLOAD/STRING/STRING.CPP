@@ -1,5 +1,6 @@
 
-extern "C" char GetDigit(int Digit);
+//extern "C" char GetDigit(int Digit);
+char GetDigit(int Digit);
 
 char *ltoa(long Value, char *Str, int Base)
 {

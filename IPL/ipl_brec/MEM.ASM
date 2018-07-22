@@ -20,10 +20,10 @@
                 .code
 
                 
-                public  `W?MemCompare$n(pfxvpfxvi)i`
+                public  `W?MemCompare$N(PFXVPFXVI)I`
 
 ;int MemCompare(const void *Mem1, const void *Mem2, int ByteCount)
-`W?MemCompare$n(pfxvpfxvi)i`  proc c,
+`W?MemCompare$N(PFXVPFXVI)I`  proc syscall,
                 @@Mem1: dword, @@Mem2: dword,
                 @@ByteCount: word
 
@@ -47,7 +47,7 @@
                 pop     di
                 pop     si
                 ret
-`W?MemCompare$n(pfxvpfxvi)i` endp
+`W?MemCompare$N(PFXVPFXVI)I` endp
 
 
                 end

@@ -18,60 +18,62 @@
 
                 .code
 
-                public  `W?WaitKeyStrokeDef$:CKeyboard$f()us`
-                public  `W?WaitKeyStrokeEnh$:CKeyboard$f()us`
-                public  `W?StoreKeyStroke$:CKeyboard$f(us)v`
-                public  `W?KeyStrokeAvailDef$:CKeyboard$f()q`
-                public  `W?KeyStrokeAvailEnh$:CKeyboard$f()q`
+                public  `W?WaitKeyStrokeDef$:CKeyboard$F()US`
+                public  `W?WaitKeyStrokeEnh$:CKeyboard$F()US`
+                public  `W?StoreKeyStroke$:CKeyboard$F(US)V`
+                public  `W?KeyStrokeAvailDef$:CKeyboard$F()Q`
+                public  `W?KeyStrokeAvailEnh$:CKeyboard$F()Q`
 
 
 
 
 ;unsigned short CKeyboard::WaitKeyStrokeDef()
-`W?WaitKeyStrokeDef$:CKeyboard$f()us` proc
+`W?WaitKeyStrokeDef$:CKeyboard$F()US` proc
                 xor     ah,ah
                 int     16h
                 ret
-`W?WaitKeyStrokeDef$:CKeyboard$f()us` endp
+`W?WaitKeyStrokeDef$:CKeyboard$F()US` endp
 
-`W?WaitKeyStrokeEnh$:CKeyboard$f()us` proc
+`W?WaitKeyStrokeEnh$:CKeyboard$F()US` proc
 		mov	ah,10h
 		int	16h
 		ret
-`W?WaitKeyStrokeEnh$:CKeyboard$f()us` endp
+`W?WaitKeyStrokeEnh$:CKeyboard$F()US` endp
 
 
 ;void CKeyboard::StoreKeyStroke(unsigned short KeyCode)
-`W?StoreKeyStroke$:CKeyboard$f(us)v` proc c,
-                @@KeyCode: word
-
+; Watcom calling convention.
+;	ax	dx	bx,cx
+`W?StoreKeyStroke$:CKeyboard$F(US)V` proc 
+;                @@KeyCode: word
+;                mov     cx,@@KeyCode
+                mov     cx,ax
                 mov     ah,5
-                mov     cx,@@KeyCode
                 int     16h
                 ret
-`W?StoreKeyStroke$:CKeyboard$f(us)v` endp
+`W?StoreKeyStroke$:CKeyboard$F(US)V` endp
 
 
 ;bool CKeyboard::KeyStrokeAvailDef();
-`W?KeyStrokeAvailDef$:CKeyboard$f()q` proc
+`W?KeyStrokeAvailDef$:CKeyboard$F()Q` proc
                 mov     ah,1
                 int     16h
                 mov     ax,1
                 jnz     KHDEnd
                 dec     ax
 KHDEnd:         ret
-`W?KeyStrokeAvailDef$:CKeyboard$f()q` endp
+`W?KeyStrokeAvailDef$:CKeyboard$F()Q` endp
 
 
 ;bool CKeyboard::KeyStrokeAvailEnh();
-`W?KeyStrokeAvailEnh$:CKeyboard$f()q` proc
+`W?KeyStrokeAvailEnh$:CKeyboard$F()Q` proc
                 mov     ah,11h
                 int     16h
                 mov     ax,1
                 jnz     KHEEnd
                 dec     ax
 KHEEnd:         ret
-`W?KeyStrokeAvailEnh$:CKeyboard$f()q` endp
+`W?KeyStrokeAvailEnh$:CKeyboard$F()Q` endp
 
 
 

@@ -29,10 +29,10 @@
                 .386p
                 .code
 
-                public  `W?Reboot$:CApplication$f()v`
+                public  `W?Reboot$:CApplication$F()V`
 
 ;CApplication::Reboot();
-`W?Reboot$:CApplication$f()v` proc c
+`W?Reboot$:CApplication$F()V` proc 
 
 			mov ah,0dh	; DOS filesystem reset (never fails)
 			int 21h
@@ -87,6 +87,6 @@
 			
 		bootpt	dw 0,0ffffh	; boot entry point is FFFF:0000
 	
-`W?Reboot$:CApplication$f()v` endp
+`W?Reboot$:CApplication$F()V` endp
 
 			end

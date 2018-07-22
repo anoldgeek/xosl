@@ -18,23 +18,23 @@
 
                 .code
 
-                public  `W?GetDriveCount$:CData$f()i`
-                public  `W?GetDosVersion$:CData$f()us`
+                public  `W?GetDriveCount$:CData$F()I`
+                public  `W?GetDosVersion$:CData$F()US`
                 
 ;int CData::GetDriveCount();
-`W?GetDriveCount$:CData$f()i` proc
+`W?GetDriveCount$:CData$F()I` proc
                 mov     ah,52h
                 int     21h
                 movzx   ax,es:byte ptr [bx + 20h]
                 ret
-`W?GetDriveCount$:CData$f()i`  endp
+`W?GetDriveCount$:CData$F()I`  endp
 
 ;unsigned short CData::GetDosVersion();
-`W?GetDosVersion$:CData$f()us` proc
+`W?GetDosVersion$:CData$F()US` proc
                 mov     ah,30h
                 int     21h
                 ret
-`W?GetDosVersion$:CData$f()us` endp
+`W?GetDosVersion$:CData$F()US` endp
 
                 end
                 

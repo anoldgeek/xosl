@@ -18,14 +18,14 @@
                 .code
 
 ;void memcpy (void far *dest, void far *str, U16B size);
-                public  `W?memcpy$n(pfvpfxvus)v`
+                public  `W?memcpy$N(PFVPFXVUS)V`
 
 ;		@@dest: dword, @@str: dword, 
 ;		@@size: word
 ; Watcom calling convention.
 ;	ax,dx	bx,cx
 ;	@@dest  @@str
-`W?memcpy$n(pfvpfxvus)v`	proc	c,
+`W?memcpy$N(PFVPFXVUS)V`	proc	syscall,
 		@@size: word
                 push    si
                 push    di
@@ -53,15 +53,15 @@ MemCpyDone:     pop	es
                 pop     di
                 pop     si
                 ret	2
-`W?memcpy$n(pfvpfxvus)v`	endp
+`W?memcpy$N(PFVPFXVUS)V`	endp
 
 ;void memset(void *dest, int value, unsigned short count);
-                public  `W?memset$n(pnvius)v`
+                public  `W?memset$N(PNVIUS)V`
 ;		@@dest: dword, @@value: word, @@count: word
 ; Watcom calling convention.
 ;	ax,dx	bx	 cx
 ;	@@dest  @@value @@count		
-`W?memset$n(pnvius)v` proc c
+`W?memset$N(PNVIUS)V` proc
                 push    di
 ;                les     di,@@dest
 		mov	es,dx
@@ -79,16 +79,16 @@ MemCpyDone:     pop	es
 
 MemSetDone:     pop     di
                 ret
-`W?memset$n(pnvius)v` endp
+`W?memset$N(PNVIUS)V` endp
 
 ;int memcmp( void const far *, void const far*, short unsigned )
-                public  `W?memcmp$n(pfxvpfxvus)i`
+                public  `W?memcmp$N(PFXVPFXVUS)I`
 ;		@@s1: dword, @@s2: dword, 
 ;		@@count: word
 ; Watcom calling convention.
 ;	ax,dx	bx,cx
 ;	@@s1	@@s2
-`W?memcmp$n(pfxvpfxvus)i` proc c,
+`W?memcmp$N(PFXVPFXVUS)I` proc syscall,
 		@@count: word
                 push    si
                 push    di
@@ -113,7 +113,7 @@ MemSetDone:     pop     di
                 pop     di
                 pop     si
                 ret	2
-`W?memcmp$n(pfxvpfxvus)i` endp
+`W?memcmp$N(PFXVPFXVUS)I` endp
 
 
                 end

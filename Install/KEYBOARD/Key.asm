@@ -19,27 +19,27 @@
 
                 .code
 
-                public  `W?$ct:CKeyboard$f()_`
-                public  `W?$dt:CKeyboard$f()_`
-                public  `W?GetCh$:CKeyboard$f()i`
-                public  `W?KbHit$:CKeyboard$f()i`
-                public  `W?Flush$:CKeyboard$f()v`
-                public  `W?StoreCh$:CKeyboard$f(i)v`
+                public  `W?$CT:CKeyboard$F()_`
+                public  `W?$DT:CKeyboard$F()_`
+                public  `W?GetCh$:CKeyboard$F()I`
+                public  `W?KbHit$:CKeyboard$F()I`
+                public  `W?Flush$:CKeyboard$F()V`
+                public  `W?StoreCh$:CKeyboard$F(I)V`
 
 ;constructure and destructor are not needed
-`W?$ct:CKeyboard$f()_`:
-`W?$dt:CKeyboard$f()_`: ret
+`W?$CT:CKeyboard$f()_`:
+`W?$DT:CKeyboard$f()_`: ret
 
 
 ;int CKeyboard::Getch()
-`W?GetCh$:CKeyboard$f()i`     proc
+`W?GetCh$:CKeyboard$F()I`     proc
                 xor     ah,ah
                 int     16h
                 ret
 `W?GetCh$:CKeyboard$f()i` endp
 
 ;int CKeyboard::KbHit()
-`W?KbHit$:CKeyboard$f()i`     proc
+`W?KbHit$:CKeyboard$F()I`     proc
                 mov     ah,1
                 int     16h
                 jz      KBHNoKey
@@ -47,11 +47,11 @@
                 ret
 KBHNoKey:       xor     ax,ax
                 ret
-`W?KbHit$:CKeyboard$f()i` endp
+`W?KbHit$:CKeyboard$F()I` endp
 
 
 ;void CKeyboard::Flush()
-`W?Flush$:CKeyboard$f()v`     proc
+`W?Flush$:CKeyboard$F()V`     proc
                 jmp     FCheckBuffer
 FGetKey:        xor     ah,ah
                 int     16h
@@ -59,15 +59,15 @@ FCheckBuffer:   mov     ah,1
                 int     16h
                 jnz     FGetKey
                 ret
-`W?Flush$:CKeyboard$f()v`     endp
+`W?Flush$:CKeyboard$F()V`     endp
 
 ;void CKeyboard::StoreCh()
-`W?StoreCh$:CKeyboard$f(i)v`     proc    c,
+`W?StoreCh$:CKeyboard$F(I)V`     proc    syscall,
                 @@this: dword, @@Key: word
 
                 mov     ah,5
                 mov     cx,@@Key
                 int     16h
                 ret
-`W?StoreCh$:CKeyboard$f(i)v`     endp
+`W?StoreCh$:CKeyboard$F(I)V`     endp
 		end

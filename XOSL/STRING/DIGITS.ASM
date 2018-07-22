@@ -3,15 +3,18 @@
                 .data
 Digits          db      '0123456789abcdef'
                 .code
-                public  GetDigit_
-GetDigit_       proc    c,
-                @@Digit: word
-
+                public  `W?GetDigit$F(I)A`
+;`W?GetDigit$F(I)A`      proc    c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@Digit: word
+`W?GetDigit$F(I)A`      proc    
                 mov     bx,offset Digits
-                add     bx,@@Digit
+;                add     bx,@@Digit
+		add	bx,ax
                 mov     al,[bx]
 
                 ret
-GetDigit_       endp
+`W?GetDigit$F(I)A`       endp
 
                 end

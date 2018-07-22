@@ -25,17 +25,17 @@ ExecProgArgsPtr	dd	0
 
 
                 .code
-                public  `W?Create$:CDosFile$f(pfxa)i`
-                public  `W?Open$:CDosFile$f(pfxa$TFileAccess$:1$)i`
-                public  `W?Close$:CDosFile$f(i)v`
-                public  `W?Read$:CDosFile$f(ipfvus)us`
-                public  `W?Write$:CDosFile$f(ipfxvus)us`
-                public  `W?SetAttrib$:CDosFile$f(pfxai)i`
-                public  `W?Unlink$:CDosFile$f(pfxa)i`
-                public  `W?LSeek$:CDosFile$f(il$TWhence$:1$)l`
+                public  `W?Create$:CDosFile$F(PFXA)I`
+                public  `W?Open$:CDosFile$F(PFXA$TFileAccess$:1$)I`
+                public  `W?Close$:CDosFile$F(I)V`
+                public  `W?Read$:CDosFile$F(IPFVUS)US`
+                public  `W?Write$:CDosFile$F(IPFXVUS)US`
+                public  `W?SetAttrib$:CDosFile$F(PFXAI)I`
+                public  `W?Unlink$:CDosFile$F(PFXA)I`
+                public  `W?LSeek$:CDosFile$F(IL$TWhence$:1$)L`
 
 ;CDosFile::Create(const char *FileName);
-`W?Create$:CDosFile$f(pfxa)i`   proc c,
+`W?Create$:CDosFile$F(PFXA)I`   proc syscall,
                 @@FileName: dword
 
                 push    ds
@@ -47,10 +47,10 @@ ExecProgArgsPtr	dd	0
                 mov     ax,-1
 CreatOk:        pop     ds
                 ret
-`W?Create$:CDosFile$f(pfxa)i`  endp
+`W?Create$:CDosFile$F(PFXA)I`  endp
 
 ;int CDosFile::Open(const char *FileName, TFileAccess Access);
-`W?Open$:CDosFile$f(pfxa$TFileAccess$:1$)i` proc c,
+`W?Open$:CDosFile$F(PFXA$TFileAccess$:1$)I` proc syscall,
                 @@FileName: dword, @@Access: word
 
                 push    ds
@@ -63,20 +63,20 @@ CreatOk:        pop     ds
                 mov     ax,-1
 OpenOk:         pop     ds
                 ret
-`W?Open$:CDosFile$f(pfxa$TFileAccess$:1$)i` endp
+`W?Open$:CDosFile$F(PFXA$TFileAccess$:1$)I` endp
 
 ;void CDosFile::Close(int Handle);
-`W?Close$:CDosFile$f(i)v`      proc c,
+`W?Close$:CDosFile$F(I)V`      proc syscall,
                 @@Handle: word
 
                 mov     ah,3eh
                 mov     bx,@@Handle
                 int     21h
                 ret
-`W?Close$:CDosFile$f(i)v` endp
+`W?Close$:CDosFile$F(I)V` endp
 
 ;unsigned short CDosFile::Read(int Handle, void *Buffer, unsigned short Length)
-`W?Read$:CDosFile$f(ipfvus)us`   proc c,
+`W?Read$:CDosFile$F(IPFVUS)US`   proc syscall,
                 @@Handle: word, @@Buffer: dword, @@Length: word
 
                 push    ds
@@ -89,10 +89,10 @@ OpenOk:         pop     ds
                 xor     ax,ax
 ReadOk:         pop     ds
                 ret
-`W?Read$:CDosFile$f(ipfvus)us`  endp
+`W?Read$:CDosFile$F(IPFVUS)US`  endp
 
 ;unsigned short CDosFile::Write(int Handle, void *Buffer, unsigned short Len);
-`W?Write$:CDosFile$f(ipfxvus)us` proc c,
+`W?Write$:CDosFile$F(IPFXVUS)US` proc syscall,
                 @@Handle: word, @@Buffer: dword, @@Length: word
 
 		push    ds
@@ -120,10 +120,10 @@ ReadOk:         pop     ds
 		
 WriteOk:        pop     ds
                 ret
-`W?Write$:CDosFile$f(ipfxvus)us` endp
+`W?Write$:CDosFile$F(IPFXVUS)US` endp
 
 ;int CDosFile::SetAttrib(const char *FileName, int Attributes)
-`W?SetAttrib$:CDosFile$f(pfxai)i` proc c,
+`W?SetAttrib$:CDosFile$F(PFXAI)I` proc syscall,
                 @@FileName: dword, @@Attributes: word
 
                 push    ds
@@ -134,10 +134,10 @@ WriteOk:        pop     ds
                 sbb     ax,ax
                 pop     ds
                 ret
-`W?SetAttrib$:CDosFile$f(pfxai)i` endp
+`W?SetAttrib$:CDosFile$F(PFXAI)I` endp
 
 ;int CDosFile::Unlink(const char *FileName);
-`W?Unlink$:CDosFile$f(pfxa)i`   proc c,
+`W?Unlink$:CDosFile$F(PFXA)I`   proc syscall,
                 @@FileName: dword
 
                 push    ds
@@ -148,10 +148,10 @@ WriteOk:        pop     ds
                 sbb     ax,ax
                 pop     ds
                 ret
-`W?Unlink$:CDosFile$f(pfxa)i` endp
+`W?Unlink$:CDosFile$F(PFXA)I` endp
 
 ;long CDosFile::LSeek(int Handle, long Offset, TWhence Whence)
-`W?LSeek$:CDosFile$f(il$TWhence$:1$)l` proc c,
+`W?LSeek$:CDosFile$F(IL$TWhence$:1$)L` proc syscall,
                 @@Handle: word, @@OffsetLow: word, 
                 @@OffsetHigh: word, @@Whence: word 
 
@@ -166,6 +166,6 @@ WriteOk:        pop     ds
                 mov     dx,ax
 
 LSeekDone:      ret
-`W?LSeek$:CDosFile$f(il$TWhence$:1$)l` endp
+`W?LSeek$:CDosFile$F(IL$TWhence$:1$)L` endp
 		end
 		       

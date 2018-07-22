@@ -17,42 +17,42 @@
                 .386p
                 .data?
 
-                public  `W?APMAvailable$:CPowerManagement$fi`
+                public  `W?APMAvailable$:CPowerManagement$FI`
                 public  _PowerManagement
 
-`W?APMAvailable$:CPowerManagement$fi` dw ?
+`W?APMAvailable$:CPowerManagement$FI` dw ?
 _PowerManagement        dd      ?
 
                 .code
 
-                public  `W?APMInstalled$:CPowerManagement$f()i`
-                public  `W?Connect$:CPowerManagement$f()i`
-                public  `W?SetPowerState$:CPowerManagement$f(ii)i`
+                public  `W?APMInstalled$:CPowerManagement$F()I`
+                public  `W?Connect$:CPowerManagement$F()I`
+                public  `W?SetPowerState$:CPowerManagement$F(II)I`
 
 ;static int CPowerManagement::APMInstalled();
-`W?APMInstalled$:CPowerManagement$f()i` proc
+`W?APMInstalled$:CPowerManagement$F()I` proc
                 mov     ax,5300h
                 xor     bx,bx
                 int     15h
                 sbb     ax,ax
                 inc     ax
                 ret
-`W?APMInstalled$:CPowerManagement$f()i` endp
+`W?APMInstalled$:CPowerManagement$F()I` endp
 
 ;static int CPowerManagement::Connect();
-`W?Connect$:CPowerManagement$f()i` proc
+`W?Connect$:CPowerManagement$F()I` proc
                 mov     ax,5301h
                 xor     bx,bx
                 int     15h
                 sbb     ax,ax
                 ret
-`W?Connect$:CPowerManagement$f()i` endp
+`W?Connect$:CPowerManagement$F()I` endp
 
 ;static int CPowerManagement::SetPowerState(int DevId, int State);
-`W?SetPowerState$:CPowerManagement$f(ii)i` proc c,
+`W?SetPowerState$:CPowerManagement$F(II)I` proc syscall,
                 @@DevId: word, @@State: word
 
-                cmp     `W?APMAvailable$:CPowerManagement$fi`,0
+                cmp     `W?APMAvailable$:CPowerManagement$FI`,0
                 jne     SPSProceed
                 mov     ax,-1
                 jmp     SPSExit
@@ -64,6 +64,6 @@ SPSProceed:     mov     ax,5307h
                 sbb     ax,ax
 
 SPSExit:        ret
-`W?SetPowerState$:CPowerManagement$f(ii)i` endp
+`W?SetPowerState$:CPowerManagement$F(II)I` endp
 
                 end

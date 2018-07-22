@@ -53,7 +53,7 @@ class CTextList {
 			int OptionWidth;
 			int OptionIndex;
 			int LinkedListItemIndex;
-			char *MbrHDSector0List;
+			unsigned char *MbrHDSector0List;
 		};
 
 		int FirstDraw;

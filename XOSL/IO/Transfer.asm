@@ -29,26 +29,26 @@ endif                                  ;   problem during debugging under DOS
 
 		.code
 
-                public  `W?$ct:CDiskAccess$f()_`
-                public  `W?$dt:CDiskAccess$f()_`
-                public  `W?DriveCount$:CDiskAccess$f(i)i`
-                public  `W?Transfer$:CDiskAccess$f(iususpfvi)i`
-                public  `W?GetDriveInfo$:CDiskAccess$f(irfirfi)i`
-                public  `W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i`
-                public  `W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i`
+                public  `W?$CT:CDiskAccess$F()_`
+                public  `W?$DT:CDiskAccess$F()_`
+                public  `W?DriveCount$:CDiskAccess$F(I)I`
+                public  `W?Transfer$:CDiskAccess$F(IUSUSPFVI)I`
+                public  `W?GetDriveInfo$:CDiskAccess$F(IRFIRFI)I`
+                public  `W?CopyFromScratchpad$:CDiskAccess$F(PFVI)I`
+                public  `W?CopyToScratchpad$:CDiskAccess$F(PFXVI)I`
 
 ;CDiskAccess::CDiskAccess()
-`W?$ct:CDiskAccess$f()_` proc
+`W?$CT:CDiskAccess$F()_` proc
 		ret
-`W?$ct:CDiskAccess$f()_` endp
+`W?$CT:CDiskAccess$F()_` endp
 
 ;CDiskAccess::~CDiskAccess()
-`W?$dt:CDiskAccess$f()_` proc
+`W?$DT:CDiskAccess$F()_` proc
                 ret
-`W?$dt:CDiskAccess$f()_` endp
+`W?$DT:CDiskAccess$F()_` endp
 
 ;int CDiskAccess::DriveCount(int Drive)
-`W?DriveCount$:CDiskAccess$f(i)i` proc c,
+`W?DriveCount$:CDiskAccess$F(I)I` proc syscall,
                 @@this: dword, @@Drive: word
 
 		push    di    ;ML
@@ -58,11 +58,11 @@ endif                                  ;   problem during debugging under DOS
 		movzx   ax,dl
 		pop	di	;ML
                 ret
-`W?DriveCount$:CDiskAccess$f(i)i` endp
+`W?DriveCount$:CDiskAccess$F(I)I` endp
 
 ;int CDiskAccess::Transfer(int Action, unsigned short SectCyl,
 ;                          unsigned short DrvHead, void *Buffer, int Count);
-`W?Transfer$:CDiskAccess$f(iususpfvi)i` proc c,
+`W?Transfer$:CDiskAccess$f(iususpfvi)i` proc syscall,
                 @@this: dword, @@Action: word, @@SectCyl: word,
                 @@DrvHead: word, @@Buffer: dword, @@Count: word
 
@@ -112,7 +112,7 @@ TransDone:      ret
 `W?Transfer$:CDiskAccess$f(iususpfvi)i` endp
 
 ;int CDiskAccess::GetDriveInfo(int Drive, int &Heads, int &Sectors);
-`W?GetDriveInfo$:CDiskAccess$f(irfirfi)i` proc c,
+`W?GetDriveInfo$:CDiskAccess$f(irfirfi)i` proc syscall,
                 @@this: dword, @@Drive: word,
                 @@Heads: dword, @@Sectors: dword
 

@@ -17,8 +17,8 @@
 		.386p
                 .code
 
-                public  `W?LBAAccessAvail$:CDiskAccess$n(i)i`
-                public  `W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i`
+                public  `W?LBAAccessAvail$:CDiskAccess$N(I)I`
+                public  `W?LBATransfer$:CDiskAccess$N(IIRFX$__3b5thaTLBAPacket$$)I`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
 ;                @@this: dword, @@Drive: word
@@ -26,7 +26,7 @@
 ;	ax,dx		bx	cx
 ;       @@this: dword, @@Drive: word
 
-`W?LBAAccessAvail$:CDiskAccess$n(i)i` proc c
+`W?LBAAccessAvail$:CDiskAccess$N(I)I` proc
 		push	bx
 		push	cx
                 mov     ah,41h
@@ -46,7 +46,7 @@ NoLBA:          mov     ax,-1
 LBA_AAEnd:	pop	cx
 		pop	bx
 		ret
-`W?LBAAccessAvail$:CDiskAccess$n(i)i` endp
+`W?LBAAccessAvail$:CDiskAccess$N(I)I` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
 ;                @@this: dword, @@Action: word,
@@ -54,7 +54,7 @@ LBA_AAEnd:	pop	cx
 ; Watcom calling convention.
 ;	ax,dx		bx		cx
 ;	@@this		@@action	@@drive
-`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` proc c,
+`W?LBATransfer$:CDiskAccess$N(IIRFX$__3b5thaTLBAPacket$$)I` proc syscall,
 		@@LBAPacket: dword
 
                 push    si
@@ -74,7 +74,7 @@ LBA_AAEnd:	pop	cx
                 pop     ds
 		pop	si
                 ret 2
-`W?LBATransfer$:CDiskAccess$n(iirfx$__3b5thaTLBAPacket$$)i` endp
+`W?LBATransfer$:CDiskAccess$N(IIRFX$__3b5thaTLBAPacket$$)I` endp
 
 
 

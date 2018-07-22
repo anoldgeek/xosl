@@ -19,11 +19,11 @@
                 .code
 
 
-                public  `W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i`
-                public  `W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i`
+                public  `W?GetSvgaInfo$:CVesa$F(RF$CSvgaInfo$:1$)I`
+                public  `W?GetModeInfo$:CVesa$F(IRF$CModeInfo$:1$)I`
 
 ;static int CVesa::GetSvgaInfo(CVesa::CSvgaInfo &SvgaInfo);
-`W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i` proc c,
+`W?GetSvgaInfo$:CVesa$F(RF$CSvgaInfo$:1$)I` proc syscall,
                 @@SvgaInfo: dword
 
                 push    di
@@ -39,10 +39,10 @@
 GSISuccess:     xor     ax,ax
 GSIExit:        pop     di
                 ret
-`W?GetSvgaInfo$:CVesa$f(rf$CSvgaInfo$:1$)i` endp
+`W?GetSvgaInfo$:CVesa$F(RF$CSvgaInfo$:1$)I` endp
 
 ;int CVesa::GetModeInfo(int VesaMode, CModeInfo &ModeInfo)
-`W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i` proc c,
+`W?GetModeInfo$:CVesa$F(IRF$CModeInfo$:1$)I` proc syscall,
                 @@VesaMode: word, @@ModeInfo: dword
 
                 push    di
@@ -56,7 +56,7 @@ GSIExit:        pop     di
 
 MIExit:         pop     di
                 ret
-`W?GetModeInfo$:CVesa$f(irf$CModeInfo$:1$)i` endp
+`W?GetModeInfo$:CVesa$F(IRF$CModeInfo$:1$)I` endp
 
 
 

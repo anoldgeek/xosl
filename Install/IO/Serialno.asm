@@ -38,10 +38,10 @@ FSType          db      8 dup (?)
 
                 .code
 
-                public  `W?GetDosSerialNo$:CDosDriveList$f(i)ul`
+                public  `W?GetDosSerialNo$:CDosDriveList$F(I)UL`
 
 ;unsigned long CDOSDriveList::GetDOSSerialNo(int DriveNum);
-`W?GetDosSerialNo$:CDosDriveList$f(i)ul` proc c,
+`W?GetDosSerialNo$:CDosDriveList$F(I)UL` proc syscall,
                 @@this: dword, @@DriveNum: word
 
                 mov     ax,6900h
@@ -58,6 +58,6 @@ GSNFound:       mov     ax,SerialNumLo
                 mov     dx,SerialNumHi
 
 GSNExit:        ret
-`W?GetDosSerialNo$:CDosDriveList$f(i)ul` endp
+`W?GetDosSerialNo$:CDosDriveList$F(I)UL` endp
 
                 end

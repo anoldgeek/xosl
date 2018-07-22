@@ -27,21 +27,21 @@ Scratchpad      dd      90008000h
 
                 .code
 
-                public  `W?$ct:CDiskAccess$f()_`
-                public  `W?$dt:CDiskAccess$f()_`
-                public  `W?DriveCount$:CDiskAccess$f(i)i`
-                public  `W?Transfer$:CDiskAccess$f(iususpfvi)i`
-                public  `W?GetDriveInfo$:CDiskAccess$f(irfirfi)i`
-                public  `W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i`
-                public  `W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i`
+                public  `W?$CT:CDiskAccess$F()_`
+                public  `W?$DT:CDiskAccess$F()_`
+                public  `W?DriveCount$:CDiskAccess$F(I)I`
+                public  `W?Transfer$:CDiskAccess$F(IUSUSPFVI)I`
+                public  `W?GetDriveInfo$:CDiskAccess$F(IRFIRFI)I`
+                public  `W?CopyFromScratchpad$:CDiskAccess$F(PFVI)I`
+                public  `W?CopyToScratchpad$:CDiskAccess$F(PFXVI)I`
 
 ; constructor and destructor are not used
-`W?$ct:CDiskAccess$f()_`:
-`W?$dt:CDiskAccess$f()_`:
+`W?$CT:CDiskAccess$F()_`:
+`W?$DT:CDiskAccess$F()_`:
                 ret
 
 ;int CDiskAccess::DriveCount(int Drive)
-`W?DriveCount$:CDiskAccess$f(i)i` proc c,
+`W?DriveCount$:CDiskAccess$F(I)I` proc syscall,
                 @@this: dword, @@Drive: word
 
 		mov     ah,8
@@ -49,11 +49,11 @@ Scratchpad      dd      90008000h
 		int     13h
 		movzx   ax,dl
                 ret
-`W?DriveCount$:CDiskAccess$f(i)i` endp
+`W?DriveCount$:CDiskAccess$F(I)I` endp
 
 ;int CDiskAccess::Transfer(int Action, unsigned short SectCyl,
 ;                          unsigned short DrvHead, void *Buffer, int Count);
-`W?Transfer$:CDiskAccess$f(iususpfvi)i` proc c,
+`W?Transfer$:CDiskAccess$F(IUSUSPFVI)I` proc syscall,
                 @@this: dword, @@Action: word, @@SectCyl: word,
                 @@DrvHead: word, @@Buffer: dword, @@Count: word
 
@@ -100,10 +100,10 @@ TransTestEnd:   dec     @@Count
 FloppyDone:     pop     di
 
 TransDone:      ret
-`W?Transfer$:CDiskAccess$f(iususpfvi)i` endp
+`W?Transfer$:CDiskAccess$F(IUSUSPFVI)I` endp
 
 ;int CDiskAccess::GetDriveInfo(int Drive, int &Heads, int &Sectors);
-`W?GetDriveInfo$:CDiskAccess$f(irfirfi)i` proc c,
+`W?GetDriveInfo$:CDiskAccess$F(IRFIRFI)I` proc syscall,
                 @@this: dword, @@Drive: word,
                 @@Heads: dword, @@Sectors: dword
 
@@ -123,10 +123,10 @@ TransDone:      ret
 
 		pop     di
                 ret
-`W?GetDriveInfo$:CDiskAccess$f(irfirfi)i` endp
+`W?GetDriveInfo$:CDiskAccess$F(IRFIRFI)I` endp
 
 ;void CDiskAccess::CopyFromScratchpad(void *Buffer, int Sectors)
-`W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i` proc c,
+`W?CopyFromScratchpad$:CDiskAccess$F(PFVI)I` proc syscall,
                 @@this: dword, @@Buffer: dword, @@Sectors: word
 
                 push    si
@@ -149,10 +149,10 @@ TransDone:      ret
                 pop     di
                 pop     si
                 ret
-`W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i` endp
+`W?CopyFromScratchpad$:CDiskAccess$F(PFVI)I` endp
 
 ;void CDiskAccess::CopyToScratchpad(void *Buffer, int Sectors)
-`W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i` proc c,
+`W?CopyToScratchpad$:CDiskAccess$F(PFXVI)I` proc syscall,
                 @@this: dword, @@Buffer: dword, @@Sectors: word
 
                 push    si
@@ -175,6 +175,6 @@ TransDone:      ret
                 pop     di
                 pop     si
                 ret
-`W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i` endp
+`W?CopyToScratchpad$:CDiskAccess$F(PFXVI)I` endp
 
 		end

@@ -17,10 +17,10 @@
                 .386p
                 .code
 
-                public  `W?MouseAvailable$:CMouse$f(i)i`
+                public  `W?MouseAvailable$:CMouse$F(I)I`
 
 ;CMouse::MouseAvailable(int PortAddr);
-`W?MouseAvailable$:CMouse$f(i)i` proc c,
+`W?MouseAvailable$:CMouse$F(I)I` proc syscall,
                 @@PortAddr: word
 
                 mov     dx,@@PortAddr
@@ -52,7 +52,7 @@ _52ed:          mov     al,0ffh
 _52f4:          xor     ah,ah
                 movsx   ax,al
                 ret
-`W?MouseAvailable$:CMouse$f(i)i` endp
+`W?MouseAvailable$:CMouse$F(I)I` endp
                 
 
 TestAndSet      proc

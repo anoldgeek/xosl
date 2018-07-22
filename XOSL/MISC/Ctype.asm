@@ -17,19 +17,21 @@
                 .386p
                 .code
 
-                public  `W?tolower$f(i)i`
+                public  `W?tolower$F(I)I`
 
 ;int tolower(int ch);
-`W?tolower$f(i)i` proc    c,
-                @@ch: word
-
-                mov     ax,@@ch
+;`W?tolower$F(I)I` proc    c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@ch: word
+`W?tolower$F(I)I` proc
+                ;mov     ax,@@ch ; already loaded
                 cmp     ax,'A'
                 jb      TLExit
                 cmp     ax,'Z'
                 ja      TLExit
                 or      ax,20h
 TLExit:         ret
-`W?tolower$f(i)i` endp
+`W?tolower$F(I)I` endp
 
                 end

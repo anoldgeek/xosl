@@ -298,7 +298,8 @@ UFTestEnd:      dec     ax
 		pop     cx
 		shr     cx,2
 		xor     edi,edi
-		rep     movs es:dword ptr [edi],fs:[edi]
+		xor     esi,esi
+		rep     movs es:dword ptr [edi],fs:[esi]
 		mov     _GRThisBank,dx
 		push    es
 		push    fs

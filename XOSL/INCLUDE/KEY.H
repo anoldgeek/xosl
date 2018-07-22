@@ -82,7 +82,7 @@ public:
 	enum TKeyLayout { enumLayoutUS = 0, enumLayoutFrench = 1, enumLayoutGR = 2};
 	
 	static unsigned short WaitKeyStroke();
-	static void __cdecl StoreKeyStroke(unsigned short KeyCode);
+	static void StoreKeyStroke(unsigned short KeyCode);
 	static bool KeyStrokeAvail();
 	static void Flush();
 	static void SetEnhancedSupport(bool Status);

@@ -34,6 +34,12 @@ CKeyboard::~CKeyboard()
 {
 }
 
+/*
+static void CKeyboard::StoreKeyStroke( short unsigned KeyCode ){
+	int a = 1;
+	return;
+}
+*/
 unsigned short CKeyboard::WaitKeyStroke()
 {
   if (EnhancedSupport) {

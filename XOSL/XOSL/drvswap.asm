@@ -22,18 +22,23 @@
 BaseMemorySize	equ	word ptr 0413h
 AddrInt13ISR	equ	dword ptr [13h * 4]
 
-                public  `W?SwapDrive$:CDriveFix$f(i)v`
+                public  `W?SwapDrive$:CDriveFix$F(I)V`
 
 
 ;static void CDriveFix::SwapDrive(int Drive);
-`W?SwapDrive$:CDriveFix$f(i)v` proc c,
-                @@Drive: word
-
+;`W?SwapDrive$:CDriveFix$F(I)V` proc c,
+; Watcom calling convention.
+;	ax  dx	bx,cx
+;                @@Drive: word
+`W?SwapDrive$:CDriveFix$F(I)V` proc
 		push	ds
+		push	es
+		push	di
+		push	si
 	
-		mov	al,byte ptr @@Drive
+;		mov	al,byte ptr @@Drive ; already loaded
 		mov	cs:SwapDrive,al
-	
+
 		;Allocate 1kb of memory to store SwapISR
 		xor	ax,ax
 		mov	es,ax
@@ -60,10 +65,13 @@ AddrInt13ISR	equ	dword ptr [13h * 4]
 		mov	cx,128			;copy 256 byte
 		cld
 		rep	movsw
-	
+		
+		pop	si
+		pop	di
+		pop	es
 		pop	ds
 		ret
-`W?SwapDrive$:CDriveFix$f(i)v` endp        
+`W?SwapDrive$:CDriveFix$F(I)V` endp        
 	
 
 ; *************************************************

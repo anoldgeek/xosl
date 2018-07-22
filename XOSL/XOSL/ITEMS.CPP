@@ -22,7 +22,8 @@
 // TODO: check return values
 
 void printf(const char *,...);
-extern void puts(const char *);
+//extern void puts(const char *);
+void puts(const char *);
 
 static const char *FileName = "BOOTITEMXDF";
 static const char *OriginalMbrFile = "ORIG_MBRXCF";

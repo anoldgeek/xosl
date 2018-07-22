@@ -12,9 +12,12 @@
 
 #main makefile for xoslload.xcf
 
-LIBPATH=xoslload;mmu;io;string;text;misc;freemem
-LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib,freemem.lib
+;LIBPATH=xoslload;mmu;io;string;text;misc;freemem
+;LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib,freemem.lib
           
+LIBPATH=xoslload;mmu;io;string;text;misc
+LIB_FILES=xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib
+
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=-DDOS_DEBUG=1

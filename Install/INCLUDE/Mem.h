@@ -20,6 +20,7 @@
 //#define FP_OFS(ptr) ((unsigned short)(ptr))
 
 //Open Watcom C/C++:
+
 #define MK_FP(__s,__o) (((unsigned short)(__s)):>((void __near *)(__o)))
 #define peekb(s,o) (*(char far *)MK_FP(s,o))
 

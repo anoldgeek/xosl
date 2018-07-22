@@ -18,6 +18,7 @@
 
 #include <newdefs.h>
 
-unsigned long __cdecl GetTimerTicks(void);
+//unsigned long __cdecl GetTimerTicks(void);
+unsigned long GetTimerTicks(void);
 
 #endif

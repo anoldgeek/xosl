@@ -15,16 +15,16 @@
 
                 .model  large
                 .code
-                public  `W?GetTimerTicks$f()ul`
+                public  `W?GetTimerTicks$F()UL`
 
 ;unsigned long GetTimerTicks(void);
-`W?GetTimerTicks$f()ul` proc
+`W?GetTimerTicks$F()UL` proc
                 xor     ax,ax
                 mov     es,ax
                 mov     ax,es:[046ch]
                 mov     dx,es:[046eh]
                 ret
-`W?GetTimerTicks$f()ul` endp
+`W?GetTimerTicks$F()UL` endp
 
                 end
 
