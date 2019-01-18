@@ -73,7 +73,7 @@ class CFAT32: public CFileSystem {
 	public:
 		CFAT32();
 		~CFAT32();
-		int Mount(int Drive, unsigned long StartSector);
+		int Mount(int Drive, unsigned long long StartSector);
 		unsigned short ReadFile(const char *FileName, void *Buffer);
 		int WriteFile(const char *FileName, void *Buffer);
 	private:

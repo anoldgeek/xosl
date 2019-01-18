@@ -40,7 +40,7 @@ CFAT32::~CFAT32()
 	delete FAT;
 }
 
-int CFAT32::Mount(int Drive, unsigned long StartSector)
+int CFAT32::Mount(int Drive, unsigned long long StartSector)
 {
 	int Status;
 	long FATSize;

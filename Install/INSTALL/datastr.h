@@ -59,8 +59,8 @@ public:
 				unsigned char FSType;
 				unsigned char EndHead;
 				unsigned short EndSectCyl;
-				unsigned long ABSSectorStart;
-				unsigned long SectorCount;
+				unsigned long long ABSSectorStart;
+				unsigned long long SectorCount;
 			};
 
 			CPTabEntry PTabEntry;
@@ -111,7 +111,7 @@ public:
 		class CPartKey {
 		public:
 			unsigned char Drive;
-			unsigned long StartSector;
+			unsigned long long StartSector;
 		};
 
 		int PartitionCount;

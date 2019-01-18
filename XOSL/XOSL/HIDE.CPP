@@ -160,11 +160,26 @@ void CHidingDialog::AddSystem(int Row, const char *FSName)
 	PartListBox->AddItem(Row,2,FSName);
 }
 
-void CHidingDialog::AddSize(int Row, unsigned long Sectors)
+void CHidingDialog::AddSize(int Row, unsigned long long Sectors)
 {
 	CString Msg;
+	unsigned long long PartitionSize;
 
-	Msg = Sectors >> 11;
+	PartitionSize = Sectors >> 11;  // Get size in Mb
+	if (PartitionSize < 1024L){
+		Msg = (unsigned long)PartitionSize;
+		Msg += "M";
+	}
+	else{
+		if(PartitionSize < 1024L * 1024L){
+			Msg = (unsigned long)(PartitionSize >> 10);
+			Msg +="G";
+		}
+		else{
+			Msg = (unsigned long)(PartitionSize >> 20);
+			Msg +="T";
+		}
+	}
 	PartListBox->AddItem(Row,3,Msg);
 }
 
@@ -304,7 +319,7 @@ void CHidingDialog::HideNoneBtnClick(CHidingDialog &HidingDialog)
 
 void CHidingDialog::CopyFromBtnClick(CHidingDialog &HidingDialog)
 {
-	memcpy(HidingDialog.LocalHideList[HidingDialog.BootItemIndex],HidingDialog.LocalHideList[HidingDialog.ItemsListBox->GetItemIndex()],sizeof (char[56]));
+	memcpy(HidingDialog.LocalHideList[HidingDialog.BootItemIndex],HidingDialog.LocalHideList[HidingDialog.ItemsListBox->GetItemIndex()],sizeof (char[BI_PARTS]));
 	HidingDialog.UpdateHidingList();
 	SelectPartition(HidingDialog,HidingDialog.PartListBox->GetItemIndex());
 }
@@ -315,7 +330,7 @@ void CHidingDialog::UpdateLocalHideList()
 
 	Count = BootItems.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
-		memcpy(LocalHideList[Index],BootItems.Get(Index)->HideList,sizeof (char[56]));
+		memcpy(LocalHideList[Index],BootItems.Get(Index)->HideList,sizeof (char[BI_PARTS]));
 	}
 }
 
@@ -325,6 +340,6 @@ void CHidingDialog::UpdateBootItemHideList()
 
 	Count = BootItems.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
-		memcpy(BootItems.Get(Index)->HideList,LocalHideList[Index],sizeof (char[56]));
+		memcpy(BootItems.Get(Index)->HideList,LocalHideList[Index],sizeof (char[BI_PARTS]));
 	}
 }

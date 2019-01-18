@@ -260,7 +260,7 @@ bool CBootItems::PartListIsChanged()
 
 void CBootItems::AdjustPartList()
 {
-	int RelocTable[56];
+	int RelocTable[BI_PARTS];
 	int Index;
 
 	BuildRelocTable(RelocTable);
@@ -278,7 +278,7 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 	int AddIndex;
 	int RelocIndex;
 
-	for (Index = 0; Index < 56; ++Index) {
+	for (Index = 0; Index < BI_PARTS; ++Index) {
 		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector);
 	}
 	AddIndex = PartList.GetCount() - ItemFile.PartCount;
@@ -288,7 +288,7 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 		}
 	}
 
-	for (Index = ItemFile.PartCount; Index < 56; ++Index) {
+	for (Index = ItemFile.PartCount; Index < BI_PARTS; ++Index) {
 		if (RelocTable[Index] == -1) {
 			RelocTable[Index] = Index + AddIndex;
 		}
@@ -305,20 +305,20 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 
 void CBootItems::UpdatePartList(int *RelocTable)
 {
-	bool ItemResolved[56];
-	CPartDesc NewPartList[56];
+	bool ItemResolved[BI_PARTS];
+	CPartDesc NewPartList[BI_PARTS];
 	const TPartition *Partition;
 	int Index;
 
-	memset(ItemResolved,false,sizeof (bool[56]));
-	for (Index = 0; Index < 56; ++Index) {
-		if (RelocTable[Index] < 56) {
+	memset(ItemResolved,false,sizeof (bool[BI_PARTS]));
+	for (Index = 0; Index < BI_PARTS; ++Index) {
+		if (RelocTable[Index] < BI_PARTS) {
 			NewPartList[RelocTable[Index]].Drive = ItemFile.PartList[Index].Drive;
 			NewPartList[RelocTable[Index]].StartSector = ItemFile.PartList[Index].StartSector;
 			ItemResolved[RelocTable[Index]] = true;
 		}
 	}
-	for (Index = 0; Index < 56; ++Index) {
+	for (Index = 0; Index < BI_PARTS; ++Index) {
 		if (!ItemResolved[Index]) {
 			Partition = PartList.GetPartition(Index);
 			ItemFile.PartList[Index].Drive = (unsigned char) Partition->Drive;
@@ -335,8 +335,8 @@ void CBootItems::UpdatePartList(int *RelocTable)
 void CBootItems::UpdatePartIndex(CBootItem &BootItem, int *RelocTable)
 {
 	BootItem.PartIndex = RelocTable[BootItem.PartIndex];
-	if (BootItem.PartIndex >= 56) {
-		BootItem.PartIndex = 55;
+	if (BootItem.PartIndex >= BI_PARTS) {
+		BootItem.PartIndex = BI_PARTS -1;
 	}
 
 	if (BootItem.PartIndex >= ItemFile.PartCount) {
@@ -352,14 +352,14 @@ void CBootItems::UpdatePartIndex(CBootItem &BootItem, int *RelocTable)
 void CBootItems::UpdateHideList(unsigned char *HideList, int *RelocTable)
 {
 	int HideIndex;
-	unsigned char NewHideList[56];
+	unsigned char NewHideList[BI_PARTS];
 
-	memset(NewHideList,false,sizeof (unsigned char[56]));
-	for (HideIndex = 0; HideIndex < 56; ++HideIndex) {
-		if (RelocTable[HideIndex] < 56) {
+	memset(NewHideList,false,sizeof (unsigned char[BI_PARTS]));
+	for (HideIndex = 0; HideIndex < BI_PARTS; ++HideIndex) {
+		if (RelocTable[HideIndex] < BI_PARTS) {
 			NewHideList[RelocTable[HideIndex]] = HideList[HideIndex];
 		}
 	}
-	memcpy(HideList,NewHideList,sizeof (unsigned char[56]));
+	memcpy(HideList,NewHideList,sizeof (unsigned char[BI_PARTS]));
 }
 

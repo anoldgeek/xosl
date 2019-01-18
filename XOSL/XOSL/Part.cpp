@@ -162,11 +162,26 @@ void CPartDialog::AddSystem(int Row, const char *FSName)
 	PartListBox->AddItem(Row,2,FSName);
 }
 
-void CPartDialog::AddSize(int Row, unsigned long Sectors)
+void CPartDialog::AddSize(int Row, unsigned long long Sectors)
 {
 	CString Msg;
+	unsigned long long PartitionSize;
 
-	Msg = Sectors >> 11;
+	PartitionSize = Sectors >> 11;  // Get size in Mb
+	if (PartitionSize < 1024L){
+		Msg = (unsigned long)PartitionSize;
+		Msg += "M";
+	}
+	else{
+		if(PartitionSize < 1024L * 1024L){
+			Msg = (unsigned long)(PartitionSize >> 10);
+			Msg +="G";
+		}
+		else{
+			Msg = (unsigned long)(PartitionSize >> 20);
+			Msg +="T";
+		}
+	}
 	PartListBox->AddItem(Row,3,Msg);
 }
 

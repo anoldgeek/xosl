@@ -27,8 +27,10 @@
                 public  `W?StoreCh$:CKeyboard$F(I)V`
 
 ;constructure and destructor are not needed
-`W?$CT:CKeyboard$f()_`:
-`W?$DT:CKeyboard$f()_`: ret
+`W?$CT:CKeyboard$F()_`:
+`W?$DT:CKeyboard$F()_` proc
+		ret
+`W?$DT:CKeyboard$F()_` endp
 
 
 ;int CKeyboard::Getch()
@@ -36,7 +38,7 @@
                 xor     ah,ah
                 int     16h
                 ret
-`W?GetCh$:CKeyboard$f()i` endp
+`W?GetCh$:CKeyboard$F()i` endp
 
 ;int CKeyboard::KbHit()
 `W?KbHit$:CKeyboard$F()I`     proc

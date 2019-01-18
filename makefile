@@ -56,8 +56,11 @@ ipl: .SYMBOLIC
 
 arch: .SYMBOLIC
     $(COPY) xosl\*.xxf arch
+    $(COPY) xosl\xosl.* arch
     $(COPY) xoslload\xoslload.xcf arch
     $(COPY) install\install.exe arch
+    $(COPY) install\install.map arch
+    $(COPY) install\install.sym arch
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
@@ -104,4 +107,6 @@ clean_arch: .SYMBOLIC
     $(DELETE) *.bin
     $(DELETE) *.mbr
     $(DELETE) *.txt
+    $(DELETE) *.map
+    $(DELETE) *.sym
     $(LEAVE)

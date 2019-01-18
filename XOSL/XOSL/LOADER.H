@@ -74,7 +74,7 @@ class CLoader {
 		void Initialize(bool AutoBoot);
 		bool EnterSetup;
 
-		int InListBootIndex[24];
+		int InListBootIndex[BI_BOOTITEMS];
 
 		void UpdateMaxItemWidth(int &MaxItemWidth, const char *ItemName);
 		void ResizeLoader(int MaxItemWidth);

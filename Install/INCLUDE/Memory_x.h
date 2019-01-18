@@ -8,8 +8,8 @@
  * or at http://www.gnu.org
  */
 
-#ifndef __MEMORY__
-#define __MEMORY__
+#ifndef __MEMORY_X__
+#define __MEMORY_X__
 
 #include <defs.h>
 

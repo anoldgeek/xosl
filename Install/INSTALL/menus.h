@@ -11,9 +11,9 @@
 #ifndef __MenuDraw__
 #define __MenuDraw__
 
+#include <ptab.h>
 #include <textui.h>
 #include <data.h>
-#include <ptab.h>
 
 class CInstallMenus {
 public:

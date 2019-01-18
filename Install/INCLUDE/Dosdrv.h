@@ -16,8 +16,8 @@
 #ifndef __dosdrv__
 #define __dosdrv__
 
-#include <defs.h>
 #include <ptab.h>
+#include <defs.h>
 
 #define FATTYPE_FAT16 16
 #define FATTYPE_FAT32 32
@@ -29,7 +29,7 @@ class CDosDriveList {
 			int DriveChar; // 'C', 'D', ...
 			int FATType;
 			int Drive;
-			unsigned long StartSector;
+			unsigned long long StartSector;
 		};
 
 

@@ -17,7 +17,20 @@
 #include <fs.h>
 #include <fatfix.h>
 
-
+#ifdef PRE130BISIZE
+#define BI_PARTS 56
+#define BI_BOOTITEMS 24
+#define BI_BOOTITEMS_STR "24"
+#define BI_RESERVED 11
+#define BI_FILE_RES 17
+#else
+#define BI_PARTS 56
+#define BI_BOOTITEMS 20
+#define BI_BOOTITEMS_STR "20"
+#define BI_RESERVED 9
+#define BI_FILE_RES 17
+#define PD_RES 8
+#endif
 
 class CBootItem {
 public:
@@ -27,32 +40,34 @@ public:
 	char Activate;
 	char FixDriveNum;
 	char Disabled;
-		unsigned long Password;
+	unsigned long Password;
 	unsigned short Keys[16];
-	unsigned char HideList[56];
+	unsigned char HideList[BI_PARTS];
 	char SwapDrives;
-	char Reserved[11]; // reserved for future use
-}; // sizeof(CBootItem) == 158
+	char Reserved[BI_RESERVED]; // reserved for future use
+}; // sizeof(CBootItem) == 230
 
 class CPartDesc {
 public:
 	unsigned char Drive;
-	unsigned long StartSector;
-}; // sizeof(CPartDesc) == 5
+	unsigned long long StartSector;
+	char Reserved[PD_RES];  // reserved for future use
+}; // sizeof(CPartDesc) == 17
 
 
 class CBootItemFile {
 public:
-	CBootItem BootItems[24];
-	CPartDesc PartList[56];
+	CBootItem BootItems[BI_BOOTITEMS];
+	CPartDesc PartList[BI_PARTS];
 	unsigned char BootItemCount;
 	unsigned char DefaultItem;
 	unsigned char Reserved0; // was timeout
 	unsigned char PartCount;
 	unsigned short Timeout;
 	unsigned char MbrHDSector0; // Which HD sector 0 (mbr) was choosen for this xosl install
-	char Reserved[17]; // reserved for future use
-}; //  sizeof(CBootItemFile) == 4096
+	char Reserved[BI_FILE_RES]; // reserved for future use
+}; //  sizeof(CBootItemFile) == 4096 * 3 = 12288
+
 
 
 class CBootItems {

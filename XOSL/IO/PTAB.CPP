@@ -60,14 +60,14 @@ void CPartList::ReadStructure()
 	CreatePLUP();
 }
 
-void CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned long ExtStart, int Type)
+void CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigned long long ExtStart, int Type)
 {
 	CMBRNode NewNode;
 	CDisk Disk;
 	TPartTable *PartTable;
 	const TPartEntry *Entries;
 	int Index;
-	unsigned long NewStartSector;
+	unsigned long long NewStartSector;
 
 	if (Disk.Map(Drive,StartSector) == -1)
 		return;
@@ -233,7 +233,7 @@ const TPartition *CPartList::GetPartition(int Index)
 	return PLUP[Index]->Partition;
 }
 
-int CPartList::Locate(int Drive, unsigned long StartSector)
+int CPartList::Locate(int Drive, unsigned long long StartSector)
 {
 	int Index;
 	const TPartition *Partition;

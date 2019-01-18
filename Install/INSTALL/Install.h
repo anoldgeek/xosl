@@ -26,7 +26,7 @@
 #include <FsCreate.h>
 
 
-#define BOOTITEM_FILESIZE 4096
+#define BOOTITEM_FILESIZE sizeof(CBootItemFile)
 #define LASTCONF_FILESIZE 512
 
 
@@ -60,7 +60,7 @@ private:
 
 	int BackupOriginalMbr(int PartId, const char *DestFileName);
 	int BackupCurrentMbr(void *Ipl);
-	int BackupCurrentMbr(void *Ipl, int Drive, unsigned long StartSector);
+	int BackupCurrentMbr(void *Ipl, int Drive, unsigned long long StartSector);
 
 	void RemoveXoslFiles(char DosDriveChar);
 

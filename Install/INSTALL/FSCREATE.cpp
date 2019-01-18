@@ -50,7 +50,7 @@ CFsCreator::~CFsCreator()
 {
 }
 
-int CFsCreator::InstallFs(unsigned short Drive, unsigned long Sector)
+int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector)
 {
 	MemSet(Fat,0,sizeof(unsigned short[256]));
 	MemSet(RootDir,0,sizeof(CDirectoryEntry[32]));
@@ -92,7 +92,7 @@ int CFsCreator::LoadIplS(int Drive)
 }
 
 
-int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long Sector)
+int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector)
 {
 	CDiskAccess DiskAccess;
 	int HeadCount, SectorCount;
@@ -121,7 +121,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long Sector)
 	BootRecord.TrackSize = SectorCount;
 	BootRecord.HeadCount = HeadCount;
 
-	BootRecord.HiddenSectors = Sector;
+	BootRecord.HiddenSectors = (unsigned long) Sector;
 	BootRecord.BigSectorCount = 0;
 	BootRecord.Drive = Drive;
 	BootRecord.Signature = 0x29;
@@ -281,7 +281,7 @@ void CFsCreator::AddFatEntries(long FileSize)
 	Fat[FatIndex++] = 0xffff;
 }
 
-int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
+int CFsCreator::BackupPartition(int Drive, unsigned long long Sector)
 {
 	unsigned long ImageSize;
 	int TransferCount;
@@ -337,7 +337,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long Sector)
 }
 
 
-void CFsCreator::RestorePartition(unsigned short Drive, unsigned long StartSector)
+void CFsCreator::RestorePartition(unsigned short Drive, unsigned long long StartSector)
 {
 	long ImageSize;
 	int TransferCount;
@@ -390,7 +390,7 @@ void CFsCreator::RestorePartition(unsigned short Drive, unsigned long StartSecto
 
 
 
-int CFsCreator::InstallXoslImg(int Drive, unsigned long Sector)
+int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 {
 	int hFile;
 	CDisk Disk;

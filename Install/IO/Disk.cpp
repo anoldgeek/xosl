@@ -41,7 +41,7 @@ int CDisk::DriveCount(int Fixed)
 	return DiskAccess.DriveCount(0x00);
 }
 
-int CDisk::Map(int Drive, unsigned long StartSector)
+int CDisk::Map(int Drive, unsigned long long StartSector)
 {
 	//int Status;
 
@@ -60,7 +60,7 @@ int CDisk::Map(int Drive, unsigned long StartSector)
 	return 0;
 }
 
-int CDisk::Read(unsigned long Sector, void *Buffer, int Count)
+int CDisk::Read(unsigned long long Sector, void *Buffer, int Count)
 {
 	int Status;
 
@@ -73,7 +73,7 @@ int CDisk::Read(unsigned long Sector, void *Buffer, int Count)
 }
 
 
-int CDisk::Write(unsigned long Sector, const void *Buffer, int Count)
+int CDisk::Write(unsigned long long Sector, const void *Buffer, int Count)
 {
 	if (!DiskMapped)
 		return -1;
@@ -94,14 +94,14 @@ void CDisk::Unlock()
 		DiskAccess.SetLockStatus(Drive,LOCK_STATUS_UNLOCKED);
 }
 
-int CDisk::Verify(unsigned long Sector, int Count)
+int CDisk::Verify(unsigned long long Sector, int Count)
 {
 	if (!DiskMapped)
 		return -1;
 	return Transfer(DISK_VERIFY,Sector,NULL,Count);
 }
 
-int CDisk::Transfer(int Action, unsigned long Sector, void *Buffer, int Count)
+int CDisk::Transfer(int Action, unsigned long long Sector, void *Buffer, int Count)
 {
 	TLBAPacket LBAPacket;
 	unsigned short SectCyl, DrvHead;
@@ -110,8 +110,8 @@ int CDisk::Transfer(int Action, unsigned long Sector, void *Buffer, int Count)
 		LBAPacket.PacketSize = 0x0010;
 		LBAPacket.SectorCount = Count;
 		LBAPacket.TransferBuffer = Buffer;
-		LBAPacket.SectorLow = Sector + StartSector;
-		LBAPacket.SectorHigh = 0;
+		LBAPacket.SectorLow = (unsigned long)((Sector + StartSector) & 0xffffffff);
+		LBAPacket.SectorHigh = (unsigned long)((Sector + StartSector) >> 32);
 		return DiskAccess.LBATransfer(Action,Drive,LBAPacket);
 	}
 	Sector2CHS(Sector,SectCyl,DrvHead);
@@ -125,12 +125,12 @@ void CDisk::Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned 
 	int Sector;
 	int Head;
 
-	RSector += StartSector;
+	RSector += (int) StartSector;
 
 	Sector = (int)RSector % DrvSectorCount + 1;
 	RSector /= DrvSectorCount;
 	Head = (int)RSector % DrvHeadCount;
-	Cylinder = RSector / DrvHeadCount;
+	Cylinder = (int)(RSector / DrvHeadCount);
 
 	DrvHead = Drive | (Head << 8);
 	SectCyl = Sector | ((Cylinder & 0xff) << 8) | ((Cylinder >> 8) << 6);

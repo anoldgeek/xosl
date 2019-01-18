@@ -17,7 +17,7 @@
 
 typedef struct {
 	unsigned char Drive;
-	unsigned long StartSector;
+	unsigned long long StartSector;
 } TPartKey;
 
 typedef struct {

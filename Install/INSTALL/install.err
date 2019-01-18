@@ -1,15 +1,15 @@
 ..\..\include\fat32.h(99): Warning! W849: col(1) base class virtual function has not been overridden
 ..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
 ..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\items.h(18)
-..\..\include\fat32.h(99): Note! N393: col(1) included from install.cpp(36)
+..\..\include\fat32.h(99): Note! N393: col(1) included from install.cpp(37)
 ..\..\include\fat32.h(99): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
 ..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
 ..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
-install.cpp(567): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
-install.cpp(530): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
-install.cpp(567): Warning! W726: col(1) no reference to formal parameter 'MouseType'
-install.cpp(530): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
-install.cpp(640): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
-install.cpp(569): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'
-install.cpp(640): Warning! W726: col(1) no reference to formal parameter 'MouseType'
-install.cpp(569): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'
+install.cpp(580): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
+install.cpp(543): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
+install.cpp(580): Warning! W726: col(1) no reference to formal parameter 'MouseType'
+install.cpp(543): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
+install.cpp(653): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
+install.cpp(582): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'
+install.cpp(653): Warning! W726: col(1) no reference to formal parameter 'MouseType'
+install.cpp(582): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'

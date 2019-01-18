@@ -15,12 +15,12 @@
 #include <fat16.h>
 #include <bootrec.h>
 #include <items.h>
-//#include <mem.h>
+#include <mem.h>
 #include <memory_x.h>
 #include <dosio.h>
 #include <files.h>
 #include <xosldata.h>
-#include <gptab.h>
+#include <gptabdata.h>
 
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
@@ -52,34 +52,138 @@ void CPartList::ReadStructure()
 	// Create PartList Look-up Table
 	CreatePLUP();
 }
+int CPartList::GetGPTIndex(uuid_t GPTType)
+{
+	int i;
+	for(i = 0; i++;){
+		if (gpt_fstypes[i].MBRType == 0xffff){
+			return 0;
+		}
+		if(memcmp(&GPTType,&gpt_fstypes[i].GUIDype,UUID_SIZE) == 0 ){
+			return i;
+		}
 
-TMBRNode *CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned long ExtStart, int Type, TMBRNode *MBRList)
+	}
+	return 0;
+}
+
+int CPartList::GetGPTShortType(uuid_t GPTType)
+{
+	int i;
+	for(i = 0; ;i++){
+		if (gpt_fstypes[i].MBRType == 0xffff){
+			return 0;
+		}
+		if(memcmp(&GPTType,&gpt_fstypes[i].GUIDype,UUID_SIZE) == 0 ){
+			return gpt_fstypes[i].MBRType;
+		}
+	}
+	return 0;
+}
+
+TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigned long ExtStart, int Type, TMBRNode *MBRList)
 {
 	CDisk Disk;
 	TPartTable *PartTable;
 	const TPartEntry *Entries;
 	int Index;
-	unsigned long NewStartSector;
+	unsigned long long NewStartSector;
+	unsigned int i;
+	unsigned int gpt_sector;
 
 	if (Disk.Map(Drive,StartSector) == -1)
 		return MBRList;
 	PartTable = new TPartTable;
-	if (Disk.Read(0,PartTable,1) == -1 || PartTable->MagicNumber != 0xaa55) {
+	if (Disk.Read(0,PartTable,1) == -1 || PartTable->mbr.MagicNumber != 0xaa55) {
 		delete PartTable;
 		return MBRList;
 	}
-	if (PartTable->Entries[0].FSType == 0xee){
-		// GPT Protective MBR
-		unsigned __int64 guid = 0x0ULL;
-		guid++;
-
+	// gpt code from grub:2 grub-core/partmap/gpt.c
+	// Check to see if the MBR is a protective MBR for GPT disk and not a normal MBR.
+	for (i=0;i < 4 ; i++ ){
+		if(PartTable->mbr.Entries[0].FSType == 0xee){
+			break;
+		}
 	}
+	if (i!=4){
+		// Check for GPT Protective MBR
+		char *gpt_magic = "EFI PART";
+		int j;
+		gpt_header_t *gpth;
+//		gpt_partentry_t *gpart_entry;
+//		TGPTTable *GPTTable;
+		int last_offset = 0;
+
+		// Add the Protective MBR
+		MBRList = MBRList->Next = new TMBRNode;
+		MBRList->AbsoluteSector = StartSector;
+		MBRList->Drive = Drive;
+		MBRList->Type = PART_GPT_PROT_MBR;
+		MBRList->Table = PartTable;
+
+		PartTable = new TPartTable;
+//		gpth = new gpt_header_t;
+//		unsigned __int64 guid = 0x0ULL;
+
+		/* Read the GPT header.  */
+		// Code assume 512 byte logical sectors on disc
+		if (Disk.Read(1,PartTable,1) == -1 ) {
+			delete PartTable;
+			return MBRList;
+		}
+
+		if (memcmp (PartTable->gpth.magic, gpt_magic, sizeof (gpt_magic)) != 0){
+			delete PartTable;
+			return MBRList;
+		}
+		// Add the gpt header
+		MBRList = MBRList->Next = new TMBRNode;
+		MBRList->AbsoluteSector = 1;
+		MBRList->Drive = Drive;
+		MBRList->Type = PART_GPT_HEADER;
+		MBRList->Table = PartTable;
+
+	
+		gpth = &PartTable->gpth;
+
+		// GPT disk. This code only handles little endian
+		// Code assume 512 byte logical sectors on disc
+		for (j = 0, gpt_sector = 2; j < gpth->maxpart ; gpt_sector++ , j+=4 ){
+			PartTable = new TPartTable;
+			if (Disk.Read(gpt_sector,PartTable,1) == -1 ) {
+				delete PartTable;
+				return MBRList;
+			}
+			MBRList = MBRList->Next = new TMBRNode;
+			MBRList->AbsoluteSector = gpt_sector;
+			MBRList->Drive = Drive;
+			MBRList->Type = PART_GPT;
+			MBRList->Table = PartTable;
+/*
+			for (j = 0;j < 4 && i < gpth->maxpart ; j++, i++ ){
+				if (GetGPTShortType(GPTTable->Entries[j].type) != 0){
+					// linux filesystem
+					gpart_entry = new gpt_partentry_t;
+					memcpy(gpart_entry,&GPTTable->Entries[j],sizeof(gpt_partentry_t) );
+
+					MBRList = MBRList->Next = new TMBRNode;
+					MBRList->AbsoluteSector = gpart_entry->start;
+					MBRList->Drive = Drive;
+					MBRList->Type = PART_GPT;
+					MBRList->Table = (TPartTable*) gpart_entry;
+				}
+			}
+*/
+		}
+		return MBRList;
+	}
+	// MBR disk
 	MBRList = MBRList->Next = new TMBRNode;
 	MBRList->AbsoluteSector = StartSector;
 	MBRList->Drive = Drive;
 	MBRList->Type = Type;
 	MBRList->Table = PartTable;
-	Entries = MBRList->Table->Entries;
+	Entries = MBRList->Table->mbr.Entries;
 	for (Index = 0; Index < 4; ++Index)
 		switch (Entries[Index].FSType) {
 			case FSTYPE_EXTENDED:
@@ -87,7 +191,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long StartSector, unsigned lon
 			case FSTYPE_LINUXEXT:
 			case FSTYPE_HIDDENEXTENDED:
 				if (Type != PART_LOGICAL) {
-					ExtStart = Entries[Index].RelativeSector;
+					ExtStart = (unsigned long)Entries[Index].RelativeSector;
 					NewStartSector = ExtStart;
 				}
 				else
@@ -119,14 +223,23 @@ void CPartList::CreatePartList(int FloppyCount)
 			PartList = PartList->Next = CreateNonPartNode(Drive);
 			++Count;
 		}
-		for (Index = 0; Index < 4; ++Index) {
-			Entries = &MBRNode->Table->Entries[Index];
-			if (Entries->RelativeSector && ((Entries->FSType != FSTYPE_EXTENDED &&
-				Entries->FSType != FSTYPE_EXTENDEDLBA && Entries->FSType != FSTYPE_LINUXEXT) ||
-				MBRNode->Type != PART_LOGICAL)) {
-				// ( RelativeSector && (( ! EXTENDED && ! EXTENDEDLBA && ! LINUXEXT ) || ! PART_LOGICAL )  )
-				PartList = PartList->Next = CreatePartNode(MBRNode,Index);
+		if (MBRNode->Type == PART_GPT){
+			// GPT Disk
+			for (Index = 0 ; Index < 4 ; ++Index){
+				PartList = PartList->Next = CreateGPTPartNode(MBRNode,Index);
 				++Count;
+			}
+		}else{
+			// MBR Disk
+			for (Index = 0; Index < 4; ++Index) {
+				Entries = &MBRNode->Table->mbr.Entries[Index];
+				if (Entries->RelativeSector && ((Entries->FSType != FSTYPE_EXTENDED &&
+					Entries->FSType != FSTYPE_EXTENDEDLBA && Entries->FSType != FSTYPE_LINUXEXT) ||
+					MBRNode->Type != PART_LOGICAL)) {
+					// ( RelativeSector && (( ! EXTENDED && ! EXTENDEDLBA && ! LINUXEXT ) || ! PART_LOGICAL )  )
+					PartList = PartList->Next = CreatePartNode(MBRNode,Index);
+					++Count;
+				}
 			}
 		}
 	}
@@ -170,7 +283,7 @@ TPartNode *CPartList::CreatePartNode(const TMBRNode *MBRNode, int Index)
 
 	PartNode = new TPartNode;
 	Partition = PartNode->Partition = new TPartition;
-	PartEntry = PartNode->Entry = &MBRNode->Table->Entries[Index];
+	PartEntry = PartNode->Entry = &MBRNode->Table->mbr.Entries[Index];
 
 	Partition->Drive = MBRNode->Drive;
 	Partition->StartSector = MBRNode->AbsoluteSector + PartEntry->RelativeSector;
@@ -182,14 +295,42 @@ TPartNode *CPartList::CreatePartNode(const TMBRNode *MBRNode, int Index)
 	return PartNode;
 }
 
+TPartNode *CPartList::CreateGPTPartNode(const TMBRNode *MBRNode, int Index)
+{
+	TPartNode *PartNode;
+	TPartition *Partition;
+	const gpt_partentry_t *PartEntry;
+	int GptShortType;
 
+	PartNode = new TPartNode;
+	Partition = PartNode->Partition = new TPartition;
+	PartEntry = PartNode->gptEntry = &MBRNode->Table->gpt.Entries[Index];
 
-const char *CPartList::GetFSName(int FSID)
+	Partition->Drive = MBRNode->Drive;
+	Partition->StartSector = PartEntry->start;
+	Partition->SectorCount = PartEntry->end - PartEntry->start;
+	GptShortType = GetGPTShortType(PartEntry->type);
+	Partition->FSName = GetFSName(GptShortType);
+	Partition->FSType = GptShortType;
+	Partition->Type = MBRNode->Type;
+	Partition->MbrHDSector0 = 0xff;
+	return PartNode;
+}
+
+const char *CPartList::GetFSName(unsigned short FSID)
 {
 	int Index;
 
-	for (Index = 0; FSNameList[Index].FSID != FSID && FSNameList[Index].FSID != 0xff; ++Index);
-	return FSNameList[Index].FSName;
+	if (FSID > 0xff ){
+		// GPT FSID
+		for (Index = 0; gpt_fstypes[Index].MBRType != FSID && gpt_fstypes[Index].MBRType != 0xffff; ++Index);
+		return gpt_fstypes[Index].Name;
+
+	}else{
+		// MBR FSID
+		for (Index = 0; FSNameList[Index].FSID != FSID && FSNameList[Index].FSID != 0xff; ++Index);
+		return FSNameList[Index].FSName;
+	}
 }
 
 void CPartList::CreatePLUP()
@@ -203,15 +344,86 @@ void CPartList::CreatePLUP()
 		PLUP[Index] = PartList;
 }
 
-void CPartList::WriteStructure()
+char* CPartList::WriteStructure()
 {
 	CDisk Disk;
 	TMBRNode *MBRList;
+	TMBRNode *GTPList;
+	gpt_header_t *gpth;
+	uint64_t prt_bu_offset;
+	int Index;
+	uint32_t part_crc;
+	gpt_header_t *gtpbuheader;
 
 	for (MBRList = this->MBRList.Next; MBRList; MBRList = MBRList->Next) {
-		Disk.Map(MBRList->Drive,MBRList->AbsoluteSector);
-		Disk.Write(0,MBRList->Table,1);
+		if(MBRList->Type == PART_GPT_PROT_MBR){
+			// gtp protective mbr 
+			// Don't need to overwrite this
+			continue;
+		}
+		if(MBRList->Type == PART_GPT_HEADER){
+			// gpt header, we will need this
+			gpth = MBRList->gpthTable;
+			// Make sure we can read the gpt backup header before updating partitions
+			gtpbuheader = new gpt_header_t;
+			Disk.Map(MBRList->Drive,gpth->backup);
+			if(Disk.Read(0,gtpbuheader,1) == -1){
+				return "failed\nUnable to read gpt backup header. ";
+			}
+			// Generate the crc table
+			chksum_crc32gentab();
+			// Initialize the crc
+			part_crc = 0L;
+
+			for(Index = 0, GTPList = MBRList ;Index < gpth->maxpart ; Index+=4){
+				GTPList = GTPList->Next;
+				// Update primary partition entries
+				if (GTPList->Type != PART_GPT){
+					// Internal error
+					return "failed\nExcected PART_GPT.";
+				}
+				// update the crc
+				part_crc = chksum_crc32(part_crc, GTPList->gptTable, sizeof(TGPTTable));
+				// write gpt table sector to disc
+				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector);
+				Disk.Write(0,GTPList->gptTable,1);
+			}
+			// Update the primary header
+			gpth->partentry_crc32 = part_crc;
+			gpth->crc32 = 0L;
+			gpth->crc32 = chksum_crc32(0,gpth,gpth->headersize);
+			Disk.Map(GTPList->Drive,1);
+			Disk.Write(0,gpth,1);
+
+			// Now update backup partition entries
+			prt_bu_offset = gtpbuheader->partitions - 2;
+			for(Index = 0, GTPList = MBRList;Index < gpth->maxpart ; Index+=4){
+				GTPList = GTPList->Next;
+				// Update primary partition entries
+				if (GTPList->Type != PART_GPT){
+					// Internal error
+				}
+				// A gpt table sector to update
+				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector+prt_bu_offset);
+				Disk.Write(0,GTPList->gptTable,1);
+			}
+			// Update the backup header
+			gtpbuheader->partentry_crc32 = part_crc;
+			gtpbuheader->crc32 = 0L;
+			gtpbuheader->crc32 = chksum_crc32(0,gtpbuheader,gpth->headersize);
+			Disk.Map(GTPList->Drive,gpth->backup);
+			Disk.Write(0,gtpbuheader,1);
+
+			// All GTP entries done update MBRList;
+			MBRList = GTPList;
+		}
+		else{
+			// ordinary mbr sector
+			Disk.Map(MBRList->Drive,MBRList->AbsoluteSector);
+			Disk.Write(0,MBRList->Table,1);
+		}
 	}
+	return NULL;
 }
 
 const TPartition *CPartList::GetPartition(int Index)
@@ -219,15 +431,57 @@ const TPartition *CPartList::GetPartition(int Index)
 	return PLUP[Index]->Partition;
 }
 
-void CPartList::UpdateFSType(int Index, short FSType, unsigned char MbrHDSector0)
+void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0)
 {
 	PLUP[Index]->Partition->FSType = FSType;
 	PLUP[Index]->Partition->FSName = GetFSName(FSType);
 	PLUP[Index]->Partition->MbrHDSector0 = MbrHDSector0;
-	PLUP[Index]->Entry->FSType = FSType;
+	if (FSType < 0x100){
+		// mbr type
+		PLUP[Index]->Entry->FSType = FSType;
+	}
+	else{
+		// gpt type
+		char *Name, *gptname;
+		int i,j;
+
+		memcpy(&PLUP[Index]->gptEntry->type,GetGPTType(FSType), sizeof(uuid_t));
+		// wide charcter fudge
+		Name = GetGPTName(FSType);
+		gptname = PLUP[Index]->gptEntry->name;
+		for(i = 0, j = 0; Name[i] != 0 ;){
+			gptname[j++] = Name[i++];
+			gptname[j++] = 0;
+		}
+		gptname[j++] = 0;
+		gptname[j++] = 0;
+	}
 }
 
-int CPartList::Locate(int Drive, unsigned long StartSector)
+uuid_t* CPartList::GetGPTType(int FSType)
+{
+	for (int Index = 0; ;++Index ){
+		if (gpt_fstypes[Index].MBRType == FSType) {
+			return &gpt_fstypes[Index].GUIDype;
+		}
+		if (gpt_fstypes[Index].MBRType == 0xffff){
+			return 0;
+		}
+	}
+}
+char* CPartList::GetGPTName(int FSType)
+{
+	for (int Index = 0; ;++Index ){
+		if (gpt_fstypes[Index].MBRType == FSType) {
+			return gpt_fstypes[Index].Name;
+		}
+		if (gpt_fstypes[Index].MBRType == 0xffff){
+			return 0;
+		}
+	}
+}
+
+int CPartList::Locate(int Drive, unsigned long long StartSector)
 {
 	int Index;
 	const TPartition *Partition;
@@ -247,19 +501,22 @@ int CPartList::GetCount()
 
 int CPartList::CanHide(int Index)
 {
-	switch (PLUP[Index]->Entry->FSType & 0xef) {
-		case 0x01:
-		case 0x04:
-		case 0x06:
-		case 0x07:
-		case 0x0b:
-		case 0x0c:
-		case 0x0e:
-		case 0x0f:
-			return 1;
-		default:
-			return 0;
+	if(PLUP[Index]->Partition->FSType < 0x100 ){
+		switch (PLUP[Index]->Entry->FSType & 0xef) {
+			case 0x01:
+			case 0x04:
+			case 0x06:
+			case 0x07:
+			case 0x0b:
+			case 0x0c:
+			case 0x0e:
+			case 0x0f:
+				return 1;
+			default:
+				return 0;
+		}
 	}
+	return 0;
 }
 
 void CPartList::Hide(int Index)
@@ -279,7 +536,7 @@ int CPartList::CanActivate(int Index)
 	int Type;
 
 	Type = PLUP[Index]->Partition->Type;
-	return Type != PART_MBR && Type != PART_FLOPPY;
+	return Type == PART_PRIMARY || Type == PART_LOGICAL;
 }
 
 void CPartList::SetAllowActiveHD(int Status)
@@ -293,13 +550,20 @@ void CPartList::ClearActive(int Drive)
 
 	if (!AllowActiveHD)
 		// clear active flag for all partitions
-		for (Index = 0; Index < Count; ++Index)
-			PLUP[Index]->Entry->Activated = 0x00;
+		for (Index = 0; Index < Count; ++Index){
+			if(CanActivate(Index)){
+				PLUP[Index]->Entry->Activated = 0x00;
+			}
+		}
 	else
 		// clear active flag only for all partitions on same drive
-		for (Index = 0; Index < Count; ++Index)
-			if (PLUP[Index]->Partition->Drive == Drive)
-				PLUP[Index]->Entry->Activated = 0x00;
+		for (Index = 0; Index < Count; ++Index){
+			if (PLUP[Index]->Partition->Drive == Drive){
+				if(CanActivate(Index)){
+					PLUP[Index]->Entry->Activated = 0x00;
+				}
+			}
+		}
 }
 
 void CPartList::SetActive(int Index)
@@ -308,9 +572,28 @@ void CPartList::SetActive(int Index)
 	PLUP[Index]->Entry->Activated = 0x80;
 }
 
-void CPartList::SetFsType(int Index, int FsType)
+void CPartList::SetFsType(int Index, int FSType)
 {
-	PLUP[Index]->Entry->FSType = FsType;
+	if (FSType < 0x100){
+		// MBR FSType
+		PLUP[Index]->Entry->FSType = FSType;
+	}
+	else{
+		// gpt type
+		char *Name, *gptname;
+		int i,j;
+
+		memcpy(&PLUP[Index]->gptEntry->type,GetGPTType(FSType), sizeof(uuid_t));
+		// wide charcter fudge
+		Name = GetGPTName(FSType);
+		gptname = PLUP[Index]->gptEntry->name;
+		for(i = 0, j = 0; Name[i] != 0 ;){
+			gptname[j++] = Name[i++];
+			gptname[j++] = 0;
+		}
+		gptname[j++] = 0;
+		gptname[j++] = 0;
+	}
 }
 
 
@@ -340,38 +623,26 @@ CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0x85,"Linux Extended"},
 	{0xa5,"FreeBSD, BSD/386"},
 	{0xeb,"BeOS"},
-	{0xee,"GPT Protective MBR"},
-	{0xff,"Unknown"}
-};
+	{0xee,"Protective MBR"},
 /*
-typedef	struct {
-		unsigned char Jump[3];			// jmp short + nop
-		unsigned char OEM_ID[8];		// XOSLINST
-		unsigned short SectorSize;		// 512
-		unsigned char ClusterSize;		// 16 (8192 byte)
-		unsigned short ReservedSectors;	// 1
-		unsigned char FATCopies;		// 1
-		unsigned short RootEntries;		// 32
-		unsigned short SectorCount;		// ?
-		unsigned char MediaDescriptor;	// 0xF8 (?) 
-		unsigned short FATSize;			// 1
-		unsigned short TrackSize;		// ? (sectors per head)
-		unsigned short HeadCount;		// ?
-		unsigned long HiddenSectors;	// ? (partition offset)
-		unsigned long BigSectorCount;	// 0 (total sectors < 65536)
-		unsigned short Drive;			// ?
-		unsigned char Signature;		// 0x29 (?)
-		unsigned long SerialNo;			// 0x4c534f58 (don't really care)
-		unsigned char Label[11];		// XOSL110
-		unsigned char FSID[8];			// FAT16
-		unsigned char Loader[448];		// IPL
-		unsigned short MagicNumber;		// 0x534f (used by XOSLLOAD)
-	} TBootRecord;
+	{0x8200, "Linux swap"}, // Linux swap (or Solaris on MBR)
+	{0x8300, "Linux filesystem"}, // Linux native
+	{0x8301, "Linux reserved"},
+	{0x8302, "Linux /home"}, // Linux /home (auto, 0xmounted by systemd)
+	{0x8303, "Linux x86 root (/)"}, // Linux / on x86 (auto, 0xmounted by systemd)
+	{0x8304, "Linux x86, 0x64 root (/)"}, // Linux / on x86, 0x64 (auto, 0xmounted by systemd)
+	{0x8305, "Linux ARM64 root (/)"}, // Linux / on 64, 0xbit ARM (auto, 0xmounted by systemd)
+	{0x8306, "Linux /srv"}, // Linux /srv (auto, 0xmounted by systemd)
+	{0x8307, "Linux ARM32 root (/)"}, // Linux / on 32, 0xbit ARM (auto, 0xmounted by systemd)
+	{0xb300, "QNX6 Power, 0xSafe"},
+	{0x7800, "XOSL FS"},
 */
+	{0xff,"Unknown"},
+};
 
 //int memcmp(const void far *s1, const void far *s2, size_t count);
 int far memcmp(const void *s1, const void *s2, unsigned short count);
-#define BOOTITEM_FILESIZE 4096
+#define BOOTITEM_FILESIZE sizeof(CBootItemFile)
 
 void CPartList::GetPartMbrHDSector0(TPartition *Partition)
 {
@@ -485,3 +756,84 @@ void CPartList::ConvertDOS2XoslFsName(const char *DosFileName, char *XoslFsFileN
 	}
 	*XoslFsFileName = '\0';
 }
+uint16_t CPartList::GetGptMBRType(int gptindex){
+	return gpt_fstypes[gptindex].MBRType;
+}
+
+#if FALSE
+/* CRC-32C (iSCSI) polynomial in reversed bit order. */
+// #define POLY 0x82f63b78
+
+/* CRC-32 (Ethernet, ZIP, etc.) polynomial in reversed bit order. */
+#define POLY 0xedb88320
+
+uint32_t CPartList::crc32(uint32_t crc, const void *bufin, uint64_t len)
+{
+    int k;
+	const char *buf;
+
+	buf = (char *)bufin;
+    crc = ~crc;
+    while (len--) {
+        crc ^= *buf++;
+        for (k = 0; k < 8; k++)
+            crc = crc & 1 ? (crc >> 1) ^ POLY : crc >> 1;
+    }
+    return ~crc;
+}
+#else
+/* crc_tab[] -- this crcTable is being build by chksum_crc32GenTab().
+ *              so make sure, you call it before using the other
+ *              functions!
+ */
+uint32_t crc_tab[256];
+
+/* chksum_crc() -- to a given block, this one calculates the
+ *                              crc32-checksum until the length is
+ *                              reached. the crc32-checksum will be
+ *                              the result.
+ */
+uint32_t CPartList::chksum_crc32 (uint32_t initial, const void *pblock, uint64_t length)
+{
+   register unsigned long crc;
+   uint64_t i;
+   const char *block;
+
+   block = (char *)pblock;
+   crc = initial ^ 0xFFFFFFFF;
+   for (i = 0; i < length; i++)
+   {
+      crc = ((crc >> 8) & 0x00FFFFFF) ^ crc_tab[(crc ^ *block++) & 0xFF];
+   }
+   return (crc ^ 0xFFFFFFFF);
+}
+
+/* chksum_crc32gentab() --      to a global crc_tab[256], this one will
+ *                              calculate the crcTable for crc32-checksums.
+ *                              it is generated to the polynom [..]
+ */
+
+void CPartList::chksum_crc32gentab ()
+{
+   unsigned long crc, poly;
+   int i, j;
+
+   poly = 0xEDB88320L;
+   for (i = 0; i < 256; i++)
+   {
+      crc = i;
+      for (j = 8; j > 0; j--)
+      {
+         if (crc & 1)
+         {
+            crc = (crc >> 1) ^ poly;
+         }
+         else
+         {
+            crc >>= 1;
+         }
+      }
+      crc_tab[i] = crc;
+   }
+}
+#endif

@@ -32,7 +32,7 @@ private:
 
 	CForm *Owner;
 
-	unsigned char LocalHideList[24][56];
+	unsigned char LocalHideList[BI_BOOTITEMS][BI_PARTS];
 
 	int BootItemIndex;
 	void UpdateBootItemList();
@@ -69,7 +69,7 @@ private:
 
 	void AddDisk(int Row, int Drive);
 	void AddSystem(int Row, const char *FSName);
-	void AddSize(int Row, unsigned long Sectors);
+	void AddSize(int Row, unsigned long long Sectors);
 	void AddVolume(int Row, const char *VolumeLabel);
 
 	void CloseDialog();

@@ -22,6 +22,7 @@
 
 #include <Install.h>
 
+#include <ptab.h>
 #include <xosldata.h>
 #include <memory_x.h>
 #include <disk.h>
@@ -125,10 +126,16 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 
 	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
 		return -1;
-
-	SetPartId(PartIndex,0x78);
-	// Update the partition entries in case user returns to menu
-	PartList.UpdateFSType(PartIndex, (short) 0x78, MbrHDSector0);
+	if (Partition->Type != PART_GPT){
+		// MBR Drive
+		SetPartId(PartIndex,0x78);
+		// Update the partition entries in case user returns to menu
+		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
+	}else{
+		// GPT Drive
+		SetPartId(PartIndex,0x7800);
+		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
+	}
 
  	if (MbrHDSector0 != 0xff){
  		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
@@ -356,7 +363,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl)
 }
 
 
-int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long StartSector)
+int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long long StartSector)
 {
 	CFAT16 *FileSystem = new CFAT16;
 	const char *DosFileName;
@@ -450,10 +457,16 @@ int CInstaller::LoadDefaultMbr(void *MbrBuffer)
 
 void CInstaller::SetPartId(int PartIndex, int PartId)
 {
-	TextUI.OutputStr("Updating partition table...");
+	char *errstr;
+
+	TextUI.OutputStr("Updating partition tables...");
 	PartList.SetFsType(PartIndex,PartId);
-	PartList.WriteStructure();
-	TextUI.OutputStr("done\n");
+	if((errstr=PartList.WriteStructure()) != NULL ){
+		TextUI.OutputStr(errstr);
+	}
+	else{
+		TextUI.OutputStr("done\n");
+	}
 }
 
 

@@ -67,7 +67,7 @@ class CPartList {
 		~CPartList();
 		void WriteStructure();
 		const TPartition *GetPartition(int Index);
-		int Locate(int Drive, unsigned long StartSector);
+		int Locate(int Drive, unsigned long long StartSector);
 		int GetCount();
 		int CanHide(int Index);
 		void Hide(int Index);
@@ -99,7 +99,7 @@ class CPartList {
 
 		void ReadStructure();
 
-		void AddDrive(int Drive, unsigned long StartSector, unsigned long ExtStart, int Type);
+		void AddDrive(int Drive, unsigned long long StartSector, unsigned long long ExtStart, int Type);
 		void CreatePartList(int FloppyCount);
 		void CreatePartNode(list<CMBRNode>::iterator MBRNode, int Index);
 		void CreateNonPartNode(int Drive);

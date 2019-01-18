@@ -64,7 +64,7 @@ private:
 	void AddDisk(int Row, int Drive);
 	void AddType(int Row, int Type);
 	void AddSystem(int Row, const char *FSName);
-	void AddSize(int Row, unsigned long Sectors);
+	void AddSize(int Row, unsigned long long Sectors);
 	void AddVolume(int Row, const char *VolumeLabel);
 
 	void CloseDialog();

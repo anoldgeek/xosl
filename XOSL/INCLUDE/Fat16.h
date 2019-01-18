@@ -55,7 +55,7 @@ class CFAT16: public CFileSystem {
 	public:
 		CFAT16();
 		~CFAT16();
-		int Mount(int Drive, unsigned long StartSector);
+		int Mount(int Drive, unsigned long long StartSector);
 		unsigned short ReadFile(const char *FileName, void *Buffer);
 		int WriteFile(const char *FileName, void *Buffer);
 	private:

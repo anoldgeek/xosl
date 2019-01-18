@@ -325,8 +325,8 @@ void CSetup::CloseBtnClick(CSetup &Setup)
 
 void CSetup::AddBtnClick(CSetup &Setup)
 {
-	if (Setup.BootItems.GetCount() == 24) {
-		Setup.Dialogs.ShowAlertDialog(Setup.Form,"Error: limit reached","XOSL cannot have more than 24 boot items","Ok");
+	if (Setup.BootItems.GetCount() == BI_BOOTITEMS) {
+		Setup.Dialogs.ShowAlertDialog(Setup.Form,"Error: limit reached","XOSL cannot have more than " BI_BOOTITEMS_STR " boot items","Ok");
 	}
 	else {
 		Setup.PartDialog.SetOnApply(&Setup,(TPartDialogOnApply)AddBootItem);
@@ -440,8 +440,8 @@ void CSetup::CloneBtnClick(CSetup &Setup)
 	int NewIndex;
 
 	NewIndex = Setup.BootItems.GetCount();
-	if (NewIndex == 24) {
-		Setup.Dialogs.ShowAlertDialog(Setup.Form,"Error: limit reached","XOSL cannot have more than 24 boot items","Ok");
+	if (NewIndex == BI_BOOTITEMS) {
+		Setup.Dialogs.ShowAlertDialog(Setup.Form,"Error: limit reached","XOSL cannot have more than " BI_BOOTITEMS_STR " boot items","Ok");
 	}
 	else {
 		Setup.BootItems.Add(*Setup.BootItems.Get(Setup.BootItemIndex));

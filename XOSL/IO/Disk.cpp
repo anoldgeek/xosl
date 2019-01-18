@@ -37,7 +37,7 @@ int CDisk::DriveCount(int Fixed)
 	return DiskAccess.DriveCount(0x00);
 }
 
-int CDisk::Map(int Drive, unsigned long StartSector)
+int CDisk::Map(int Drive, unsigned long long StartSector)
 {
 	//int Status;
 
@@ -56,7 +56,7 @@ int CDisk::Map(int Drive, unsigned long StartSector)
 	return 0;
 }
 
-int CDisk::Read(unsigned long Sector, void *Buffer, int Count)
+int CDisk::Read(unsigned long long Sector, void *Buffer, int Count)
 {
 	int Status;
 
@@ -69,7 +69,7 @@ int CDisk::Read(unsigned long Sector, void *Buffer, int Count)
 }
 
 
-int CDisk::Write(unsigned long Sector, void *Buffer, int Count)
+int CDisk::Write(unsigned long long Sector, void *Buffer, int Count)
 {
 	if (!DiskMapped)
 		return -1;
@@ -78,14 +78,14 @@ int CDisk::Write(unsigned long Sector, void *Buffer, int Count)
 	return Transfer(DISK_WRITE,Sector,Buffer,Count);
 }
 
-int CDisk::Verify(unsigned long Sector, int Count)
+int CDisk::Verify(unsigned long long Sector, int Count)
 {
 	if (!DiskMapped)
 		return -1;
 	return Transfer(DISK_VERIFY,Sector,NULL,Count);
 }
 
-int CDisk::Transfer(int Action, unsigned long Sector, void *Buffer, int Count)
+int CDisk::Transfer(int Action, unsigned long long Sector, void *Buffer, int Count)
 {
 	TLBAPacket LBAPacket;
 	unsigned short SectCyl, DrvHead;

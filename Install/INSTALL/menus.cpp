@@ -24,6 +24,7 @@
 #include <stdlib.h>
 #include <memory_x.h>
 #include <xoslver.h>
+#include <gptab.h>
 
 static const char *YesNoList[2] = {"Yes", "No"};
 
@@ -371,7 +372,6 @@ void CInstallMenus::CreatePartList()
 	PartNameList = new char *[Count];
 	PartResolveList = new int[Count];
 	MbrHDSector0List = new unsigned char [Count];
-
 	for (PartNameCount = Index = 0; Index < Count; ++Index) {
 		Partition = PartList.GetPartition(Index);
 		switch (Partition->Type) {
@@ -387,25 +387,7 @@ void CInstallMenus::CreatePartList()
 						PartResolveList[Index] = PartNameCount;
 
 						PartStr = new char [48];
-/*
-						MemSet(PartStr,' ',32);
-						MemCopy(PartStr,"HD",2);
-						PartStr[2] = '0' + (Partition->Drive & ~0x80);
-						MemCopy(&PartStr[4],Partition->Type == PART_PRIMARY ? "pri" : "log",3);
-						MemCopy(&PartStr[9],Partition->FSName,strlen(Partition->FSName));
-
-						// Shorten partition size display by using M of G suffix
-						PartitionSize = (Partition->SectorCount >> 11); // Get size in Mb
-						if (PartitionSize < 1024L){
-							strcat(ultoa(PartitionSize,&SPartitionSize[0],10),"M");
-						}else{ 
-							strcat(ultoa(PartitionSize >> 10,&SPartitionSize[0],10),"G");
-						}
-						//MemCopy(&PartStr[29], SPartitionSize, strlen(SPartitionSize));
-						strcpy(&PartStr[29], SPartitionSize);
-*/
 						PartStr = UpdatePartNameList(PartStr, Partition);
-						//ultoa((Partition->SectorCount >> 11),&PartStr[29],10);
 						PartNameList[PartNameCount] = PartStr;
 
 						if(Partition->FSType == 0x78 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
@@ -418,29 +400,43 @@ void CInstallMenus::CreatePartList()
 						break;
 				}
 				break;
+
+			case PART_GPT:
+				if (Partition->FSType == 0L){
+					// Empty partition entry
+					PartResolveList[Index] = -1;
+				}
+				else{
+					PartResolveList[Index] = PartNameCount;
+					PartStr = new char [48];
+					PartStr = UpdatePartNameList(PartStr, Partition);
+					PartNameList[PartNameCount] = PartStr;
+					MbrHDSector0List[PartNameCount] = 0; // HD0
+					PartNameCount++;
+				}
+				break;
 			default:
 				break;
 		}
 	}
-
 }
 char * CInstallMenus::UpdatePartNameList(char * PartStr, const TPartition *Partition)
 {
-	unsigned long PartitionSize;
+	unsigned long long PartitionSize;
 	char SPartitionSize[16];
 
 	MemSet(PartStr,' ',32);
 	MemCopy(PartStr,"HD",2);
 	PartStr[2] = '0' + (Partition->Drive & ~0x80);
-	MemCopy(&PartStr[4],Partition->Type == PART_PRIMARY ? "pri" : "log",3);
+	MemCopy(&PartStr[4],Partition->Type == PART_PRIMARY ? "pri" : Partition->Type == PART_GPT ? "gpt" : "log",3);
 	MemCopy(&PartStr[9],Partition->FSName,strlen(Partition->FSName));
 
 	// Shorten partition size display by using M of G suffix
 	PartitionSize = (Partition->SectorCount >> 11); // Get size in Mb
 	if (PartitionSize < 1024L){
-		strcat(ultoa(PartitionSize,&SPartitionSize[0],10),"M");
+		strcat(ultoa((unsigned long)PartitionSize,&SPartitionSize[0],10),"M");
 	}else{ 
-		strcat(ultoa(PartitionSize >> 10,&SPartitionSize[0],10),"G");
+		strcat(ultoa((unsigned long)(PartitionSize >> 10),&SPartitionSize[0],10),"G");
 	}
 	//MemCopy(&PartStr[29], SPartitionSize, strlen(SPartitionSize));
 	strcpy(&PartStr[29], SPartitionSize);

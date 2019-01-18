@@ -16,11 +16,11 @@
 
 # NOTE: MAKEFILE doesn't put starter.obj in misc.lib!
 
-COMPILE_OBJ=starter.obj a20line.obj a20stat.obj int.obj weird.obj ctype.obj wcpp4stuff.obj
+COMPILE_OBJ=starter.obj a20line.obj a20stat.obj int.obj weird.obj ctype.obj wcpp4stuff.obj owlib.obj
 LIB_NAME=misc.lib
 LIST_FILE=misc.lst
 #LIB_OBJ=-+int.obj -+weird.obj -+ctype.obj -+wcpp4stuff.obj -+i4d.obj -+i4m.obj
-LIB_OBJ=-+a20line.obj -+a20stat.obj -+int.obj -+weird.obj -+ctype.obj -+wcpp4stuff.obj -+i4d.bin -+i4m.bin
+LIB_OBJ=-+a20line.obj -+a20stat.obj -+int.obj -+weird.obj -+ctype.obj -+wcpp4stuff.obj -+i4d.bin -+i4m.bin -+owlib.obj
 
 #
 # Generic library stuff

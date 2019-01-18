@@ -101,23 +101,18 @@ XOSL11C
 		msg failed to copy nextfile
 		abort
 	fi
-
 XOSL11D
 
 7. Ipl_brec assumes a maxiumum size of XOSLLOAD.XCF of 8192. It is now bigger!!
 	Get size from directory enrty?
-
 XOSL11E
 
-
-11. Fix date/time settings of files in sep install. 
-11. Fixed and tested for sep, FAT32 and FAT16
-
+8. Fix date/time settings of files in sep install. 
+9. Fixed and tested for sep, FAT32 and FAT16
 10. Fix smartbootloader "not enough memory" on install. OK with freedos probably issue with dos 6.22 config
-
 XOSL11F
 
-8. Fix install restore and delete, where xosl installed in HD other than HD0 in sep installs.
+12. Fix install restore and delete, where xosl installed in HD other than HD0 in sep installs.
 	Store which HD the mbr is written to during install in a new item CBootItemFile.MbrHDSector0 and retrieve it for display on restore and delete action.
 	Need special refresh on partition change to update currently selected MbrHDSector0.
 	Extra parameter to TextUI.AddMenuItem for partition selection, to pass current MbrHDSector0? 
@@ -138,29 +133,33 @@ XOSL11F
 				}
 	
 XOSL11G
-
-
 	
-9. Enable install of XOSL as chain load only (Do not install Sector 0 Mbr)
-
+13. Enable install of XOSL as chain load only (Do not install Sector 0 Mbr)
 XOSL11H
 
-
-10. Create upgrade option.
+14. Create upgrade option.
 	Save existing config files ( boot items BOOTITEM.XDF; preferences XOSLDATA.XDF ). 
 	Convert to new release and restore after install OR update existing files to new release and avoid installing new ones.
-
 XOSL120a1	
 
-11. Fix updating partlist when returning to main memu after installing XOSL
-
+15. Fix updating partlist when returning to main memu after installing XOSL
 XOSL120a2
+
+16. Migrate to Openwatcom 2.0. long long (64bit long) required for gpt disks.
+XOSL130a3
+
 **************** TODO ****************
 
+17. Add boot from GPT via bios (msdos).
+	Install
+		Add gpt disk and partition types to selection list.
+	ipl_brec
+		Add gpt disk and partition type.
 
-12. Add boot from GPT via bios (msdos).
+18. Add boot via UEFI
+	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
-13. Add boot via UEFI
+19. Add install via UEFI
+	Use System Rescue kernel with stub to switch to real mode, load Install(er) and excute.
 
-14. Add install via USFI
-
+20. Boot Windows on gpt disk.

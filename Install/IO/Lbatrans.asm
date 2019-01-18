@@ -62,8 +62,8 @@ LBA_AAEnd:      ret
                 int     13h
                 sbb     ax,ax
 
-                push    si
-                push    ds
+                pop    ds
+                pop    si
                 ret
 `W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I` endp
 
