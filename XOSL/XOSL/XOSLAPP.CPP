@@ -64,6 +64,8 @@
 
 #include <strtable.h>
 
+//#define PRELOAD2 1
+
 void printf(const char *format, ...);
 /*void getch()
 {
@@ -80,7 +82,7 @@ void *operator new (size_t Size);
 typedef struct {
 	int Drive;
 	int FSType;
-	long StartSector;
+	unsigned long StartSector;
 } TMountPart;
 
 #ifndef DOS_DEBUG
@@ -93,7 +95,8 @@ typedef struct {
 
 //const TMountPart MOUNT_PART = {0x80,0x06,0x00246c00};
 // const TMountPart MOUNT_PART = {0x82,0x06,0xffff3000};
-const TMountPart MOUNT_PART = {0x82,0x06,0xffff3800}; // win311
+//const TMountPart MOUNT_PART = {0x82,0x06,0xffff3800}; // win311
+const TMountPart MOUNT_PART = {0x83,0x06,0xffff3800}; // win311
 //const TMountPart MOUNT_PART = {0x80,0x06,0x005ffa40};
 static char *FileName = "dump_a.dmp";
 
@@ -419,17 +422,19 @@ void CApplication::CreateApplication()
 
 	Loader = new CLoader(*Screen,*BootItems,*XOSLData,*PartList,*Mouse);
 	DefaultBoot = new CDefaultBoot(*Screen,*Loader);
-//	About = new CAbout(Loader,Screen);
-//	Setup = new CSetup(*Loader,*Screen,*PartList,*BootItems,*XOSLData,*Keyboard);
-//	Preference = new CPreference(*Loader,*Setup,*About,*Screen,*XOSLData,*Keyboard,*Mouse);
-
+#ifdef PRELOAD1
+	About = new CAbout(Loader,Screen);
+	Setup = new CSetup(*Loader,*Screen,*PartList,*BootItems,*XOSLData,*Keyboard);
+	Preference = new CPreference(*Loader,*Setup,*About,*Screen,*XOSLData,*Keyboard,*Mouse);
+#endif
 
 	Dialogs = new CDialogs(*Screen);
 
-//	Loader->Initialize(Preference,Setup,About,Screen,BootItems,XOSLData);
-//	Preference->InitializeData();
-//	Setup->InitializeData();
-	
+#ifdef PRELOAD2
+	Loader->Initialize(Preference,Setup,About,Screen,BootItems,XOSLData);
+	Preference->InitializeData();
+	Setup->InitializeData();
+#endif	
 	Screen->SetIgnoreSU(false);
 }
 

@@ -1,2 +1,2 @@
-make clean
-make -DDOS_DEBUG
+wmake clean
+wmake -DDOS_DEBUG

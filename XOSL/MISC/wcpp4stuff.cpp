@@ -32,7 +32,7 @@
 //
 #define CPPLIB( name ) __wcpp_4_##name##_       // name of run-time function
 #define CPPDATA( name ) __wcpp_4_data_##name##_ // name of data
-#define CPPDATA_LIB( name ) ___wcpp_4_data_##name##_ // name of data
+#define CPPDATA_LIB( name ) __wcpp_4_data_##name##_ // name of data
 
 //ML - extracted from:
 //open_watcom_1.8.0-src.zip\OW18src\bld\plusplus\cpplib\runtime\cpp\undefed.cpp

@@ -178,9 +178,10 @@ int CBootItems::InitBoot(int BootIndex)
 
 	if (BootItem->Activate)
 		PartList.SetActive(BootItem->PartIndex);
-	PartList.WriteStructure();
-
-
+	
+	if(PartList.WriteStructure() != 0){
+		return -1;
+	}
 	if (BootItem->SwapDrives) {
 		DriveFix.SwapDrive(Partition->Drive);
 		DriveNum = 0x80;

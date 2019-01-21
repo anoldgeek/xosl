@@ -151,7 +151,7 @@ void CPartDialog::AddDisk(int Row, int Drive)
 void CPartDialog::AddType(int Row, int Type)
 {
 	static const char *Types[] = {
-		"primary","logical","mbr","floppy","loader"
+		PART_STR
 	};
 
 	PartListBox->AddItem(Row,1,Types[Type]);

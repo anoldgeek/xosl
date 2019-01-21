@@ -10,6 +10,9 @@
 # Copyright (c) 2010 by Mario Looijkens:
 #
 
+DOS_DEBUG=true
+
+
 INCPATH=..\include;.;..\..\include
 
 CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i$(INCPATH)

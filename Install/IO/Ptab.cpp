@@ -568,8 +568,11 @@ void CPartList::ClearActive(int Drive)
 
 void CPartList::SetActive(int Index)
 {
-	ClearActive(PLUP[Index]->Partition->Drive);
-	PLUP[Index]->Entry->Activated = 0x80;
+
+	if(CanActivate(Index)){
+		ClearActive(PLUP[Index]->Partition->Drive);
+		PLUP[Index]->Entry->Activated = 0x80;
+	}
 }
 
 void CPartList::SetFsType(int Index, int FSType)
@@ -624,19 +627,6 @@ CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0xa5,"FreeBSD, BSD/386"},
 	{0xeb,"BeOS"},
 	{0xee,"Protective MBR"},
-/*
-	{0x8200, "Linux swap"}, // Linux swap (or Solaris on MBR)
-	{0x8300, "Linux filesystem"}, // Linux native
-	{0x8301, "Linux reserved"},
-	{0x8302, "Linux /home"}, // Linux /home (auto, 0xmounted by systemd)
-	{0x8303, "Linux x86 root (/)"}, // Linux / on x86 (auto, 0xmounted by systemd)
-	{0x8304, "Linux x86, 0x64 root (/)"}, // Linux / on x86, 0x64 (auto, 0xmounted by systemd)
-	{0x8305, "Linux ARM64 root (/)"}, // Linux / on 64, 0xbit ARM (auto, 0xmounted by systemd)
-	{0x8306, "Linux /srv"}, // Linux /srv (auto, 0xmounted by systemd)
-	{0x8307, "Linux ARM32 root (/)"}, // Linux / on 32, 0xbit ARM (auto, 0xmounted by systemd)
-	{0xb300, "QNX6 Power, 0xSafe"},
-	{0x7800, "XOSL FS"},
-*/
 	{0xff,"Unknown"},
 };
 
@@ -760,28 +750,6 @@ uint16_t CPartList::GetGptMBRType(int gptindex){
 	return gpt_fstypes[gptindex].MBRType;
 }
 
-#if FALSE
-/* CRC-32C (iSCSI) polynomial in reversed bit order. */
-// #define POLY 0x82f63b78
-
-/* CRC-32 (Ethernet, ZIP, etc.) polynomial in reversed bit order. */
-#define POLY 0xedb88320
-
-uint32_t CPartList::crc32(uint32_t crc, const void *bufin, uint64_t len)
-{
-    int k;
-	const char *buf;
-
-	buf = (char *)bufin;
-    crc = ~crc;
-    while (len--) {
-        crc ^= *buf++;
-        for (k = 0; k < 8; k++)
-            crc = crc & 1 ? (crc >> 1) ^ POLY : crc >> 1;
-    }
-    return ~crc;
-}
-#else
 /* crc_tab[] -- this crcTable is being build by chksum_crc32GenTab().
  *              so make sure, you call it before using the other
  *              functions!
@@ -836,4 +804,3 @@ void CPartList::chksum_crc32gentab ()
       crc_tab[i] = crc;
    }
 }
-#endif
