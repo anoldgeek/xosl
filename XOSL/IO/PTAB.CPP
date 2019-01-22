@@ -486,24 +486,29 @@ void CPartList::Reveal(int Index)
 void CPartList::RevealAll()
 {
 	int Index;
+	unsigned short Type;
 
-	for (Index = 0; Index < PartList.size(); ++Index)
-		switch (PLUP[Index]->mbrEntry->FSType) {
-			case 0x11:
-			case 0x14:
-			case 0x16:
-			case 0x17:
-			case 0x1b:
-			case 0x1c:
-			case 0x1e:
-			case 0x1f:
-				PLUP[Index]->mbrEntry->FSType &= 0x0ef;
-				PLUP[Index]->Partition->FSName = GetFSName(PLUP[Index]->mbrEntry->FSType);
-				PartListChanged = true;
-				break;
-			default:
-				break;
+	for (Index = 0; Index < PartList.size(); ++Index){
+		Type = PLUP[Index]->Partition->Type;
+		if (Type != PART_GPT && Type != PART_GPT_PROT_MBR && Type != PART_GPT_HEADER){
+			switch (PLUP[Index]->mbrEntry->FSType) {
+				case 0x11:
+				case 0x14:
+				case 0x16:
+				case 0x17:
+				case 0x1b:
+				case 0x1c:
+				case 0x1e:
+				case 0x1f:
+					PLUP[Index]->mbrEntry->FSType &= 0x0ef;
+					PLUP[Index]->Partition->FSName = GetFSName(PLUP[Index]->mbrEntry->FSType);
+					PartListChanged = true;
+					break;
+				default:
+					break;
+			}
 		}
+	}
 }
 
 int CPartList::CanActivate(int Index)
