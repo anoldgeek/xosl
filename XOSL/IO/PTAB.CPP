@@ -60,7 +60,7 @@ void CPartList::ReadStructure()
 	// Create PartList Look-up Table
 	CreatePLUP();
 }
-int CPartList::GetGPTShortType(uuid_t GPTType)
+unsigned short CPartList::GetGPTShortType(uuid_t GPTType)
 {
 	int i;
 	for(i = 0; ;i++){
@@ -79,7 +79,7 @@ void CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigned lon
 	CMBRNode NewNode;
 	CDisk Disk;
 	TPartTable *PartTable;
-	const TPartEntry *Entries;
+	const TPartMbrEntry *mbrEntries;
 	int Index;
 	unsigned long long NewStartSector;
 	unsigned int i;
@@ -96,7 +96,7 @@ void CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigned lon
 	// gpt code from grub:2 grub-core/partmap/gpt.c
 	// Check to see if the MBR is a protective MBR for GPT disk and not a normal MBR.
 	for (i=0;i < 4 ; i++ ){
-		if(PartTable->Entries[0].FSType == 0xee){
+		if(PartTable->mbrEntries[0].FSType == 0xee){
 			break;
 		}
 	}
@@ -163,20 +163,20 @@ void CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigned lon
 	NewNode.Table = PartTable;
 	MBRList.insert(MBRList.end(),NewNode);
                                
-	Entries = PartTable->Entries;
+	mbrEntries = PartTable->mbrEntries;
 	for (Index = 0; Index < 4; ++Index)
 	{
-		switch (Entries[Index].FSType) {
+		switch (mbrEntries[Index].FSType) {
 			case FSTYPE_EXTENDED:
 			case FSTYPE_EXTENDEDLBA:
 			case FSTYPE_LINUXEXT:
 			case FSTYPE_HIDDENEXTENDED:
 				if (Type != PART_LOGICAL) {
-					ExtStart = Entries[Index].RelativeSector;
+					ExtStart = mbrEntries[Index].RelativeSector;
 					NewStartSector = ExtStart;
 				}
 				else
-					NewStartSector = ExtStart + Entries[Index].RelativeSector;
+					NewStartSector = ExtStart + mbrEntries[Index].RelativeSector;
 				AddDrive(Drive,NewStartSector,ExtStart,PART_LOGICAL);
 				break;
 			default:
@@ -190,7 +190,7 @@ void CPartList::CreatePartList(int FloppyCount)
 {
 	list<CMBRNode>::iterator MBRNode;
 	int Index, Drive;
-	const TPartEntry *Entries;
+	const TPartMbrEntry *mbrEntries;
 
 	if (MBRList.size()) {
 		MBRNode = MBRList.begin();
@@ -203,6 +203,10 @@ void CPartList::CreatePartList(int FloppyCount)
 				Drive = (*MBRNode).Drive;
 				CreateNonPartNode(Drive);
 			}
+			if ((*MBRNode).Type == PART_GPT_PROT_MBR || (*MBRNode).Type == PART_GPT_HEADER){
+				// Don't display protctive mbr or header
+				continue;
+			}
 			if ((*MBRNode).Type == PART_GPT){
 				// GPT Disk
 				for (Index = 0 ; Index < 4 ; ++Index){
@@ -210,9 +214,9 @@ void CPartList::CreatePartList(int FloppyCount)
 				}
 			}else{
 				for (Index = 0; Index < 4; ++Index) {
-					Entries = &(*MBRNode).Table->Entries[Index];
-					if (Entries->RelativeSector && ((Entries->FSType != FSTYPE_EXTENDED && Entries->FSType != FSTYPE_EXTENDEDLBA &&
-						Entries->FSType != FSTYPE_HIDDENEXTENDED && Entries->FSType != FSTYPE_LINUXEXT) ||
+					mbrEntries = &(*MBRNode).Table->mbrEntries[Index];
+					if (mbrEntries->RelativeSector && ((mbrEntries->FSType != FSTYPE_EXTENDED && mbrEntries->FSType != FSTYPE_EXTENDEDLBA &&
+						mbrEntries->FSType != FSTYPE_HIDDENEXTENDED && mbrEntries->FSType != FSTYPE_LINUXEXT) ||
 						(*MBRNode).Type != PART_LOGICAL)) {
 						CreatePartNode(MBRNode,Index);
 					}
@@ -247,7 +251,7 @@ void CPartList::CreateNonPartNode(int Drive)
 	TPartition *Partition;
 
 	Partition = PartNode.Partition = new TPartition;
-	PartNode.Entry = NULL;
+	PartNode.mbrEntry = NULL;
 
 	Partition->Drive = Drive;
 	Partition->StartSector = 0;
@@ -280,16 +284,16 @@ void CPartList::CreatePartNode(list<CMBRNode>::iterator MBRNode, int Index)
 {
 	CPartNode PartNode;
 	TPartition *Partition;
-	const TPartEntry *PartEntry;
+	const TPartMbrEntry *mbrPartEntry;
 
 	Partition = PartNode.Partition = new TPartition;
-	PartEntry = PartNode.Entry = &(*MBRNode).Table->Entries[Index];
+	mbrPartEntry = PartNode.mbrEntry = &(*MBRNode).Table->mbrEntries[Index];
 
 	Partition->Drive = (*MBRNode).Drive;
-	Partition->StartSector = (*MBRNode).AbsoluteSector + PartEntry->RelativeSector;
-	Partition->SectorCount = PartEntry->SectorCount;
-	Partition->FSName = GetFSName(PartEntry->FSType);
-	Partition->FSType = PartEntry->FSType;
+	Partition->StartSector = (*MBRNode).AbsoluteSector + mbrPartEntry->RelativeSector;
+	Partition->SectorCount = mbrPartEntry->SectorCount;
+	Partition->FSName = GetFSName(mbrPartEntry->FSType);
+	Partition->FSType = mbrPartEntry->FSType;
 	Partition->Type = (*MBRNode).Type;
 	Partition->VolumeLabel = "";
 	PartList.insert(PartList.end(),PartNode);
@@ -299,28 +303,21 @@ void CPartList::CreateGPTPartNode(list<CMBRNode>::iterator MBRNode, int Index)
 	CPartNode PartNode;
 	TPartition *Partition;
 	const gpt_partentry_t *PartEntry;
-	int GptShortType;
+	unsigned short GptShortType;
 
-	Partition = PartNode.Partition = new TPartition;
 	PartEntry = PartNode.gptEntry = &(*MBRNode).Table->gptEntries[Index];
-
-	Partition->Drive = (*MBRNode).Drive;
-	Partition->StartSector = PartEntry->start;
-	Partition->SectorCount = PartEntry->end - PartEntry->start;
 	GptShortType = GetGPTShortType(PartEntry->type);
-	Partition->FSName = GetFSName(GptShortType);
-	Partition->FSType = GptShortType;
-	Partition->Type = (*MBRNode).Type;
-//	Partition->MbrHDSector0 = 0xff;
-	PartList.insert(PartList.end(),PartNode);
-}
-
-const char *CPartList::GetFSName(int FSID)
-{
-	int Index;
-
-	for (Index = 0; FSNameList[Index].FSID != FSID && FSNameList[Index].FSID != 0xff; ++Index);
-	return FSNameList[Index].FSName;
+	if (GptShortType != 0 ){
+		// Don't add unused partitions.
+		Partition = PartNode.Partition = new TPartition;
+		Partition->Drive = (*MBRNode).Drive;
+		Partition->StartSector = PartEntry->start;
+		Partition->SectorCount = PartEntry->end - PartEntry->start;
+		Partition->FSName = GetFSName(GptShortType);
+		Partition->FSType = GptShortType;
+		Partition->Type = (*MBRNode).Type;
+		PartList.insert(PartList.end(),PartNode);
+	}
 }
 
 void CPartList::CreatePLUP()
@@ -449,7 +446,7 @@ int CPartList::GetCount()
 int CPartList::CanHide(int Index)
 {
 	if(PLUP[Index]->Partition->FSType < 0x100 ){
-		switch (PLUP[Index]->Entry->FSType & 0xef) {
+		switch (PLUP[Index]->mbrEntry->FSType & 0xef) {
 			case 0x01:
 			case 0x04:
 			case 0x06:
@@ -468,7 +465,7 @@ int CPartList::CanHide(int Index)
 
 void CPartList::Hide(int Index)
 {
-	unsigned char &FSType = PLUP[Index]->Entry->FSType;
+	unsigned char &FSType = PLUP[Index]->mbrEntry->FSType;
 
 	if (CanHide(Index) && (FSType | 0x10) != FSType) {
 		FSType |= 0x10;
@@ -478,7 +475,7 @@ void CPartList::Hide(int Index)
 
 void CPartList::Reveal(int Index)
 {
-	unsigned char &FSType = PLUP[Index]->Entry->FSType;
+	unsigned char &FSType = PLUP[Index]->mbrEntry->FSType;
 
 	if (CanHide(Index) && (FSType & 0xef) != FSType) {
 		FSType &= 0xef;
@@ -491,7 +488,7 @@ void CPartList::RevealAll()
 	int Index;
 
 	for (Index = 0; Index < PartList.size(); ++Index)
-		switch (PLUP[Index]->Entry->FSType) {
+		switch (PLUP[Index]->mbrEntry->FSType) {
 			case 0x11:
 			case 0x14:
 			case 0x16:
@@ -500,8 +497,8 @@ void CPartList::RevealAll()
 			case 0x1c:
 			case 0x1e:
 			case 0x1f:
-				PLUP[Index]->Entry->FSType &= 0x0ef;
-				PLUP[Index]->Partition->FSName = GetFSName(PLUP[Index]->Entry->FSType);
+				PLUP[Index]->mbrEntry->FSType &= 0x0ef;
+				PLUP[Index]->Partition->FSName = GetFSName(PLUP[Index]->mbrEntry->FSType);
 				PartListChanged = true;
 				break;
 			default:
@@ -531,8 +528,8 @@ void CPartList::SetActive(int PartIndex)
 		if (!AllowActiveHD) {
 			// clear active flag for all partitions
 			for (Index = 0; Index < PartList.size(); ++Index) {
-				if (Index != PartIndex && PLUP[Index]->Entry->Activated == 0x80) {
-					PLUP[Index]->Entry->Activated = 0x00;
+				if (Index != PartIndex && PLUP[Index]->mbrEntry->Activated == 0x80) {
+					PLUP[Index]->mbrEntry->Activated = 0x00;
 					PartListChanged = true;            
 				}
 			}
@@ -541,13 +538,13 @@ void CPartList::SetActive(int PartIndex)
 			// clear active flag for all partitions on same drive only
 			Drive = PLUP[PartIndex]->Partition->Drive;
 			for (Index = 0; Index < PartList.size(); ++Index) {
-				if (Index != PartIndex && PLUP[Index]->Entry->Activated == 0x80 && PLUP[Index]->Partition->Drive == Drive) {
-					PLUP[Index]->Entry->Activated = 0x00;
+				if (Index != PartIndex && PLUP[Index]->mbrEntry->Activated == 0x80 && PLUP[Index]->Partition->Drive == Drive) {
+					PLUP[Index]->mbrEntry->Activated = 0x00;
 					PartListChanged = true;
 				}
 			}
-			if (PLUP[PartIndex]->Entry->Activated != 0x80) {
-				PLUP[PartIndex]->Entry->Activated = 0x80;
+			if (PLUP[PartIndex]->mbrEntry->Activated != 0x80) {
+				PLUP[PartIndex]->mbrEntry->Activated = 0x80;
 				PartListChanged = true;
 			}	
 		}
@@ -559,7 +556,7 @@ void CPartList::InsertMbrPTab(void *DestAddr)
 	char *Dest = (char *)DestAddr;
 
 	if (MBRList.size())
-		memcpy(&Dest[446],(*MBRList.begin()).Table->Entries,sizeof(TPartEntry[4]));
+		memcpy(&Dest[446],(*MBRList.begin()).Table->mbrEntries,sizeof(TPartMbrEntry[4]));
 }
 
 void CPartList::ReadVolumeLabels()
@@ -703,6 +700,7 @@ const CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0x82,"Linux Swap"},
 	{0x83,"Linux Native"},
 	{0x85,"Linux Extended"},
+	{0x8e,"Linux LVM"},
 	{0xa5,"FreeBSD, BSD/386"},
 	{0xeb,"BeOS"},
 	{0xee,"Protective MBR"},

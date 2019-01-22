@@ -15,14 +15,14 @@
 #include <list.hpp>
 #include <gptab.h>
 
-#define PART_PRIMARY 0
-#define PART_LOGICAL 1
-#define PART_MBR     2
-#define PART_FLOPPY  3
-#define PART_SBM     4
-#define PART_GPT     5
-#define PART_GPT_PROT_MBR 6
-#define PART_GPT_HEADER 7
+#define PART_PRIMARY 1
+#define PART_LOGICAL 2
+#define PART_MBR     3
+#define PART_FLOPPY  4
+#define PART_SBM     5
+#define PART_GPT     6
+#define PART_GPT_PROT_MBR 7
+#define PART_GPT_HEADER 8
 
 #define PART_STR "primary","logical","mbr","floppy","loader","gpt","gptpmbr","gpthder"
 
@@ -35,7 +35,7 @@ typedef struct {
 	unsigned short EndSectCyl;
 	unsigned long RelativeSector;
 	unsigned long SectorCount;
-} TPartEntry;
+} TPartMbrEntry;
 
 /*
 typedef struct {
@@ -56,7 +56,7 @@ typedef struct {
 	union{
 		struct {
 			char IPL[446];
-			TPartEntry Entries[4];
+			TPartMbrEntry mbrEntries[4];
 			unsigned short MagicNumber; // 0xaa55	
 		};
 		gpt_partentry_t gptEntries[4];
@@ -77,15 +77,15 @@ typedef struct S_Partition {
 	unsigned long long StartSector;
 	unsigned long long SectorCount;
 	const char *FSName;
-	short FSType;
-	short Type; // primary, logical, mbr or floppy
+	unsigned short FSType;
+	short Type; // primary, logical, gtp, gpt protective mbr or gpt header
 	char *VolumeLabel;
 } TPartition;
 
 class CPartNode {
 public:
    union {
-       TPartEntry *Entry;
+       TPartMbrEntry *mbrEntry;
        gpt_partentry_t *gptEntry;
     };
  	TPartition *Partition;
@@ -111,18 +111,18 @@ class CPartList {
 
 		void InsertMbrPTab(void *DestAddr);
 
-		static const char *GetFSName(int FSID);
 		static void CreateVolumeLabel(const char *RawLabel, char *VolumeLabel);
+		static const char *GetFSName(unsigned short FSID);
 
 		void GetDiskPartitions(int Drive, list<CPartNode>::iterator &First, list<CPartNode>::iterator &Last);
 		int GetPartIndex(int Drive, int PartIndex);
 		void GetDiskPartIndex(int Index, int &Drive, int &PartIndex);
-		int GetGPTShortType(uuid_t GPTType);
+		unsigned short GetGPTShortType(uuid_t GPTType);
 
 
 	public:
 		typedef struct {
-			int FSID;
+			unsigned short FSID;
 			const char *FSName;
 		} TFSNameEntry;
 	private:
@@ -136,7 +136,6 @@ class CPartList {
 		void CreatePartNode(list<CMBRNode>::iterator MBRNode, int Index);
 		void CreateGPTPartNode(list<CMBRNode>::iterator MBRNode, int Index);
 		void CreateNonPartNode(int Drive);
-		const char *GetFSName(unsigned short FSID);
 		uint32_t chksum_crc32 (uint32_t initial, const void *block, uint64_t length);
 		void chksum_crc32gentab ();
 		

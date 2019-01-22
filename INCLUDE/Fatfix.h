@@ -27,7 +27,7 @@ class CDriveFix {
 		CDriveFix();
 		~CDriveFix();
 		int CanFixFAT(const TPartition *Partition);
-		void FixFAT(int Drive, int FSType, TBootRecord *BootRecord);
+		void FixFAT(int Drive, unsigned short FSType, TBootRecord *BootRecord);
 		static void SwapDrive(int Drive);
 };
 

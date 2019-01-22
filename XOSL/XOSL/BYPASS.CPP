@@ -63,9 +63,9 @@ void CBypass::Execute(const char *ErrorMsg)
 	ReadMBR();
 	CheckPassword();
 	for (Index = 0; Index < 4; ++Index) {
-		if (MBR.Entries[Index].SectorCount) {
-			FSName = CPartList::GetFSName(MBR.Entries[Index].FSType);
-			if (ReadVolumeLabel(0x80,MBR.Entries[Index].RelativeSector,VolumeLabel) != -1) {
+		if (MBR.mbrEntries[Index].SectorCount) {
+			FSName = CPartList::GetFSName(MBR.mbrEntries[Index].FSType);
+			if (ReadVolumeLabel(0x80,MBR.mbrEntries[Index].RelativeSector,VolumeLabel) != -1) {
 				printf("%d - %s (%s)\n",Index + 1,FSName,VolumeLabel);
 			}
 			else {
@@ -165,11 +165,11 @@ void CBypass::RawBoot(int BootIndex)
 	if (BootIndex != 'f') {
 		BootIndex -= '1';
 		for (Index = 0; Index < 4; ++Index)
-			MBR.Entries[Index].Activated = 0;
-		MBR.Entries[BootIndex].Activated = 0x80;
+			MBR.mbrEntries[Index].Activated = 0;
+		MBR.mbrEntries[BootIndex].Activated = 0x80;
 		Disk.Map(0x80,0);
 		Disk.Write(0,&MBR,1);
-		Disk.Read(MBR.Entries[BootIndex].RelativeSector,IPL_ADDR,1);
+		Disk.Read(MBR.mbrEntries[BootIndex].RelativeSector,IPL_ADDR,1);
 	}
 	else {
 		Disk.Map(0x00,0);

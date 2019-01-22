@@ -43,7 +43,7 @@ int CDriveFix::CanFixFAT(const TPartition *Partition)
 	}
 }
 
-void CDriveFix::FixFAT(int Drive, int FSType, TBootRecord *BootRecord)
+void CDriveFix::FixFAT(int Drive, unsigned short FSType, TBootRecord *BootRecord)
 {
 	if (Drive < 0x80)
 		return;

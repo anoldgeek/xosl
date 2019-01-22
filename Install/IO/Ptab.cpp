@@ -67,7 +67,7 @@ int CPartList::GetGPTIndex(uuid_t GPTType)
 	return 0;
 }
 
-int CPartList::GetGPTShortType(uuid_t GPTType)
+unsigned short CPartList::GetGPTShortType(uuid_t GPTType)
 {
 	int i;
 	for(i = 0; ;i++){
@@ -85,7 +85,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 {
 	CDisk Disk;
 	TPartTable *PartTable;
-	const TPartEntry *Entries;
+	const TPartMbrEntry *mbrEntries;
 	int Index;
 	unsigned long long NewStartSector;
 	unsigned int i;
@@ -94,14 +94,14 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 	if (Disk.Map(Drive,StartSector) == -1)
 		return MBRList;
 	PartTable = new TPartTable;
-	if (Disk.Read(0,PartTable,1) == -1 || PartTable->mbr.MagicNumber != 0xaa55) {
+	if (Disk.Read(0,PartTable,1) == -1 || PartTable->MagicNumber != 0xaa55) {
 		delete PartTable;
 		return MBRList;
 	}
 	// gpt code from grub:2 grub-core/partmap/gpt.c
 	// Check to see if the MBR is a protective MBR for GPT disk and not a normal MBR.
 	for (i=0;i < 4 ; i++ ){
-		if(PartTable->mbr.Entries[0].FSType == 0xee){
+		if(PartTable->mbrEntries[0].FSType == 0xee){
 			break;
 		}
 	}
@@ -183,19 +183,19 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 	MBRList->Drive = Drive;
 	MBRList->Type = Type;
 	MBRList->Table = PartTable;
-	Entries = MBRList->Table->mbr.Entries;
+	mbrEntries = MBRList->Table->mbrEntries;
 	for (Index = 0; Index < 4; ++Index)
-		switch (Entries[Index].FSType) {
+		switch (mbrEntries[Index].FSType) {
 			case FSTYPE_EXTENDED:
 			case FSTYPE_EXTENDEDLBA:
 			case FSTYPE_LINUXEXT:
 			case FSTYPE_HIDDENEXTENDED:
 				if (Type != PART_LOGICAL) {
-					ExtStart = (unsigned long)Entries[Index].RelativeSector;
+					ExtStart = (unsigned long)mbrEntries[Index].RelativeSector;
 					NewStartSector = ExtStart;
 				}
 				else
-					NewStartSector = ExtStart + Entries[Index].RelativeSector;
+					NewStartSector = ExtStart + mbrEntries[Index].RelativeSector;
 				MBRList = AddDrive(Drive,NewStartSector,ExtStart,PART_LOGICAL,MBRList);
 				break;
 			default:
@@ -211,7 +211,7 @@ void CPartList::CreatePartList(int FloppyCount)
 	TPartNode *PartList;
 	TMBRNode *MBRNode;
 	int Index, Drive;
-	const TPartEntry *Entries;
+	const TPartMbrEntry *mbrEntries;
 
 	Count = 0;
 	PartList = &this->PartList;
@@ -223,6 +223,10 @@ void CPartList::CreatePartList(int FloppyCount)
 			PartList = PartList->Next = CreateNonPartNode(Drive);
 			++Count;
 		}
+		if (MBRNode->Type == PART_GPT_PROT_MBR || MBRNode->Type == PART_GPT_HEADER){
+			// Don't add gpt protective mbr or gpt header
+			continue;
+		}
 		if (MBRNode->Type == PART_GPT){
 			// GPT Disk
 			for (Index = 0 ; Index < 4 ; ++Index){
@@ -232,9 +236,9 @@ void CPartList::CreatePartList(int FloppyCount)
 		}else{
 			// MBR Disk
 			for (Index = 0; Index < 4; ++Index) {
-				Entries = &MBRNode->Table->mbr.Entries[Index];
-				if (Entries->RelativeSector && ((Entries->FSType != FSTYPE_EXTENDED &&
-					Entries->FSType != FSTYPE_EXTENDEDLBA && Entries->FSType != FSTYPE_LINUXEXT) ||
+				mbrEntries = &MBRNode->Table->mbrEntries[Index];
+				if (mbrEntries->RelativeSector && ((mbrEntries->FSType != FSTYPE_EXTENDED &&
+					mbrEntries->FSType != FSTYPE_EXTENDEDLBA && mbrEntries->FSType != FSTYPE_LINUXEXT) ||
 					MBRNode->Type != PART_LOGICAL)) {
 					// ( RelativeSector && (( ! EXTENDED && ! EXTENDEDLBA && ! LINUXEXT ) || ! PART_LOGICAL )  )
 					PartList = PartList->Next = CreatePartNode(MBRNode,Index);
@@ -279,17 +283,17 @@ TPartNode *CPartList::CreatePartNode(const TMBRNode *MBRNode, int Index)
 {
 	TPartNode *PartNode;
 	TPartition *Partition;
-	const TPartEntry *PartEntry;
+	const TPartMbrEntry *mbrEntry;
 
 	PartNode = new TPartNode;
 	Partition = PartNode->Partition = new TPartition;
-	PartEntry = PartNode->Entry = &MBRNode->Table->mbr.Entries[Index];
+	mbrEntry = PartNode->Entry = &MBRNode->Table->mbrEntries[Index];
 
 	Partition->Drive = MBRNode->Drive;
-	Partition->StartSector = MBRNode->AbsoluteSector + PartEntry->RelativeSector;
-	Partition->SectorCount = PartEntry->SectorCount;
-	Partition->FSName = GetFSName(PartEntry->FSType);
-	Partition->FSType = PartEntry->FSType;
+	Partition->StartSector = MBRNode->AbsoluteSector + mbrEntry->RelativeSector;
+	Partition->SectorCount = mbrEntry->SectorCount;
+	Partition->FSName = GetFSName(mbrEntry->FSType);
+	Partition->FSType = mbrEntry->FSType;
 	Partition->Type = MBRNode->Type;
 	GetPartMbrHDSector0(Partition);
 	return PartNode;
@@ -299,17 +303,17 @@ TPartNode *CPartList::CreateGPTPartNode(const TMBRNode *MBRNode, int Index)
 {
 	TPartNode *PartNode;
 	TPartition *Partition;
-	const gpt_partentry_t *PartEntry;
+	const gpt_partentry_t *gptEntry;
 	int GptShortType;
 
 	PartNode = new TPartNode;
 	Partition = PartNode->Partition = new TPartition;
-	PartEntry = PartNode->gptEntry = &MBRNode->Table->gpt.Entries[Index];
+	gptEntry = PartNode->gptEntry = &MBRNode->Table->gptEntries[Index];
 
 	Partition->Drive = MBRNode->Drive;
-	Partition->StartSector = PartEntry->start;
-	Partition->SectorCount = PartEntry->end - PartEntry->start;
-	GptShortType = GetGPTShortType(PartEntry->type);
+	Partition->StartSector = gptEntry->start;
+	Partition->SectorCount = gptEntry->end - gptEntry->start;
+	GptShortType = GetGPTShortType(gptEntry->type);
 	Partition->FSName = GetFSName(GptShortType);
 	Partition->FSType = GptShortType;
 	Partition->Type = MBRNode->Type;

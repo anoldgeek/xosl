@@ -47,7 +47,7 @@ typedef struct
 } gpt_partentry_t;
 
 typedef struct {
-	gpt_partentry_t Entries[4];
+	gpt_partentry_t gptEntries[4];
 } TGPTTable;
 
 

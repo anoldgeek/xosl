@@ -14,13 +14,14 @@
 #include <defs.h>
 #include <gptab.h>
 
-#define PART_PRIMARY 0
-#define PART_LOGICAL 1
-#define PART_MBR     2
-#define PART_FLOPPY  3
-#define PART_GPT     4
-#define PART_GPT_PROT_MBR 5
-#define PART_GPT_HEADER 6
+#define PART_PRIMARY 1
+#define PART_LOGICAL 2
+#define PART_MBR     3
+#define PART_FLOPPY  4
+#define PART_SBM     5
+#define PART_GPT     6
+#define PART_GPT_PROT_MBR 7
+#define PART_GPT_HEADER 8
 
 typedef struct {
 	unsigned char Activated;
@@ -31,8 +32,9 @@ typedef struct {
 	unsigned short EndSectCyl;
 	unsigned long RelativeSector;
 	unsigned long SectorCount;
-} TPartEntry;
+} TPartMbrEntry;
 
+/*
 typedef struct {
 	char IPL[446];
 	TPartEntry Entries[4];
@@ -44,6 +46,19 @@ typedef union {
 	TMBRTable mbr;
 	TGPTTable gpt;
 	gpt_header_t gpth;
+} TPartTable;
+*/
+
+typedef struct {
+	union{
+		struct {
+			char IPL[446];
+			TPartMbrEntry mbrEntries[4];
+			unsigned short MagicNumber; // 0xaa55	
+		};
+		gpt_partentry_t gptEntries[4];
+		gpt_header_t gpth;
+	};
 } TPartTable;
 
 typedef struct S_MBRNode {
@@ -70,7 +85,7 @@ typedef struct S_Partition {
 
 typedef struct S_PartNode {
 	union {
-	TPartEntry *Entry;
+	TPartMbrEntry *Entry;
 	gpt_partentry_t *gptEntry;
 	};
 	TPartition *Partition;
@@ -97,7 +112,7 @@ class CPartList {
 		int Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition);
 		void UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0);
 		int GetGPTIndex(uuid_t GPTType);
-		int GetGPTShortType(uuid_t GPTType);
+		unsigned short GetGPTShortType(uuid_t GPTType);
 		uuid_t* GetGPTType(int FSType);
 		uint16_t GetGptMBRType(int gpt_index);
 		char* GetGPTName(int FSType);

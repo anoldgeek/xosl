@@ -14,6 +14,8 @@
 # XOSL library specific stuff
 #
 
+#DOS_DEBUG=true
+
 COMPILE_OBJ=xoslmain.obj xoslapp.obj loader.obj &
             xosldata.obj items.obj &
             encpwd.obj fatfix.obj drvswap.obj &
