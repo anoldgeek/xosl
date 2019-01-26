@@ -72,12 +72,17 @@ _memcmp         proc    far
                 push    ds
 
                 xor     ax,ax
-                les     di,[bp + 6]
-                lds     si,[bp + 10]
+                les     di,[bp + 10]
+                lds     si,[bp + 6]
                 mov     cx,[bp + 14]
                 cld
                 repz     cmpsb ; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
-                setne   al
+		jz	memcmp2
+		jns	memcmp1
+		dec	ax
+		jmp	memcmp2
+memcmp1:	inc	ax
+memcmp2:
                 pop     ds
                 pop     di
                 pop     si

@@ -15,13 +15,13 @@
 #
 
 COMPILE_OBJ=main.obj menus.obj data.obj drvcount.obj install.obj &
-            files.obj reboot.obj fatinst.obj fscreate.obj
+            files.obj reboot.obj fatinst.obj fscreate.obj Ugp130a4.obj
             
 
 LIB_NAME=install.lib
 LIST_FILE=install.lst
 LIB_OBJ=-+main.obj -+menus.obj -+data.obj -+drvcount.obj -+install.obj &
-        -+files.obj -+reboot.obj -+fatinst.obj -+fscreate.obj
+        -+files.obj -+reboot.obj -+fatinst.obj -+fscreate.obj -+Ugp130a4.obj
 
 #
 # Generic library stuff

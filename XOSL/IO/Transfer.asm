@@ -21,11 +21,6 @@
                 .model  large
 		.386p
 		.data
-ifdef DOS_DEBUG
-Scratchpad      dd      90008000h
-else
-Scratchpad      dd      00008000h      ;ML This results in MCB Chain corrupt 
-endif                                  ;   problem during debugging under DOS
 
 		.code
 
@@ -133,61 +128,5 @@ TransDone:      ret
 		pop     di
                 ret
 `W?GetDriveInfo$:CDiskAccess$f(irfirfi)i` endp
-
-;void CDiskAccess::CopyFromScratchpad(void *Buffer, int Sectors)
-;ML return type is int, not void!!
-;int CDiskAccess::CopyFromScratchpad(void *Buffer, int Sectors)
-`W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i` proc c,
-                @@this: dword, @@Buffer: dword, @@Sectors: word
-
-                push    si
-		push	di
-		push	ds
-
-		xor     esi,esi
-		xor     edi,edi
-
-		lds     si,Scratchpad
-                les     di,@@Buffer
-
-                movzx   ecx,@@Sectors
-		shl     cx,7
-
-		cld
-		rep     movsd
-
-                pop     ds
-		pop	di
-		pop	si
-                ret
-`W?CopyFromScratchpad$:CDiskAccess$f(pfvi)i` endp
-
-;void CDiskAccess::CopyToScratchpad(void *Buffer, int Sectors)
-;ML return type is int, not void!!
-;int CDiskAccess::CopyToScratchpad(const void *Buffer, int Sectors)
-`W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i` proc c,
-                @@this: dword, @@Buffer: dword, @@Sectors: word
-
-                push    si
-		push	di
-		push	ds
-
-		xor     esi,esi
-		xor     edi,edi
-
-		les     di,Scratchpad
-                lds     si,@@Buffer
-
-                movzx   ecx,@@Sectors
-		shl     cx,7
-
-		cld
-		rep     movsd
-
-                pop     ds
-		pop	di
-		pop	si
-                ret
-`W?CopyToScratchpad$:CDiskAccess$f(pfxvi)i` endp
 
 end

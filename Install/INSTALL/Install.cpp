@@ -35,6 +35,7 @@
 #include <stdio.h>
 #include <xoslver.h>
 #include <items.h>
+#include <pre130a4>
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 

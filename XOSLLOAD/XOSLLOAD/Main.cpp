@@ -73,9 +73,9 @@ static void CriticalError(const char *Msg);
 
 //static char far *HeaderData = (char far *)0x80008000;
 static char far *HeaderData;
-static char far *BrecLoadAddr;
+static void far *BrecLoadAddr;
 
-void CPPMain(char far* Caller)
+void CPPMain(void far* Caller)
 {
 
 	unsigned long mmu_addr;
@@ -112,7 +112,7 @@ void CPPMain(char far* Caller)
 	delete FileSystem;
 
 	Execute(START_SEG,ExeHeader->ReloSS,ExeHeader->ExeSP,
-			  ExeHeader->ReloCS,ExeHeader->ExeIP);
+			  ExeHeader->ReloCS,ExeHeader->ExeIP,BrecLoadAddr);
 }
 
 void CleanMemory()

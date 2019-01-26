@@ -63,7 +63,7 @@ RunLoader:
                 mov     ss,ax
                 mov     sp,0fffeh
 
-; Pass brec segement to xoslload in ax,dx
+; Pass brec seg:off to xoslload in ax,dx
 		mov	ax,start
 		mov	dx,cs
 

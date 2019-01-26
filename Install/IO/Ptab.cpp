@@ -21,6 +21,8 @@
 #include <files.h>
 #include <xosldata.h>
 #include <gptabdata.h>
+#include <xoslver.h>
+#include <pre130a4.h>
 
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
@@ -672,16 +674,25 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1){
 		if(Disk.Read(0, &BootRecord,1) != -1 ){
 			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
-				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
-					if (FileSystem->ReadFile(XoslFsFileName,BootItemData) == BOOTITEM_FILESIZE ){
-						BootItemData->MbrHDSector0 = MbrHDSector0;
-						fh = DosFile.Create(XoslFiles.GetBootItemName());
-						if( fh != -1 ) {
-							if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
-								DosFile.Close(fh);
-								delete FileSystem;
-								delete BootItemData;
-								return 0;
+				if(MemCompare(BootRecord.BootFAT16.Label,"XOSL114    ",11) >= 0){
+					if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
+						if (FileSystem->ReadFile(XoslFsFileName,BootItemData) == BOOTITEM_FILESIZE ){
+							if(MemCompare(BootRecord.BootFAT16.Label,XOSL_LABEL,11) < 0){
+								// old BootItemData is from old version
+								pre130a4CBootItemFile *oldBootItemData;
+								CUpgrade *upgradeBootItems = new CUpgrade();
+
+								oldBootItemData = (pre130a4CBootItemFile*)BootItemData;
+								BootItemData = upgradeBootItems->upgradeBootItems(oldBootItemData,MbrHDSector0);
+							}
+							fh = DosFile.Create(XoslFiles.GetBootItemName());
+							if( fh != -1 ) {
+								if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
+									DosFile.Close(fh);
+									delete FileSystem;
+									delete BootItemData;
+									return 0;
+								}
 							}
 						}
 					}

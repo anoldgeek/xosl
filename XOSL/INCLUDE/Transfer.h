@@ -20,12 +20,6 @@
 
 #include <newdefs.h>
 
-#ifdef DOS_DEBUG
-#define Scratchpad ( (void *)0x90008000 )
-#else
-#define Scratchpad ( (void *)0x00008000 )
-#endif
-
 #define DISK_READ   0x0200
 #define DISK_WRITE  0x0300
 #define DISK_VERIFY 0x0400

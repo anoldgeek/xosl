@@ -16,11 +16,11 @@
                 .386p
                 .code
 ;                public  _Execute
-		public  `W?Execute$N(USUSUSUSUS)V`
+		public  `W?Execute$N(USUSUSUSUSPFV)V`
 
 ;void Execute(unsigned short StartSeg, unsigned short ReloSS,
 ;             unsigned short ExeSP, unsigned short ReloCS,
-;             unsigned short ExeIP);
+;             unsigned short ExeIP, void *BrecAddr);
 
 ;_Execute        proc    c
 ;                @@StartSeg: word, @@ReloSS: word,
@@ -30,11 +30,13 @@
 ;	ax		dx		bx		cx
 ;	@@StartSeg	@@ReloSS	@@ExeSP		@@ReloCS
 ; No need to preserve registers as this does not return
-`W?Execute$N(USUSUSUSUS)V` proc syscall,
-                @@ExeIP: word
+`W?Execute$N(USUSUSUSUSPFV)V` proc syscall,
+                @@ExeIP: word,
+                @@BrecSeg: dword
 ;                mov     ax,@@StartSeg	; Already done
 		push	ax	; @@StartSeg
 
+		; point ds & es to PSP
 		sub     ax,0010h
                 mov     ds,ax
                 mov     es,ax
@@ -45,17 +47,25 @@
 
 ;                add     ax,@@StartSeg
 		add	ax,dx
+
 ;                mov     bx,@@ExeSP	; Already loaded
 ;                mov     cx,@@ReloCS	; Already loaded
 		pop	dx	; @@StartSeg
+
 ;                add     cx,@@StartSeg
 		add	cx,dx
-                mov     dx,@@ExeIP
+
+		mov	esi,@@BrecSeg	; save in esi before moving stack!
+                mov     dx,@@ExeIP	; save in dx before moving stack!
+		; move the stack!
                 mov     ss,ax
                 mov     sp,bx
                 push    cx
                 push    dx
+		push	esi
+		pop	ax
+		pop	dx
                 retf	2
-`W?Execute$N(USUSUSUSUS)V`  endp
+`W?Execute$N(USUSUSUSUSPFV)V`  endp
                 
                 end

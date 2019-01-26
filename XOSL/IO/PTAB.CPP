@@ -316,6 +316,7 @@ void CPartList::CreateGPTPartNode(list<CMBRNode>::iterator MBRNode, int Index)
 		Partition->FSName = GetFSName(GptShortType);
 		Partition->FSType = GptShortType;
 		Partition->Type = (*MBRNode).Type;
+		Partition->VolumeLabel = "";
 		PartList.insert(PartList.end(),PartNode);
 	}
 }

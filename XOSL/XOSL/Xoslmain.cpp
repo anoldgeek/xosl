@@ -15,7 +15,7 @@ void puts(const char *str);
 
 //void AllocInit(void);
 
-int main(void)
+int xoslmain(void *BrecAddr)
 {
 	int BootDrive;
 	unsigned long mmu_addr;
@@ -36,7 +36,7 @@ int main(void)
 
 	Application = new CApplication;
 
-	BootDrive = Application->Execute();
+	BootDrive = Application->Execute(BrecAddr);
 
 	delete Application;
 

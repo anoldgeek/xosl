@@ -36,7 +36,7 @@ class CApplication {
 	public:
 		CApplication();
 		~CApplication();
-		int Execute();
+		int Execute(void *pBrecAddr);
 	private:
 		CMouse *Mouse;
 		CFileSystem *FileSystem;
@@ -95,7 +95,7 @@ class CApplication {
 		static void PartPwdProc(CApplication &Application, const char *Password);
 		void PerformAntiVirus();
 
-#ifdef DOS_DEBUG
+#ifdef DOS_DEBUG_ML
 		void ScanForDebugKeys(int Key);
 		void MemoryCheck(); //ML: added to check memory read/write access (relevant when debugging XOSL as DOS app)
 #endif

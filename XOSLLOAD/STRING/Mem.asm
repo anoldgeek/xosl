@@ -96,18 +96,23 @@ MemSetDone:     pop     di
 		push	cx
 
 ;                les     di,@@s1
-		mov	es,dx
-		mov	di,ax
+		mov	ds,dx
+		mov	si,ax
 
 ;                lds     si,@@s2
-		mov	ds,cx
-		mov	si,bx
+		mov	es,cx
+		mov	di,bx
 
                 mov     cx,@@count
                 xor     ax,ax
                 cld
                 repz     cmpsb ; ML replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
-                setne   al
+		jz	memcmp2
+		jns	memcmp1
+		dec	ax
+		jmp	memcmp2
+memcmp1:	inc	ax
+memcmp2:
 		pop	cx
                 pop     ds
                 pop     di

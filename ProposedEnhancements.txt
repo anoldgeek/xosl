@@ -148,13 +148,20 @@ XOSL120a2
 16. Migrate to Openwatcom 2.0. long long (64bit long) required for gpt disks.
 XOSL130a3
 
-**************** TODO ****************
-
 17. Add boot from GPT via bios (msdos).
 	Install
 		Add gpt disk and partition types to selection list.
 	ipl_brec
-		Add gpt disk and partition type.
+		Add gpt disk and partition type. (worked without change!!)
+
+Boot from gpt partitons works for :
+	grub2
+	xosl fs
+
+XOSL130a5
+**************** TODO ****************
+
+18. Increase size of BootItemsFile to allow more partitions
 
 18. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.

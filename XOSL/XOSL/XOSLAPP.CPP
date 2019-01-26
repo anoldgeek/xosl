@@ -85,6 +85,7 @@ typedef struct {
 	unsigned long StartSector;
 } TMountPart;
 
+/*
 #ifndef DOS_DEBUG
 
 #define MOUNT_PART  ( *(const TMountPart *)0x00007c00 )
@@ -101,6 +102,12 @@ const TMountPart MOUNT_PART = {0x83,0x06,0xffff3800}; // win311
 static char *FileName = "dump_a.dmp";
 
 #endif
+*/
+
+#define MOUNT_PART (*BrecAddr)
+
+// Set this to your XOSL FS partition for debugging
+TMountPart DEBUG_MOUNT_PART = {0x83,0x06,0xffff3800}; // win311
 
 
 /**/
@@ -121,6 +128,7 @@ unsigned char *LogoBitmap;
 unsigned char *WallpaperBitmap;
 void *DefaultFont;
 void *AdditionalFont;
+TMountPart *BrecAddr = ( (TMountPart *)0x00007c00 );
 
 
 
@@ -146,7 +154,7 @@ CApplication::~CApplication()
 		delete TextCapture;
 }
 
-int CApplication::Execute()
+int CApplication::Execute(void *pBrecAddr)
 /*
  * XOSL main application function
  */
@@ -156,6 +164,11 @@ int CApplication::Execute()
 	int Status;
 	TMiscPref *MiscPref;
 	//CBootItem *BootItem;
+
+	if (pBrecAddr != BrecAddr){
+		// Debugging detected
+		BrecAddr = &DEBUG_MOUNT_PART;
+	}
 
 	if (BypassRequest())
 		ExecuteBypass();
@@ -314,7 +327,7 @@ void CApplication::CriticalError(const char *ErrorMsg)
 	XoslBypass.Execute(ErrorMsg);
 }
 
-void CApplication::ExecuteBypass(/*int Password*/)
+void CApplication::ExecuteBypass()
 {
 	CBypass XoslBypass;
 
@@ -747,7 +760,7 @@ void CApplication::PerformAntiVirus()
 	AntiVirus.Sweep();
 }
 
-#ifdef DOS_DEBUG
+#ifdef DOS_DEBUG_ML
 void CApplication::MemoryCheck()
 {
 	//ML: Function to test MMU read/write access 

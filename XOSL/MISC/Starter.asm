@@ -25,7 +25,7 @@
 
 ;                extrn   `W?AllocInit$f(ul)v`: far
                 ;extrn   _mymain: far                     ;ML
-                extrn   main_: far
+                extrn   `W?xoslmain$F(PFV)I`: far
                 extrn   `W?ResetTimer$f()v`: far
                 extrn   _EnableA20: far
                 extrn   _DisableA20: far
@@ -33,22 +33,36 @@
 
 
 ;		.startup
-		mov	dx,DGROUP
-		mov	ds,dx
-;		mov	dx,STACK
-;		mov	ax,1000;
-;		add	ax,dx
-		mov	ss,dx
-		mov	ax,0fffeh
-		mov	sp,ax
-		mov	bp,ax
+
+		mov	cx,DGROUP
+		mov	ds,cx
+;		mov	cx,STACK
+;		mov	bx,1000;
+;		add	bx,cx
+		mov	ss,cx
+		mov	bx,0fffeh
+		mov	sp,bx
+		mov	bp,bx
+
+		; passed dx:ax with loaded brec seg:off
+		; convert seg:off to phys addr
+		xor	bx,bx
+		shrd	bx,dx,12
+		shr	dx,12
+		add	ax,bx
+		push	ax
+		push	dx 
 
 		call 	_EnableA20
                 push    dx
                 call    _PrintA20Status
                 pop     dx
 
-		call    main_
+		;dx:ax with loaded brec address
+		pop	dx
+		pop	ax
+;		call	main_
+		call    `W?xoslmain$F(PFV)i`
                 push    ax              ;boot drive 
 
 		call	_DisableA20
@@ -68,13 +82,13 @@
                 sti                   ;now restore IRQs
                 xor     bx, bx
 
-                ifdef DOS_DEBUG
-                db      0eah      ; jmp far 8000:7c00
-                dd      80007c00h
-                else
+;                ifdef DOS_DEBUG
+;                db      0eah      ; jmp far 8000:7c00
+;                dd      80007c00h
+;                else
                 db      0eah      ; jmp far 0000:7c00
                 dd      00007c00h ; standard mbr load address
-                endif
+;                endif
 
                 db      0eah
                 dd      00007c00h

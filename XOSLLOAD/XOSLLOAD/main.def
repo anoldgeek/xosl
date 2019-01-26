@@ -1,5 +1,5 @@
 //#line "main.cpp" 78
-extern void CPPMain( char * Caller);
+extern void CPPMain( void * Caller);
 //#line "main.cpp" 219
 extern char * strcat( char * to, char const * from);
 //#line "main.cpp" 231

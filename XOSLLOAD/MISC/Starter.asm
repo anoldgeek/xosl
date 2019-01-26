@@ -18,7 +18,7 @@
                 .386p
 		.code
 
-                extrn   `W?CPPMain$N(PFA)V`: near
+                extrn   `W?CPPMain$N(PFV)V`: near
 		
 		org	0h
 
@@ -45,5 +45,5 @@ start:
 ;		pop	dx
 ;		pop	ax
 
-                call    `W?CPPMain$n(pfa)v`
+                call    `W?CPPMain$N(PFV)V`
 		 end

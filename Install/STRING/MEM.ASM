@@ -79,13 +79,17 @@ MemCompare     proc    c,
                 push    ds
 
                 xor     ax,ax
-                les     di,@@Ptr1
-                lds     si,@@Ptr2
+                les     di,@@Ptr2
+                lds     si,@@Ptr1
                 mov     cx,@@Count
                 cld
                 repz     cmpsb	;replace rep cmpsb with repz cmpsb  (repz: repeat while CX!=0 and zero-flag=1)
-                setne   al
-                pop     ds
+		jz	Memcmp2
+		jns	Memcmp1
+		dec	ax
+		jmp	Memcmp2
+Memcmp1:	inc	ax
+Memcmp2:        pop     ds
                 pop     di
                 pop     si
                 ret
