@@ -25,7 +25,7 @@ void printf(const char *,...);
 //extern void puts(const char *);
 void puts(const char *);
 
-static const char *FileName = "BOOTITEMXDF";
+static const char *BootItemFileName = "BOOTITEMXDF";
 static const char *OriginalMbrFile = "ORIG_MBRXCF";
 static const char *SmartMbLoaderFile = "SBM_IPL0XCF";
 
@@ -115,12 +115,12 @@ void CBootItems::Swap(int Index1, int Index2)
 
 void CBootItems::Save()
 {
-	FileSystem.WriteFile(FileName,&ItemFile);
+	FileSystem.WriteFile(BootItemFileName,&ItemFile);
 }
 
 void CBootItems::Reset()
 {
-	FileSystem.ReadFile(FileName,&ItemFile);
+	FileSystem.ReadFile(BootItemFileName,&ItemFile);
 }
 
 void CBootItems::SetDefault(int Index)

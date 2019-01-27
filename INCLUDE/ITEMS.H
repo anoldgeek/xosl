@@ -24,12 +24,22 @@
 #define BI_RESERVED 11
 #define BI_FILE_RES 17
 #else
+/*
 #define BI_PARTS 56
 #define BI_BOOTITEMS 20
 #define BI_BOOTITEMS_STR "20"
 #define BI_RESERVED 9
 #define BI_FILE_RES 17
 #define PD_RES 8
+*/
+#define BI_PARTS 230
+#define BI_BOOTITEMS 24
+#define BI_BOOTITEMS_STR "24"
+#define BI_RESERVED 9
+#define BI_FILE_RES 451
+#define PD_RES 8
+
+
 #endif
 
 class CBootItem {
@@ -45,7 +55,7 @@ public:
 	unsigned char HideList[BI_PARTS];
 	char SwapDrives;
 	char Reserved[BI_RESERVED]; // reserved for future use
-}; // sizeof(CBootItem) == 230
+}; // sizeof(CBootItem) == 330
 
 class CPartDesc {
 public:

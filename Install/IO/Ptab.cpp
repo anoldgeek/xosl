@@ -668,6 +668,7 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 	CBootItemFile *BootItemData = new CBootItemFile;
 	int fh;
 	char XoslFsFileName[13];
+	int filesize;
 	
 	ConvertDOS2XoslFsName(XoslFiles.GetBootItemName(),XoslFsFileName);
 	// Does this partition have sep XOSL installed
@@ -676,7 +677,8 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
 				if(MemCompare(BootRecord.BootFAT16.Label,"XOSL114    ",11) >= 0){
 					if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
-						if (FileSystem->ReadFile(XoslFsFileName,BootItemData) == BOOTITEM_FILESIZE ){
+						filesize = FileSystem->ReadFile(XoslFsFileName,BootItemData);
+						if (filesize == BOOTITEM_FILESIZE || filesize == O_BOOTITEM_FILESIZE){
 							if(MemCompare(BootRecord.BootFAT16.Label,XOSL_LABEL,11) < 0){
 								// old BootItemData is from old version
 								pre130a4CBootItemFile *oldBootItemData;

@@ -12,6 +12,9 @@
 #ifndef _PRE130A4_
 #define _PRE130A4_
 
+
+#define O_BOOTITEM_FILESIZE 4096
+
 // old, pre 130a4 values
 #define O_BI_PARTS 56
 #define O_BI_BOOTITEMS 24
