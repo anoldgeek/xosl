@@ -157,11 +157,15 @@ XOSL130a3
 Boot from gpt partitons works for :
 	grub2
 	xosl fs
-
 XOSL130a5
-**************** TODO ****************
+
 
 18. Increase size of BootItemsFile to allow more partitions
+Incresed no. of partitions from 56 to 230
+This should allow a fully populated gpt disk (128 partition max).
+XOSL130a6
+
+**************** TODO ****************
 
 18. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
