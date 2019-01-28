@@ -159,18 +159,20 @@ Boot from gpt partitons works for :
 	xosl fs
 XOSL130a5
 
-
 18. Increase size of BootItemsFile to allow more partitions
 Incresed no. of partitions from 56 to 230
 This should allow a fully populated gpt disk (128 partition max).
+Works with disk < 4TB
 XOSL130a6
 
 **************** TODO ****************
 
-18. Add boot via UEFI
+19. Add 64 bit HD driver to allow > 4TB drives
+
+20. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
-19. Add install via UEFI
+21. Add install via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load Install(er) and excute.
 
-20. Boot Windows on gpt disk.
+22. Boot Windows on gpt disk.
