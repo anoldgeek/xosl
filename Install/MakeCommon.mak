@@ -10,6 +10,8 @@
 # Copyright (c) 2010 by Mario Looijkens:
 #
 
+DOS_DEBUG=true
+
 INCPATH=..\include;.;$(%watcom)\h;..\..\include;..\install
 
 #CPP_OPTIONS=-w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -mc -xd -xr -i$(INCPATH)
