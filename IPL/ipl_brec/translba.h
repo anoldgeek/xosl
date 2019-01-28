@@ -20,8 +20,9 @@ typedef struct {
 	int PacketSize;
 	int SectorCount;
 	void far *TransferBuffer;
-	unsigned long SectorLow;
-	unsigned long SectorHigh;
+//	unsigned long SectorLow;
+//	unsigned long SectorHigh;
+	unsigned long long Sector;
 } TLBAPacket;
 
 void LBARead(int Drive, const TLBAPacket far &LBAPacket);

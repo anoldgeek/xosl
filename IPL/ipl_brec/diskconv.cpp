@@ -23,14 +23,14 @@
 
 //int near Drive2;
 
-void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
+void DiskMap(int DriveToUse, unsigned long long StartSectorToUse)
 {
 	Drive = DriveToUse;
 	StartSector = StartSectorToUse;
 	GetDriveInfo(DriveToUse);
 }
 
-void DiskRead(unsigned long Sector, void far *Buffer, int Count)
+void DiskRead(unsigned long long Sector, void far *Buffer, int Count)
 {
 	unsigned short SectCyl, DrvHead;
 

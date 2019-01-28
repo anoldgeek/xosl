@@ -680,7 +680,7 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 						filesize = FileSystem->ReadFile(XoslFsFileName,BootItemData);
 						if (filesize == BOOTITEM_FILESIZE || filesize == O_BOOTITEM_FILESIZE){
 							if(MemCompare(BootRecord.BootFAT16.Label,XOSL_LABEL,11) < 0){
-								// old BootItemData is from old version
+								// BootItemData is from old version, upgrade it 
 								pre130a4CBootItemFile *oldBootItemData;
 								CUpgrade *upgradeBootItems = new CUpgrade();
 

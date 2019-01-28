@@ -16,11 +16,14 @@
 		.386p
                 .code
 
-                public  `W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V`
+;                public  `W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V`
+                public  `W?LBARead$N(IRFX$__5tblm8TLBAPacket$$)V`
+
 
 
 ;void LBARead(int Drive, const TLBAPacket &LBAPacket)
-`W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V` proc syscall,
+;`W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V` proc syscall,
+`W?LBARead$N(IRFX$__5tblm8TLBAPacket$$)V` proc syscall,
                 @@Drive: word, @@LBAPacket: dword
 
                 push    si
@@ -34,6 +37,7 @@
                 pop     ds
                 pop     si
                 ret
-`W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V` endp
+;`W?LBARead$N(IRFX$__5fds00TLBAPacket$$)V` endp
+`W?LBARead$N(IRFX$__5tblm8TLBAPacket$$)V` endp
 
 		end

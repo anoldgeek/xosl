@@ -18,24 +18,25 @@
 
 
 int Drive;
-unsigned long StartSector;
+unsigned long long StartSector;
 
 
-void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
+void DiskMap(int DriveToUse, unsigned long long StartSectorToUse)
 {
 	Drive = DriveToUse;
 	StartSector = StartSectorToUse;
 }
 
-void DiskRead(unsigned long Sector, void far *Buffer, int Count)
+void DiskRead(unsigned long long Sector, void far *Buffer, int Count)
 {
 	TLBAPacket LBAPacket;
 
 	LBAPacket.PacketSize = 0x0010;
 	LBAPacket.SectorCount = Count;
 	LBAPacket.TransferBuffer = Buffer;
-	LBAPacket.SectorLow = Sector + StartSector;
-	LBAPacket.SectorHigh = 0;
+//	LBAPacket.SectorLow = Sector + StartSector;
+//	LBAPacket.SectorHigh = 0;
+	LBAPacket.Sector = Sector + StartSector;
 	LBARead(Drive,LBAPacket);
 }
 

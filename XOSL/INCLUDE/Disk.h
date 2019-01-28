@@ -42,7 +42,7 @@ class CDisk {
 		int DrvHeadCount;
 		int DrvSectorCount;
 		int Drive;
-		unsigned long StartSector;
+		unsigned long long StartSector;
 		int UseLBA;
 		int DiskMapped;
 };

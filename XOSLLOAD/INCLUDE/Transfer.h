@@ -24,8 +24,9 @@ typedef struct {
 	int PacketSize;
 	int SectorCount;
 	void *TransferBuffer;
-	unsigned long SectorLow;
-	unsigned long SectorHigh;
+//	unsigned long SectorLow;
+//	unsigned long SectorHigh;
+	unsigned long long Sector;
 } TLBAPacket;
 
 class CDiskAccess {
@@ -38,8 +39,8 @@ class CDiskAccess {
 		int Transfer(int Action, unsigned short SectCyl,
 						 unsigned short DrvHead, void *Buffer, int Count);
 		int GetDriveInfo(int Drive, int &Heads, int &Sectors);
-		int CopyFromScratchpad(void *Buffer, int Sectors);
-		int CopyToScratchpad(const void *Buffer, int Sectors);
+//		int CopyFromScratchpad(void *Buffer, int Sectors);
+//		int CopyToScratchpad(const void *Buffer, int Sectors);
 
 		// lba stuff
 		int LBAAccessAvail(int Drive);

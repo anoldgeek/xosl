@@ -1,1 +1,1 @@
-disk.cpp(117): Warning! W389: col(20) integral value may be truncated during assignment or initialization
+disk.cpp(118): Warning! W389: col(20) integral value may be truncated during assignment or initialization

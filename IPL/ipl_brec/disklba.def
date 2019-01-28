@@ -1,4 +1,4 @@
 //#line "disklba.cpp" 24
-extern void DiskMap( int DriveToUse, unsigned long StartSectorToUse);
+extern void DiskMap( int DriveToUse, unsigned __int64 StartSectorToUse);
 //#line "disklba.cpp" 30
-extern void DiskRead( unsigned long Sector, void __far * Buffer, int Count);
+extern void DiskRead( unsigned __int64 Sector, void __far * Buffer, int Count);

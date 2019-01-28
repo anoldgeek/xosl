@@ -18,7 +18,8 @@
                 .code
 
                 public  `W?LBAAccessAvail$:CDiskAccess$F(I)I`
-                public  `W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I`
+;                public  `W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I`
+		public	`W?LBATransfer$:CDiskAccess$F(IIRFX$__3126cuTLBAPacket$$)I`
 
 ;int CDiskAccess::LBAAccessAvail(int Drive)
 `W?LBAAccessAvail$:CDiskAccess$F(I)I` proc syscall,
@@ -41,7 +42,8 @@ LBA_AAEnd:      ret
 `W?LBAAccessAvail$:CDiskAccess$F(I)I` endp
 
 ;int CDiskAccess::LBATransfer(int Action, int Drive, const TLBAPacket &LBAPacket)
-`W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I` proc syscall,
+;`W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I` proc syscall,
+`W?LBATransfer$:CDiskAccess$F(IIRFX$__3126cuTLBAPacket$$)I` proc syscall,
                 @@this: dword, @@Action: word,
                 @@Drive: word, @@LBAPacket: dword
 
@@ -58,7 +60,8 @@ LBA_AAEnd:      ret
                 pop     ds
 		pop	si
                 ret
-`W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I` endp
+;`W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I` endp
+`W?LBATransfer$:CDiskAccess$F(IIRFX$__3126cuTLBAPacket$$)I` endp
  
 
 
