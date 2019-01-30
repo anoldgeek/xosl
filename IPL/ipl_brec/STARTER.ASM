@@ -42,12 +42,15 @@ start:
                 jmp     LoaderStart
                 nop
 
-FatBootRec      db      59 dup (?)
+FatBootRec      db      67 dup (?)
 
 LoaderStart:    
 ;0000:7c3e:
+;0000:7c4c:
                 db      0eah            ;jmp 07b0:0143
-		dd      07b00143h
+;		dd      07b00143h
+		dw	LoaderStart + 5
+		dw	07b0h
 ;07b0:0143:
                 mov     ax,cs
                 mov     ds,ax

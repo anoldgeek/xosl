@@ -39,7 +39,7 @@
 typedef struct {
 	int Drive;
 	int FSType;
-	unsigned long StartSector;
+	unsigned long long StartSector;
 } TMountPart;
 
 // address where XOSL expects to find which partition it is located on.
@@ -207,7 +207,7 @@ void CreatePartition()
 		XoslMountPart.Drive = BootRecord->Drive;
 		XoslMountPart.FSType = 0x06;
 		//XoslMountPart.StartSector = BootRecord->StartSector;
-		XoslMountPart.StartSector = BootRecord->HiddenSectors;
+		XoslMountPart.StartSector = BootRecord->HiddenSectors64;
 	}
 	else {
 		XoslMountPart.Drive = Ipl->IplData.DriveNumber;

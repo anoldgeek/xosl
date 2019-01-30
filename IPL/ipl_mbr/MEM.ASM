@@ -48,7 +48,7 @@ MemCompare      proc
                 pop     di
                 pop     si
                 pop     bp
-                ret
+                ret	10		; Adjust stack for caller
 MemCompare      endp
 
                 end

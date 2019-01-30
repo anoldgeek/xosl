@@ -22,7 +22,7 @@ typedef struct {
 	unsigned long DataStart;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TFat16IplData;
 
 typedef struct {
@@ -35,7 +35,7 @@ typedef struct {
 	unsigned long RootCluster;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TFat32IplData;
 
 typedef struct {

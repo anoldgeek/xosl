@@ -14,31 +14,6 @@
 #include <fs.h>
 #include <bootrec.h>
 
-/*
-typedef struct {
-	unsigned char Jump[3];
-	unsigned char OEM_ID[8];
-	unsigned short SectorSize;
-	unsigned char ClusterSize;
-	unsigned short ReservedSectors;
-	unsigned char FATCopies;
-	unsigned short RootEntries;
-	unsigned short SectorCount;
-	unsigned char MediaDescriptor;
-	unsigned short FATSize;
-	unsigned short TrackSize;
-	unsigned short HeadCount;
-	unsigned long StartSector;
-	unsigned long BigSectorCount;
-	unsigned short Drive;
-	unsigned char Signature;
-	unsigned long SerialNumber;
-	unsigned char Label[11];
-	unsigned char FSID[8];
-	unsigned char Loader[448];
-	unsigned short MagicNumber;  // 0xaa55
-} TBootFAT16;
-*/
 
 typedef struct {
 	unsigned char FileName[8];
@@ -56,7 +31,7 @@ class CFAT16: public CFileSystem {
 	public:
 		CFAT16();
 		~CFAT16();
-		int Mount(int Drive, unsigned long StartSector);
+		int Mount(int Drive, unsigned long long StartSector);
 		unsigned short ReadFile(const char *FileName, void *Buffer);
 	private:
 		int Locate(const char *FileName, TFAT16DirEntry &Entry);

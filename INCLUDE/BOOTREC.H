@@ -32,7 +32,8 @@ typedef struct {
        unsigned long SerialNo;             // 39-42    43              y   y = Extended BIOS Parameter Block (26 bytes) (36-61)
        unsigned char Label[11];            // 43-53    54              y
        unsigned char FSID[8];              // 54-61    62              y
-       unsigned char Loader[448];          // 62-509   510             z   z = Bootstrap code
+       unsigned long long HiddenSectors64;
+       unsigned char Loader[440];          // 62-509   510             z   z = Bootstrap code
        unsigned short MagicNumber; // aa55 // 510-511
 } TBootFAT16;
 
@@ -69,7 +70,8 @@ typedef struct {
        unsigned char FSID[8];              // 82-89    90
        // unsigned char Loader[418];
        // unsigned long MagicNumber; // 0xaa550000
-       unsigned char Loader[420];          // 90-509   510
+       unsigned long long HiddenSectors64;
+       unsigned char Loader[412];          // 90-509   510
        unsigned short MagicNumber; // aa55 // 510-511
 	  // Sector 1 and 2 are ignored
 

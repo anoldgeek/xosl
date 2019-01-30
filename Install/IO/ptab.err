@@ -1,8 +1,8 @@
-..\..\include\fat32.h(99): Warning! W849: col(1) base class virtual function has not been overridden
-..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
-..\..\include\fat32.h(99): Note! N393: col(1) included from ..\..\include\items.h(18)
-..\..\include\fat32.h(99): Note! N393: col(1) included from ptab.cpp(17)
-..\..\include\fat32.h(99): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
+..\..\include\fat32.h(61): Warning! W849: col(1) base class virtual function has not been overridden
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\items.h(18)
+..\..\include\fat32.h(61): Note! N393: col(1) included from ptab.cpp(17)
+..\..\include\fat32.h(61): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
 ..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
 ..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
 ptab.cpp(83): Warning! W013: col(9) unreachable code

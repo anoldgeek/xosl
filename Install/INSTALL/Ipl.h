@@ -22,7 +22,7 @@ typedef struct {
 	unsigned long DataStart;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TIPLData16Conv;
 
 typedef struct {
@@ -35,7 +35,7 @@ typedef struct {
 	unsigned long RootCluster;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TIPLData32Conv;
 
 typedef struct {
@@ -47,7 +47,7 @@ typedef struct {
 	unsigned long DataStart;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TIPLData16LBA;
 
 typedef struct {
@@ -58,7 +58,7 @@ typedef struct {
 	unsigned long RootCluster;
 	unsigned char FSType;
 	unsigned char DriveNumber;
-	unsigned long ABSSectorStart;
+	unsigned long long ABSSectorStart;
 } TIPLData32LBA;
 
 

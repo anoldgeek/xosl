@@ -91,7 +91,7 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 
 	Fat16Ipl.IPLData.FSType = 0x06;
 	Fat16Ipl.IPLData.DriveNumber = DosDrive.Drive;
-	Fat16Ipl.IPLData.ABSSectorStart = (unsigned long )DosDrive.StartSector;
+	Fat16Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
 	return 0;
 }
@@ -133,7 +133,7 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 
 	Fat32Ipl.IPLData.FSType = 0x0b;
 	Fat32Ipl.IPLData.DriveNumber = DosDrive.Drive;
-	Fat32Ipl.IPLData.ABSSectorStart = (unsigned long)DosDrive.StartSector;
+	Fat32Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
 	return 0;
 }

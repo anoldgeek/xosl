@@ -10,7 +10,7 @@
 # Copyright (c) 2010 by Mario Looijkens:
 #
 
-DOS_DEBUG=true
+#DOS_DEBUG=true
 
 INCPATH=..\include;.;$(%watcom)\h;..\..\include;..\install
 

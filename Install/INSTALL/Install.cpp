@@ -291,6 +291,7 @@ int CInstaller::CreateBootItem(unsigned char MbrHDSector0)
 	TextUI.OutputStr("Creating boot items file...");
 	MemSet(BootItemData,0,BOOTITEM_FILESIZE);
 	BootItemData->MbrHDSector0 = MbrHDSector0;
+	BootItemData->BootItemVersion = CURRENT_BOOTITEM_VERSION;
 	if ((hFile = DosFile.Create(XoslFiles.GetBootItemName())) == -1) {
 		TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetBootItemName());
 		delete[] BootItemData;

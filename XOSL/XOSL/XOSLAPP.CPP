@@ -82,7 +82,7 @@ void *operator new (size_t Size);
 typedef struct {
 	int Drive;
 	unsigned short FSType;
-	unsigned long StartSector;
+	unsigned long long StartSector;
 } TMountPart;
 
 /*

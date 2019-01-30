@@ -36,9 +36,10 @@
 #define BI_BOOTITEMS 24
 #define BI_BOOTITEMS_STR "24"
 #define BI_RESERVED 9
-#define BI_FILE_RES 451
+#define BI_FILE_RES 449
 #define PD_RES 8
 
+#define CURRENT_BOOTITEM_VERSION 2
 
 #endif
 
@@ -75,6 +76,7 @@ public:
 	unsigned char PartCount;
 	unsigned short Timeout;
 	unsigned char MbrHDSector0; // Which HD sector 0 (mbr) was choosen for this xosl install
+	unsigned short	BootItemVersion;
 	char Reserved[BI_FILE_RES]; // reserved for future use
 }; //  sizeof(CBootItemFile) == 4096 * 3 = 12288
 

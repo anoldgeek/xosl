@@ -1,161 +1,164 @@
-Module: C:\XOSLDEV\xosl\ipl\ipl_brec\starter.asm
+Module: C:\XOSLDEV\xosl\IPL\ipl_brec\starter.asm
 GROUP: 'DGROUP' _TEXT,_DATA
 
-Segment: _TEXT WORD USE16 0000015E bytes
-0000    00 00                     add         byte ptr [bx+si],al 
-0002    00 00                     add         byte ptr [bx+si],al 
-0004    00 00                     add         byte ptr [bx+si],al 
-0006    00 00                     add         byte ptr [bx+si],al 
-0008    00 00                     add         byte ptr [bx+si],al 
-000A    00 00                     add         byte ptr [bx+si],al 
-000C    00 00                     add         byte ptr [bx+si],al 
-000E    00 00                     add         byte ptr [bx+si],al 
-0010    00 00                     add         byte ptr [bx+si],al 
-0012    00 00                     add         byte ptr [bx+si],al 
-0014    00 00                     add         byte ptr [bx+si],al 
-0016    00 00                     add         byte ptr [bx+si],al 
-0018    00 00                     add         byte ptr [bx+si],al 
-001A    00 00                     add         byte ptr [bx+si],al 
-001C    00 00                     add         byte ptr [bx+si],al 
-001E    00 00                     add         byte ptr [bx+si],al 
-0020    00 00                     add         byte ptr [bx+si],al 
-0022    00 00                     add         byte ptr [bx+si],al 
-0024    00 00                     add         byte ptr [bx+si],al 
-0026    00 00                     add         byte ptr [bx+si],al 
-0028    00 00                     add         byte ptr [bx+si],al 
-002A    00 00                     add         byte ptr [bx+si],al 
-002C    00 00                     add         byte ptr [bx+si],al 
-002E    00 00                     add         byte ptr [bx+si],al 
-0030    00 00                     add         byte ptr [bx+si],al 
-0032    00 00                     add         byte ptr [bx+si],al 
-0034    00 00                     add         byte ptr [bx+si],al 
-0036    00 00                     add         byte ptr [bx+si],al 
-0038    00 00                     add         byte ptr [bx+si],al 
-003A    00 00                     add         byte ptr [bx+si],al 
-003C    00 00                     add         byte ptr [bx+si],al 
-003E    00 00                     add         byte ptr [bx+si],al 
-0040    00 00                     add         byte ptr [bx+si],al 
-0042    00 00                     add         byte ptr [bx+si],al 
-0044    00 00                     add         byte ptr [bx+si],al 
-0046    00 00                     add         byte ptr [bx+si],al 
-0048    00 00                     add         byte ptr [bx+si],al 
-004A    00 00                     add         byte ptr [bx+si],al 
-004C    00 00                     add         byte ptr [bx+si],al 
-004E    00 00                     add         byte ptr [bx+si],al 
-0050    00 00                     add         byte ptr [bx+si],al 
-0052    00 00                     add         byte ptr [bx+si],al 
-0054    00 00                     add         byte ptr [bx+si],al 
-0056    00 00                     add         byte ptr [bx+si],al 
-0058    00 00                     add         byte ptr [bx+si],al 
-005A    00 00                     add         byte ptr [bx+si],al 
-005C    00 00                     add         byte ptr [bx+si],al 
-005E    00 00                     add         byte ptr [bx+si],al 
-0060    00 00                     add         byte ptr [bx+si],al 
-0062    00 00                     add         byte ptr [bx+si],al 
-0064    00 00                     add         byte ptr [bx+si],al 
-0066    00 00                     add         byte ptr [bx+si],al 
-0068    00 00                     add         byte ptr [bx+si],al 
-006A    00 00                     add         byte ptr [bx+si],al 
-006C    00 00                     add         byte ptr [bx+si],al 
-006E    00 00                     add         byte ptr [bx+si],al 
-0070    00 00                     add         byte ptr [bx+si],al 
-0072    00 00                     add         byte ptr [bx+si],al 
-0074    00 00                     add         byte ptr [bx+si],al 
-0076    00 00                     add         byte ptr [bx+si],al 
-0078    00 00                     add         byte ptr [bx+si],al 
-007A    00 00                     add         byte ptr [bx+si],al 
-007C    00 00                     add         byte ptr [bx+si],al 
-007E    00 00                     add         byte ptr [bx+si],al 
-0080    00 00                     add         byte ptr [bx+si],al 
-0082    00 00                     add         byte ptr [bx+si],al 
-0084    00 00                     add         byte ptr [bx+si],al 
-0086    00 00                     add         byte ptr [bx+si],al 
-0088    00 00                     add         byte ptr [bx+si],al 
-008A    00 00                     add         byte ptr [bx+si],al 
-008C    00 00                     add         byte ptr [bx+si],al 
-008E    00 00                     add         byte ptr [bx+si],al 
-0090    00 00                     add         byte ptr [bx+si],al 
-0092    00 00                     add         byte ptr [bx+si],al 
-0094    00 00                     add         byte ptr [bx+si],al 
-0096    00 00                     add         byte ptr [bx+si],al 
-0098    00 00                     add         byte ptr [bx+si],al 
-009A    00 00                     add         byte ptr [bx+si],al 
-009C    00 00                     add         byte ptr [bx+si],al 
-009E    00 00                     add         byte ptr [bx+si],al 
-00A0    00 00                     add         byte ptr [bx+si],al 
-00A2    00 00                     add         byte ptr [bx+si],al 
-00A4    00 00                     add         byte ptr [bx+si],al 
-00A6    00 00                     add         byte ptr [bx+si],al 
-00A8    00 00                     add         byte ptr [bx+si],al 
-00AA    00 00                     add         byte ptr [bx+si],al 
-00AC    00 00                     add         byte ptr [bx+si],al 
-00AE    00 00                     add         byte ptr [bx+si],al 
-00B0    00 00                     add         byte ptr [bx+si],al 
-00B2    00 00                     add         byte ptr [bx+si],al 
-00B4    00 00                     add         byte ptr [bx+si],al 
-00B6    00 00                     add         byte ptr [bx+si],al 
-00B8    00 00                     add         byte ptr [bx+si],al 
-00BA    00 00                     add         byte ptr [bx+si],al 
-00BC    00 00                     add         byte ptr [bx+si],al 
-00BE    00 00                     add         byte ptr [bx+si],al 
-00C0    00 00                     add         byte ptr [bx+si],al 
-00C2    00 00                     add         byte ptr [bx+si],al 
-00C4    00 00                     add         byte ptr [bx+si],al 
-00C6    00 00                     add         byte ptr [bx+si],al 
-00C8    00 00                     add         byte ptr [bx+si],al 
-00CA    00 00                     add         byte ptr [bx+si],al 
-00CC    00 00                     add         byte ptr [bx+si],al 
-00CE    00 00                     add         byte ptr [bx+si],al 
-00D0    00 00                     add         byte ptr [bx+si],al 
-00D2    00 00                     add         byte ptr [bx+si],al 
-00D4    00 00                     add         byte ptr [bx+si],al 
-00D6    00 00                     add         byte ptr [bx+si],al 
-00D8    00 00                     add         byte ptr [bx+si],al 
-00DA    00 00                     add         byte ptr [bx+si],al 
-00DC    00 00                     add         byte ptr [bx+si],al 
-00DE    00 00                     add         byte ptr [bx+si],al 
-00E0    00 00                     add         byte ptr [bx+si],al 
-00E2    00 00                     add         byte ptr [bx+si],al 
-00E4    00 00                     add         byte ptr [bx+si],al 
-00E6    00 00                     add         byte ptr [bx+si],al 
-00E8    00 00                     add         byte ptr [bx+si],al 
-00EA    00 00                     add         byte ptr [bx+si],al 
-00EC    00 00                     add         byte ptr [bx+si],al 
-00EE    00 00                     add         byte ptr [bx+si],al 
-00F0    00 00                     add         byte ptr [bx+si],al 
-00F2    00 00                     add         byte ptr [bx+si],al 
-00F4    00 00                     add         byte ptr [bx+si],al 
-00F6    00 00                     add         byte ptr [bx+si],al 
-00F8    00 00                     add         byte ptr [bx+si],al 
-00FA    00 00                     add         byte ptr [bx+si],al 
-00FC    00 00                     add         byte ptr [bx+si],al 
-00FE    00 00                     add         byte ptr [bx+si],al 
-0100    EB 3C                     jmp         L$1 
-0102    90                        nop         
-0103    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
-0113    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
-0123    00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
-0133    00 00 00 00 00 00 00 00 00 00 00                ...........
-013E                          L$1:
-013E    EA 43 01 B0 07                                  .C...
-0143    8C C8                     mov         ax,cs 
-0145    8E D8                     mov         ds,ax 
-0147    8E D0                     mov         ss,ax 
-0149    BC FE FF                  mov         sp,0xfffe 
-014C    E8 00 00                  call        _mymain 
-014F    B8 00 80                  mov         ax,0x8000 
-0152    8E D8                     mov         ds,ax 
-0154    8E D0                     mov         ss,ax 
-0156    BC FE FF                  mov         sp,0xfffe 
-0159    EA 00 01 00 80                                  .....
+Segment: _TEXT WORD USE16 0000016B bytes
+0000  00 00				add		byte ptr [bx+si],al
+0002  00 00				add		byte ptr [bx+si],al
+0004  00 00				add		byte ptr [bx+si],al
+0006  00 00				add		byte ptr [bx+si],al
+0008  00 00				add		byte ptr [bx+si],al
+000A  00 00				add		byte ptr [bx+si],al
+000C  00 00				add		byte ptr [bx+si],al
+000E  00 00				add		byte ptr [bx+si],al
+0010  00 00				add		byte ptr [bx+si],al
+0012  00 00				add		byte ptr [bx+si],al
+0014  00 00				add		byte ptr [bx+si],al
+0016  00 00				add		byte ptr [bx+si],al
+0018  00 00				add		byte ptr [bx+si],al
+001A  00 00				add		byte ptr [bx+si],al
+001C  00 00				add		byte ptr [bx+si],al
+001E  00 00				add		byte ptr [bx+si],al
+0020  00 00				add		byte ptr [bx+si],al
+0022  00 00				add		byte ptr [bx+si],al
+0024  00 00				add		byte ptr [bx+si],al
+0026  00 00				add		byte ptr [bx+si],al
+0028  00 00				add		byte ptr [bx+si],al
+002A  00 00				add		byte ptr [bx+si],al
+002C  00 00				add		byte ptr [bx+si],al
+002E  00 00				add		byte ptr [bx+si],al
+0030  00 00				add		byte ptr [bx+si],al
+0032  00 00				add		byte ptr [bx+si],al
+0034  00 00				add		byte ptr [bx+si],al
+0036  00 00				add		byte ptr [bx+si],al
+0038  00 00				add		byte ptr [bx+si],al
+003A  00 00				add		byte ptr [bx+si],al
+003C  00 00				add		byte ptr [bx+si],al
+003E  00 00				add		byte ptr [bx+si],al
+0040  00 00				add		byte ptr [bx+si],al
+0042  00 00				add		byte ptr [bx+si],al
+0044  00 00				add		byte ptr [bx+si],al
+0046  00 00				add		byte ptr [bx+si],al
+0048  00 00				add		byte ptr [bx+si],al
+004A  00 00				add		byte ptr [bx+si],al
+004C  00 00				add		byte ptr [bx+si],al
+004E  00 00				add		byte ptr [bx+si],al
+0050  00 00				add		byte ptr [bx+si],al
+0052  00 00				add		byte ptr [bx+si],al
+0054  00 00				add		byte ptr [bx+si],al
+0056  00 00				add		byte ptr [bx+si],al
+0058  00 00				add		byte ptr [bx+si],al
+005A  00 00				add		byte ptr [bx+si],al
+005C  00 00				add		byte ptr [bx+si],al
+005E  00 00				add		byte ptr [bx+si],al
+0060  00 00				add		byte ptr [bx+si],al
+0062  00 00				add		byte ptr [bx+si],al
+0064  00 00				add		byte ptr [bx+si],al
+0066  00 00				add		byte ptr [bx+si],al
+0068  00 00				add		byte ptr [bx+si],al
+006A  00 00				add		byte ptr [bx+si],al
+006C  00 00				add		byte ptr [bx+si],al
+006E  00 00				add		byte ptr [bx+si],al
+0070  00 00				add		byte ptr [bx+si],al
+0072  00 00				add		byte ptr [bx+si],al
+0074  00 00				add		byte ptr [bx+si],al
+0076  00 00				add		byte ptr [bx+si],al
+0078  00 00				add		byte ptr [bx+si],al
+007A  00 00				add		byte ptr [bx+si],al
+007C  00 00				add		byte ptr [bx+si],al
+007E  00 00				add		byte ptr [bx+si],al
+0080  00 00				add		byte ptr [bx+si],al
+0082  00 00				add		byte ptr [bx+si],al
+0084  00 00				add		byte ptr [bx+si],al
+0086  00 00				add		byte ptr [bx+si],al
+0088  00 00				add		byte ptr [bx+si],al
+008A  00 00				add		byte ptr [bx+si],al
+008C  00 00				add		byte ptr [bx+si],al
+008E  00 00				add		byte ptr [bx+si],al
+0090  00 00				add		byte ptr [bx+si],al
+0092  00 00				add		byte ptr [bx+si],al
+0094  00 00				add		byte ptr [bx+si],al
+0096  00 00				add		byte ptr [bx+si],al
+0098  00 00				add		byte ptr [bx+si],al
+009A  00 00				add		byte ptr [bx+si],al
+009C  00 00				add		byte ptr [bx+si],al
+009E  00 00				add		byte ptr [bx+si],al
+00A0  00 00				add		byte ptr [bx+si],al
+00A2  00 00				add		byte ptr [bx+si],al
+00A4  00 00				add		byte ptr [bx+si],al
+00A6  00 00				add		byte ptr [bx+si],al
+00A8  00 00				add		byte ptr [bx+si],al
+00AA  00 00				add		byte ptr [bx+si],al
+00AC  00 00				add		byte ptr [bx+si],al
+00AE  00 00				add		byte ptr [bx+si],al
+00B0  00 00				add		byte ptr [bx+si],al
+00B2  00 00				add		byte ptr [bx+si],al
+00B4  00 00				add		byte ptr [bx+si],al
+00B6  00 00				add		byte ptr [bx+si],al
+00B8  00 00				add		byte ptr [bx+si],al
+00BA  00 00				add		byte ptr [bx+si],al
+00BC  00 00				add		byte ptr [bx+si],al
+00BE  00 00				add		byte ptr [bx+si],al
+00C0  00 00				add		byte ptr [bx+si],al
+00C2  00 00				add		byte ptr [bx+si],al
+00C4  00 00				add		byte ptr [bx+si],al
+00C6  00 00				add		byte ptr [bx+si],al
+00C8  00 00				add		byte ptr [bx+si],al
+00CA  00 00				add		byte ptr [bx+si],al
+00CC  00 00				add		byte ptr [bx+si],al
+00CE  00 00				add		byte ptr [bx+si],al
+00D0  00 00				add		byte ptr [bx+si],al
+00D2  00 00				add		byte ptr [bx+si],al
+00D4  00 00				add		byte ptr [bx+si],al
+00D6  00 00				add		byte ptr [bx+si],al
+00D8  00 00				add		byte ptr [bx+si],al
+00DA  00 00				add		byte ptr [bx+si],al
+00DC  00 00				add		byte ptr [bx+si],al
+00DE  00 00				add		byte ptr [bx+si],al
+00E0  00 00				add		byte ptr [bx+si],al
+00E2  00 00				add		byte ptr [bx+si],al
+00E4  00 00				add		byte ptr [bx+si],al
+00E6  00 00				add		byte ptr [bx+si],al
+00E8  00 00				add		byte ptr [bx+si],al
+00EA  00 00				add		byte ptr [bx+si],al
+00EC  00 00				add		byte ptr [bx+si],al
+00EE  00 00				add		byte ptr [bx+si],al
+00F0  00 00				add		byte ptr [bx+si],al
+00F2  00 00				add		byte ptr [bx+si],al
+00F4  00 00				add		byte ptr [bx+si],al
+00F6  00 00				add		byte ptr [bx+si],al
+00F8  00 00				add		byte ptr [bx+si],al
+00FA  00 00				add		byte ptr [bx+si],al
+00FC  00 00				add		byte ptr [bx+si],al
+00FE  00 00				add		byte ptr [bx+si],al
+0100				L$1:
+0100  EB 44				jmp		L$2
+0102  90				nop
+0103  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0113  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0123  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0133  00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 ................
+0143  00 00 00                                        ...
+0146				L$2:
+0146  EA                                              .
+0147  4B 01                                           DW	offset DGROUP:L$3
+0149  B0 07                                           ..
+014B				L$3:
+014B  8C C8				mov		ax,cs
+014D  8E D8				mov		ds,ax
+014F  8E D0				mov		ss,ax
+0151  BC FE FF				mov		sp,0xfffe
+0154  E8 00 00				call		_mymain
+0157  B8 00 60				mov		ax,0x6000
+015A  8E D8				mov		ds,ax
+015C  8E D0				mov		ss,ax
+015E  BC FE FF				mov		sp,0xfffe
+0161  B8 00 01				mov		ax,offset DGROUP:L$1
+0164  8C CA				mov		dx,cs
+0166  EA 00 00 00 60                                  ....`
 
-Routine Size: 350 bytes,    Routine Base: _TEXT + 0000
+Routine Size: 363 bytes,    Routine Base: _TEXT + 0000
 
 No disassembly errors
 
 Segment: _DATA WORD USE16 00000000 bytes
 
-List of public symbols
-
-SYMBOL			SECTION			OFFSET
---------------------------------------------------------

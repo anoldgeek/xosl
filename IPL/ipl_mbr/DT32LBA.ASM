@@ -41,7 +41,7 @@ SectorCount     dw      0
 TransferBuffer  dd      0
 Sector          dq      0
 
-                db      11 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
+                db      9 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
 
 ClusterSectSize dw      0008h
 ClusterByteSize dw      1000h
@@ -51,8 +51,8 @@ RootCluster     dd      00000002h
 
 FSType          db      0bh
 DriveNumber     db      80h
-ABSSectorStart  dd      00415680h
+ABSSectorStart  dq      00415680h
 
-Password	dd	0
+Password	dd	0h
 
                 end

@@ -23,7 +23,7 @@
                 extrn   DriveNumber: byte
                 extrn   DiskSectors: dword
                 extrn   DiskHeads: dword
-                extrn   ABSSectorStart: dword
+                extrn   ABSSectorStart: qword
 
                 .code
                 public  ReadSectors
@@ -32,11 +32,13 @@
 ReadSectors     proc
                 push    bp
                 mov     bp,sp
-                
-                mov     eax,[bp + 4]
+
+		mov	eax, dword ptr ABSSectorStart
+		
+                add     eax,[bp + 4]
 
                 ; Locate the sector on current partition
-                add     eax,ABSSectorStart
+;                add     eax,dword ABSSectorStart
                 xor     edx,edx
                 div     DiskSectors
                 inc     dx
@@ -59,7 +61,7 @@ ReadSectors     proc
                 sbb     ax,ax                  ;ax = cf ? -1 : 0
 
                 pop     bp
-                ret
+                ret	10
 ReadSectors     endp
 
                 end

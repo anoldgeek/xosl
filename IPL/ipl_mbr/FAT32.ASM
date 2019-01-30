@@ -70,10 +70,10 @@ Root            db      16384 dup (?)
 ReadFile        proc
                 push    bp
                 mov     bp,sp
-                push    esi
-                push    edi
+;                push    esi		; not used by caller
+;                push    edi		; not used by caller
 
-                call    Locate
+                call    Locate		; returns esi = StartCluster , ax = success ? 0 : -1
                 or      ax,ax
                 jne     ReadFileExit
                 mov     edi,[bp + 8]
@@ -86,8 +86,9 @@ ReadLoop:       call    ReadCluster
                 jne     ReadLoop
                 xor     ax,ax
 
-ReadFileExit:   pop     edi
-                pop     esi
+ReadFileExit:   
+;		pop     edi			; not used by caller
+;                pop     esi			; not used by caller
                 pop     bp
                 ret
 ReadFile        endp
@@ -120,7 +121,7 @@ LFindEntryLoop: mov     bx,cx
                 push    ds
                 push    bx
                 call    MemCompare
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
                 pop     cx
                 or      ax,ax
                 jnz     LNextEntry
@@ -172,7 +173,7 @@ ReadFAT         proc
                 push    offset FAT
                 push    eax
                 call    ReadSectors
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
 
                 mov     eax,esi
                 and     eax,INMEMCLUSTSCALE
@@ -193,7 +194,7 @@ ReadCluster     proc
                 push    edi
                 push    eax
                 call    ReadSectors
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
                 ret
 ReadCluster     endp
 

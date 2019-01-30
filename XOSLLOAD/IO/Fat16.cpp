@@ -30,7 +30,7 @@ CFAT16::~CFAT16()
 	delete FAT;
 }
 
-int CFAT16::Mount(int Drive, unsigned long StartSector)
+int CFAT16::Mount(int Drive, unsigned long long StartSector)
 {
 	int Status;
 

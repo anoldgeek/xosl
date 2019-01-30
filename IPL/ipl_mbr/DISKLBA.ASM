@@ -29,7 +29,7 @@
                 extrn   DriveNumber: byte
                 ;extrn   DiskSectors: dword
                 ;extrn   DiskHeads: dword
-                extrn   ABSSectorStart: dword
+                extrn   ABSSectorStart: qword
 
                 extrn   LBAPacket: byte
                 extrn   SectorCount: word
@@ -44,10 +44,18 @@ ReadSectors     proc
                 push    bp
                 mov     bp,sp
                 push    si
-                
-                mov     eax,[bp + 4]
-                add     eax,ABSSectorStart
-                mov     dword ptr Sector,eax
+
+;		mov     eax,[bp + 4]
+;                add     eax,ABSSectorStart
+;                mov     dword ptr Sector,eax
+		; ABSSectorStart is now unsigned long long to allow booting from > 2TB HDs
+		mov	eax, dword ptr ABSSectorStart
+		mov	edx, dword ptr ABSSectorStart + 4
+		add	eax,[bp + 4]
+		adc	edx,0
+		mov	dword ptr Sector,eax
+		mov	dword ptr Sector+4,edx
+
                 mov     eax,[bp + 8]
                 mov     TransferBuffer,eax
                 mov     ax,[bp + 12]
@@ -60,7 +68,7 @@ ReadSectors     proc
 
                 pop     si
                 pop     bp
-                ret
+                ret	10		; Adjust stack for caller
 ReadSectors     endp
 
                 end

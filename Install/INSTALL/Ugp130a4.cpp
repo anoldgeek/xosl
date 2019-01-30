@@ -55,6 +55,7 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 	BootItemData->PartCount = oldBootItemData->PartCount;
 	BootItemData->Timeout = oldBootItemData->Timeout;
 	BootItemData->MbrHDSector0 = MbrHDSector0;
+	BootItemData->BootItemVersion = CURRENT_BOOTITEM_VERSION;
 	delete oldBootItemData;
 	return BootItemData;
 }

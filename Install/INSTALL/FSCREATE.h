@@ -68,7 +68,8 @@ private:
 		unsigned long SerialNo;			// 0x4c534f58 (don't really care)
 		unsigned char Label[11];		// XOSL110
 		unsigned char FSID[8];			// FAT16
-		unsigned char Loader[448];		// IPL
+		unsigned long long HiddenSectors64;
+		unsigned char Loader[440];		// IPL
 		unsigned short MagicNumber;		// 0x534f (used by XOSLLOAD)
 	};
 

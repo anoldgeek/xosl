@@ -21,13 +21,14 @@
 ;                public  StartSector
 
                 public  `W?Drive$NI`
-                public  `W?StartSector$NUL`
+                public  `W?StartSector$NUZ`
 
 
 DrvHeadCount    dd      ?
 DrvSectorCount  dd      ?
 `W?Drive$NI`          dw      ?
-`W?StartSector$NUL`    dd      ?
+`W?StartSector$NUL`    label	dword	; relies on little endian
+`W?StartSector$NUZ`    dq      ?
 
 
 ;'local' vars for Sector2CHS
@@ -87,7 +88,7 @@ Sector          dw      ?
 
                 ;RSector += StartSector
                 mov     eax,@@RSector
-                add     eax,`W?StartSector$nul`
+                add     eax,`W?StartSector$NUL`
 
                 ;Sector = RSector % DrvSectorCount + 1
                 ;RSector /= DrvSectorCount

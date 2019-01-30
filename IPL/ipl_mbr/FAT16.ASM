@@ -75,7 +75,7 @@ FAT             dw      INMEMCLUST dup (?)
 ReadFile        proc
                 push    bp
                 mov     bp,sp
-                push    si
+;                push    si	; not used by caller
 
                 call    Locate
                 or      ax,ax
@@ -89,7 +89,8 @@ ReadLoop:       call    ReadCluster
                 jne     ReadLoop
                 xor     ax,ax
 
-ReadFileExit:   pop     si
+ReadFileExit:   
+;		pop     si	; not used by caller
                 pop     bp
                 ret
 ReadFile        endp
@@ -102,7 +103,7 @@ ReadFile        endp
 ;       si = StartCluster
 ;       ax = success ? 0 : -1
 Locate          proc
-                push    di
+;                push    di		; not used by caller
 
                 mov     di,INMEMENTRIES
                 xor     si,si
@@ -126,11 +127,11 @@ LFindFile:      mov     bx,di
                 push    ds
                 push    bx
                 call    MemCompare
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
                 or      ax,ax
                 jnz     LNextEntry
                 mov     si,[bx].StartCluster
-                pop     di
+;                pop     di		; not used by caller
                 ret
 
 LNextEntry:     inc     si
@@ -139,7 +140,7 @@ LTestLoopEnd:   cmp     si,RootEntries
                 jb      LocateLoop
 
 NotFoundExit:   mov     ax,-1
-                pop     di
+;                pop     di		; not used by caller
                 ret
 Locate          endp
 
@@ -156,7 +157,7 @@ ReadDirectory   proc
                 push    offset Root
                 push    eax
                 call    ReadSectors
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
                 ret
 ReadDirectory   endp
 
@@ -189,7 +190,7 @@ ReadFAT         proc
                 push    offset FAT
                 push    eax
                 call    ReadSectors
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
 
                 mov     ax,si
                 and     ax,INMEMCLUSTSCALE
@@ -210,7 +211,7 @@ ReadCluster     proc
                 push    dword ptr [bp + 8]
                 push    eax
                 call    ReadSectors
-                add     sp,10
+;                add     sp,10		; stack addjusted by called
                 ret
 ReadCluster     endp
 

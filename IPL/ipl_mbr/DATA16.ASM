@@ -32,7 +32,7 @@
                 public  DirStart, DataStart
 
 ;                db      15 dup (0)	;Tune filesize ipl06.bin to 440 bytes
-                db      19 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+                db      29 dup (0)	;Tune filesize ipl06.bin to 440 bytes
 LoaderName      db      'XOSLLOADXCF'
 
 DiskSectors     dd      63
@@ -47,7 +47,7 @@ DataStart       dd      00000215h
 
 FSType          db      06h
 DriveNumber     db      80h
-ABSSectorStart  dd      0031b600h
+ABSSectorStart  dq      0031b600h
 
 Password	dd	0
 

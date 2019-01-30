@@ -122,6 +122,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector)
 	BootRecord.HeadCount = HeadCount;
 
 	BootRecord.HiddenSectors = (unsigned long) Sector;
+	BootRecord.HiddenSectors64 = Sector;
 	BootRecord.BigSectorCount = 0;
 	BootRecord.Drive = Drive;
 	BootRecord.Signature = 0x29;
@@ -345,7 +346,7 @@ void CFsCreator::RestorePartition(unsigned short Drive, unsigned long long Start
 	CDisk Disk;
 	int hFile;
 	unsigned short BackupDrive;
-	unsigned long BackupStartSector;
+	unsigned long long BackupStartSector;
 
 	TextUI.OutputStr("Restoring partition data...");
 	if (DosFile.SetAttrib(PARTBACKUP_FILE,0) == -1) {
@@ -373,7 +374,7 @@ void CFsCreator::RestorePartition(unsigned short Drive, unsigned long long Start
 	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
 
 	DosFile.Read(hFile,&BackupDrive,sizeof (unsigned short));
-	DosFile.Read(hFile,&BackupStartSector,sizeof (unsigned long));
+	DosFile.Read(hFile,&BackupStartSector,sizeof (unsigned long long));
 	if (BackupDrive != Drive || BackupStartSector != StartSector) {
 		TextUI.OutputStr("ignored\nInvalid backup image\n");
 		return;

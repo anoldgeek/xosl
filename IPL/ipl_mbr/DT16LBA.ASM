@@ -34,7 +34,7 @@
                 public  TransferBuffer, Sector
 
 ;		db	19 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
-		db	23 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
+		db	21 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
 LoaderName      db      'XOSLLOADXCF'
 
 ;LBAPacket       equ     this byte
@@ -53,7 +53,7 @@ DataStart       dd      00000215h
 
 FSType          db      06h
 DriveNumber     db      80h
-ABSSectorStart  dd      0031b600h
+ABSSectorStart  dq      0031b600h
 
 Password	dd	0
 
