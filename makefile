@@ -10,8 +10,10 @@
 # Copyright (c) 2010 by Mario Looijkens:
 # Copyright (c) 2018 by Norman Back:
 
+#DOS_DEBUG=1
+
 !ifdef DOS_DEBUG
-MAKE_OPTIONS=-DDOS_DEBUG
+MAKE_OPTIONS=DOS_DEBUG=1
 !endif
 
 ENTER=cd

@@ -172,30 +172,20 @@ XOSL130a6
     Fix Update.
 	Add version to start of boot items, to track when update should take place.
     Tested OK with 8TB drive.
-XOSL130a7
+XOSL130a7 debug
+XOSL130a8 release
 
 **************** TODO ****************
-    
 
-20. Add boot via UEFI
+20. Fix ipls.bin size.    
+
+21. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
-21. Add install via UEFI
+22. Add install via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load Install(er) and excute.
 
-22. Boot Windows on gpt disk.
+23. Direct boot of linux kernel on mbr, gpt ext ext4, lvm
 
-items.cpp
-Char* GetBootedName(int Drive, unsigned long long StartSector)
-{
-	const CBootItem *BootItem;
-	const TPartition *Partition;
-	for(int i = 0 ; i< ItemFile.BootItems.Count ; i++){
-		BootItem = &ItemFile.BootItems[BootIndex];
-		Partition = PartList.GetPartition(BootItem->PartIndex);
-		If(Partition->Drive == Drive && Partition->StartSector == StartSector){
-			return BootItem->Name;
-		}
-	}
-	return 0;
-}
+24. Boot Windows on gpt disk.
+
