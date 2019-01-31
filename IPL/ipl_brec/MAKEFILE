@@ -13,10 +13,10 @@
 CONV_OUT=ipls.bin
 LBA_OUT=iplslba.bin
 
-CONV_OBJ=starter.obj main.obj transfer.obj diskconv.obj mem.obj convfill.obj
-LBA_OBJ=starter.obj main.obj lbatrans.obj disklba.obj mem.obj lbafill.obj
-FIL_CONV_OBJ=starter.obj, main.obj, transfer.obj, diskconv.obj, mem.obj, convfill.obj
-FIL_LBA_OBJ=starter.obj, main.obj, lbatrans.obj, disklba.obj, mem.obj, lbafill.obj
+CONV_OBJ=starter.obj mainconv.obj transfer.obj diskconv.obj mem.obj convfill.obj
+LBA_OBJ=starter.obj mainlba.obj lbatrans.obj disklba.obj mem.obj lbafill.obj
+FIL_CONV_OBJ=starter.obj, mainconv.obj, transfer.obj, diskconv.obj, mem.obj, convfill.obj
+FIL_LBA_OBJ=starter.obj, mainlba.obj, lbatrans.obj, disklba.obj, mem.obj, lbafill.obj
 
 CONV_MAP=ipls.map
 LBA_MAP=iplslba.map

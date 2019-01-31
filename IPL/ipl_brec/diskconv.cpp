@@ -23,38 +23,17 @@
 
 //int near Drive2;
 
-void DiskMap(int DriveToUse, unsigned long long StartSectorToUse)
+void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
 {
 	Drive = DriveToUse;
 	StartSector = StartSectorToUse;
 	GetDriveInfo(DriveToUse);
 }
 
-void DiskRead(unsigned long long Sector, void far *Buffer, int Count)
+void DiskRead(unsigned long Sector, void far *Buffer, int Count)
 {
 	unsigned short SectCyl, DrvHead;
 
 	Sector2CHS(Sector,SectCyl,DrvHead);
 	ConvRead(SectCyl,DrvHead,Buffer,Count);
 }
-
-/*
-void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
-{
-	int Cylinder;
-	int Sector;
-	int Head;
-	int DrvHeadCount;
-	unsigned long DrvSectorCount;
-
-	RSector += StartSector;
-
-	Sector = RSector % DrvSectorCount + 1;
-	RSector /= DrvSectorCount;
-	Head = RSector % DrvHeadCount;
-	Cylinder = RSector / DrvHeadCount;
-
-	DrvHead = Drive | (Head << 8);
-	SectCyl = Sector | ((Cylinder & 0xff) << 8) | ((Cylinder >> 8) << 6);
-}
-*/

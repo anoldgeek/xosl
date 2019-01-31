@@ -16,7 +16,7 @@
  *
  */
 
-#include <disk.h>
+#include <disklba.h>
 #include <mem.h>
 
 
@@ -108,7 +108,7 @@ void LoadXoslLoad()
 			// DiskRead(XoslLoadSector,(void *)0x80000100,16);
 
 			// Read file size / 512  +1 ( sector size >> 9 )
-			DiskRead(XoslLoadSector,(void *)0x60000000, (Root[Index].FileSize >> 9) + 1 );
+			DiskRead(XoslLoadSector,(void *)0x60000000, (int)(Root[Index].FileSize >> 9) + 1 );
 			return;
 		}
 	}

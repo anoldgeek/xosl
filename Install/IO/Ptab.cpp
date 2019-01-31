@@ -444,7 +444,7 @@ void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char Mbr
 	PLUP[Index]->Partition->MbrHDSector0 = MbrHDSector0;
 	if (FSType < 0x100){
 		// mbr type
-		PLUP[Index]->Entry->FSType = FSType;
+		PLUP[Index]->Entry->FSType = (char)FSType;
 	}
 	else{
 		// gpt type

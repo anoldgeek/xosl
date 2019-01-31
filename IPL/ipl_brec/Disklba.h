@@ -24,6 +24,7 @@
 
 #include <transfer.h>
 
+// iplslba
 void DiskMap(int DriveToUse, unsigned long long StartSectorToUse);
 void DiskRead(unsigned long long Sector, void far *Buffer, int Count);
 

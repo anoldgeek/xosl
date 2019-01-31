@@ -17,6 +17,6 @@
                 .data
 ;                db      100 dup (0)
 ;		db       106 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
-		db       64 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
+		db       66 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
 
                 end

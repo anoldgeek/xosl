@@ -345,7 +345,7 @@ char *ltoa(long Value, char *Str, int Base)
 
 	pStr = InvString;
 	do {
-		*pStr++ = GetDigit(Value % Base);
+		*pStr++ = GetDigit((int)(Value % Base));
 		Value /= Base;
 	} while (Value);
 
@@ -364,7 +364,7 @@ char *ultoa(unsigned long Value, char *Str, int Base)
 
        pStr = InvString;
        do {
-               *pStr++ = GetDigit(Value % Base);
+               *pStr++ = GetDigit((int)(Value % Base));
                Value /= Base;
        } while (Value);
 

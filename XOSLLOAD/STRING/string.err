@@ -1,2 +1,0 @@
-string.cpp(18): Warning! W389: col(42) integral value may be truncated during assignment or initialization
-string.cpp(37): Warning! W389: col(41) integral value may be truncated during assignment or initialization

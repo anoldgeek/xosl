@@ -27,7 +27,7 @@ void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &
 extern long DrvHeadCount;
 extern unsigned long DrvSectorCount;
 extern int Drive;
-extern unsigned long long StartSector;
+extern unsigned long StartSector;
 
 
 #endif

@@ -1,0 +1,972 @@
+
+C:\XOSLDEV\xosl>wmake clean 
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xosl
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xosl
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\misc
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\gui
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\graph
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\text
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\mmu
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\string
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\io
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\mouse
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\keyboard
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\timer
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\quit
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\debug
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..
+	del xosl.exe
+	del xosl.map
+	del xosl.sym
+	del *.XXF
+	cd ..
+	cd xoslload
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xoslload
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\mmu
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\io
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\string
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\text
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\misc
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..
+	cd ..
+	cd install
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd install
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\io
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.bak
+	del *.lib
+	del *.lst
+	cd ..\mouse
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\string
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\vesa
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\ui
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\keyboard
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..\text
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.lib
+	del *.lst
+	cd ..
+	del install.exe
+	del install.map
+	del install.sym
+	cd ..
+	cd ipl
+	cd ipl_brec
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.bin
+	del *.map
+	cd ..
+	cd ipl_mbr
+	wmake clean
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	del *.obj
+	del *.map
+	del *.bin
+	cd ..
+	cd ..
+	cd arch
+	del *.xxf
+	del *.xcf
+	del *.xff
+	del *.xbf
+	del *.exe
+	del *.bin
+	del *.mbr
+	del *.txt
+	del *.map
+	del *.sym
+	cd ..
+
+C:\XOSLDEV\xosl>wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xosl
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xosl
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include xoslmain.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include xoslapp.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include loader.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include xosldata.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include items.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include encpwd.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include fatfix.cpp
+	wasm -mc -d1 -w4 -e25 -zq drvswap.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include antivir.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include bypass.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include strtable.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include setup.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include bootkeys.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include prefer.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include general.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include password.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include about.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include dialogs.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include lastconf.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include part.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include hide.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include graphset.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include colorset.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include mouseset.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include xoslpass.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include misc.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include default.cpp
+	wlib -b -c -m -n -q -p=512 -l=xosl.lst xosl.lib -+xoslmain.obj -+xoslapp.obj -+loader.obj -+xosldata.obj -+items.obj -+encpwd.obj -+fatfix.obj -+drvswap.obj -+antivir.obj -+bypass.obj -+strtable.obj -+setup.obj -+bootkeys.obj -+prefer.obj -+general.obj -+password.obj -+about.obj -+dialogs.obj -+lastconf.obj -+part.obj -+hide.obj -+graphset.obj -+colorset.obj -+mouseset.obj -+xoslpass.obj -+misc.obj -+default.obj
+	cd ..
+	cd gui
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include screen.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include backgnd.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include control.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include wndlist.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include form.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include bevel.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include button.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include checkbox.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include edit.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include image.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include label.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include listbox.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include strlist.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include progress.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include scroll.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include tab.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include trackbar.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include radiogrp.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include anicntrl.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include combobox.cpp
+	wlib -b -c -m -n -q -p=512 -l=gui.lst gui.lib -+screen.obj -+backgnd.obj -+control.obj -+wndlist.obj -+form.obj -+bevel.obj -+button.obj -+checkbox.obj -+edit.obj -+image.obj -+label.obj -+listbox.obj -+strlist.obj -+progress.obj -+scroll.obj -+tab.obj -+trackbar.obj -+radiogrp.obj -+anicntrl.obj -+combobox.obj
+	cd ..
+	cd graph
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include graph.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include palette.cpp
+	wcc -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -ntFARCODE -3 -bt=dos -fo=.obj -mc -i..\include;.;..\..\include vpgraph.c
+	wcc -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -ntFARCODE -3 -bt=dos -fo=.obj -mc -i..\include;.;..\..\include cursor.c
+	wasm -mc -d1 -w4 -e25 -zq pmraw.asm
+	wasm -mc -d1 -w4 -e25 -zq pmgraph.asm
+	wasm -mc -d1 -w4 -e25 -zq rmgraph.asm
+	wasm -mc -d1 -w4 -e25 -zq pmlib.asm
+	wasm -mc -d1 -w4 -e25 -zq dcx.asm
+	wasm -mc -d1 -w4 -e25 -zq int10.asm
+	wasm -mc -d1 -w4 -e25 -zq retrace.asm
+	wasm -mc -d1 -w4 -e25 -zq rgb.asm
+	wlib -b -c -m -n -q -p=512 -l=graph.lst graph.lib -+graph.obj -+palette.obj -+vpgraph.obj -+cursor.obj -+pmraw.obj -+pmgraph.obj -+rmgraph.obj -+pmlib.obj -+dcx.obj -+int10.obj -+retrace.obj -+rgb.obj
+	cd ..
+	cd text
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq text.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include capture.cpp
+	wlib -b -c -m -n -q -p=512 -l=text.lst text.lib -+text.obj -+capture.obj
+	cd ..
+	cd mmu
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include alloc.cpp
+	wlib -b -c -m -n -q -p=512 -l=mmu.lst mmu.lib -+alloc.obj
+	cd ..
+	cd string
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include cstring.cpp
+	wasm -mc -d1 -w4 -e25 -zq string.asm
+	wasm -mc -d1 -w4 -e25 -zq mem.asm
+	wasm -mc -d1 -w4 -e25 -zq digits.asm
+	wlib -b -c -m -n -q -p=512 -l=string.lst string.lib -+cstring.obj -+string.obj -+mem.obj +-digits.obj
+	cd ..
+	cd io
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include ptab.cpp
+ptab.cpp(74): Warning! W013: col(9) unreachable code
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include fs.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include fat16.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include fat32.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include disk.cpp
+	wasm -mc -d1 -w4 -e25 -zq transfer.asm
+	wasm -mc -d1 -w4 -e25 -zq lbatrans.asm
+	wlib -b -c -m -n -q -p=512 -l=io.lst io.lib -+ptab.obj -+fs.obj -+fat16.obj -+fat32.obj -+disk.obj -+transfer.obj -+lbatrans.obj
+	cd ..
+	cd mouse
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include mouse.cpp
+	wasm -mc -d1 -w4 -e25 -zq ps2.asm
+	wasm -mc -d1 -w4 -e25 -zq com.asm
+	wlib -b -c -m -n -q -p=512 -l=mouse.lst mouse.lib -+mouse.obj -+ps2.obj -+com.obj
+	cd ..
+	cd misc
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq starter.asm
+	wasm -mc -d1 -w4 -e25 -zq a20line.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include a20stat.cpp
+	wasm -mc -d1 -w4 -e25 -zq int.asm
+	wasm -mc -d1 -w4 -e25 -zq weird.asm
+	wasm -mc -d1 -w4 -e25 -zq ctype.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include wcpp4stuff.cpp
+	wasm -mc -d1 -w4 -e25 -zq owlib.asm
+	wlib -b -c -m -n -q -p=512 -l=misc.lst misc.lib -+a20line.obj -+a20stat.obj -+int.obj -+weird.obj -+ctype.obj -+wcpp4stuff.obj -+i4d.bin -+i4m.bin -+owlib.obj
+	cd ..
+	cd keyboard
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include keyboard.cpp
+	wasm -mc -d1 -w4 -e25 -zq key.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include keys_us.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include keys_fr.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include keys_gr.cpp
+	wlib -b -c -m -n -q -p=512 -l=keyboard.lst keyboard.lib -+keyboard.obj -+key.obj -+keys_us.obj -+keys_fr.obj -+keys_gr.obj
+	cd ..
+	cd timer
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq timer.asm
+	wasm -mc -d1 -w4 -e25 -zq rtc.asm
+	wlib -b -c -m -n -q -p=512 -l=timer.lst timer.lib -+timer.obj -+rtc.obj
+	cd ..
+	cd quit
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include quit.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include apm.cpp
+	wasm -mc -d1 -w4 -e25 -zq apmif.asm
+	wasm -mc -d1 -w4 -e25 -zq reboot.asm
+	wlib -b -c -m -n -q -p=512 -l=quit.lst quit.lib -+quit.obj -+apm.obj -+apmif.obj -+reboot.obj
+	cd ..
+	cd debug
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq dosfile.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -zu -3 -bt=dos -fo=.obj -ml -xd -i..\include;.;..\..\include dump.cpp
+	wlib -b -c -m -n -q -p=512 -l=debug.lst debug.lib -+dosfile.obj -+dump.obj
+	cd ..
+	cd freemem
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd ..
+	wlink name xosl d all SYS dos op m op nod libp mmu;timer;text;string;xosl;mouse;misc;graph;keyboard;gui;quit;io;debug;freemem libf misc\starter.obj,misc\a20line.obj,misc\a20stat.obj, xosl.lib,mmu.lib,timer.lib,text.lib,string.lib,mouse.lib,misc.lib, graph.lib,keyboard.lib,gui.lib,io.lib,quit.lib,debug.lib,freemem.lib op maxe=25 op d op q op symf
+Warning! W1027: file misc.lib(C:\XOSLDEV\xosl\xosl\misc\a20line.asm): redefinition of _EnableA20 ignored
+Warning! W1027: file misc.lib(C:\XOSLDEV\xosl\xosl\misc\a20line.asm): redefinition of _DisableA20 ignored
+Warning! W1027: file misc.lib(C:\XOSLDEV\xosl\xosl\misc\a20stat.cpp): redefinition of _PrintA20Status ignored
+Warning! W1023: no starting address found, using 0000:0000
+	split
+	cd ..
+	cd xoslload
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd xoslload
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include main.cpp
+main.cpp(226): Warning! W391: col(23) assignment found in boolean expression
+main.cpp(236): Warning! W391: col(23) assignment found in boolean expression
+	wasm -mc -d1 -w4 -e25 -zq execute.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include bypass.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include ptab.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include encpwd.cpp
+	wlib -b -c -m -n -q -p=512 -l=xoslload.lst xoslload.lib -+main.obj -+execute.obj -+bypass.obj -+ptab.obj -+encpwd.obj
+	cd ..
+	cd mmu
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include alloc.cpp
+	wlib -b -c -m -n -q -p=512 -l=mmu.lst mmu.lib -+alloc.obj
+	cd ..
+	cd io
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include disk.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include fs.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include fat16.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include fat32.cpp
+	wasm -mc -d1 -w4 -e25 -zq transfer.asm
+	wasm -mc -d1 -w4 -e25 -zq lbatrans.asm
+	wlib -b -c -m -n -q -p=512 -l=io.lst io.lib -+disk.obj -+fs.obj -+fat16.obj -+fat32.obj -+transfer.obj -+lbatrans.obj
+	cd ..
+	cd string
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq mem.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include string.cpp
+	wasm -mc -d1 -w4 -e25 -zq digits.asm
+	wlib -b -c -m -n -q -p=512 -l=string.lst string.lib -+mem.obj -+string.obj -+digits.obj
+	cd ..
+	cd text
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq text.asm
+	wlib -b -c -m -n -q -p=512 -l=text.lst text.lib -+text.obj
+	cd ..
+	cd misc
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -mc -d1 -w4 -e25 -zq starter.asm
+	wasm -mc -d1 -w4 -e25 -zq weird.asm
+	wasm -mc -d1 -w4 -e25 -zq ctype.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -zls -os -s -zdp -3 -bt=dos -fo=.obj -mc -xd -v -i..\include;.;..\..\include wcpp4stuff.cpp
+	wlib -b -c -m -n -q -p=512 -l=misc.lst misc.lib -+weird.obj -+ctype.obj -+wcpp4stuff.obj -+i4d.bin -+i4m.bin
+	cd ..
+	wlink name xoslload.exe d all SYS dos op m op nod libp xoslload;mmu;io;string;text;misc libf misc\starter.obj, xoslload.lib,mmu.lib,io.lib,string.lib,text.lib,misc.lib op maxe=25 op d op q op symf
+Warning! W1014: stack segment not found
+Warning! W1023: no starting address found, using 0000:0000
+	exe2bin -h -r -l=0x6000 xoslload.exe
+Open Watcom EXE to Binary Converter Version 2.0 beta Nov  1 2017 20:56:09 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 2001-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+Header of xoslload.exe (all numbers in hex)
+Signature                      5A4D
+Size mod 512       (bytes)     00A4
+Number of pages                0011
+Number of relocations          0026
+Size of header     (paras)     000C
+Minimum allocation (paras)     0001
+Maximum allocation (paras)     FFFF
+Initial ss:sp             0000:0000
+Checksum                       0000
+Initial cs:ip             0000:0000
+Relocation-table at            0020
+Overlay number                 0000
+
+There are 38 relocations in the exe-file.
+0x00000001  0x0000004D  0x00000103  0x0000014A  0x0000016C  0x0000017F  
+0x0000029C  0x000003D1  0x000004F9  0x00000505  0x0000052A  0x0000053B  
+0x0000059F  0x000005AD  0x000005D3  0x0000067D  0x000006AB  0x000006F1  
+0x00000701  0x0000073C  0x0000074B  0x00000807  0x00000813  0x000008AA  
+0x00000FD4  0x00001009  0x0000105D  0x0000108A  0x000010A0  0x00001112  
+0x00001436  0x00001463  0x00001479  0x000014EB  0x00001C4C  0x00001CCF  
+0x00001F69  0x00001F8C  
+	copy	xoslload.bin xoslload.com
+        1 file(s) copied.
+	copy xoslload.com xoslload.xcf
+        1 file(s) copied.
+	cd ..
+	cd install
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	cd install
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install main.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install menus.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install data.cpp
+	wasm -ml -d1 -w4 -e25 -zq drvcount.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install install.cpp
+..\..\include\fat32.h(61): Warning! W849: col(1) base class virtual function has not been overridden
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\items.h(18)
+..\..\include\fat32.h(61): Note! N393: col(1) included from install.cpp(37)
+..\..\include\fat32.h(61): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
+..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
+..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
+install.cpp(582): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
+install.cpp(545): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
+install.cpp(582): Warning! W726: col(1) no reference to formal parameter 'MouseType'
+install.cpp(545): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, CDosDriveList::CDosDrive const &, bool, bool, unsigned char )'
+install.cpp(655): Warning! W726: col(1) no reference to formal parameter 'GraphicsMode'
+install.cpp(584): Note! N392: col(46) definition: 'CVesa::TGraphicsMode GraphicsMode' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'
+install.cpp(655): Warning! W726: col(1) no reference to formal parameter 'MouseType'
+install.cpp(584): Note! N392: col(79) definition: 'CMouse::TMouseType MouseType' in 'int CInstaller::Upgrade( CVesa::TGraphicsMode, CMouse::TMouseType, int, bool, bool, unsigned char )'
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install files.cpp
+	wasm -ml -d1 -w4 -e25 -zq reboot.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install fatinst.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install fscreate.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install Ugp130a4.cpp
+..\include\defs.h(83): Warning! W086: col(18) definition of macro 'true' not identical to previous definition
+..\include\defs.h(83): Note! N393: col(18) included from ..\include\ptab.h(14)
+..\include\defs.h(83): Note! N393: col(18) included from ..\..\include\lastconf.h(15)
+..\include\defs.h(83): Note! N393: col(18) included from ..\..\include\items.h(15)
+..\include\defs.h(83): Note! N393: col(18) included from Ugp130a4.cpp(2)
+..\include\defs.h(83): Note! N851: col(18) macro 'true' defined in: ..\..\include\newdefs.h(49) (col 9)
+..\..\include\fat32.h(61): Warning! W849: col(1) base class virtual function has not been overridden
+..\..\include\fat32.h(61): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
+..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
+..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
+	wlib -b -c -m -n -q -p=512 -l=install.lst install.lib -+main.obj -+menus.obj -+data.obj -+drvcount.obj -+install.obj -+files.obj -+reboot.obj -+fatinst.obj -+fscreate.obj -+Ugp130a4.obj
+	cd ..
+	cd io
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install dosio.cpp
+	wasm -ml -d1 -w4 -e25 -zq dosint.asm
+	wasm -ml -d1 -w4 -e25 -zq transfer.asm
+	wasm -ml -d1 -w4 -e25 -zq lbatrans.asm
+	wasm -ml -d1 -w4 -e25 -zq serialno.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install dosdrv.cpp
+..\..\include\fat32.h(61): Warning! W849: col(1) base class virtual function has not been overridden
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
+..\..\include\fat32.h(61): Note! N393: col(1) included from dosdrv.cpp(14)
+..\..\include\fat32.h(61): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
+..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
+..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install disk.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install ptab.cpp
+..\..\include\fat32.h(61): Warning! W849: col(1) base class virtual function has not been overridden
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\fatfix.h(17)
+..\..\include\fat32.h(61): Note! N393: col(1) included from ..\..\include\items.h(18)
+..\..\include\fat32.h(61): Note! N393: col(1) included from ptab.cpp(17)
+..\..\include\fat32.h(61): Note! N850: col(1) virtual function is 'CFileSystem::WriteFile'
+..\include\fs.h(24): Note! N392: col(29) definition: 'int CFileSystem::WriteFile( char const *, void const * )'
+..\include\fs.h(24): Note! N881: col(29) cannot be called with a 'CFAT32 *'
+ptab.cpp(83): Warning! W013: col(9) unreachable code
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install fs.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install fat16.cpp
+	wlib -b -c -m -n -q -p=512 -l=io.lst io.lib -+dosio.obj -+dosint.obj -+transfer.obj -+lbatrans.obj -+serialno.obj -+dosdrv.obj -+disk.obj -+ptab.obj -+fs.obj -+fat16.obj
+	cd ..
+	cd mouse
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install mouse.cpp
+	wasm -ml -d1 -w4 -e25 -zq ps2.asm
+	wasm -ml -d1 -w4 -e25 -zq com.asm
+com.asm(31): Note! N604: Far call is converted to near call.
+com.asm(38): Note! N604: Far call is converted to near call.
+com.asm(40): Note! N604: Far call is converted to near call.
+com.asm(46): Note! N604: Far call is converted to near call.
+	wlib -b -c -m -n -q -p=512 -l=mouse.lst mouse.lib -+mouse.obj -+ps2.obj -+com.obj
+	cd ..
+	cd vesa
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install vesa.cpp
+	wasm -ml -d1 -w4 -e25 -zq vesabios.asm
+	wlib -b -c -m -n -q -p=512 -l=vesa.lst vesa.lib -+vesa.obj -+vesabios.obj
+	cd ..
+	cd ui
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -ml -d1 -w4 -e25 -zq textscr.asm
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install textui.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install textlist.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install textwnd.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install textbox.cpp
+	wpp -w4 -e25 -ei -zp1 -zq -zpw -od -3 -bt=dos -fo=.obj -ml -xd -xr -i..\include;.;C:\WATCOM\h;..\..\include;..\install textpop.cpp
+	wlib -b -c -m -n -q -p=512 -l=ui.lst ui.lib -+textscr.obj -+textui.obj -+textlist.obj -+textwnd.obj -+textbox.obj -+textpop.obj
+	cd ..
+	cd keyboard
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -ml -d1 -w4 -e25 -zq key.asm
+	wlib -b -c -m -n -q -p=512 -l=keyboard.lst keyboard.lib -+key.obj
+	cd ..
+	cd text
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -ml -d1 -w4 -e25 -zq text.asm
+	wlib -b -c -m -n -q -p=512 -l=text.lst text.lib -+text.obj
+	cd ..
+	cd string
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -ml -d1 -w4 -e25 -zq mem.asm
+	wlib -b -c -m -n -q -p=512 -l=string.lst string.lib -+mem.obj
+	cd ..
+	wlink name install.exe debug dwarf SYS dos op m op maxe=25 op symf op stack=4096 libp install;io;mouse;vesa;ui;keyboard;text;string libf  install.lib,io.lib,mouse.lib,string.lib, vesa.lib,ui.lib,keyboard.lib,text.lib
+Open Watcom Linker Version 2.0 beta Nov  1 2017 20:56:36 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1985-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+loading object files
+searching libraries
+creating map file
+creating a DOS executable
+	cd ..
+	cd ipl
+	cd ipl_brec
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -zq starter.asm
+	wpp -w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -v -i. mainconv.cpp
+	wasm -zq transfer.asm
+	wpp -w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -v -i. diskconv.cpp
+	wasm -zq mem.asm
+	wasm -zq convfill.asm
+	wlink name ipls.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL starter.obj, mainconv.obj, transfer.obj, diskconv.obj, mem.obj, convfill.obj
+	wpp -w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -v -i. mainlba.cpp
+	wasm -zq lbatrans.asm
+	wpp -w4 -e25 -ei -zp1 -zq -ecc -zls -os -s -zc -3 -bt=dos -fo=.obj -zdp -ms -xd -xr -v -i. disklba.cpp
+	wasm -zq lbafill.asm
+	wlink name iplslba.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL starter.obj, mainlba.obj, lbatrans.obj, disklba.obj, mem.obj, lbafill.obj
+	cd ..
+	cd ipl_mbr
+	wmake
+Open Watcom Make Version 2.0 beta Nov  1 2017 20:57:14 (32-bit)
+Copyright (c) 2002-2017 The Open Watcom Contributors. All Rights Reserved.
+Portions Copyright (c) 1988-2002 Sybase, Inc. All Rights Reserved.
+Source code is available under the Sybase Open Watcom Public License.
+See http://www.openwatcom.org/ for details.
+	wasm -w4 -e25 -zq mainfat.asm
+	wasm -w4 -e25 -zq disk.asm
+	wasm -w4 -e25 -zq fat16.asm
+	wasm -w4 -e25 -zq mem.asm
+	wasm -w4 -e25 -zq data16.asm
+	wlink name ipl06.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL MainFat.obj,DISK.obj,FAT16.obj,MEM.obj,DATA16.obj
+	wasm -w4 -e25 -zq fat32.asm
+	wasm -w4 -e25 -zq data32.asm
+	wlink name ipl0b.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL MainFat.obj,DISK.obj,FAT32.obj,MEM.obj,DATA32.obj
+	wasm -w4 -e25 -zq disklba.asm
+	wasm -w4 -e25 -zq dt16lba.asm
+	wlink name ipl06lba.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL MainFat.obj,disklba.obj,fat16.obj,mem.obj,dt16lba.obj
+	wasm -w4 -e25 -zq dt32lba.asm
+dt32lba.asm(58): Warning! W576: Public constants should be numeric; 0 written
+	wlink name ipl0blba.bin FORMAT dos com op m op nod op maxe=25 op d op q op symf FIL MainFat.obj,disklba.obj,fat32.obj,mem.obj,dt32lba.obj
+	cd ..
+	cd ..
+	copy xosl\*.xxf arch
+xosl\XOSLIMG0.XXF
+xosl\XOSLIMG1.XXF
+xosl\XOSLIMG2.XXF
+xosl\XOSLIMG3.XXF
+xosl\XOSLIMG4.XXF
+xosl\XOSLIMG5.XXF
+xosl\XOSLIMG6.XXF
+        7 file(s) copied.
+	copy xosl\xosl.* arch
+xosl\xosl.exe
+xosl\xosl.map
+xosl\xosl.sym
+        3 file(s) copied.
+	copy xoslload\xoslload.xcf arch
+        1 file(s) copied.
+	copy install\install.exe arch
+        1 file(s) copied.
+	copy install\install.map arch
+        1 file(s) copied.
+	copy install\install.sym arch
+        1 file(s) copied.
+	copy ipl\ipl_brec\*.bin arch
+ipl\ipl_brec\ipls.bin
+ipl\ipl_brec\iplslba.bin
+        2 file(s) copied.
+	copy ipl\ipl_mbr\*.bin arch
+ipl\ipl_mbr\ipl06.bin
+ipl\ipl_mbr\ipl06lba.bin
+ipl\ipl_mbr\ipl0b.bin
+ipl\ipl_mbr\ipl0blba.bin
+        4 file(s) copied.
+	copy resource\*.* arch
+resource\curr_mbr.xcf
+resource\cwsdpmi.exe
+resource\DEFAULT.MBR
+resource\default.xff
+resource\extra.xff
+resource\GPL.TXT
+resource\notes.txt
+resource\sbminst.exe
+resource\SPLASHLG.XBF
+resource\XOSLLOGO.XBF
+resource\XOSLWALL.XBF
+resource\XRPART00.XXF
+resource\XRPART01.XXF
+       13 file(s) copied.
+
+

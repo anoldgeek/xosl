@@ -115,7 +115,7 @@ int CDisk::Transfer(int Action, unsigned long long Sector, void *Buffer, int Cou
 		LBAPacket.Sector = Sector + StartSector;
 		return DiskAccess.LBATransfer(Action,Drive,LBAPacket);
 	}
-	Sector2CHS(Sector,SectCyl,DrvHead);
+	Sector2CHS((unsigned long)Sector,SectCyl,DrvHead);
 	return DiskAccess.Transfer(Action,SectCyl,DrvHead,Buffer,Count);
 }
 

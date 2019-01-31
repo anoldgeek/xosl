@@ -21,14 +21,14 @@
 ;                public  StartSector
 
                 public  `W?Drive$NI`
-                public  `W?StartSector$NUZ`
+                public  `W?StartSector$NUL`
 
 
 DrvHeadCount    dd      ?
 DrvSectorCount  dd      ?
 `W?Drive$NI`          dw      ?
-`W?StartSector$NUL`    label	dword	; relies on little endian
-`W?StartSector$NUZ`    dq      ?
+;`W?StartSector$NUL`    label	dword	; relies on little endian
+`W?StartSector$NUL`    dd      ?
 
 
 ;'local' vars for Sector2CHS
