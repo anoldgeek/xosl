@@ -66,8 +66,12 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Disk.Read(0,&Fat16,1);
 
 
-	if (!UseLba)
+	if (!UseLba){
 		IplFile = XoslFiles.GetIplFileName(CXoslFiles::enumIpl16Conv);
+		if (DosDrive.StartSector >> 32 != 0)
+			// /2TB Can't use CHS on drives > 2TB
+			return -1;
+	}
 	else
 		IplFile = XoslFiles.GetIplFileName(CXoslFiles::enumIpl16Lba);
 
@@ -108,8 +112,12 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Disk.Map(DosDrive.Drive,DosDrive.StartSector);
 	Disk.Read(0,&Fat32,1);
 
-	if (!UseLba)
+	if (!UseLba){
 		IplFile = XoslFiles.GetIplFileName(CXoslFiles::enumIpl32Conv); 
+		if (DosDrive.StartSector >> 32 != 0)
+			// /2TB Can't use CHS on drives > 2TB
+			return -1;
+	}
 	else
 		IplFile = XoslFiles.GetIplFileName(CXoslFiles::enumIpl32Lba);
 

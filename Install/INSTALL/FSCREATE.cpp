@@ -121,8 +121,15 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector)
 	BootRecord.TrackSize = SectorCount;
 	BootRecord.HeadCount = HeadCount;
 
+/*  HiddenSectors64 added to end of the MBR BootRecord BIOS Parameter Block
+	to facilitate booting from HDs greater than 2TB for LBA drives, 
+	taking the first 8 bytes of the original BootRecord.Loader.
+	Old HiddenSectors also set for use by CHS drives and display
+	of XOSL FS as FAT16 in linux.
+*/ 
 	BootRecord.HiddenSectors = (unsigned long) Sector;
 	BootRecord.HiddenSectors64 = Sector;
+
 	BootRecord.BigSectorCount = 0;
 	BootRecord.Drive = Drive;
 	BootRecord.Signature = 0x29;
