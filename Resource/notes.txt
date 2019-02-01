@@ -4,23 +4,30 @@ Extended Operating System Loader comes with ABSOLUTELY NO WARRANTY, it
 is destributed under the terms of the GNU General Public License (GPL).
 The full license can be found in the GPL.TXT file.
 
-1. 'Easy upgrade' is not support. XOSL 1.1.9 will have to be completely
-reinstalled from scratch.
+1. This version additionally supports:
+   a) > 2TB hard disks provided LBA is available.
+   b) GPT paritioned disks.
+   c) Upgrading  from older versions > 1.1.4
+   d) When istalling on a dedicated partition, the option the choose 
+      which HD, or none, the sector 0 the boot code is written to.
+   
+   
 
-2. If you have any other version installed, it is recommened
-to uninstall it before installing XOSL 1.1.9 To perform a 
-quick uninstall, execute 'fdisk /mbr'.
+2. 'Easy upgrade' is now support for installs latter than XOSL 1.1.4. 
+older versions will have to be completely reinstalled from scratch.
 
-3. It is strongly recommended to install XOSL from a floppy. 
-Particularily when you plan to install XOSL to a dedicated partition.
-This way you will always have a backup of the data overwritten
-(provided the floppy doesn't contain errors :)
+3. If you have any version older than 1.1.4 installed, it is recommened
+to uninstall it before installing the latest XOSL. To perform a 
+quick uninstall via DOS, execute 'fdisk /mbr'.
 
-4. With XOSL comes Ranish Partition Manager, written by Mikhail
+4. It is strongly recommended to install XOSL from a usb stick or CD. 
+Using a usb stick you will save a backup of the data overwritten.
+
+5. With XOSL comes Ranish Partition Manager, written by Mikhail
 Ranish. Note that certain circumstances exist where it is not
 free to use. Refer to http://www.ranish.com/part for the details.
 
-5. With XOSL comes Smart Boot Manager (SBM). It is destributed 
+6. With XOSL comes Smart Boot Manager (SBM). It is destributed 
 under the terms of the GNU GPL. XOSL use SBM to indirectly 
 support booting from CD-ROM. The CD-ROM booting howto can be
 found in the manual/cdrom folder. The manual to SBM can be 
@@ -31,8 +38,8 @@ as found in this distribution, with the new one, and completely
 reinstall XOSL.
 
 -- NOTES ON INSTALLATION ON DOS DRIVE --
-
-...
+1. If installing from a usb device that mounts as C:, you must 
+   install to a dedicated partition instead. See below.
 
 -- NOTES ON INSTALLATION ON DEDICATED PARTITION --
 
@@ -45,9 +52,14 @@ ALL DATA ON THE SELECTED PARTITION WILL BE DESTROYED! Although
 install provides an uninstall option, which can completely restore
 the partition data, you should NEVER rely on such features.
 
-3. If you install from floppy (recommended), make sure that floppy
-has at least 712kb (729088 byte) of free disk space BEFORE you run
+3. If you install from floppy or usb (recommended), make sure that the
+device has at least 879kb (900102 byte) of free disk space BEFORE you run
 install (and after you have copied the XOSL install files to the 
-floppy). If you don't install Ranish Partition Manager, only 584kb 
-(598016 byte) of free disk space is required.
+device). If you don't install Ranish Partition Manager, only 816kb 
+(834566 byte) of free disk space is required.
+1.44Mb floppies are not large enough. Tested OK with 2.8Mb.
+
+4. If installing from a usb device that mounts as C:, choose HD1 as
+the device for installation of the sector 0 boot code.
+
 

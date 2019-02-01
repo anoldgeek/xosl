@@ -12,3 +12,12 @@
 *.err
 *.map
 *.sym
+*.obj
+*.lib
+*.lst
+*.map
+*.exe
+*.xcf
+*.bin
+*.xdf
+*.xxf
