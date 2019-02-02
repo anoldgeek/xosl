@@ -41,7 +41,7 @@ public:
 	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
 	~CFsCreator();
 
-	int InstallFs(unsigned short Drive, unsigned long long Sector);
+	int InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
 
 	void RestorePartition(unsigned short Drive,unsigned long long StartSector);
 
@@ -100,7 +100,7 @@ private:
 	int LoadIplS(int Drive);
 	int PackFile(int hClusterFile,const char *FileName);
 	int PackFiles();
-	int InitBootRecord(unsigned short Drive, unsigned long long Sector);
+	int InitBootRecord(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
 
 	int BackupPartition(int Drive, unsigned long long Sector);
 	int InstallXoslImg(int Drive, unsigned long long Sector);

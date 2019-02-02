@@ -50,7 +50,7 @@ CFsCreator::~CFsCreator()
 {
 }
 
-int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector)
+int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0)
 {
 	MemSet(Fat,0,sizeof(unsigned short[256]));
 	MemSet(RootDir,0,sizeof(CDirectoryEntry[32]));
@@ -59,7 +59,7 @@ int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector)
 		return -1;
 	if (PackFiles() == -1)
 		return -1;
-	if (InitBootRecord(Drive,Sector) == -1)
+	if (InitBootRecord(Drive,Sector,MbrHDSector0) == -1)
 		return -1;
 
 	if (BackupPartition(Drive,Sector) == -1)
@@ -92,7 +92,7 @@ int CFsCreator::LoadIplS(int Drive)
 }
 
 
-int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector)
+int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0)
 {
 	CDiskAccess DiskAccess;
 	int HeadCount, SectorCount;
@@ -131,7 +131,16 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector)
 	BootRecord.HiddenSectors64 = Sector;
 
 	BootRecord.BigSectorCount = 0;
-	BootRecord.Drive = Drive;
+
+	if(MbrHDSector0 != 0xff){
+		// User may have selected a diffent drive to install the BootRecord too.
+		// Assume the user has booted from other media that is now the first
+		// drive during the install process.
+		BootRecord.Drive = Drive - (MbrHDSector0 & 0x7f);
+	}
+	else{
+		BootRecord.Drive = Drive;
+	}
 	BootRecord.Signature = 0x29;
 	BootRecord.SerialNo = 0x4c534f58;
 	MemCopy(BootRecord.Label,XOSL_LABEL,11);

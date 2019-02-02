@@ -75,7 +75,7 @@ LBA_AAEnd:	pop	cx
 
                 pop     ds
 		pop	si
-                ret 2
+                ret 4
 ;`W?LBATransfer$:CDiskAccess$N(IIRFX$__3b5thaTLBAPacket$$)I` endp
 `W?LBATransfer$:CDiskAccess$N(IIRFX$__3126cuTLBAPacket$$)I` endp
 

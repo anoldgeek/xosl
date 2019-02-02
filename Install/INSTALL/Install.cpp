@@ -119,7 +119,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	}
 
-	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector) == -1)
+	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0) == -1)
 		return -1;
 
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
@@ -631,7 +631,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	}
 
-	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector) == -1){
+	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade in %s \n\n","FsCreator.InstallFs");
 		return -1;
 	}
