@@ -2,11 +2,11 @@
 extern void AllocInit( unsigned long MemStart);
 //#line "alloc.cpp" 60
 extern void * operator new( unsigned Size);
-//#line "alloc.cpp" 91
-extern void * operator new[]( unsigned Size);
 //#line "alloc.cpp" 96
+extern void * operator new[]( unsigned Size);
+//#line "alloc.cpp" 101
 extern void operator delete( void * ptr);
-//#line "alloc.cpp" 130
-extern void operator delete[]( void * ptr);
 //#line "alloc.cpp" 135
+extern void operator delete[]( void * ptr);
+//#line "alloc.cpp" 140
 extern long CoreLeft( void );

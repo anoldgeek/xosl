@@ -81,7 +81,12 @@ void *operator new (unsigned int Size)
 		MemDesc->Next = OldDesc->Next;
 		MemDesc->Prev = OldDesc->Prev;
 		OldDesc->Prev->Next = MemDesc;
-		OldDesc->Next->Prev = MemDesc;
+		//OldDesc->Next->Prev = MemDesc;  //ML This is causing problems during debugging
+		//ML: When the New operator gets called for the first time after AllocInit
+		//    OldDesc->Next will contain a NULL pointer. 
+		//    Not a good idea to set NULL->next !!!
+		if (OldDesc->Next)
+			OldDesc->Next->Prev = MemDesc;
 		MemDesc->PageCount = OldDesc->PageCount - PageCount;
 		OldDesc->PageCount = PageCount;
 	}
