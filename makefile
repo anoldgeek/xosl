@@ -66,6 +66,8 @@ arch: .SYMBOLIC
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
+    $(COPY) xoslload\xoslload.* arch
+
     @cmd.exe /c chkbinsz.cmd
 #    dir arch\*.bin
 

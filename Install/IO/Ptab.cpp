@@ -319,7 +319,8 @@ TPartNode *CPartList::CreateGPTPartNode(const TMBRNode *MBRNode, int Index)
 	Partition->FSName = GetFSName(GptShortType);
 	Partition->FSType = GptShortType;
 	Partition->Type = MBRNode->Type;
-	Partition->MbrHDSector0 = 0xff;
+//	Partition->MbrHDSector0 = 0xff;
+	GetPartMbrHDSector0(Partition);
 	return PartNode;
 }
 
@@ -650,7 +651,8 @@ void CPartList::GetPartMbrHDSector0(TPartition *Partition)
 	// Does this partition have sep XOSL installed
 	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1)
 		if(Disk.Read(0, &BootRecord,1) != -1 )
-			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 )
+// Check Fat installed XOSL as well
+//			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 )
 				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 )
 					if (FileSystem->ReadFile("BOOTITEMXDF",BootItemData) == BOOTITEM_FILESIZE )
 						Partition->MbrHDSector0 = BootItemData->MbrHDSector0;

@@ -29,10 +29,10 @@ MAP_FILE=xoslload.map
 
 !ifdef DOS_DEBUG
 MAKE_OPTIONS=DOS_DEBUG=1
-LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+LINK_OPTIONS=debug dwarf SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 #LINK_OPTIONS=FORMAT dos com op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !else
-LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
+LINK_OPTIONS=debug dwarf SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 #LINK_OPTIONS=FORMAT dos com op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !endif
 

@@ -71,7 +71,7 @@ private:
 
 	void SetPartId(int PartIndex, int PartId);
 
-	void InstallSmartBootManager(int Drive);
+	void InstallSmartBootManager();
 
 	int CopyFileForUpgrade(const char *FileName, char DriveChar);
 

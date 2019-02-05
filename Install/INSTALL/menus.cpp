@@ -126,19 +126,21 @@ void CInstallMenus::InitInstFatMenu(CTextList::TListItemExecute MenuHandler, voi
 
 	Data.GetGraphicsModeNames(ModeNameList,ModeCount);
 	Data.GetMouseTypeNames(MouseTypeNames,MouseTypeCount);
-	if (!DosDriveList)
+	if (!DosDriveList){
+		CreateHDList();
 		CreateDosDriveList();
-
+	}
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
 	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
 	TextUI.AddMenuItem(2,"Install on drive","Drive to install XOSL on",1,DosDriveCount,(const char **)DosDriveList,1);
-	TextUI.AddMenuItem(3,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
-	TextUI.AddMenuItem(4,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+	TextUI.AddMenuItem(3,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL "XOSL_VERSION" MBR on",1,HDNameCount,(const char **)HDNameList,1);
+	TextUI.AddMenuItem(4,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
+	TextUI.AddMenuItem(5,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
 
-	TextUI.AddMenuItem(6,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
-	TextUI.AddMenuItem(8,"Return to install menu","Return to install menu",1);
+	TextUI.AddMenuItem(7,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
+	TextUI.AddMenuItem(9,"Return to install menu","Return to install menu",1);
 	TextUI.SetItemIndex(0);
 	TextUI.RefreshMenu();
 }
@@ -180,19 +182,21 @@ void CInstallMenus::InitUpgradeFatMenu(CTextList::TListItemExecute MenuHandler, 
 
 	Data.GetGraphicsModeNames(ModeNameList,ModeCount);
 	Data.GetMouseTypeNames(MouseTypeNames,MouseTypeCount);
-	if (!DosDriveList)
+	if (!DosDriveList){
+		CreateHDList();
 		CreateDosDriveList();
-
+	}
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
 	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
 	TextUI.AddMenuItem(2,"Upgrade drive","Drive to upgrade XOSL on",1,DosDriveCount,(const char **)DosDriveList,1);
-	TextUI.AddMenuItem(3,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
-	TextUI.AddMenuItem(4,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+	TextUI.AddMenuItem(3,"Drv for Sector0 MBR","Drive to upgrade Sector 0 XOSL to "XOSL_VERSION" MBR",1,HDNameCount,(const char **)HDNameList,1);
+	TextUI.AddMenuItem(4,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
+	TextUI.AddMenuItem(5,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
 
-	TextUI.AddMenuItem(6,"Start upgrade","Upgrade Extended Operating System Loader to "XOSL_VERSION"",1);
-	TextUI.AddMenuItem(8,"Return to upgrade menu","Return to upgrade menu",1);
+	TextUI.AddMenuItem(7,"Start upgrade","Upgrade Extended Operating System Loader to "XOSL_VERSION"",1);
+	TextUI.AddMenuItem(9,"Return to upgrade menu","Return to upgrade menu",1);
 	TextUI.SetItemIndex(0);
 	TextUI.RefreshMenu();
 }
@@ -270,16 +274,18 @@ void CInstallMenus::InitUninstallFat(CTextList::TListItemExecute MenuHandler, vo
 {
 	static const char *MbrIplList[2] = { "Original","Default" };
 
-	if (!DosDriveList)
+	if (!DosDriveList){
+		CreateHDList();
 		CreateDosDriveList();
-
+	}
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Uninstall off drive","Drive XOSL is currently installed on",1,DosDriveCount,(const char **)DosDriveList,1);
-	TextUI.AddMenuItem(1,"Restore MBR","Restore the Master Boot Record with the original or default loader",1,2,MbrIplList,1);
-	TextUI.AddMenuItem(4,"Start uninstall","Uninstall Extended Operating System Loader",1);
-	TextUI.AddMenuItem(6,"Return to uninstall menu","Return to uninstall menu",1);
+	TextUI.AddMenuItem(1,"Drv for Sector0 MBR","Drive Sector 0 XOSL "XOSL_VERSION" MBR is currently installed on",1,HDNameCount,(const char **)HDNameList,1);
+	TextUI.AddMenuItem(2,"Restore MBR","Restore the Master Boot Record with the original or default loader",1,2,MbrIplList,1);
+	TextUI.AddMenuItem(5,"Start uninstall","Uninstall Extended Operating System Loader",1);
+	TextUI.AddMenuItem(7,"Return to uninstall menu","Return to uninstall menu",1);
 	TextUI.SetItemIndex(0);
 	TextUI.RefreshMenu();
 
@@ -309,13 +315,15 @@ void CInstallMenus::InitUninstallSep(CTextList::TListItemExecute MenuHandler, vo
 
 void CInstallMenus::InitFixMbrFat(CTextList::TListItemExecute MenuHandler, void *HandlerClass)
 {
-	if (!DosDriveList)
+	if (!DosDriveList){
+		CreateHDList();
 		CreateDosDriveList();
-
+	}
 	TextUI.ConnectEventHandler(MenuHandler,HandlerClass);
 
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"XOSL on drive","DOS drive XOSL is currently installed on",1,DosDriveCount,(const char **)DosDriveList,1);
+	TextUI.AddMenuItem(1,"Drv for Sector0 MBR","Drive Sector 0 XOSL "XOSL_VERSION" MBR is currently installed on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(4,"Start restore","Restore XOSL "XOSL_VERSION"",1);
 	TextUI.AddMenuItem(6,"Return to restore menu","Return to restore menu",1);
 	TextUI.SetItemIndex(0);

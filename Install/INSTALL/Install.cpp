@@ -66,7 +66,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1; 
 
 	if (SmartBm) {
-		InstallSmartBootManager(DosDrive.Drive);
+		InstallSmartBootManager();
 	}
 	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
 		return -1;
@@ -113,7 +113,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	
 	if (SmartBm) {
-		InstallSmartBootManager(DosDrive.Drive);
+		InstallSmartBootManager();
 	}
 	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
 		return -1;
@@ -494,7 +494,7 @@ const char *SmartBmStatement =
 
 
 
-void CInstaller::InstallSmartBootManager(int /*Drive*/)
+void CInstaller::InstallSmartBootManager()
 {
 	TextUI.ShowPopup(3,2,74,20,SmartBmStatement);
 	CKeyboard Keyboard;
@@ -560,7 +560,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1; 
 
 	if (SmartBm)
-		InstallSmartBootManager(DosDrive.Drive);
+		InstallSmartBootManager();
 
 //	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetSmartBmName(),DosDrive.DriveChar) == -1)
@@ -623,7 +623,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}
 	
 	if (SmartBm) {
-		InstallSmartBootManager(DosDrive.Drive);
+		InstallSmartBootManager();
 	}
 
 	if (PartList.Retain(XoslFiles.GetSmartBmName(),512,Partition) == -1) {

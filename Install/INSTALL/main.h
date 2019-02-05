@@ -32,17 +32,17 @@ public:
 private:
 	enum TEnumMainMenu { enumInstall = 0, enumRestore = 4, enumUninstall = 2, enumExit = 6, enumUpgrade = 8 };
 	enum TEnumInstallMenu { enumInstFat = 0, enumInstSep = 2, enumInstAbort = 6 };
-	enum TEnumInstFatMenu { enumInstFatStart = 6, enumInstFatAbort = 8 };
+	enum TEnumInstFatMenu { enumInstFatStart = 7, enumInstFatAbort = 9 };
 	enum TEnumInstSepMenu{ enumInstSepStart = 10, enumInstSepAbort = 11 };
 	enum TEnumErrorMenu { enumErrorQuit = 2, enumErrorMain = 4};
 	enum TEnumDoneMenu { enumDoneReboot = 3, enumDoneExit = 5, enumDoneMain = 7};
-	enum TEnumFatUninstallMenu { enumFatUnStart = 4, enumFatUnAbort = 6 };
+	enum TEnumFatUninstallMenu { enumFatUnStart = 5, enumFatUnAbort = 7 };
 	enum TEnumSepUninstallMenu { enumSepUnStart = 8, enumSepUnAbort = 10 };
 	enum TEnumFatRestoreMenu { enumFatFixStart = 4, enumFatFixAbort = 6 };
 	enum TEnumSepRestoreMenu { enumSepFixStart = 6, enumSepFixAbort = 8 };
 
 	enum TEnumUpgradeMenu { enumUpgradeFat = 0, enumUpgradeSep = 2, enumUpgradeAbort = 6 };
-	enum TEnumUpgradeFatMenu { enumUpgradeFatStart = 6, enumUpgradeFatAbort = 8 };
+	enum TEnumUpgradeFatMenu { enumUpgradeFatStart = 7, enumUpgradeFatAbort = 9 };
 	enum TEnumUpgradeSepMenu{ enumUpgradeSepStart = 10, enumUpgradeSepAbort = 11 };
 	
 

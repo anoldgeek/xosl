@@ -55,7 +55,6 @@
 		Partition = PartList.GetPartition(Index);
 		MbrDrive=Partition->Drive
 		MbrDrive = PartList.GetPartition(Index)->Drive
-
 1. Completed for XOSL seperate partition install in xosl11a
 
 
@@ -176,8 +175,64 @@ XOSL130a7 debug
 XOSL130a8 release
 
 **************** TODO ****************
+20. Fix ipls.bin size.
+    Fix installing to dedicted partition via C: mount usb drive.
+XOSL130a9 debug
 
-20. Fix ipls.bin size.    
+
+21.
+1. Allow chose of drive to write mbr too for FAT install.
+	Fixes:
+	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
+	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
+
+	Implementation:
+	Install\INSTALL
+		\INSTALL\Menus.cpp
+			InitInstFatMenu(
+
+			New
+			TextUI.AddMenuItem(3,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL "XOSL_VERSION" MBR on",1,HDNameCount,(const char **)HDNameList,1);
+			
+			TextUI.AddMenuItem(3,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
+			-->
+			TextUI.AddMenuItem(4,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
+
+			TextUI.AddMenuItem(4,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+			-->
+			TextUI.AddMenuItem(5,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
+
+			TextUI.AddMenuItem(6,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
+			-->
+			TextUI.AddMenuItem(7,"Start installation","Install Extended Operating System Loader "XOSL_VERSION"",1);
+
+			TextUI.AddMenuItem(8,"Return to install menu","Return to install menu",1);
+			-->
+			TextUI.AddMenuItem(9,"Return to install menu","Return to install menu",1);
+
+
+
+		\INSTALL\main.cpp
+			int CApplication::StartInstallFat()
+				add
+				unsigned char MbrHDSector0;
+
+				MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(3));
+
+				if (Installer.Install(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,0x80) == -1) {
+				-->
+				if (Installer.Install(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,MbrHDSector0) == -1) {
+
+
+
+
+		Partition = PartList.GetPartition(Index);
+		MbrDrive=Partition->Drive
+		MbrDrive = PartList.GetPartition(Index)->Drive
+
+
+
+
 
 21. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
