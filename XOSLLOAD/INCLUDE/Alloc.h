@@ -13,7 +13,7 @@
 
 #include <defs.h>
 
-long CoreLeft();
+unsigned long CoreLeft();
 void AllocInit(unsigned long mmu_start_addr);
 
 #endif
