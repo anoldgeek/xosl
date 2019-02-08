@@ -232,9 +232,12 @@ XOSL130a9 debug
 
 
 22. Fixes.
-	Upgrade FAT install fails
+	Upgrade FAT install fails.
+		Missing code inserted.
 	Mouse on zbox strange interation during xosl add and edit.
+		Turning off animation in preferences to avoid the issue.
 	Linux fsck.fat reports invalid file sizes in xosl fs.
+		This is a linux issues. fsck.fat sees XOSL FS as FAT12. Using fsck.fat -A avoids the issue (Atari FAT16).
 
 
 

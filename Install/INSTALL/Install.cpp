@@ -36,6 +36,7 @@
 #include <xoslver.h>
 #include <items.h>
 #include <pre130a4>
+#include <dosio.h>
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
@@ -541,6 +542,39 @@ int CInstaller::CopyFileForUpgrade(const char *FileName, char DriveChar)
 	}
 	return 0;
 }
+int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0)
+{
+	CDosFile DosFile;
+	CXoslFiles XoslFiles;
+	CBootItemFile *BootItemData;
+	int fh;
+	const char *BootItemsFileName;
+	int filesize;
+	
+	BootItemsFileName = XoslFiles.GetBootItemName();
+	filesize = DosFile.FileSize(BootItemsFileName);
+	if (filesize == BOOTITEM_FILESIZE || filesize == O_BOOTITEM_FILESIZE){
+		if ( (fh = DosFile.Open(BootItemsFileName,CDosFile::accessReadWrite)) != -1){
+			BootItemData = new CBootItemFile;
+			DosFile.Read(fh,BootItemData,filesize);
+			if( filesize == O_BOOTITEM_FILESIZE || BootItemData->BootItemVersion != CURRENT_BOOTITEM_VERSION){
+				// BootItemData is from old version, upgrade it 
+				pre130a4CBootItemFile *oldBootItemData;
+				CUpgrade *upgradeBootItems = new CUpgrade();
+				oldBootItemData = (pre130a4CBootItemFile*)BootItemData;
+				BootItemData = upgradeBootItems->upgradeBootItems(oldBootItemData,MbrHDSector0);
+			}
+			DosFile.LSeek(fh,0,CDosFile::seekStart);
+			if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
+				DosFile.Close(fh);
+				delete BootItemData;
+				return 0;
+			}
+		}
+	}
+	delete BootItemData;
+	return -1;
+}
 
 int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
 {
@@ -551,8 +585,12 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}
 	if(CopyFileForUpgrade(XoslFiles.GetXoslDataName(),DosDrive.DriveChar) == -1)
 		return -1;
+
 	if(CopyFileForUpgrade(XoslFiles.GetBootItemName(),DosDrive.DriveChar) == -1)
 		return -1;
+	// Upgrade bootitems 
+	UpgradeXoslBootItem(MbrHDSector0);
+
 	if(CopyFileForUpgrade(XoslFiles.GetOriginalMbrName(),DosDrive.DriveChar) == -1)
 		return -1; 
 

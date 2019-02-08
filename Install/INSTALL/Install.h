@@ -75,6 +75,8 @@ private:
 
 	int CopyFileForUpgrade(const char *FileName, char DriveChar);
 
+	int UpgradeXoslBootItem(unsigned char MbrHDSector0);
+
 };
 
 #endif
