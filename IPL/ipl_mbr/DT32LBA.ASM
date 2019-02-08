@@ -35,7 +35,8 @@
 
 LoaderName      db      'XOSLLOADXCF'
 
-LBAPacket       equ     this byte
+;LBAPacket       equ     this byte
+LBAPacket       label   byte
                 dw      0010h
 SectorCount     dw      0
 TransferBuffer  dd      0

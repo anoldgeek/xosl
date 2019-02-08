@@ -295,5 +295,22 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 			TextUI.OutputStr("failed\n");
 		else
 			TextUI.OutputStr("done\n");
-	}		
+	}
+	XoslFileName = "XOSLLOAD.XCF";
+	strcpy(&FileStr[3],XoslFileName);
+	TextUI.OutputStr("Removing %s...",XoslFileName);
+	if (DosFile.Delete(FileStr) == -1)
+		TextUI.OutputStr("failed\n");
+	else
+		TextUI.OutputStr("done\n");
+	XoslFileName = "XOSLIMGx.XXF";
+	strcpy(&FileStr[3],XoslFileName);
+	TextUI.OutputStr("Removing %s files...",XoslFileName);
+	for( Index = 0 ; ; Index++){
+		FileStr[10] = '0' + Index;
+		if (DosFile.Delete(FileStr) == -1){
+			break;
+		}
+	}
+	TextUI.OutputStr("done\n");
 }

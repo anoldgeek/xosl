@@ -174,14 +174,11 @@ XOSL130a6
 XOSL130a7 debug
 XOSL130a8 release
 
-**************** TODO ****************
 20. Fix ipls.bin size.
     Fix installing to dedicted partition via C: mount usb drive.
-XOSL130a9 debug
-
 
 21.
-1. Allow chose of drive to write mbr too for FAT install.
+1. Allow choose of drive to write mbr too for FAT install.
 	Fixes:
 	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
 	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
@@ -230,17 +227,25 @@ XOSL130a9 debug
 		MbrDrive=Partition->Drive
 		MbrDrive = PartList.GetPartition(Index)->Drive
 
+**************** TODO ****************
+XOSL130a9 debug
+
+
+22. Fixes.
+	Upgrade FAT install fails
+	Mouse on zbox strange interation during xosl add and edit.
+	Linux fsck.fat reports invalid file sizes in xosl fs.
 
 
 
 
-21. Add boot via UEFI
+23. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
-22. Add install via UEFI
+24. Add install via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load Install(er) and excute.
 
-23. Direct boot of linux kernel on mbr, gpt ext ext4, lvm
+25. Direct boot of linux kernel on mbr, gpt ext ext4, lvm
 
-24. Boot Windows on gpt disk.
+26. Boot Windows on gpt disk.
 

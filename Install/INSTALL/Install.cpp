@@ -62,13 +62,13 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	if (CreateBootItem(MbrHDSector0) == -1)
 		return -1;
-	if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName()) == -1)
+	if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1)
 		return -1; 
 
 	if (SmartBm) {
 		InstallSmartBootManager();
 	}
-	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
+	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName(),MbrHDSector0) == -1) {
 		return -1;
 	}
 
@@ -109,13 +109,13 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	if (CreateBootItem(MbrHDSector0) == -1)
 		return -1;
-	if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName()) == -1)
+	if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1)
 		return -1;
 	
 	if (SmartBm) {
 		InstallSmartBootManager();
 	}
-	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1) {
+	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName(), MbrHDSector0) == -1) {
 		return -1;
 	}
 
@@ -311,7 +311,7 @@ int CInstaller::CreateBootItem(unsigned char MbrHDSector0)
 	return 0;
 }
 
-int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName)
+int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned char MbrHDSector0)
 {
 	CDisk Disk;
 	unsigned short Mbr[256];
@@ -323,7 +323,7 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName)
 	else {
 		TextUI.OutputStr("Creating SBM loader...");
 	}
-	Disk.Map(0x80,0);
+	Disk.Map(MbrHDSector0,0);
 	Disk.Read(0,Mbr,1);
 
 	if (PartId != -1) {
@@ -549,27 +549,22 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (!PartMan) {
 		XoslFiles.IgnorePartManFiles();
 	}
-	//if (CreateXoslData(GraphicsMode,MouseType) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetXoslDataName(),DosDrive.DriveChar) == -1)
 		return -1;
-	//if (CreateBootItem(MbrHDSector0) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetBootItemName(),DosDrive.DriveChar) == -1)
 		return -1;
-	//if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName()) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetOriginalMbrName(),DosDrive.DriveChar) == -1)
 		return -1; 
 
 	if (SmartBm)
 		InstallSmartBootManager();
 
-//	if (BackupOriginalMbr(-1,XoslFiles.GetSmartBmName()) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetSmartBmName(),DosDrive.DriveChar) == -1)
 		return -1;
 
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
 		return -1;
 
-//	if (BackupCurrentMbr(&Ipl) == -1)
 	if(CopyFileForUpgrade(XoslFiles.GetCurrentMbrName(),DosDrive.DriveChar) == -1)
 		return -1;
 
@@ -601,7 +596,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}
 
 	if (Partition->SectorCount < 800) {
-		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 400kb\n\n");
+		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 800kb\n\n");
 		return -1;
 	}
 		
