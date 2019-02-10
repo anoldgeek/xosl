@@ -23,6 +23,7 @@
 #define PART_GPT     6
 #define PART_GPT_PROT_MBR 7
 #define PART_GPT_HEADER 8
+#define PART_OMBR	9
 
 #define PART_STR "invalid","primary","logical","mbr","floppy","loader","gpt","gptpmbr","gpthder"
 

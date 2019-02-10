@@ -10,9 +10,10 @@ The full license can be found in the GPL.TXT file.
    c) Upgrading  from older versions > 1.1.4
    d) When istalling on a dedicated partition, the option the choose 
       which HD, or none, the sector 0 the boot code is written to.
+   e) When installing on a FAT partition, the option to choose
+      the drive letter to install on and the HD  the sector 0 the boot 
+      code is written to.
    
-   
-
 2. 'Easy upgrade' is now support for installs latter than XOSL 1.1.4. 
 older versions will have to be completely reinstalled from scratch.
 
@@ -38,8 +39,8 @@ as found in this distribution, with the new one, and completely
 reinstall XOSL.
 
 -- NOTES ON INSTALLATION ON DOS DRIVE --
-1. If installing from a usb device that mounts as C:, you must 
-   install to a dedicated partition instead. See below.
+1. If installing from a usb device that mounts as C:, choose D: and HD1
+   as the drive and HD sector 0 to install too.
 
 -- NOTES ON INSTALLATION ON DEDICATED PARTITION --
 

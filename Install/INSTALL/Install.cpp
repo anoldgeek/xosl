@@ -40,12 +40,14 @@
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
-CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
+CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset):
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
-	FatInstall(TextUIToUse,XoslFiles,DosFile),
-	FsCreator(TextUIToUse,XoslFiles,DosFile)
+	FatInstall(TextUIToUse,XoslFiles,DosFile, DriveOffset),
+	FsCreator(TextUIToUse,XoslFiles,DosFile, DriveOffset)
 {
+	HDOffset = DriveOffset;
+	PartList.SetHDOffset(HDOffset);
 }
 
 CInstaller::~CInstaller()
@@ -101,8 +103,8 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	DosDrive.FATType = FATTYPE_FAT16; // dedicated partition always FAT16
 	DosDrive.StartSector = Partition->StartSector;
 
-	if (Partition->SectorCount < 800) {
-		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 400kb\n\n");
+	if (Partition->SectorCount < 1000) {
+		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 500kb\n\n");
 		return -1;
 	}
 		
@@ -153,7 +155,6 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 int CInstaller::Uninstall(const CDosDriveList::CDosDrive &DosDrive, int OriginalMbr, unsigned char MbrHDSector0)
 {
 	char MbrBuffer[512];
-	//const char *MbrFileName;
 
 	if (!OriginalMbr || LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetOriginalMbrName(),MbrBuffer) == -1)
 		if (LoadDefaultMbr(MbrBuffer) == -1)
@@ -317,6 +318,9 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned
 	CDisk Disk;
 	unsigned short Mbr[256];
 	int hFile;
+	int MBRDrive;
+
+	MBRDrive = MbrHDSector0 + HDOffset;
 
 	if (PartId != -1) {
 		TextUI.OutputStr("Creating backup of MBR...");
@@ -324,7 +328,7 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned
 	else {
 		TextUI.OutputStr("Creating SBM loader...");
 	}
-	Disk.Map(MbrHDSector0,0);
+	Disk.Map(MBRDrive,0);
 	Disk.Read(0,Mbr,1);
 
 	if (PartId != -1) {
@@ -549,7 +553,7 @@ int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0)
 	CBootItemFile *BootItemData;
 	int fh;
 	const char *BootItemsFileName;
-	int filesize;
+	unsigned long filesize;
 	
 	BootItemsFileName = XoslFiles.GetBootItemName();
 	filesize = DosFile.FileSize(BootItemsFileName);
@@ -633,8 +637,8 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	}
 
-	if (Partition->SectorCount < 800) {
-		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 800kb\n\n");
+	if (Partition->SectorCount < 1000) {
+		TextUI.OutputStr("XOSL "XOSL_VERSION" requires a partition of\nat least 500kb\n\n");
 		return -1;
 	}
 		
@@ -686,4 +690,9 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
  	}
 	return 0;
 }
-
+/*
+void CInstaller::SetHDOffset(int Offset)
+{
+	HDOffset = Offset;
+}
+*/

@@ -28,12 +28,12 @@
 #include <install.h>
 #include <memory_x.h>
 
-CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
+CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
-
+	HDOffset = DriveOffset;
 }
 
 CFatInstall::~CFatInstall()
@@ -94,8 +94,8 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Fat16Ipl.IPLData.DataStart = (unsigned long)Fat16Ipl.IPLData.DirStart + (unsigned long)Fat16.RootEntries / 16;
 
 	Fat16Ipl.IPLData.FSType = 0x06;
-//	Fat16Ipl.IPLData.DriveNumber = DosDrive.Drive;
-	// Cold booted system will always be drive 0x80
+	// This is correct when launched by the BIOS
+	// and is adjusted when loaded by XOSL App before launch.
 	Fat16Ipl.IPLData.DriveNumber = 0x80;
 	Fat16Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
@@ -142,8 +142,8 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Fat32Ipl.IPLData.RootCluster = Fat32.RootCluster;
 
 	Fat32Ipl.IPLData.FSType = 0x0b;
-//	Fat32Ipl.IPLData.DriveNumber = DosDrive.Drive;
-	// Cold booted system will always be drive 0x80
+	// This is correct when launched by the BIOS
+	// and is adjusted when loaded by XOSL App before launch.
 	Fat32Ipl.IPLData.DriveNumber = 0x80;
 	Fat32Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
@@ -251,9 +251,12 @@ int CFatInstall::InstallIpl(void *Ipl,unsigned char MbrHDSector0)
 	unsigned char Mbr[512];
 	//unsigned short Checksum;
 	//int Index;
+	int MBRDrive;
+
+	MBRDrive = MbrHDSector0 + HDOffset;
 
 	TextUI.OutputStr("Installing IPL...");
-	if (Disk.Map(MbrHDSector0,0) == -1) {
+	if (Disk.Map(MBRDrive,0) == -1) {
 		TextUI.OutputStr("failed\nUnable to access MBR. ");
 		return -1;
 	}
@@ -314,3 +317,4 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 	}
 	TextUI.OutputStr("done\n");
 }
+

@@ -15,8 +15,14 @@
                 .model  tiny
                 .386p
                 .data
-;                db      26 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
-                db      20 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
 
+		public	`W?XoslLoadFn$N[]A`
+
+;                db      26 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
+;                db      20 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
+                db      21 dup (0)	;Tune filesize ipls.bin to 510 bytes (leave space for int magic number).
+
+; Starts at 499 / 0x1f3
+`W?XoslLoadFn$N[]A`:		db	"XOSLLOADXCF"
                 end
 ;; **** "ipls.bin" 518 SIZE MUST BE 510 ****

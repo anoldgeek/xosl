@@ -39,11 +39,12 @@
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
 
-CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
+CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
+	HDOffset = DriveOffset;
 }
 
 CFsCreator::~CFsCreator()
@@ -52,19 +53,23 @@ CFsCreator::~CFsCreator()
 
 int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0)
 {
+	int MBRDrive;
+
+	MBRDrive = Drive + HDOffset;
+
 	MemSet(Fat,0,sizeof(unsigned short[256]));
 	MemSet(RootDir,0,sizeof(CDirectoryEntry[32]));
 
-	if (LoadIplS(Drive) == -1)
+	if (LoadIplS(MBRDrive) == -1)
 		return -1;
 	if (PackFiles() == -1)
 		return -1;
-	if (InitBootRecord(Drive,Sector,MbrHDSector0) == -1)
+	if (InitBootRecord(MBRDrive,Sector,MbrHDSector0) == -1)
 		return -1;
 
-	if (BackupPartition(Drive,Sector) == -1)
+	if (BackupPartition(MBRDrive,Sector) == -1)
 		return -1;
-	if (InstallXoslImg(Drive,Sector) == -1)
+	if (InstallXoslImg(MBRDrive,Sector) == -1)
 		return -1;
 	
 	return 0;
@@ -131,7 +136,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 	BootRecord.HiddenSectors64 = Sector;
 
 	BootRecord.BigSectorCount = 0;
-
+/*
 	if(MbrHDSector0 != 0xff){
 		// User may have selected a diffent drive to install the BootRecord too.
 		// Assume the user has booted from other media that is now the first
@@ -141,6 +146,11 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 	else{
 		BootRecord.Drive = Drive;
 	}
+*/
+	// 0x80 is correct if launched by the BIOS
+	// and is corrected by XOSL App before launch.
+	BootRecord.Drive = 0x80;
+
 	BootRecord.Signature = 0x29;
 	BootRecord.SerialNo = 0x4c534f58;
 	MemCopy(BootRecord.Label,XOSL_LABEL,11);

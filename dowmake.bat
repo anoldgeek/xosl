@@ -1,4 +1,3 @@
 
-set DOS_DEBUG=true
 wmake clean
-wmake
+wmake DOS_DEBUG=true

@@ -33,6 +33,7 @@
 CPartList::CPartList()
 {
 	AllowActiveHD = 0;
+	HDOffset = 0;
 }
 
 CPartList::~CPartList()
@@ -92,6 +93,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 	unsigned long long NewStartSector;
 	unsigned int i;
 	unsigned int gpt_sector;
+	int DriveLessHDOffset = Drive - HDOffset;
 
 	if (Disk.Map(Drive,StartSector) == -1)
 		return MBRList;
@@ -119,7 +121,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 		// Add the Protective MBR
 		MBRList = MBRList->Next = new TMBRNode;
 		MBRList->AbsoluteSector = StartSector;
-		MBRList->Drive = Drive;
+		MBRList->Drive = DriveLessHDOffset;
 		MBRList->Type = PART_GPT_PROT_MBR;
 		MBRList->Table = PartTable;
 
@@ -141,7 +143,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 		// Add the gpt header
 		MBRList = MBRList->Next = new TMBRNode;
 		MBRList->AbsoluteSector = 1;
-		MBRList->Drive = Drive;
+		MBRList->Drive = DriveLessHDOffset;
 		MBRList->Type = PART_GPT_HEADER;
 		MBRList->Table = PartTable;
 
@@ -158,31 +160,16 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 			}
 			MBRList = MBRList->Next = new TMBRNode;
 			MBRList->AbsoluteSector = gpt_sector;
-			MBRList->Drive = Drive;
+			MBRList->Drive = DriveLessHDOffset;
 			MBRList->Type = PART_GPT;
 			MBRList->Table = PartTable;
-/*
-			for (j = 0;j < 4 && i < gpth->maxpart ; j++, i++ ){
-				if (GetGPTShortType(GPTTable->Entries[j].type) != 0){
-					// linux filesystem
-					gpart_entry = new gpt_partentry_t;
-					memcpy(gpart_entry,&GPTTable->Entries[j],sizeof(gpt_partentry_t) );
-
-					MBRList = MBRList->Next = new TMBRNode;
-					MBRList->AbsoluteSector = gpart_entry->start;
-					MBRList->Drive = Drive;
-					MBRList->Type = PART_GPT;
-					MBRList->Table = (TPartTable*) gpart_entry;
-				}
-			}
-*/
 		}
 		return MBRList;
 	}
 	// MBR disk
 	MBRList = MBRList->Next = new TMBRNode;
 	MBRList->AbsoluteSector = StartSector;
-	MBRList->Drive = Drive;
+	MBRList->Drive = DriveLessHDOffset;
 	MBRList->Type = Type;
 	MBRList->Table = PartTable;
 	mbrEntries = MBRList->Table->mbrEntries;
@@ -216,10 +203,15 @@ void CPartList::CreatePartList(int FloppyCount)
 	const TPartMbrEntry *mbrEntries;
 
 	Count = 0;
+	Drive = 0;
 	PartList = &this->PartList;
-	if (MBRList.Next)
-		Drive = MBRList.Next->Drive;
+//	if (MBRList.Next)
+//		Drive = MBRList.Next->Drive;
 	for (MBRNode = MBRList.Next; MBRNode; MBRNode = MBRNode->Next) {
+		if (MBRNode->Drive < 0x80){
+			// Ignore HDOffset hidden drives
+			continue;
+		}
 		if (Drive != MBRNode->Drive) {
 			Drive = MBRNode->Drive;
 			PartList = PartList->Next = CreateNonPartNode(Drive);
@@ -822,4 +814,8 @@ void CPartList::chksum_crc32gentab ()
       }
       crc_tab[i] = crc;
    }
+}
+void CPartList::SetHDOffset(int DriveOffset)
+{
+	HDOffset = DriveOffset;
 }

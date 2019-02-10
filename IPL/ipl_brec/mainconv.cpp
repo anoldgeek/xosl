@@ -19,6 +19,7 @@
 #include <diskconv.h>
 #include <mem.h>
 
+extern char XoslLoadFn[];
 
 class CBootRecord {
 public:
@@ -101,7 +102,7 @@ void LoadXoslLoad()
 
 	Index = 0;
 	for (; Index < 16; ++Index){
-		if (MemCompare(Root[Index].FileName,"XOSLLOADXCF",11) == 0){
+		if (MemCompare(Root[Index].FileName,XoslLoadFn,11) == 0){
 			XoslLoadSector = (((unsigned long) Root[Index].StartCluster - 2) << 4) + 4;
 
 			// assumption: xoslload <= 8192 byte

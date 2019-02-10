@@ -30,6 +30,7 @@ class CData {
 
 		int GetLastDrive();
 		static unsigned short GetDosVersion();
+		static int GetDriveCount();
 	private:
 		CTextUI &TextUI;
 		CPartList &PartList;
@@ -49,7 +50,6 @@ class CData {
 
 		int LastDrive;
 		void DetectDrives();
-		static int GetDriveCount();
 };
 
 #endif

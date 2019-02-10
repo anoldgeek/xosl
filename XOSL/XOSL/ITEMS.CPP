@@ -17,6 +17,7 @@
 #include <mem.h>
 #include <disk.h>
 #include <key.h>
+#include <ipl.h>
 
 // TODO: maybe some more range checkings, etc.
 // TODO: check return values
@@ -160,7 +161,7 @@ int CBootItems::InitBoot(int BootIndex)
 		}
 	}
 
-	if (Partition->Type == PART_MBR && Partition->Drive == 0x80) {
+	if (Partition->Type == PART_OMBR && Partition->Drive == 0x80) {
 		if (FileSystem.ReadFile(OriginalMbrFile,IPL_ADDR) <= 0)
 			return -1;
 		PartList.InsertMbrPTab(IPL_ADDR);
@@ -174,6 +175,22 @@ int CBootItems::InitBoot(int BootIndex)
 		Disk.Map(Partition->Drive,Partition->StartSector);
 		if (Disk.Read(0,IPL_ADDR,1) == -1)
 			return -1;
+		// Fix the Drive number
+		if(Partition->StartSector == 0){
+			// ipl_mbr
+			TIPLFAT16LBA *ipl = (TIPLFAT16LBA*)0x7c00UL;
+			if(memcmp( ((char *)ipl)+0x1f3,"XOSLLOADXCF",11) ){
+				ipl->IPLData.DriveNumber = Partition->Drive;
+			}
+		}	
+		else{
+			// ipl_brec
+			TBootFAT16 *brec = (TBootFAT16*)0x7c00UL;
+			if(memcmp(brec->OEM_ID,"XOSLINST",sizeof(brec->OEM_ID) == 0) ) {
+				brec->Drive = Partition->Drive;
+			}
+		}
+
 	}
 
 	if (BootItem->Activate)

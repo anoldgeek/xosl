@@ -15,8 +15,14 @@
                 .model  tiny
                 .386p
                 .data
+
+		public	`W?XoslLoadFn$N[]A`
+
 ;                db      100 dup (0)
 ;		db       106 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
-		db       66 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
+;		db       66 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
+		db       67 dup (0)  ;Tune filesize iplslba.bin to 510 bytes (leave space for int magic number).
 
+; Starts at 499 / 0x1f3
+`W?XoslLoadFn$N[]A`:		db	"XOSLLOADXCF"
                 end

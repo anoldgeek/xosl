@@ -116,6 +116,7 @@ class CPartList {
 		uuid_t* GetGPTType(int FSType);
 		uint16_t GetGptMBRType(int gpt_index);
 		char* GetGPTName(int FSType);
+		void SetHDOffset(int DriveOffset);
 	public:
 		typedef struct {
 			int FSID;
@@ -142,6 +143,7 @@ class CPartList {
 		TPartNode **PLUP;
 		static TFSNameEntry FSNameList[];
 		int AllowActiveHD;
+		int HDOffset;
 };
 
 

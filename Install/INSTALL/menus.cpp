@@ -29,7 +29,7 @@
 static const char *YesNoList[2] = {"Yes", "No"};
 
 
-CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse):
+CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse, int DriveOffset):
 	TextUI(TextUIToUse),
 	Data(DataToUse),
 	PartList(PartListToUse)
@@ -37,6 +37,7 @@ CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &
 	FatAvail = FatAvailToUse;
 	DosDriveList = NULL;
 	PartNameList = NULL;
+	HDOffset = DriveOffset;
 }
 
 CInstallMenus::~CInstallMenus()
@@ -356,7 +357,7 @@ void CInstallMenus::CreateDosDriveList()
 	int Index;
 	int *Buffer;
 
-	DosDriveCount = Data.GetLastDrive() - ('C' - 'A');
+	DosDriveCount = Data.GetLastDrive() - ('C' - 'A') - HDOffset;
 	if (DosDriveCount > 0) {
 		DosDriveList = new char *[DosDriveCount];
 		Buffer = new int[DosDriveCount];
@@ -366,6 +367,7 @@ void CInstallMenus::CreateDosDriveList()
 		}
 	} else {
 		DosDriveList = (char **) 0;
+		FatAvail = 0;
 	}
 }
 

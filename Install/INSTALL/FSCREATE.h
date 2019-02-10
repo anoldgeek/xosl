@@ -38,7 +38,7 @@
 
 class CFsCreator {
 public:
-	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
+	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset);
 	~CFsCreator();
 
 	int InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
@@ -109,6 +109,7 @@ private:
 	void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
 	void AddFatEntries(long FileSize);
 
+	int HDOffset;
 
 };
 

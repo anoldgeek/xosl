@@ -258,10 +258,22 @@ void CPartList::CreateNonPartNode(int Drive)
 	Partition->SectorCount = 0;
 	Partition->VolumeLabel = "";
 	if (Drive >= 0x80) {
-		if (Drive == 0x80)
+/*		if (Drive == 0x80)
 			Partition->FSName = "Original MBR";
 		else
 			Partition->FSName = "Master Boot Record";
+		Partition->FSType = -1;
+		Partition->Type = PART_MBR;
+*/
+		if (Drive == 0x80){
+			Partition->FSName = "Original MBR";
+			Partition->FSType = -1;
+			Partition->Type = PART_OMBR;
+			PartList.insert(PartList.end(),PartNode);
+			Partition = PartNode.Partition = new TPartition;
+			PartNode.mbrEntry = NULL;
+		}
+		Partition->FSName = "Master Boot Record";
 		Partition->FSType = -1;
 		Partition->Type = PART_MBR;
 	}

@@ -227,28 +227,41 @@ XOSL130a8 release
 		MbrDrive=Partition->Drive
 		MbrDrive = PartList.GetPartition(Index)->Drive
 
-**************** TODO ****************
-XOSL130a9 debug
-
-
 22. Fixes.
 	Upgrade FAT install fails.
 		Missing code inserted.
 	Mouse on zbox strange interation during xosl add and edit.
 		Turning off animation in preferences to avoid the issue.
 	Linux fsck.fat reports invalid file sizes in xosl fs.
-		This is a linux issues. fsck.fat sees XOSL FS as FAT12. Using fsck.fat -A avoids the issue (Atari FAT16).
+		This is a linux fsck.fat issue. fsck.fat sees < 4096 clusters as FAT12. XOSL FS has 53. Using fsck.fat -A (Atari FAT16) as a work around.
+
+**************** TODO ****************
+XOSL130a9 debug
+
+24. Add option to select root drive globally to allow correct operation when booted from a usb mounted as C:
+    Add Master boot record to drive 0x80 to allow chain loading of its mbr.
+	Initially, the value of HDOffset will be set on the command line.
+	Install
+		MbrHDSector0 will only set the HD number in in which to write the IPL MBR but the ipl.drivenumber written will always be 0x80.
+		HDOffset will subtracted from the drive when the BootItems is populated.
+		HDOffset will subtracted from the drive when IPL BREC bootrecord.drive set.
+		The displayed HD and drive number will be adjusted by HDOffset. This should also prevent the usb media being over written.
+		IPLData.DriveNumber and BootRecord.Drive will both be set to 0x80. This allows boot to proceed via BIOS when any drive is HD0.
+		Module PTab: 
+			MBRList contains Drive - HDOffset. 
+			CreatPartList ignores Drives < 0x80
+
+	XOSL App
+		XOSL App will adjust the drivenumber in the BIOS sector zero load address (0x7c00) to the correct value before launching.
 
 
-
-
-23. Add boot via UEFI
+25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
-24. Add install via UEFI
+26. Add install via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load Install(er) and excute.
 
-25. Direct boot of linux kernel on mbr, gpt ext ext4, lvm
+27. Direct boot of linux kernel on mbr, gpt ext ext4, lvm
 
-26. Boot Windows on gpt disk.
+28. Boot Windows on gpt disk.
 

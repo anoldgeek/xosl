@@ -20,7 +20,7 @@
 
 class CFatInstall {
 public:
-	CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
+	CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset);
 	~CFatInstall();
 
 	int CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl);
@@ -30,7 +30,6 @@ public:
 
 	void RemoveXoslFiles(char DosDriveChar);
 
-
 private:
 	CTextUI &TextUI;
 	CXoslFiles &XoslFiles;
@@ -38,6 +37,8 @@ private:
 
 	int CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
 	int CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
+
+	int HDOffset;
 };
 
 #endif
