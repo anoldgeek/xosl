@@ -35,7 +35,6 @@
 
 ;		db	19 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
 		db	21 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
-LoaderName      db      'XOSLLOADXCF'
 
 ;LBAPacket       equ     this byte
 LBAPacket       label   byte
@@ -56,5 +55,6 @@ DriveNumber     db      80h
 ABSSectorStart  dq      0031b600h
 
 Password	dd	0
+LoaderName      db      'XOSLLOADXCF'
 
                 end

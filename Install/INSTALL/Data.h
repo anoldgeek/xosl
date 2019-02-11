@@ -20,7 +20,7 @@
 
 class CData {
 	public:
-		CData(CTextUI &TextUIToUse, CPartList &PartListToUse);
+		CData(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset);
 		~CData();
 		int CollectData(int DetectGraph, int DetectMouse, int DetectDrive);
 		void GetGraphicsModeNames(const char **&ModeNameList, int &ModeCount);
@@ -50,6 +50,7 @@ class CData {
 
 		int LastDrive;
 		void DetectDrives();
+		int HDOffset;
 };
 
 #endif

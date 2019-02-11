@@ -339,8 +339,9 @@ void CPartList::CreatePLUP()
 
 	PartList = this->PartList.Next;
 	PLUP = new TPartNode *[Count];
-	for (Index = 0; Index < Count; ++Index, PartList = PartList->Next)
+	for (Index = 0; Index < Count; ++Index, PartList = PartList->Next){
 		PLUP[Index] = PartList;
+	}
 }
 
 char* CPartList::WriteStructure()

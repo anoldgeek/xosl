@@ -53,7 +53,7 @@ const char InstallNotes[] =
 CApplication::CApplication(int DriveOffset):
 	TextScreen(new CTextScreen(0x1f00)),
 	TextUI(*TextScreen),
-	Data(TextUI,PartList),
+	Data(TextUI,PartList,DriveOffset),
 	Installer(TextUI,PartList,DriveOffset),
 	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A') - DriveOffset) > 0, DriveOffset)
 {

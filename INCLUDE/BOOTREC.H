@@ -12,7 +12,7 @@
 #define __bootrec__
 
 typedef struct {
-		// Secotr 0
+		// Secotor 1
        unsigned char Jump[3];              // 0-2      3
        unsigned char OEM_ID[8];            // 3-10     11
        unsigned short SectorSize;          // 11-12    13              x

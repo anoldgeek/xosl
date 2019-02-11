@@ -33,7 +33,6 @@
                 public  LBAPacket, SectorCount
                 public  TransferBuffer, Sector
 
-LoaderName      db      'XOSLLOADXCF'
 
 ;LBAPacket       equ     this byte
 LBAPacket       label   byte
@@ -55,5 +54,6 @@ DriveNumber     db      80h
 ABSSectorStart  dq      00415680h
 
 Password	dd	0h
+LoaderName      db      'XOSLLOADXCF'
 
                 end

@@ -17,13 +17,14 @@
 #include <mouse.h>
 
 
-CData::CData(CTextUI &TextUIToUse, CPartList &PartListToUse): 
+CData::CData(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset): 
 	TextUI(TextUIToUse),
 	PartList(PartListToUse)
 {
 	GraphDetected = 0;
 	MouseDetected = 0;
 	DriveDetected = 0;
+	HDOffset = DriveOffset;
 }
 
 CData::~CData()
@@ -149,12 +150,16 @@ void CData::DetectDrives()
 {
 	CDiskAccess DiskAccess;
 	int Count, Index;
-
-	Count = DiskAccess.DriveCount(0x80);
+	
+	Count = DiskAccess.DriveCount(0x80) - HDOffset;
 	for (Index = 0; Index < Count; ++Index)
-		TextUI.OutputStr("HD%d: %s access\n",Index,DiskAccess.LBAAccessAvail(0x80 | Index) == 0 ? "LBA" : "conventional");
+		TextUI.OutputStr("HD%d: %s access\n",Index,DiskAccess.LBAAccessAvail(0x80 | (Index + HDOffset) ) == 0 ? "LBA" : "CHS");
+	// Always returns floppy drives A: & B: as well
 	LastDrive = GetDriveCount();
-	TextUI.OutputStr("Available drives: [C to %c]\n",('A' - 1) + LastDrive);
+	if(LastDrive - 2 > HDOffset)
+		TextUI.OutputStr("Available dos drives: [C to %c]\n",('A' - 1) + LastDrive - HDOffset);
+	else
+		TextUI.OutputStr("Available dos drives: None\n");
 	TextUI.OutputStr("Reading disk structure...");
 	PartList.ReadStructure();
 	TextUI.OutputStr("\n");
@@ -175,3 +180,4 @@ CMouse::TMouseType CData::GetMouseType(int Index)
 {
 	return (CMouse::TMouseType)MouseTypes[Index];
 }
+

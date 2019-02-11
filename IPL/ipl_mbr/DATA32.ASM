@@ -33,7 +33,6 @@
 
                 db      17 dup (0)	;Tune filesize ipl0b.bin to 440 bytes
 
-LoaderName      db      'XOSLLOADXCF'
 
 
 DiskSectors     dd      63
@@ -50,5 +49,6 @@ DriveNumber     db      80h
 ABSSectorStart  dq      00415680h
 
 Password	dd	0
+LoaderName      db      'XOSLLOADXCF'
 
                 end

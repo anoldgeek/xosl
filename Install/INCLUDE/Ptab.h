@@ -134,7 +134,6 @@ class CPartList {
 		void CreatePLUP();
 		void GetPartMbrHDSector0(TPartition *Partition);
 		void ConvertDOS2XoslFsName(const char *DosFileName, char *XoslFsFileName);
-//		uint32_t crc32(uint32_t crc, const void *buf, uint64_t len);
 		uint32_t chksum_crc32 (uint32_t initial, const void *block, uint64_t length);
 		void chksum_crc32gentab ();
 		TMBRNode MBRList;
