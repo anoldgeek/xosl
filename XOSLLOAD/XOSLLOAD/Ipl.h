@@ -23,6 +23,8 @@ typedef struct {
 	unsigned char FSType;
 	unsigned char DriveNumber;
 	unsigned long long ABSSectorStart;
+	unsigned long Password;
+	char LoaderName[11];
 } TFat16IplData;
 
 typedef struct {
@@ -36,6 +38,8 @@ typedef struct {
 	unsigned char FSType;
 	unsigned char DriveNumber;
 	unsigned long long ABSSectorStart;
+	unsigned long Password;
+	char LoaderName[11];
 } TFat32IplData;
 
 typedef struct {

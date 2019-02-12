@@ -19,8 +19,6 @@
 #include <key.h>
 #include <ipl.h>
 
-#define LOADERNAMEOFFSET 0x1ad
-
 // TODO: maybe some more range checkings, etc.
 // TODO: check return values
 
@@ -181,7 +179,7 @@ int CBootItems::InitBoot(int BootIndex)
 		if(Partition->StartSector == 0){
 			// ipl_mbr
 			TIPLFAT16LBA *ipl = (TIPLFAT16LBA*)0x7c00UL;
-			if(memcmp( ((char *)ipl) + LOADERNAMEOFFSET,"XOSLLOADXCF",11) ){
+			if(memcmp( ipl->IPLData.LoaderName ,"XOSLLOADXCF",11) ){
 				ipl->IPLData.DriveNumber = Partition->Drive;
 			}
 		}	

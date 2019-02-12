@@ -11,6 +11,8 @@
 ; Copyright (c) 2010 by Mario Looijkens:
 ; - Tune filesize ipl06lba.bin to 440 bytes
 ;
+; Norman Back. Should be 
+; - Tune filesize ipl06lba.bin to 436 bytes
 
 ;/*
 ; * File  : INITDATA.ASM
@@ -34,7 +36,8 @@
                 public  TransferBuffer, Sector
 
 ;		db	19 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
-		db	21 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
+;		db	21 dup (0)	;Tune filesize ipl06lba.bin to 440 bytes
+		db	17 dup (0)	;Tune filesize ipl06lba.bin to 436 bytes
 
 ;LBAPacket       equ     this byte
 LBAPacket       label   byte

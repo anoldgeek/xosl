@@ -11,6 +11,8 @@
 ; Copyright (c) 2010 by Mario Looijkens:
 ; - Tune filesize ipl06.bin to 440 bytes
 ;
+; Norman Back. Should be
+; - Tune filesize ipl06.bin to 436 bytes
 
 ;/*
 ; * File  : INITDATA.ASM
@@ -32,7 +34,8 @@
                 public  DirStart, DataStart
 
 ;                db      15 dup (0)	;Tune filesize ipl06.bin to 440 bytes
-                db      29 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+;                db      29 dup (0)	;Tune filesize ipl06.bin to 440 bytes
+                db      25 dup (0)	;Tune filesize ipl06.bin to 436 bytes
 
 DiskSectors     dd      63
 DiskHeads       dd      128

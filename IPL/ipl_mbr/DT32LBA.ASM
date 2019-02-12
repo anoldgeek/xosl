@@ -9,7 +9,7 @@
 ;
 ; Open Watcom Migration
 ; Copyright (c) 2010 by Mario Looijkens:
-; - Tune filesize ipl0blba.bin to 440 bytes
+; - Tune filesize ipl0blba.bin to 436 bytes
 ;
 
 ;/*
@@ -41,7 +41,8 @@ SectorCount     dw      0
 TransferBuffer  dd      0
 Sector          dq      0
 
-                db      9 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
+;                db      9 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
+                db      5 dup (0)	;Tune filesize ipl0blba.bin to 440 bytes
 
 ClusterSectSize dw      0008h
 ClusterByteSize dw      1000h

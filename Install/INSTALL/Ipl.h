@@ -23,6 +23,8 @@ typedef struct {
 	unsigned char FSType;
 	unsigned char DriveNumber;
 	unsigned long long ABSSectorStart;
+	unsigned long Password;
+	char LoaderName[11];
 } TIPLData16Conv;
 
 typedef struct {
@@ -36,6 +38,8 @@ typedef struct {
 	unsigned char FSType;
 	unsigned char DriveNumber;
 	unsigned long long ABSSectorStart;
+	unsigned long Password;
+	char LoaderName[11];
 } TIPLData32Conv;
 
 typedef struct {
@@ -48,6 +52,8 @@ typedef struct {
 	unsigned char FSType;
 	unsigned char DriveNumber;
 	unsigned long long ABSSectorStart;
+	unsigned long Password;
+	char LoaderName[11];
 } TIPLData16LBA;
 
 typedef struct {

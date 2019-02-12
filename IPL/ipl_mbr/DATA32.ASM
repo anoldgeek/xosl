@@ -31,7 +31,8 @@
                 public  FATStart, DataStart
                 public  RootCluster
 
-                db      17 dup (0)	;Tune filesize ipl0b.bin to 440 bytes
+;                db      17 dup (0)	;Tune filesize ipl0b.bin to 440 bytes
+                db      13 dup (0)	;Tune filesize ipl0b.bin to 436 bytes
 
 
 
