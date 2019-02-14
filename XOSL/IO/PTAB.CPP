@@ -252,11 +252,11 @@ void CPartList::CreateNonPartNode(int Drive)
 
 	Partition = PartNode.Partition = new TPartition;
 	PartNode.mbrEntry = NULL;
-
 	Partition->Drive = Drive;
 	Partition->StartSector = 0;
 	Partition->SectorCount = 0;
 	Partition->VolumeLabel = "";
+
 	if (Drive >= 0x80) {
 /*		if (Drive == 0x80)
 			Partition->FSName = "Original MBR";
@@ -272,6 +272,10 @@ void CPartList::CreateNonPartNode(int Drive)
 			PartList.insert(PartList.end(),PartNode);
 			Partition = PartNode.Partition = new TPartition;
 			PartNode.mbrEntry = NULL;
+			Partition->Drive = Drive;
+			Partition->StartSector = 0;
+			Partition->SectorCount = 0;
+			Partition->VolumeLabel = "";
 		}
 		Partition->FSName = "Master Boot Record";
 		Partition->FSType = -1;
@@ -438,15 +442,19 @@ const TPartition *CPartList::GetPartition(int Index)
 	return PLUP[Index]->Partition;
 }
 
-int CPartList::Locate(int Drive, unsigned long long StartSector)
+int CPartList::Locate(int Drive, unsigned long long StartSector, unsigned char Type)
+//int CPartList::Locate(int Drive, unsigned long long StartSector )
 {
 	int Index;
 	const TPartition *Partition;
 
 	for (Index = 0; Index < PartList.size(); ++Index) {
 		Partition = PLUP[Index]->Partition;
-		if (Partition->Drive == Drive && Partition->StartSector == StartSector)
+//		if (Partition->Drive == Drive && Partition->StartSector == StartSector ){
+		if (Partition->Drive == Drive && Partition->StartSector == StartSector && 
+					(Partition->Type == 0 || Partition->Type == Type)){		// Allow for upgraded installs
 			return Index;
+		}
 	}
 	return -1;
 }
@@ -596,8 +604,9 @@ void CPartList::ReadVolumeLabels()
 		Partition = PLUP[Index]->Partition;
 
 		if (Partition->Drive < 0x80) {
-			VolumeLabelsRead = true;
-			return;
+//			VolumeLabelsRead = true;
+//			return;
+			continue;
 		}
 		Disk.Map(Partition->Drive,Partition->StartSector);
 		Disk.Read(0,BootRecord,1);

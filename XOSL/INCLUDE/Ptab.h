@@ -25,7 +25,7 @@
 #define PART_GPT_HEADER 8
 #define PART_OMBR	9
 
-#define PART_STR "invalid","primary","logical","mbr","floppy","loader","gpt","gptpmbr","gpthder"
+#define PART_STR "invalid","primary","logical","mbr","floppy","loader","gpt","gptpmbr","gpthder","ombr"
 
 typedef struct {
 	unsigned char Activated;
@@ -98,7 +98,8 @@ class CPartList {
 		~CPartList();
 		char* WriteStructure();
 		const TPartition *GetPartition(int Index);
-		int Locate(int Drive, unsigned long long StartSector);
+//		int Locate(int Drive, unsigned long long StartSector );
+		int Locate(int Drive, unsigned long long StartSector, unsigned char Type);
 		int GetCount();
 		int CanHide(int Index);
 		void Hide(int Index);

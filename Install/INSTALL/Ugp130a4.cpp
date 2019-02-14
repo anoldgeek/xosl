@@ -48,6 +48,7 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 		oldPartDesc = &oldBootItemData->PartList[i];
 		newPartDesc->Drive = oldPartDesc->Drive;
 		newPartDesc->StartSector = oldPartDesc->StartSector;
+		newPartDesc->Type = 0; // Unable to determine Type on upgrade
 	}
 	// update non arry items
 	BootItemData->BootItemCount = oldBootItemData->BootItemCount;

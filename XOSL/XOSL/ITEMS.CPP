@@ -177,16 +177,17 @@ int CBootItems::InitBoot(int BootIndex)
 			return -1;
 		// Fix the Drive number
 		if(Partition->StartSector == 0){
-			// ipl_mbr
+			// ipl_mbr - for both FAT32 & FAT16, LoaderName & DriveNumber 
+			// are at the same displacement
 			TIPLFAT16LBA *ipl = (TIPLFAT16LBA*)0x7c00UL;
-			if(memcmp( ipl->IPLData.LoaderName ,"XOSLLOADXCF",11) ){
+			if(memcmp( ipl->IPLData.LoaderName ,"XOSLLOADXCF",11) == 0 ){
 				ipl->IPLData.DriveNumber = Partition->Drive;
 			}
 		}	
 		else{
 			// ipl_brec
 			TBootFAT16 *brec = (TBootFAT16*)0x7c00UL;
-			if(memcmp(brec->OEM_ID,"XOSLINST",sizeof(brec->OEM_ID) == 0) ) {
+			if(memcmp(brec->OEM_ID,"XOSLINST",8) == 0) {
 				brec->Drive = Partition->Drive;
 			}
 		}
@@ -269,7 +270,9 @@ bool CBootItems::PartListIsChanged()
 		return true;
 	}
 	for (Index = 0; Index < Count; ++Index) {
-		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector) != Index) {
+//		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector) ) {
+		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector, 
+				ItemFile.PartList[Index].Type) != Index) {
 			return true;
 		}
 	}
@@ -297,7 +300,8 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 	int RelocIndex;
 
 	for (Index = 0; Index < BI_PARTS; ++Index) {
-		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector);
+		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive, ItemFile.PartList[Index].StartSector, ItemFile.PartList[Index].Type);
+//		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive, ItemFile.PartList[Index].StartSector );
 	}
 	AddIndex = PartList.GetCount() - ItemFile.PartCount;
 	for (Index = 0; Index < ItemFile.PartCount; ++Index) {
@@ -333,6 +337,7 @@ void CBootItems::UpdatePartList(int *RelocTable)
 		if (RelocTable[Index] < BI_PARTS) {
 			NewPartList[RelocTable[Index]].Drive = ItemFile.PartList[Index].Drive;
 			NewPartList[RelocTable[Index]].StartSector = ItemFile.PartList[Index].StartSector;
+			NewPartList[RelocTable[Index]].Type = ItemFile.PartList[Index].Type;
 			ItemResolved[RelocTable[Index]] = true;
 		}
 	}
@@ -341,10 +346,12 @@ void CBootItems::UpdatePartList(int *RelocTable)
 			Partition = PartList.GetPartition(Index);
 			ItemFile.PartList[Index].Drive = (unsigned char) Partition->Drive;
 			ItemFile.PartList[Index].StartSector = Partition->StartSector;
+			ItemFile.PartList[Index].Type = Partition->Type;
 		}
 		else {
 			ItemFile.PartList[Index].Drive = NewPartList[Index].Drive;
 			ItemFile.PartList[Index].StartSector = NewPartList[Index].StartSector;
+			ItemFile.PartList[Index].Type = NewPartList[Index].Type;
 		}
 	}
 	ItemFile.PartCount = PartList.GetCount();

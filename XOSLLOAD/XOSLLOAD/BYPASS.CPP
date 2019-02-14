@@ -106,21 +106,21 @@ void CBypass::Execute(const char *ErrorMsg)
 	if (ErrorMsg) {
 		printf("CRITICAL ERROR: %s\n\n",ErrorMsg);
 	}
-	printf("-- XOSL Bypass --\n\n");
+	printf("-- XOSLLOAD Bypass --\n\n");
 	ReadMBR();
 	CheckPassword();
 	for (Index = 0; Index < 4; ++Index) {
 		if (MBR.Table[Index].SectorCount) {
 			FSName = CPartList::GetFSName(MBR.Table[Index].FSType);
 			if (ReadVolumeLabel(0x80,MBR.Table[Index].StartSector,VolumeLabel) != -1) {
-				printf("%d - %s (%s)\n",Index + 1,FSName,VolumeLabel);
+				printf(" %d - %s (%s)\n",Index + 1,FSName,VolumeLabel);
 			}
 			else {
-				printf("%d - %s\n",Index + 1,FSName);
+				printf(" %d - %s\n",Index + 1,FSName);
 			}
 		}
 		else {
-			printf("%d - <empty>\n",Index + 1);
+			printf(" %d - <empty>\n",Index + 1);
 		}
 	}
 	printf("\nF - Boot from floppy\n\nSelect partition to boot --> ");
