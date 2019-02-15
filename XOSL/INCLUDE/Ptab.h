@@ -69,7 +69,7 @@ class CMBRNode {
 public:
 	unsigned long long AbsoluteSector;
 	short Drive;
-    short Type; // primary, logical, gtp, gpt protective mbr or gpt header
+    short Type; // primary, logical, gtp, gpt protective mbr, gpt header, ombr
     TPartTable *Table;
 };
 
@@ -79,7 +79,7 @@ typedef struct S_Partition {
 	unsigned long long SectorCount;
 	const char *FSName;
 	unsigned short FSType;
-	short Type; // primary, logical, gtp, gpt protective mbr or gpt header
+	short Type; // primary, logical, gtp, gpt protective mbr, gpt header, ombr
 	char *VolumeLabel;
 } TPartition;
 

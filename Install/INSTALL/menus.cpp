@@ -400,7 +400,7 @@ void CInstallMenus::CreatePartList()
 						PartStr = UpdatePartNameList(PartStr, Partition);
 						PartNameList[PartNameCount] = PartStr;
 
-						if(Partition->FSType == 0x78 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
+						if( Partition->FSType == 0x78 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
 							MbrHDSector0List[PartNameCount] = GetHDIndex(Partition->MbrHDSector0);
 						}else{
 							MbrHDSector0List[PartNameCount] = 0; // HD0
@@ -421,7 +421,11 @@ void CInstallMenus::CreatePartList()
 					PartStr = new char [48];
 					PartStr = UpdatePartNameList(PartStr, Partition);
 					PartNameList[PartNameCount] = PartStr;
-					MbrHDSector0List[PartNameCount] = 0; // HD0
+					if ( Partition->FSType == 0x7800 && Partition->MbrHDSector0 > 0x80) { // XOSL FS
+						MbrHDSector0List[PartNameCount] = GetHDIndex(Partition->MbrHDSector0);
+					}else{
+						MbrHDSector0List[PartNameCount] = 0; // HD0
+					}
 					PartNameCount++;
 				}
 				break;

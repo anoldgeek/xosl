@@ -632,7 +632,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	DosDrive.FATType = FATTYPE_FAT16; // dedicated partition always FAT16
 	DosDrive.StartSector = Partition->StartSector;
 
-	if (Partition->FSType != 0x78){ // XOSL FS
+	if (Partition->FSType != 0x78 && Partition->FSType != 0x7800){ // XOSL FS
 		TextUI.OutputStr("XOSL "XOSL_VERSION". Please select a XOSL FS partition for upgrade\n\n");
 		return -1;
 	}
@@ -678,7 +678,16 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
 		return -1;
 
-	SetPartId(PartIndex,0x78);
+	if (Partition->Type != PART_GPT){
+		// MBR Drive
+		SetPartId(PartIndex,0x78);
+		// Update the partition entries in case user returns to menu
+		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
+	}else{
+		// GPT Drive
+		SetPartId(PartIndex,0x7800);
+		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
+	}
 
  	if (MbrHDSector0 != 0xff){
  		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)

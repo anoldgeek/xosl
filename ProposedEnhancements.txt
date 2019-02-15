@@ -235,7 +235,6 @@ XOSL130a8 release
 	Linux fsck.fat reports invalid file sizes in xosl fs.
 		This is a linux fsck.fat issue. fsck.fat sees < 4096 clusters as FAT12. XOSL FS has 53. Using fsck.fat -A (Atari FAT16) as a work around.
 
-**************** TODO ****************
 XOSL130a9 debug
 
 24. Add option to select root drive globally to allow correct operation when booted from a usb mounted as C:
@@ -253,7 +252,13 @@ XOSL130a9 debug
 
 	XOSL App
 		XOSL App will adjust the drivenumber in the BIOS sector zero load address (0x7c00) to the correct value before launching.
+**************** TODO ****************
+XOSL130a11 debug
+XOSL130a12 release
 
+24a. Fix upgrade of GPT partition.
+
+24b. Check install FAT to GPT disk
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
