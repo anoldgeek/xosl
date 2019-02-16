@@ -72,7 +72,7 @@ class CMBRNode {
 public:
 	unsigned long long AbsoluteSector;
 	short Drive;
-    short Type; // primary, logical, gtp, gpt protective mbr, gpt header, ombr
+    short Type; // primary, logical, sbm, floppy, gtp, gpt protective mbr, gpt header, ombr
     TPartTable *Table;
 };
 
@@ -82,7 +82,7 @@ typedef struct S_Partition {
 	unsigned long long SectorCount;
 	const char *FSName;
 	unsigned short FSType;
-	short Type; // primary, logical, gtp, gpt protective mbr, gpt header, ombr
+	short Type; // primary, logical, sbm, floppy, gtp, gpt protective mbr, gpt header, ombr
 	char *VolumeLabel;
 } TPartition;
 
@@ -101,8 +101,7 @@ class CPartList {
 		~CPartList();
 		char* WriteStructure();
 		const TPartition *GetPartition(int Index);
-//		int Locate(int Drive, unsigned long long StartSector );
-		int Locate(int Drive, unsigned long long StartSector, unsigned char Type);
+		int Locate(int Drive, unsigned long long StartSector );
 		int GetCount();
 		int CanHide(int Index);
 		void Hide(int Index);

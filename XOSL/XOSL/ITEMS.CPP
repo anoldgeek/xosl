@@ -270,9 +270,7 @@ bool CBootItems::PartListIsChanged()
 		return true;
 	}
 	for (Index = 0; Index < Count; ++Index) {
-//		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector) ) {
-		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector, 
-				ItemFile.PartList[Index].Type) != Index) {
+		if (PartList.Locate(ItemFile.PartList[Index].Drive,ItemFile.PartList[Index].StartSector) ) {
 			return true;
 		}
 	}
@@ -300,8 +298,7 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 	int RelocIndex;
 
 	for (Index = 0; Index < BI_PARTS; ++Index) {
-		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive, ItemFile.PartList[Index].StartSector, ItemFile.PartList[Index].Type);
-//		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive, ItemFile.PartList[Index].StartSector );
+		RelocTable[Index] = PartList.Locate(ItemFile.PartList[Index].Drive, ItemFile.PartList[Index].StartSector );
 	}
 	AddIndex = PartList.GetCount() - ItemFile.PartCount;
 	for (Index = 0; Index < ItemFile.PartCount; ++Index) {
@@ -327,18 +324,17 @@ void CBootItems::BuildRelocTable(int *RelocTable)
 
 void CBootItems::UpdatePartList(int *RelocTable)
 {
-	bool ItemResolved[BI_PARTS];
+	char ItemResolved[BI_PARTS];
 	CPartDesc NewPartList[BI_PARTS];
 	const TPartition *Partition;
 	int Index;
 
-	memset(ItemResolved,false,sizeof (bool[BI_PARTS]));
+	memset(ItemResolved,0,sizeof (char[BI_PARTS]));
 	for (Index = 0; Index < BI_PARTS; ++Index) {
 		if (RelocTable[Index] < BI_PARTS) {
 			NewPartList[RelocTable[Index]].Drive = ItemFile.PartList[Index].Drive;
 			NewPartList[RelocTable[Index]].StartSector = ItemFile.PartList[Index].StartSector;
-			NewPartList[RelocTable[Index]].Type = ItemFile.PartList[Index].Type;
-			ItemResolved[RelocTable[Index]] = true;
+			ItemResolved[RelocTable[Index]] = 1;
 		}
 	}
 	for (Index = 0; Index < BI_PARTS; ++Index) {
@@ -346,12 +342,10 @@ void CBootItems::UpdatePartList(int *RelocTable)
 			Partition = PartList.GetPartition(Index);
 			ItemFile.PartList[Index].Drive = (unsigned char) Partition->Drive;
 			ItemFile.PartList[Index].StartSector = Partition->StartSector;
-			ItemFile.PartList[Index].Type = Partition->Type;
 		}
 		else {
 			ItemFile.PartList[Index].Drive = NewPartList[Index].Drive;
 			ItemFile.PartList[Index].StartSector = NewPartList[Index].StartSector;
-			ItemFile.PartList[Index].Type = NewPartList[Index].Type;
 		}
 	}
 	ItemFile.PartCount = PartList.GetCount();

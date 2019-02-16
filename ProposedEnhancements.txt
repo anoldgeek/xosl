@@ -252,13 +252,12 @@ XOSL130a9 debug
 
 	XOSL App
 		XOSL App will adjust the drivenumber in the BIOS sector zero load address (0x7c00) to the correct value before launching.
-**************** TODO ****************
 XOSL130a11 debug
-XOSL130a12 release
 
 24a. Fix upgrade of GPT partition.
-
 24b. Check install FAT to GPT disk
+XOSL130a12 release
+**************** TODO ****************
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.

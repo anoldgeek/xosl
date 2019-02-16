@@ -43,33 +43,11 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 	limit = BI_PARTS > O_BI_PARTS?O_BI_PARTS:BI_PARTS;
 	CPartDesc *newPartDesc;
 	pre130a4CPartDesc *oldPartDesc;
-	for(i = 0, j = 0; i < limit ; i++, j++){
+	for(i = 0; i < limit ; i++){
 		oldPartDesc = &oldBootItemData->PartList[i];
-		if ( i == 1 && oldPartDesc->StartSector != 0 ){
-			// Add missing HD0 MBR
-			newPartDesc = &BootItemData->PartList[j];
-			newPartDesc->Drive = oldPartDesc->Drive;
-			newPartDesc->StartSector = 0;
-			newPartDesc->Type = PART_MBR;
-			j++;
-		}
-		newPartDesc = &BootItemData->PartList[j];
-
+		newPartDesc = &BootItemData->PartList[i];
 		newPartDesc->Drive = oldPartDesc->Drive;
 		newPartDesc->StartSector = oldPartDesc->StartSector;
-		if (i == 0 ) {
-			// First item is always ombr
-			newPartDesc->Type = PART_OMBR;
-		}
-		else{
-			if(newPartDesc->StartSector == 0){
-				// Sector 0 is always mbr
-				newPartDesc->Type = PART_MBR;
-			}
-			else{
-				newPartDesc->Type = 0; // Unable to determine Type on upgrade
-			}
-		}
 	}
 	// update non array items
 	BootItemData->BootItemCount = oldBootItemData->BootItemCount;

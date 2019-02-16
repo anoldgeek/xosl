@@ -273,7 +273,7 @@ void CPartList::CreateNonPartNode(int Drive)
 			Partition = PartNode.Partition = new TPartition;
 			PartNode.mbrEntry = NULL;
 			Partition->Drive = Drive;
-			Partition->StartSector = 0;
+			Partition->StartSector = PART_OMBR;
 			Partition->SectorCount = 0;
 			Partition->VolumeLabel = "";
 		}
@@ -442,17 +442,14 @@ const TPartition *CPartList::GetPartition(int Index)
 	return PLUP[Index]->Partition;
 }
 
-int CPartList::Locate(int Drive, unsigned long long StartSector, unsigned char Type)
-//int CPartList::Locate(int Drive, unsigned long long StartSector )
+int CPartList::Locate(int Drive, unsigned long long StartSector )
 {
 	int Index;
 	const TPartition *Partition;
 
 	for (Index = 0; Index < PartList.size(); ++Index) {
 		Partition = PLUP[Index]->Partition;
-//		if (Partition->Drive == Drive && Partition->StartSector == StartSector ){
-		if (Partition->Drive == Drive && Partition->StartSector == StartSector && 
-					(Partition->Type == 0 || Partition->Type == Type)){		// Allow for upgraded installs
+		if (Partition->Drive == Drive && Partition->StartSector == StartSector ){
 			return Index;
 		}
 	}

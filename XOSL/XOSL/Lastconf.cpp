@@ -40,8 +40,7 @@ const short *CLastConfig::GetRelocTable()
 	LastPartList = FileData->LastPartList;
 	memset(RelocTable,-1,sizeof (short[92]));
 	for (Index = 0; Index < Count; ++Index, ++LastPartList)
-		RelocTable[Index] = PartList->Locate(LastPartList->Drive,LastPartList->StartSector, 0);
-//		RelocTable[Index] = PartList->Locate(LastPartList->Drive,LastPartList->StartSector );
+		RelocTable[Index] = PartList->Locate(LastPartList->Drive,LastPartList->StartSector );
 	return RelocTable;
 }
 

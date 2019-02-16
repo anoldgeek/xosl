@@ -37,8 +37,7 @@
 #define BI_BOOTITEMS_STR "24"
 #define BI_RESERVED 9
 #define BI_FILE_RES 449
-//#define PD_RES 8
-#define PD_RES 7
+#define PD_RES 8
 
 #define CURRENT_BOOTITEM_VERSION 2
 
@@ -63,7 +62,6 @@ class CPartDesc {
 public:
 	unsigned char Drive;
 	unsigned long long StartSector;
-	unsigned char Type;
 	char Reserved[PD_RES];  // reserved for future use
 }; // sizeof(CPartDesc) == 17
 
