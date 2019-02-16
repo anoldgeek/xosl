@@ -47,6 +47,7 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 		oldPartDesc = &oldBootItemData->PartList[i];
 		if ( i == 1 && oldPartDesc->StartSector != 0 ){
 			// Add missing HD0 MBR
+			newPartDesc = &BootItemData->PartList[j];
 			newPartDesc->Drive = oldPartDesc->Drive;
 			newPartDesc->StartSector = 0;
 			newPartDesc->Type = PART_MBR;

@@ -18,14 +18,17 @@
 #define PART_PRIMARY 1
 #define PART_LOGICAL 2
 #define PART_MBR     3
-#define PART_FLOPPY  4
-#define PART_SBM     5
+//#define PART_FLOPPY  4
+//#define PART_SBM     5
+// StartSector is set to PART_SBM (4) previous XOSL versions.
+#define PART_SBM     4
+#define PART_FLOPPY  5
 #define PART_GPT     6
 #define PART_GPT_PROT_MBR 7
 #define PART_GPT_HEADER 8
 #define PART_OMBR	9
 
-#define PART_STR "invalid","primary","logical","mbr","floppy","loader","gpt","gptpmbr","gpthder","ombr"
+#define PART_STR "invalid","primary","logical","mbr","loader","floppy","gpt","gptpmbr","gpthder","ombr"
 
 typedef struct {
 	unsigned char Activated;
