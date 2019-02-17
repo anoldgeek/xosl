@@ -96,7 +96,7 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Fat16Ipl.IPLData.FSType = 0x06;
 	// This is correct when launched by the BIOS
 	// and is adjusted when loaded by XOSL App before launch.
-	Fat16Ipl.IPLData.DriveNumber = 0x80;
+	Fat16Ipl.IPLData.DriveNumber = DosDrive.Drive;
 	Fat16Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
 	return 0;
@@ -144,7 +144,7 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	Fat32Ipl.IPLData.FSType = 0x0b;
 	// This is correct when launched by the BIOS
 	// and is adjusted when loaded by XOSL App before launch.
-	Fat32Ipl.IPLData.DriveNumber = 0x80;
+	Fat32Ipl.IPLData.DriveNumber = DosDrive.Drive;
 	Fat32Ipl.IPLData.ABSSectorStart = DosDrive.StartSector;
 	TextUI.OutputStr("done\n");
 	return 0;

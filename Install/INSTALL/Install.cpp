@@ -83,9 +83,15 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 
 	if (FatInstall.InstallFiles(DosDrive) == -1)
 		return -1;
-	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
-		return -1;
-	TextUI.OutputStr("\nInstall complete\n");
+
+	if (MbrHDSector0 != 0xff){
+ 		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+ 			return -1;
+ 		else
+ 			TextUI.OutputStr("\nInstall complete\n");
+ 	}else{
+ 		TextUI.OutputStr("\Install complete...\n   for chain loading only.\n");
+ 	}
 	return 0;
 }
 
@@ -612,9 +618,14 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 
 	if (FatInstall.InstallFiles(DosDrive) == -1)
 		return -1;
-	if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
-		return -1;
-	TextUI.OutputStr("\Upgrade complete\n");
+ 	if (MbrHDSector0 != 0xff){
+ 		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+ 			return -1;
+ 		else
+ 			TextUI.OutputStr("\nUpgrade complete\n");
+ 	}else{
+ 		TextUI.OutputStr("\Upgrade complete...\n   for chain loading only.\n");
+ 	}
 	return 0;
 }
 

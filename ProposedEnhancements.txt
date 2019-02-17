@@ -3,7 +3,7 @@
 1. Allow chose of drive to write mbr too.
 	Fixes:
 	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
-	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
+	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot choice.
 
 	Implementation:
 	Install\INSTALL
@@ -178,7 +178,7 @@ XOSL130a8 release
     Fix installing to dedicted partition via C: mount usb drive.
 
 21.
-1. Allow choose of drive to write mbr too for FAT install.
+1. Allow choice of drive to write mbr too for FAT install.
 	Fixes:
 	1. Default USB boot mount USB as drive C: preventing XOSL install. Abbility to select mbr drive would circumvent this.
 	2. On systems with multiple drives, multiple XOSL installs can be made, selectable via bios boot chose.
@@ -258,6 +258,11 @@ XOSL130a11 debug
 24b. Check install FAT to GPT disk
 XOSL130a12 release
 **************** TODO ****************
+
+24c. Check install form usb C: drive
+
+24d. Check upgrage from xosl118
+     Check upgrage from xosl116
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.

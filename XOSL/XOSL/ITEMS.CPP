@@ -175,23 +175,16 @@ int CBootItems::InitBoot(int BootIndex)
 		Disk.Map(Partition->Drive,Partition->StartSector);
 		if (Disk.Read(0,IPL_ADDR,1) == -1)
 			return -1;
-		// Fix the Drive number
-		if(Partition->StartSector == 0){
-			// ipl_mbr - for both FAT32 & FAT16, LoaderName & DriveNumber 
-			// are at the same displacement
-			TIPLFAT16LBA *ipl = (TIPLFAT16LBA*)0x7c00UL;
-			if(memcmp( ipl->IPLData.LoaderName ,"XOSLLOADXCF",11) == 0 ){
-				ipl->IPLData.DriveNumber = Partition->Drive;
-			}
-		}	
-		else{
+
+		if(Partition->StartSector != 0){ // not ipl_mbr
 			// ipl_brec
 			TBootFAT16 *brec = (TBootFAT16*)0x7c00UL;
 			if(memcmp(brec->OEM_ID,"XOSLINST",8) == 0) {
+				// XOSL FS
+				// Drive might have been moved, fix the Drive number
 				brec->Drive = Partition->Drive;
 			}
 		}
-
 	}
 
 	if (BootItem->Activate)

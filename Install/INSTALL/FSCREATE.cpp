@@ -147,9 +147,8 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 		BootRecord.Drive = Drive;
 	}
 */
-	// 0x80 is correct if launched by the BIOS
-	// and is corrected by XOSL App before launch.
-	BootRecord.Drive = 0x80;
+	// is corrected by XOSL App before launch.
+	BootRecord.Drive = Drive;
 
 	BootRecord.Signature = 0x29;
 	BootRecord.SerialNo = 0x4c534f58;
