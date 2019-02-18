@@ -71,7 +71,13 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 				break;
 			}
 			default:{
-				newPartDesc->StartSector = oldPartDesc->StartSector;
+				if (oldPartDesc->Drive < 16){
+					// Assume max of 16 floppy drives
+					newPartDesc->StartSector = PART_FLOPPY;
+				}
+				else{
+					newPartDesc->StartSector = oldPartDesc->StartSector;
+				}
 				break;
 			}
 		}

@@ -294,6 +294,7 @@ void CPartList::CreateNonPartNode(int Drive)
 		Partition->FSName = "Boot floppy";
 		Partition->FSType = -1;
 		Partition->Type = PART_FLOPPY;
+		Partition->StartSector = PART_FLOPPY;
 	}
 	PartList.insert(PartList.end(),PartNode);
 }

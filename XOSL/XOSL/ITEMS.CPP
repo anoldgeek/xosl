@@ -172,7 +172,12 @@ int CBootItems::InitBoot(int BootIndex)
 		PartList.InsertMbrPTab(IPL_ADDR);
 	}
 	else {
-		Disk.Map(Partition->Drive,Partition->StartSector);
+		if (Partition->Type == PART_FLOPPY){
+			Disk.Map(Partition->Drive,0);
+		}
+		else{
+			Disk.Map(Partition->Drive,Partition->StartSector);
+		}
 		if (Disk.Read(0,IPL_ADDR,1) == -1)
 			return -1;
 
