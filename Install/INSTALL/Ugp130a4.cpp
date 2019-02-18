@@ -47,7 +47,22 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 		oldPartDesc = &oldBootItemData->PartList[i];
 		newPartDesc = &BootItemData->PartList[i];
 		newPartDesc->Drive = oldPartDesc->Drive;
-		newPartDesc->StartSector = oldPartDesc->StartSector;
+		switch( i ){
+			case 0:{
+				// First entry is always PART_OMBR
+				newPartDesc->StartSector = PART_OMBR;
+				break;
+			}
+			case 1:{
+				// Second Entry is always PART_SBM
+				newPartDesc->StartSector = PART_SBM;
+				break;
+			}
+			default:{
+				newPartDesc->StartSector = oldPartDesc->StartSector;
+				break;
+			}
+		}
 	}
 	// update non array items
 	BootItemData->BootItemCount = oldBootItemData->BootItemCount;

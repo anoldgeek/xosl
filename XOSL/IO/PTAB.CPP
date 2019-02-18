@@ -270,10 +270,12 @@ void CPartList::CreateNonPartNode(int Drive)
 			Partition->FSType = -1;
 			Partition->Type = PART_OMBR;
 			PartList.insert(PartList.end(),PartNode);
+			Partition->StartSector = PART_OMBR;
+
 			Partition = PartNode.Partition = new TPartition;
 			PartNode.mbrEntry = NULL;
 			Partition->Drive = Drive;
-			Partition->StartSector = PART_OMBR;
+			Partition->StartSector = 0;
 			Partition->SectorCount = 0;
 			Partition->VolumeLabel = "";
 		}
