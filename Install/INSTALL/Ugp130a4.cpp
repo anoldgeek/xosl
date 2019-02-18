@@ -16,20 +16,25 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 
 	int i,j;
 	int limit;
+	unsigned char PartIndex;
 
 	CBootItemFile *BootItemData;
 	BootItemData = new CBootItemFile;
 	memset(BootItemData,0,sizeof(CBootItemFile));
 
 	// update array of BootItem
-	limit = BI_BOOTITEMS > O_BI_BOOTITEMS?O_BI_BOOTITEMS:BI_BOOTITEMS;
+	limit = oldBootItemData->BootItemCount;
 	CBootItem *newBootItem;
 	pre130a4CBootItem *oldBootItem;
 	for(i = 0; i < limit ; i++){
 		newBootItem = &BootItemData->BootItems[i];
 		oldBootItem = &oldBootItemData->BootItems[i];
 		memcpy(newBootItem->ItemName,oldBootItem->ItemName,sizeof(oldBootItem->ItemName));
-		newBootItem->PartIndex = oldBootItem->PartIndex;
+
+		// Adjust PartIndex to allow for addition of PART_MBR for HD0 at index 1
+		PartIndex = oldBootItem->PartIndex;
+		newBootItem->PartIndex = (PartIndex < 1) ? PartIndex : PartIndex +1;
+
 		newBootItem->Hotkey = oldBootItem->Hotkey;
 		newBootItem->Activate = oldBootItem->Activate;
 		newBootItem->FixDriveNum = oldBootItem->FixDriveNum;
@@ -40,12 +45,12 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 		newBootItem->SwapDrives = oldBootItem->SwapDrives;
 	}
 	// update array of PartDesc
-	limit = BI_PARTS > O_BI_PARTS?O_BI_PARTS:BI_PARTS;
+	limit = oldBootItemData->PartCount;
 	CPartDesc *newPartDesc;
 	pre130a4CPartDesc *oldPartDesc;
-	for(i = 0; i < limit ; i++){
+	for(i = 0, j = 0; i < limit ; i++,j++){
 		oldPartDesc = &oldBootItemData->PartList[i];
-		newPartDesc = &BootItemData->PartList[i];
+		newPartDesc = &BootItemData->PartList[j];
 		newPartDesc->Drive = oldPartDesc->Drive;
 		switch( i ){
 			case 0:{
@@ -54,7 +59,14 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 				break;
 			}
 			case 1:{
-				// Second Entry is always PART_SBM
+				// Second entry should be PART_MBR
+				// Add the missing PART_MBR
+				newPartDesc->StartSector = 0;
+				// next new PartDesc
+				newPartDesc = &BootItemData->PartList[++j];
+				newPartDesc->Drive = oldPartDesc->Drive;
+
+				// Third Entry is always PART_SBM
 				newPartDesc->StartSector = PART_SBM;
 				break;
 			}
@@ -67,7 +79,7 @@ CBootItemFile* CUpgrade::upgradeBootItems(pre130a4CBootItemFile *oldBootItemData
 	// update non array items
 	BootItemData->BootItemCount = oldBootItemData->BootItemCount;
 	BootItemData->DefaultItem = oldBootItemData->DefaultItem;
-	BootItemData->PartCount = oldBootItemData->PartCount;
+	BootItemData->PartCount = oldBootItemData->PartCount + 1; // We've add PART_MBR for HD0
 	BootItemData->Timeout = oldBootItemData->Timeout;
 	BootItemData->MbrHDSector0 = MbrHDSector0;
 	BootItemData->BootItemVersion = CURRENT_BOOTITEM_VERSION;
