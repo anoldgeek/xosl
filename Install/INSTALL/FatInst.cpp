@@ -62,7 +62,7 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 	int fh;
 	CDisk Disk;
 
-	Disk.Map(DosDrive.Drive,DosDrive.StartSector);
+	Disk.Map(DosDrive.Drive + HDOffset,DosDrive.StartSector);
 	Disk.Read(0,&Fat16,1);
 
 
@@ -111,7 +111,7 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	unsigned long FATSize;
 	CDisk Disk;
 
-	Disk.Map(DosDrive.Drive,DosDrive.StartSector);
+	Disk.Map(DosDrive.Drive + HDOffset,DosDrive.StartSector);
 	Disk.Read(0,&Fat32,1);
 
 	if (!UseLba){

@@ -33,7 +33,7 @@ class CDosDriveList {
 		};
 
 
-		CDosDriveList(CPartList &PartListToUse);
+		CDosDriveList(CPartList &PartListToUse, int DriveOffset);
 		~CDosDriveList();
 		int LocateDrive(int DriveNum, CDosDrive &DosDrive);
 	private:
@@ -41,6 +41,8 @@ class CDosDriveList {
 
 		unsigned long __cdecl GetDosSerialNo(int DriveNum);
 		unsigned long GetBRecSerialNo(int Index);
+
+		int HDOffset;
 
 };
 

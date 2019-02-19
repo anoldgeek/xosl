@@ -16,9 +16,10 @@
 #define GetFATType(FSType) \
 	(FSType == 0x06 || FSType == 0x0e ? FATTYPE_FAT16 : FATTYPE_FAT32)
 
-CDosDriveList::CDosDriveList(CPartList &PartListToUse):
+CDosDriveList::CDosDriveList(CPartList &PartListToUse, int DriveOffset):
 	PartList(PartListToUse)
 {
+	HDOffset = DriveOffset;
 }
 
 CDosDriveList::~CDosDriveList()
@@ -56,7 +57,7 @@ unsigned long CDosDriveList::GetBRecSerialNo(int Index)
 	CDisk Disk;
 
 	Partition = PartList.GetPartition(Index);
-	if (Disk.Map(Partition->Drive,Partition->StartSector) == -1)
+	if (Disk.Map(Partition->Drive + HDOffset,Partition->StartSector) == -1)
 		return (unsigned long)-1;
 	if (Disk.Read(0,&BootRecord,1) == -1)
 		return (unsigned long)-1;

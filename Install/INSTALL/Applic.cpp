@@ -98,7 +98,7 @@ int CApplication::StartInstallFat()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 
-	CDosDriveList DosDriveList(PartList);
+	CDosDriveList DosDriveList(PartList, HDOffset);
 	CDosDriveList::CDosDrive DosDrive;
 	unsigned char MbrHDSector0;
 	int DosDriveIndex;
@@ -116,7 +116,7 @@ int CApplication::StartInstallFat()
 	SmartBootManager = TextUI.GetOptionIndex(5) == 0;
 
 	if (DosDriveList.LocateDrive(RealDriveIndex,DosDrive) == -1) {
-		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
+		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + RealDriveIndex);
 		return -1;
 	}
 
@@ -162,7 +162,7 @@ int CApplication::StartUpgradeFat()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 
-	CDosDriveList DosDriveList(PartList);
+	CDosDriveList DosDriveList(PartList, HDOffset);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
 	int RealDriveIndex;
@@ -222,7 +222,7 @@ int CApplication::StartUpgradeSep()
 
 int CApplication::StartRestoreFat()
 {
-	CDosDriveList DosDriveList(PartList);
+	CDosDriveList DosDriveList(PartList, HDOffset);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
 	int RealDriveIndex;
@@ -264,7 +264,7 @@ int CApplication::StartRestoreSep()
 
 int CApplication::StartUninstallFat()
 {
-	CDosDriveList DosDriveList(PartList);
+	CDosDriveList DosDriveList(PartList, HDOffset);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
 	int RealDriveIndex;

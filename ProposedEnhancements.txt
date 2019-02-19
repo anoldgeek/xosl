@@ -262,6 +262,8 @@ XOSL130a12 release
 
 24d. Check upgrage from xosl118
 	ombr -> mbr
+
+24e. Rechecked upgrade from xosl 115 116 & 118. All OK.
 **************** TODO ****************
 
 24c. Check install form usb C: drive

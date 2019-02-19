@@ -366,7 +366,7 @@ char* CPartList::WriteStructure()
 			gpth = MBRList->gpthTable;
 			// Make sure we can read the gpt backup header before updating partitions
 			gtpbuheader = new gpt_header_t;
-			Disk.Map(MBRList->Drive,gpth->backup);
+			Disk.Map(MBRList->Drive + HDOffset,gpth->backup);
 			if(Disk.Read(0,gtpbuheader,1) == -1){
 				return "failed\nUnable to read gpt backup header. ";
 			}
@@ -385,14 +385,14 @@ char* CPartList::WriteStructure()
 				// update the crc
 				part_crc = chksum_crc32(part_crc, GTPList->gptTable, sizeof(TGPTTable));
 				// write gpt table sector to disc
-				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector);
+				Disk.Map(GTPList->Drive + HDOffset,GTPList->AbsoluteSector);
 				Disk.Write(0,GTPList->gptTable,1);
 			}
 			// Update the primary header
 			gpth->partentry_crc32 = part_crc;
 			gpth->crc32 = 0L;
 			gpth->crc32 = chksum_crc32(0,gpth,gpth->headersize);
-			Disk.Map(GTPList->Drive,1);
+			Disk.Map(GTPList->Drive + HDOffset,1);
 			Disk.Write(0,gpth,1);
 
 			// Now update backup partition entries
@@ -404,14 +404,14 @@ char* CPartList::WriteStructure()
 					// Internal error
 				}
 				// A gpt table sector to update
-				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector+prt_bu_offset);
+				Disk.Map(GTPList->Drive + HDOffset,GTPList->AbsoluteSector+prt_bu_offset);
 				Disk.Write(0,GTPList->gptTable,1);
 			}
 			// Update the backup header
 			gtpbuheader->partentry_crc32 = part_crc;
 			gtpbuheader->crc32 = 0L;
 			gtpbuheader->crc32 = chksum_crc32(0,gtpbuheader,gpth->headersize);
-			Disk.Map(GTPList->Drive,gpth->backup);
+			Disk.Map(GTPList->Drive + HDOffset,gpth->backup);
 			Disk.Write(0,gtpbuheader,1);
 
 			// All GTP entries done update MBRList;
@@ -419,7 +419,7 @@ char* CPartList::WriteStructure()
 		}
 		else{
 			// ordinary mbr sector
-			Disk.Map(MBRList->Drive,MBRList->AbsoluteSector);
+			Disk.Map(MBRList->Drive + HDOffset,MBRList->AbsoluteSector);
 			Disk.Write(0,MBRList->Table,1);
 		}
 	}

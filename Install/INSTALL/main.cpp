@@ -35,7 +35,7 @@ int main(int argc, char* argv[])
 		char *arg = argv[1];
 		int digit = *arg - '0';
 		if (digit >= 0 && digit <= 9 && arg[1] == 0 ){
-			char *msg;
+			char msg[80];
 			strcpy(msg,"\nUsing drive-offset ");
 			strcat(msg,arg);
 			HDOffset = digit;

@@ -388,7 +388,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long long StartS
 	DosFileName = XoslFiles.GetCurrentMbrName();
 	FileSystem->DosFileToRawFile(RawFileName,DosFileName);
 
-	FileSystem->Mount(Drive,StartSector);
+	FileSystem->Mount(Drive + HDOffset,StartSector);
 	if (FileSystem->WriteFile(RawFileName,Ipl) == -1) {
 		TextUI.OutputStr("failed\nFloppy disk full.\n");
 		delete FileSystem;
