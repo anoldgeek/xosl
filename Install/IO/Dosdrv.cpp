@@ -12,14 +12,14 @@
 #include <bootrec.h>
 #include <disk.h>
 #include <fatfix.h>
+#include <main.h>
 
 #define GetFATType(FSType) \
 	(FSType == 0x06 || FSType == 0x0e ? FATTYPE_FAT16 : FATTYPE_FAT32)
 
-CDosDriveList::CDosDriveList(CPartList &PartListToUse, int DriveOffset):
+CDosDriveList::CDosDriveList(CPartList &PartListToUse):
 	PartList(PartListToUse)
 {
-	HDOffset = DriveOffset;
 }
 
 CDosDriveList::~CDosDriveList()
@@ -33,9 +33,10 @@ int CDosDriveList::LocateDrive(int Drive, CDosDrive &DosDrive)
 	unsigned long DosSerialNo;
 	unsigned long BRecSerialNo;
 	const TPartition *Partition;
+	int RealDrive = Drive + HDOffset;
 
 	DosDrive.DriveChar = Drive + 'C';
-	if ((DosSerialNo = GetDosSerialNo(Drive)) == (unsigned long)-1)
+	if ((DosSerialNo = GetDosSerialNo(RealDrive)) == (unsigned long)-1)
 		return -1;
 	PartCount = PartList.GetCount();
 	for (Index = 0; Index < PartCount; ++Index)
@@ -57,7 +58,7 @@ unsigned long CDosDriveList::GetBRecSerialNo(int Index)
 	CDisk Disk;
 
 	Partition = PartList.GetPartition(Index);
-	if (Disk.Map(Partition->Drive + HDOffset,Partition->StartSector) == -1)
+	if (Disk.Map(Partition->Drive,Partition->StartSector) == -1)
 		return (unsigned long)-1;
 	if (Disk.Read(0,&BootRecord,1) == -1)
 		return (unsigned long)-1;

@@ -40,14 +40,12 @@
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
-CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset):
+CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
-	FatInstall(TextUIToUse,XoslFiles,DosFile, DriveOffset),
-	FsCreator(TextUIToUse,XoslFiles,DosFile, DriveOffset)
+	FatInstall(TextUIToUse,XoslFiles,DosFile),
+	FsCreator(TextUIToUse,XoslFiles,DosFile)
 {
-	HDOffset = DriveOffset;
-	PartList.SetHDOffset(HDOffset);
 }
 
 CInstaller::~CInstaller()
@@ -324,9 +322,6 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned
 	CDisk Disk;
 	unsigned short Mbr[256];
 	int hFile;
-	int MBRDrive;
-
-	MBRDrive = MbrHDSector0 + HDOffset;
 
 	if (PartId != -1) {
 		TextUI.OutputStr("Creating backup of MBR...");
@@ -334,7 +329,7 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned
 	else {
 		TextUI.OutputStr("Creating SBM loader...");
 	}
-	Disk.Map(MBRDrive,0);
+	Disk.Map(MbrHDSector0,0);
 	Disk.Read(0,Mbr,1);
 
 	if (PartId != -1) {
@@ -388,7 +383,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl, int Drive, unsigned long long StartS
 	DosFileName = XoslFiles.GetCurrentMbrName();
 	FileSystem->DosFileToRawFile(RawFileName,DosFileName);
 
-	FileSystem->Mount(Drive + HDOffset,StartSector);
+	FileSystem->Mount(Drive,StartSector);
 	if (FileSystem->WriteFile(RawFileName,Ipl) == -1) {
 		TextUI.OutputStr("failed\nFloppy disk full.\n");
 		delete FileSystem;
@@ -710,9 +705,3 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
  	}
 	return 0;
 }
-/*
-void CInstaller::SetHDOffset(int Offset)
-{
-	HDOffset = Offset;
-}
-*/

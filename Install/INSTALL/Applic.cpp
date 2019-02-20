@@ -50,17 +50,15 @@ const char InstallNotes[] =
 "\n"
 "Press any key to continue...";
 
-CApplication::CApplication(int DriveOffset):
+CApplication::CApplication():
 	TextScreen(new CTextScreen(0x1f00)),
 	TextUI(*TextScreen),
-	Data(TextUI,PartList,DriveOffset),
-	Installer(TextUI,PartList,DriveOffset),
-	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A') - DriveOffset) > 0, DriveOffset)
+	Data(TextUI,PartList),
+	Installer(TextUI,PartList),
+	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A') - HDOffset) > 0)
 {
 	DoExit = 0;
 	DoReboot = 0;
-	HDOffset = DriveOffset;
-	PartList.SetHDOffset(HDOffset);
 	TextUI.OutputStr("Extended Operating System Loader\ncomes with ABSOLUTELY NO WARRANTY\n\n");
 
 	InstallMenus.InitMainMenu((CTextList::TListItemExecute)MainMenuExecute,this);
@@ -98,25 +96,23 @@ int CApplication::StartInstallFat()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 
-	CDosDriveList DosDriveList(PartList, HDOffset);
+	CDosDriveList DosDriveList(PartList);
 	CDosDriveList::CDosDrive DosDrive;
 	unsigned char MbrHDSector0;
 	int DosDriveIndex;
-	int RealDriveIndex;
 	bool PartMan;
 	bool SmartBootManager;
 
 	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
 	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
 	DosDriveIndex = TextUI.GetOptionIndex(2);
-	RealDriveIndex = DosDriveIndex + HDOffset;
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(3));
 
 	PartMan = TextUI.GetOptionIndex(4) == 0;
 	SmartBootManager = TextUI.GetOptionIndex(5) == 0;
 
-	if (DosDriveList.LocateDrive(RealDriveIndex,DosDrive) == -1) {
-		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + RealDriveIndex);
+	if (DosDriveList.LocateDrive(DosDriveIndex,DosDrive) == -1) {
+		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}
 
@@ -162,10 +158,9 @@ int CApplication::StartUpgradeFat()
 	CVesa::TGraphicsMode GraphicsMode;
 	CMouse::TMouseType MouseType;
 
-	CDosDriveList DosDriveList(PartList, HDOffset);
+	CDosDriveList DosDriveList(PartList);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
-	int RealDriveIndex;
 	unsigned char MbrHDSector0;
 	bool PartMan;
 	bool SmartBootManager;
@@ -173,14 +168,13 @@ int CApplication::StartUpgradeFat()
 	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
 	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
 	DosDriveIndex = TextUI.GetOptionIndex(2);
-	RealDriveIndex = DosDriveIndex + HDOffset;
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(3));
 
 	PartMan = TextUI.GetOptionIndex(4) == 0;
 
 	SmartBootManager = TextUI.GetOptionIndex(5) == 0;
 
-	if (DosDriveList.LocateDrive(RealDriveIndex,DosDrive) == -1) {
+	if (DosDriveList.LocateDrive(DosDriveIndex,DosDrive) == -1) {
 		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}
@@ -222,17 +216,15 @@ int CApplication::StartUpgradeSep()
 
 int CApplication::StartRestoreFat()
 {
-	CDosDriveList DosDriveList(PartList, HDOffset);
+	CDosDriveList DosDriveList(PartList);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
-	int RealDriveIndex;
 	unsigned char MbrHDSector0;
 
 	DosDriveIndex = TextUI.GetOptionIndex(0);
-	RealDriveIndex = DosDriveIndex + HDOffset;
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(1));
 
-	if (DosDriveList.LocateDrive(RealDriveIndex,DosDrive) == -1) {
+	if (DosDriveList.LocateDrive(DosDriveIndex,DosDrive) == -1) {
 		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}
@@ -264,19 +256,17 @@ int CApplication::StartRestoreSep()
 
 int CApplication::StartUninstallFat()
 {
-	CDosDriveList DosDriveList(PartList, HDOffset);
+	CDosDriveList DosDriveList(PartList);
 	CDosDriveList::CDosDrive DosDrive;
 	int DosDriveIndex;
-	int RealDriveIndex;
 	int OriginalMbr;
 	unsigned char MbrHDSector0;
 
 	DosDriveIndex = TextUI.GetOptionIndex(0);
-	RealDriveIndex = DosDriveIndex + HDOffset;
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(1));
 	OriginalMbr = !TextUI.GetOptionIndex(2);
 
-	if (DosDriveList.LocateDrive(RealDriveIndex,DosDrive) == -1) {
+	if (DosDriveList.LocateDrive(DosDriveIndex,DosDrive) == -1) {
 		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}

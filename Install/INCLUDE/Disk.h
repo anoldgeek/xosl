@@ -19,6 +19,8 @@
 
 #include <defs.h>
 #include <transfer.h>
+#include <main.h>
+
 
 class CDisk {
 	public:
@@ -49,5 +51,6 @@ class CDisk {
 		int UseLBA;
 		int DiskMapped;
 };
+
 
 #endif

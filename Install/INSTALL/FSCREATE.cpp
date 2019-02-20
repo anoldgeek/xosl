@@ -39,12 +39,11 @@
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
 
-CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset):
+CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
-	HDOffset = DriveOffset;
 }
 
 CFsCreator::~CFsCreator()
@@ -53,23 +52,19 @@ CFsCreator::~CFsCreator()
 
 int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0)
 {
-	int MBRDrive;
-
-	MBRDrive = Drive + HDOffset;
-
 	MemSet(Fat,0,sizeof(unsigned short[256]));
 	MemSet(RootDir,0,sizeof(CDirectoryEntry[32]));
 
-	if (LoadIplS(MBRDrive) == -1)
+	if (LoadIplS(Drive) == -1)
 		return -1;
 	if (PackFiles() == -1)
 		return -1;
-	if (InitBootRecord(MBRDrive,Sector,MbrHDSector0) == -1)
+	if (InitBootRecord(Drive,Sector,MbrHDSector0) == -1)
 		return -1;
 
-	if (BackupPartition(MBRDrive,Sector) == -1)
+	if (BackupPartition(Drive,Sector) == -1)
 		return -1;
-	if (InstallXoslImg(MBRDrive,Sector) == -1)
+	if (InstallXoslImg(Drive,Sector) == -1)
 		return -1;
 	
 	return 0;
@@ -82,7 +77,7 @@ int CFsCreator::LoadIplS(int Drive)
 	int hFile;
 
 	MemSet(&BootRecord,0,512);
-	if (DiskAccess.LBAAccessAvail(Drive) != -1)
+	if (DiskAccess.LBAAccessAvail(Drive + HDOffset) != -1)
 		IplFileName = XoslFiles.GetIplFileName(CXoslFiles::enumIplSLba);
 	else
 		IplFileName = XoslFiles.GetIplFileName(CXoslFiles::enumIplS);
@@ -104,7 +99,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 
 
 	TextUI.OutputStr("Initializing boot record...");
-	if (DiskAccess.GetDriveInfo(Drive,HeadCount,SectorCount) == -1) {
+	if (DiskAccess.GetDriveInfo(Drive + HDOffset,HeadCount,SectorCount) == -1) {
 		TextUI.OutputStr("failed\nUnable to retreive drive info\n");
 		return -1;
 	}

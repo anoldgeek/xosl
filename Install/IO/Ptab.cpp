@@ -33,7 +33,6 @@
 CPartList::CPartList()
 {
 	AllowActiveHD = 0;
-	HDOffset = 0;
 }
 
 CPartList::~CPartList()
@@ -93,7 +92,6 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 	unsigned long long NewStartSector;
 	unsigned int i;
 	unsigned int gpt_sector;
-	int DriveLessHDOffset = Drive - HDOffset;
 
 	if (Disk.Map(Drive,StartSector) == -1)
 		return MBRList;
@@ -121,7 +119,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 		// Add the Protective MBR
 		MBRList = MBRList->Next = new TMBRNode;
 		MBRList->AbsoluteSector = StartSector;
-		MBRList->Drive = DriveLessHDOffset;
+		MBRList->Drive = Drive;
 		MBRList->Type = PART_GPT_PROT_MBR;
 		MBRList->Table = PartTable;
 
@@ -143,7 +141,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 		// Add the gpt header
 		MBRList = MBRList->Next = new TMBRNode;
 		MBRList->AbsoluteSector = 1;
-		MBRList->Drive = DriveLessHDOffset;
+		MBRList->Drive = Drive;
 		MBRList->Type = PART_GPT_HEADER;
 		MBRList->Table = PartTable;
 
@@ -160,7 +158,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 			}
 			MBRList = MBRList->Next = new TMBRNode;
 			MBRList->AbsoluteSector = gpt_sector;
-			MBRList->Drive = DriveLessHDOffset;
+			MBRList->Drive = Drive;
 			MBRList->Type = PART_GPT;
 			MBRList->Table = PartTable;
 		}
@@ -169,7 +167,7 @@ TMBRNode *CPartList::AddDrive(int Drive, unsigned long long StartSector, unsigne
 	// MBR disk
 	MBRList = MBRList->Next = new TMBRNode;
 	MBRList->AbsoluteSector = StartSector;
-	MBRList->Drive = DriveLessHDOffset;
+	MBRList->Drive = Drive;
 	MBRList->Type = Type;
 	MBRList->Table = PartTable;
 	mbrEntries = MBRList->Table->mbrEntries;
@@ -208,10 +206,6 @@ void CPartList::CreatePartList(int FloppyCount)
 //	if (MBRList.Next)
 //		Drive = MBRList.Next->Drive;
 	for (MBRNode = MBRList.Next; MBRNode; MBRNode = MBRNode->Next) {
-		if (MBRNode->Drive < 0x80){
-			// Ignore HDOffset hidden drives
-			continue;
-		}
 		if (Drive != MBRNode->Drive) {
 			Drive = MBRNode->Drive;
 			PartList = PartList->Next = CreateNonPartNode(Drive);
@@ -366,7 +360,7 @@ char* CPartList::WriteStructure()
 			gpth = MBRList->gpthTable;
 			// Make sure we can read the gpt backup header before updating partitions
 			gtpbuheader = new gpt_header_t;
-			Disk.Map(MBRList->Drive + HDOffset,gpth->backup);
+			Disk.Map(MBRList->Drive,gpth->backup);
 			if(Disk.Read(0,gtpbuheader,1) == -1){
 				return "failed\nUnable to read gpt backup header. ";
 			}
@@ -385,14 +379,14 @@ char* CPartList::WriteStructure()
 				// update the crc
 				part_crc = chksum_crc32(part_crc, GTPList->gptTable, sizeof(TGPTTable));
 				// write gpt table sector to disc
-				Disk.Map(GTPList->Drive + HDOffset,GTPList->AbsoluteSector);
+				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector);
 				Disk.Write(0,GTPList->gptTable,1);
 			}
 			// Update the primary header
 			gpth->partentry_crc32 = part_crc;
 			gpth->crc32 = 0L;
 			gpth->crc32 = chksum_crc32(0,gpth,gpth->headersize);
-			Disk.Map(GTPList->Drive + HDOffset,1);
+			Disk.Map(GTPList->Drive,1);
 			Disk.Write(0,gpth,1);
 
 			// Now update backup partition entries
@@ -404,14 +398,14 @@ char* CPartList::WriteStructure()
 					// Internal error
 				}
 				// A gpt table sector to update
-				Disk.Map(GTPList->Drive + HDOffset,GTPList->AbsoluteSector+prt_bu_offset);
+				Disk.Map(GTPList->Drive,GTPList->AbsoluteSector+prt_bu_offset);
 				Disk.Write(0,GTPList->gptTable,1);
 			}
 			// Update the backup header
 			gtpbuheader->partentry_crc32 = part_crc;
 			gtpbuheader->crc32 = 0L;
 			gtpbuheader->crc32 = chksum_crc32(0,gtpbuheader,gpth->headersize);
-			Disk.Map(GTPList->Drive + HDOffset,gpth->backup);
+			Disk.Map(GTPList->Drive,gpth->backup);
 			Disk.Write(0,gtpbuheader,1);
 
 			// All GTP entries done update MBRList;
@@ -419,7 +413,7 @@ char* CPartList::WriteStructure()
 		}
 		else{
 			// ordinary mbr sector
-			Disk.Map(MBRList->Drive + HDOffset,MBRList->AbsoluteSector);
+			Disk.Map(MBRList->Drive,MBRList->AbsoluteSector);
 			Disk.Write(0,MBRList->Table,1);
 		}
 	}
@@ -815,8 +809,4 @@ void CPartList::chksum_crc32gentab ()
       }
       crc_tab[i] = crc;
    }
-}
-void CPartList::SetHDOffset(int DriveOffset)
-{
-	HDOffset = DriveOffset;
 }

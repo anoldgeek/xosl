@@ -24,6 +24,7 @@
 
 #include <FatInst.h>
 #include <FsCreate.h>
+#include <main.h>
 
 
 #define BOOTITEM_FILESIZE sizeof(CBootItemFile)
@@ -32,7 +33,7 @@
 
 class CInstaller {
 public:
-	CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset);
+	CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse);
 	~CInstaller();
 	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0);
 	int Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, int PartIndex, bool PartMan, bool SmartBm, unsigned char MbrHDSector0);
@@ -76,8 +77,6 @@ private:
 	int CopyFileForUpgrade(const char *FileName, char DriveChar);
 
 	int UpgradeXoslBootItem(unsigned char MbrHDSector0);
-
-	int HDOffset;
 
 };
 

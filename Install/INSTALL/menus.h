@@ -14,10 +14,12 @@
 #include <ptab.h>
 #include <textui.h>
 #include <data.h>
+#include <main.h>
+
 
 class CInstallMenus {
 public:
-	CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse, int OffsetDrive);
+	CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse);
 	~CInstallMenus();
 
 	void InitMainMenu(CTextList::TListItemExecute MenuHandler, void *HandlerClass);
@@ -68,7 +70,6 @@ private:
 	unsigned char *MbrHDSector0List;
 
 	int FatAvail;
-	int HDOffset;
 };
 
 #endif

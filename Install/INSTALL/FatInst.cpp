@@ -27,13 +27,13 @@
 #include <string.h>
 #include <install.h>
 #include <memory_x.h>
+#include <main.h>
 
-CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset):
+CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
-	HDOffset = DriveOffset;
 }
 
 CFatInstall::~CFatInstall()
@@ -48,7 +48,7 @@ int CFatInstall::CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl)
 
 	TextUI.OutputStr("Initializing IPL...");
 
-	UseLba = DiskAccess.LBAAccessAvail(DosDrive.Drive) == 0;
+	UseLba = DiskAccess.LBAAccessAvail(DosDrive.Drive + HDOffset) == 0;
 	if (DosDrive.FATType == FATTYPE_FAT16)
 		return CreateIplFat16(DosDrive,UseLba,Ipl);
 	return CreateIplFat32(DosDrive,UseLba,Ipl);
@@ -62,7 +62,7 @@ int CFatInstall::CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int Us
 	int fh;
 	CDisk Disk;
 
-	Disk.Map(DosDrive.Drive + HDOffset,DosDrive.StartSector);
+	Disk.Map(DosDrive.Drive,DosDrive.StartSector);
 	Disk.Read(0,&Fat16,1);
 
 
@@ -111,7 +111,7 @@ int CFatInstall::CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int Us
 	unsigned long FATSize;
 	CDisk Disk;
 
-	Disk.Map(DosDrive.Drive + HDOffset,DosDrive.StartSector);
+	Disk.Map(DosDrive.Drive,DosDrive.StartSector);
 	Disk.Read(0,&Fat32,1);
 
 	if (!UseLba){
@@ -249,14 +249,9 @@ int CFatInstall::InstallIpl(void *Ipl,unsigned char MbrHDSector0)
 {
 	CDisk Disk;
 	unsigned char Mbr[512];
-	//unsigned short Checksum;
-	//int Index;
-	int MBRDrive;
-
-	MBRDrive = MbrHDSector0 + HDOffset;
 
 	TextUI.OutputStr("Installing IPL...");
-	if (Disk.Map(MBRDrive,0) == -1) {
+	if (Disk.Map(MbrHDSector0,0) == -1) {
 		TextUI.OutputStr("failed\nUnable to access MBR. ");
 		return -1;
 	}

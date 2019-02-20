@@ -16,10 +16,9 @@
 #include <stdio.h>
 #include <applic.h>
 #include <string.h>
-/*#include <main.h>
-#include <text.h>
-#include <xoslver.h>
-*/
+#include <main.h>
+
+int HDOffset; // Global
 
 //int main()
 int main(int argc, char* argv[])
@@ -49,7 +48,7 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	CApplication *Application = new CApplication(HDOffset);
+	CApplication *Application = new CApplication();
 	Application->ApplicationLoop();
 	delete Application;
 	return 0;

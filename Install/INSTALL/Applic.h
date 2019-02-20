@@ -21,10 +21,11 @@
 #include <textscr.h>
 
 #include <menus.h>
+#include <main.h>
 
 class CApplication {
 public:
-	CApplication(int DriveOffset);
+	CApplication();
 	~CApplication();
 
 	void ApplicationLoop();
@@ -94,7 +95,6 @@ private:
 	int DoExit;
 	int DoReboot;
 	
-	int HDOffset;
 
 
 };

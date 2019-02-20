@@ -18,6 +18,7 @@
 
 #include <ptab.h>
 #include <defs.h>
+#include <main.h>
 
 #define FATTYPE_FAT16 16
 #define FATTYPE_FAT32 32
@@ -33,7 +34,7 @@ class CDosDriveList {
 		};
 
 
-		CDosDriveList(CPartList &PartListToUse, int DriveOffset);
+		CDosDriveList(CPartList &PartListToUse);
 		~CDosDriveList();
 		int LocateDrive(int DriveNum, CDosDrive &DosDrive);
 	private:
@@ -41,9 +42,6 @@ class CDosDriveList {
 
 		unsigned long __cdecl GetDosSerialNo(int DriveNum);
 		unsigned long GetBRecSerialNo(int Index);
-
-		int HDOffset;
-
 };
 
 #endif

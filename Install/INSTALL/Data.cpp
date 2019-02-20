@@ -15,16 +15,16 @@
 
 #include <vesa.h>
 #include <mouse.h>
+#include <main.h>
 
 
-CData::CData(CTextUI &TextUIToUse, CPartList &PartListToUse, int DriveOffset): 
+CData::CData(CTextUI &TextUIToUse, CPartList &PartListToUse): 
 	TextUI(TextUIToUse),
 	PartList(PartListToUse)
 {
 	GraphDetected = 0;
 	MouseDetected = 0;
 	DriveDetected = 0;
-	HDOffset = DriveOffset;
 }
 
 CData::~CData()

@@ -29,7 +29,7 @@
 static const char *YesNoList[2] = {"Yes", "No"};
 
 
-CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse, int DriveOffset):
+CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &PartListToUse, int FatAvailToUse):
 	TextUI(TextUIToUse),
 	Data(DataToUse),
 	PartList(PartListToUse)
@@ -37,7 +37,6 @@ CInstallMenus::CInstallMenus(CTextUI &TextUIToUse, CData &DataToUse, CPartList &
 	FatAvail = FatAvailToUse;
 	DosDriveList = NULL;
 	PartNameList = NULL;
-	HDOffset = DriveOffset;
 }
 
 CInstallMenus::~CInstallMenus()

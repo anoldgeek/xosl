@@ -17,10 +17,11 @@
 #include <textui.h>
 #include <files.h>
 #include <dosio.h>
+#include <main.h>
 
 class CFatInstall {
 public:
-	CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, int DriveOffset);
+	CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
 	~CFatInstall();
 
 	int CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl);
@@ -37,8 +38,6 @@ private:
 
 	int CreateIplFat16(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
 	int CreateIplFat32(const CDosDriveList::CDosDrive &DosDrive, int UseLba, TIPL &Ipl);
-
-	int HDOffset;
 };
 
 #endif

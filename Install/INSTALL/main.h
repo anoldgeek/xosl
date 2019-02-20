@@ -11,5 +11,6 @@
 #ifndef __main__
 #define __main__
 
+extern int HDOffset;
 
 #endif
