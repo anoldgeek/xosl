@@ -18,6 +18,8 @@
 
                 .code
 
+		extern	`W?HDOffset$FI`: far
+
                 public  `W?GetDriveCount$:CData$F()I`
                 public  `W?GetDosVersion$:CData$F()US`
                 
@@ -26,6 +28,7 @@
                 mov     ah,52h
                 int     21h
                 movzx   ax,es:byte ptr [bx + 20h]
+		sub	ax,word ptr ss:`W?HDOffset$FI`
                 ret
 `W?GetDriveCount$:CData$F()I`  endp
 

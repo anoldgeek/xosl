@@ -27,6 +27,8 @@ Scratchpad      dd      90008000h
 
                 .code
 
+		extern	`W?HDOffset$FI`: far
+
                 public  `W?$CT:CDiskAccess$F()_`
                 public  `W?$DT:CDiskAccess$F()_`
                 public  `W?DriveCount$:CDiskAccess$F(I)I`
@@ -48,6 +50,7 @@ Scratchpad      dd      90008000h
                 mov     dl,byte ptr @@Drive
 		int     13h
 		movzx   ax,dl
+		sub	ax,word ptr ss:`W?HDOffset$FI`
                 ret
 `W?DriveCount$:CDiskAccess$F(I)I` endp
 
@@ -110,7 +113,8 @@ TransDone:      ret
 		push    di
 
 		mov     ah,8
-                mov     dl,byte ptr @@Drive
+		mov	dx,word ptr ss:`W?HDOffset$FI`
+                add     dx,word ptr @@Drive
 		int     13h
                 sbb     ax,ax
                 les     bx,@@Sectors

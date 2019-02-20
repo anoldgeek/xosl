@@ -55,7 +55,7 @@ CApplication::CApplication():
 	TextUI(*TextScreen),
 	Data(TextUI,PartList),
 	Installer(TextUI,PartList),
-	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A') - HDOffset) > 0)
+	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A')) > 0)
 {
 	DoExit = 0;
 	DoReboot = 0;

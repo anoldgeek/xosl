@@ -33,10 +33,9 @@ int CDosDriveList::LocateDrive(int Drive, CDosDrive &DosDrive)
 	unsigned long DosSerialNo;
 	unsigned long BRecSerialNo;
 	const TPartition *Partition;
-	int RealDrive = Drive + HDOffset;
 
 	DosDrive.DriveChar = Drive + 'C';
-	if ((DosSerialNo = GetDosSerialNo(RealDrive)) == (unsigned long)-1)
+	if ((DosSerialNo = GetDosSerialNo(Drive)) == (unsigned long)-1)
 		return -1;
 	PartCount = PartList.GetCount();
 	for (Index = 0; Index < PartCount; ++Index)

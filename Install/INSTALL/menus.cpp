@@ -356,7 +356,7 @@ void CInstallMenus::CreateDosDriveList()
 	int Index;
 	int *Buffer;
 
-	DosDriveCount = Data.GetLastDrive() - ('C' - 'A') - HDOffset;
+	DosDriveCount = Data.GetLastDrive() - ('C' - 'A');
 	if (DosDriveCount > 0) {
 		DosDriveList = new char *[DosDriveCount];
 		Buffer = new int[DosDriveCount];

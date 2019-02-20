@@ -23,8 +23,9 @@
 		.386p
                 .code
 
+		extern	`W?HDOffset$FI`: far
+
                 public  `W?LBAAccessAvail$:CDiskAccess$F(I)I`
-;                public  `W?LBATransfer$:CDiskAccess$F(IIRFX$__3b5thaTLBAPacket$$)I`
 		public	`W?LBATransfer$:CDiskAccess$F(IIRFX$__3126cuTLBAPacket$$)I`
                 public  `W?SetLockStatus$:CDiskAccess$F(II)V`
 
@@ -32,9 +33,10 @@
 `W?LBAAccessAvail$:CDiskAccess$F(I)I` proc syscall,
                 @@this: dword, @@Drive: word
 
+                mov     dx,@@Drive
+		add	dx,word ptr ss:`W?HDOffset$FI`
                 mov     ah,41h
                 mov     bx,55aah
-                mov     dx,@@Drive
                 int     13h
                 jc      NoLBA
                 cmp     bx,0aa55h
@@ -60,6 +62,7 @@ LBA_AAEnd:      ret
                 mov     ax,@@Action
                 or      ax,4000h
                 mov     dx,@@Drive
+		add	dx,word ptr ss:`W?HDOffset$FI`
                 lds     si,@@LBAPacket
                 int     13h
                 sbb     ax,ax
@@ -77,7 +80,8 @@ LBA_AAEnd:      ret
 
                 mov     ah,45h
                 mov     al,byte ptr @@Status
-                mov     dl,byte ptr @@Drive
+                mov     dx,@@Drive
+		add	dx,word ptr ss:`W?HDOffset$FI`
                 int     13h
                 ret
 `W?SetLockStatus$:CDiskAccess$F(II)V` endp

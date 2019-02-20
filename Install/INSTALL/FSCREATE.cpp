@@ -77,7 +77,7 @@ int CFsCreator::LoadIplS(int Drive)
 	int hFile;
 
 	MemSet(&BootRecord,0,512);
-	if (DiskAccess.LBAAccessAvail(Drive + HDOffset) != -1)
+	if (DiskAccess.LBAAccessAvail(Drive) != -1)
 		IplFileName = XoslFiles.GetIplFileName(CXoslFiles::enumIplSLba);
 	else
 		IplFileName = XoslFiles.GetIplFileName(CXoslFiles::enumIplS);
@@ -99,7 +99,7 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 
 
 	TextUI.OutputStr("Initializing boot record...");
-	if (DiskAccess.GetDriveInfo(Drive + HDOffset,HeadCount,SectorCount) == -1) {
+	if (DiskAccess.GetDriveInfo(Drive,HeadCount,SectorCount) == -1) {
 		TextUI.OutputStr("failed\nUnable to retreive drive info\n");
 		return -1;
 	}
@@ -334,7 +334,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long Sector)
 		return -1;
 	}
 
-	if (DosFile.Write(hFile,&Sector,sizeof (unsigned long)) != sizeof (unsigned long)) {
+	if (DosFile.Write(hFile,&Sector,sizeof (unsigned long long)) != sizeof (unsigned long long)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 		DosFile.Close(hFile);
 		return -1;

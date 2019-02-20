@@ -48,7 +48,7 @@ int CFatInstall::CreateIpl(const CDosDriveList::CDosDrive &DosDrive, TIPL &Ipl)
 
 	TextUI.OutputStr("Initializing IPL...");
 
-	UseLba = DiskAccess.LBAAccessAvail(DosDrive.Drive + HDOffset) == 0;
+	UseLba = DiskAccess.LBAAccessAvail(DosDrive.Drive) == 0;
 	if (DosDrive.FATType == FATTYPE_FAT16)
 		return CreateIplFat16(DosDrive,UseLba,Ipl);
 	return CreateIplFat32(DosDrive,UseLba,Ipl);
@@ -175,7 +175,7 @@ int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 	char SrcFile2[13];
 	int NextImgFile;
 
-	*DestFile = DosDrive.DriveChar;
+	*DestFile = DosDrive.DriveChar + HDOffset;
 	*(unsigned short *)&DestFile[1] = 0x5c3a; // ':\'
 
 	// Install XOSLLOAD.XCF first
@@ -281,7 +281,7 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 	const char *XoslFileName;
 	int Index, Count;
 
-	FileStr[0] = DosDriveChar;
+	FileStr[0] = DosDriveChar + HDOffset;
 	FileStr[1] = ':';
 	FileStr[2] = '\\';
 	Count = XoslFiles.GetCount();

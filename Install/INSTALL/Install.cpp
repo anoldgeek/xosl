@@ -116,8 +116,11 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	if (CreateBootItem(MbrHDSector0) == -1)
 		return -1;
-	if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1)
-		return -1;
+
+	if (MbrHDSector0 != 0xff){
+		if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1)
+			return -1;
+	}
 	
 	if (SmartBm) {
 		InstallSmartBootManager();
@@ -180,25 +183,23 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 	char *MbrBuffer;
 	
 
-	if (LoadRawMbr(PartIndex,XoslFiles.GetOriginalMbrName(),OriginalMbrBuffer) != -1)
-		SetPartId(PartIndex,*(unsigned short *)&OriginalMbrBuffer[508]);
-
-	if (!OriginalMbr) {
-		if (LoadDefaultMbr(DefaultMbrBuffer) == -1)
-			return -1;
-		MbrBuffer = DefaultMbrBuffer;
-	}
-	else
-		MbrBuffer = OriginalMbrBuffer;
-
-		
-	if (FatInstall.InstallIpl(MbrBuffer,MbrHDSector0) == -1)
-		return -1;
-		
 	Partition = PartList.GetPartition(PartIndex);
+	if (MbrHDSector0 != 0xff){
+		if (LoadRawMbr(PartIndex,XoslFiles.GetOriginalMbrName(),OriginalMbrBuffer) != -1)
+				SetPartId(PartIndex,*(unsigned short *)&OriginalMbrBuffer[508]);
+		if (!OriginalMbr) {
+			if (LoadDefaultMbr(DefaultMbrBuffer) == -1)
+				return -1;
+			MbrBuffer = DefaultMbrBuffer;
+		}
+		else
+			MbrBuffer = OriginalMbrBuffer;
+
+		if (FatInstall.InstallIpl(MbrBuffer,MbrHDSector0) == -1)
+			return -1;
+	}
+		
 	FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
-
-
 
 	TextUI.OutputStr("\nUninstall complete\n");
 	return 0;
@@ -209,6 +210,11 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 int CInstaller::Restore(const CDosDriveList::CDosDrive &DosDrive, unsigned char MbrHDSector0)
 {
 	char Ipl[512];
+
+	if (MbrHDSector0 == 0xff){
+		TextUI.OutputStr("\nRestore Failed. HD NONE\n");
+		return -1;
+	}
 
 	if (LoadDosMbr(DosDrive.DriveChar,XoslFiles.GetCurrentMbrName(),Ipl) == -1)
 		return -1;
@@ -402,7 +408,7 @@ int CInstaller::LoadDosMbr(int DriveChar, const char *DosFileName, void *MbrBuff
 	int hFile;
 	char FileName[24];
 
-	FileName[0] = DriveChar;
+	FileName[0] = DriveChar + HDOffset;
 	FileName[1] = ':';
 	FileName[2] = '\\';
 	strcpy(&FileName[3],DosFileName);
@@ -540,7 +546,7 @@ int CInstaller::CopyFileForUpgrade(const char *FileName, char DriveChar)
 
 	strcpy(CopySrc,RootPath);
 	strcat(CopySrc,FileName);
-	*CopySrc = DriveChar;
+	*CopySrc = DriveChar + HDOffset;
 	if(DosFile.Copy(CopySrc,FileName) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",FileName);
 		return -1;
@@ -608,7 +614,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
 		return -1;
 
-	if(CopyFileForUpgrade(XoslFiles.GetCurrentMbrName(),DosDrive.DriveChar) == -1)
+	if (BackupCurrentMbr(&Ipl) == -1)
 		return -1;
 
 	if (FatInstall.InstallFiles(DosDrive) == -1)

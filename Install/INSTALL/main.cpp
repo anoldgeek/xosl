@@ -23,7 +23,7 @@ int HDOffset; // Global
 //int main()
 int main(int argc, char* argv[])
 {
-	int HDOffset = 0;
+	HDOffset = 0;
 
 	puts("XOSL INSTALL UTILITY");
 	puts("Copyright (c) 1999/2000, Geurt Vos");

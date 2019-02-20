@@ -151,13 +151,13 @@ void CData::DetectDrives()
 	CDiskAccess DiskAccess;
 	int Count, Index;
 	
-	Count = DiskAccess.DriveCount(0x80) - HDOffset;
+	Count = DiskAccess.DriveCount(0x80);
 	for (Index = 0; Index < Count; ++Index)
-		TextUI.OutputStr("HD%d: %s access\n",Index,DiskAccess.LBAAccessAvail(0x80 | (Index + HDOffset) ) == 0 ? "LBA" : "CHS");
+		TextUI.OutputStr("HD%d: %s access\n",Index,DiskAccess.LBAAccessAvail(0x80 | (Index) ) == 0 ? "LBA" : "CHS");
 	// Always returns floppy drives A: & B: as well
 	LastDrive = GetDriveCount();
-	if(LastDrive - 2 > HDOffset)
-		TextUI.OutputStr("Available dos drives: [C to %c]\n",('A' - 1) + LastDrive - HDOffset);
+	if(LastDrive - 2 > 0)
+		TextUI.OutputStr("Available dos drives: [C to %c]\n",('A' - 1) + LastDrive);
 	else
 		TextUI.OutputStr("Available dos drives: None\n");
 	TextUI.OutputStr("Reading disk structure...");

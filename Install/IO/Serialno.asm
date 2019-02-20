@@ -38,14 +38,17 @@ FSType          db      8 dup (?)
 
                 .code
 
+		extern	`W?HDOffset$FI`: far
+
                 public  `W?GetDosSerialNo$:CDosDriveList$F(I)UL`
 
 ;unsigned long CDOSDriveList::GetDOSSerialNo(int DriveNum);
 `W?GetDosSerialNo$:CDosDriveList$F(I)UL` proc syscall,
                 @@this: dword, @@DriveNum: word
 
-                mov     ax,6900h
                 mov     bx,@@DriveNum
+		add	bx,word ptr ss:W?HDOffset$FI
+                mov     ax,6900h
                 add     bx,3
                 mov     dx,offset DosDriveInfo
                 int     21h

@@ -44,14 +44,13 @@ int CDisk::DriveCount(int Fixed)
 int CDisk::Map(int Drive, unsigned long long StartSector)
 {
 	//int Status;
-	int RealDrive = Drive + HDOffset;
 
-	this->Drive = RealDrive;
+	this->Drive = Drive;
 	this->StartSector = StartSector;
-	if (Drive >= 0x80 && DiskAccess.LBAAccessAvail(RealDrive) == 0)
+	if (Drive >= 0x80 && DiskAccess.LBAAccessAvail(Drive) == 0)
 		UseLBA = 1;
 	else {
-		if (DiskAccess.GetDriveInfo(RealDrive,DrvHeadCount,DrvSectorCount) == -1) {
+		if (DiskAccess.GetDriveInfo(Drive,DrvHeadCount,DrvSectorCount) == -1) {
 			DiskMapped = 0;
 			return -1;
 		}
