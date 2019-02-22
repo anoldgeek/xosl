@@ -14,6 +14,7 @@
 
 
 #include <stdio.h>
+#include <unistd.h>
 #include <applic.h>
 #include <string.h>
 #include <main.h>
@@ -23,13 +24,18 @@ int HDOffset; // Global
 //int main()
 int main(int argc, char* argv[])
 {
+	int optc;
+	char *arg;
+	int digit = 0;
+	char *PartBackupPath = "";
+
 	HDOffset = 0;
 
 	puts("XOSL INSTALL UTILITY");
 	puts("Copyright (c) 1999/2000, Geurt Vos");
 	puts("Copyright (c) 2010, Mario Looijkens");
 	puts("Copyright (c) 2018, Norman Back");
-
+/*
 	if(argc > 1){
 		char *arg = argv[1];
 		int digit = *arg - '0';
@@ -47,8 +53,33 @@ int main(int argc, char* argv[])
 			return ( -1 );
 		}
 	}
+*/
 
-	CApplication *Application = new CApplication();
+	optc = getopt(argc, argv, ":hp:o:");
+	switch (optc){
+		case 'o':
+			arg = optarg;
+			digit = *arg - '0';
+			if (digit >= 0 && digit <= 9 && arg[1] == 0 ){
+				HDOffset = digit;
+				printf("\nUsing drive-offset %d\n", HDOffset);
+			}
+			break;
+		case 'p':
+			PartBackupPath = optarg;
+			break;
+		case ':':
+			printf( "-%c without param\n", optopt );
+		case '?':
+		case 'h':
+			printf("Usage: %s [-p <partbackup-path>|NONE] [-o <HD-offset>] [-h]\n", argv[0]);
+			printf("e,g,\n\t '%s -p E:\PBACKUPS -o 1\n\t %s -p NONE \n", argv[0], argv[0]);
+			printf("\nSee file Notes.txt\n");
+			return ( -1 );
+	}
+
+
+	CApplication *Application = new CApplication(PartBackupPath);
 	Application->ApplicationLoop();
 	delete Application;
 	return 0;

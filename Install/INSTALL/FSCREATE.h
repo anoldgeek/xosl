@@ -39,13 +39,12 @@
 
 class CFsCreator {
 public:
-	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse);
+	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, char *PartBackupPath);
 	~CFsCreator();
 
-	int InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
+	int InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0, unsigned short FSType);
 
-	void RestorePartition(unsigned short Drive,unsigned long long StartSector);
-
+	unsigned short RestorePartition(unsigned short Drive,unsigned long long StartSector);
 
 private:
 	class CBootRecord {
@@ -86,6 +85,14 @@ private:
 		unsigned long FileSize;
 	};
 
+	class CPartBackupDetails{
+	public:
+		unsigned short Drive;
+		unsigned long long StartSector;
+		unsigned short FSType;
+		char Reserved[500];
+	} ;
+
 
 	CTextUI &TextUI;
 	CXoslFiles &XoslFiles;
@@ -103,12 +110,14 @@ private:
 	int PackFiles();
 	int InitBootRecord(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
 
-	int BackupPartition(int Drive, unsigned long long Sector);
+	int BackupPartition(int Drive, unsigned long long Sector, unsigned short FSType);
 	int InstallXoslImg(int Drive, unsigned long long Sector);
 
 
 	void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
 	void AddFatEntries(long FileSize);
+
+	char *PartBackupPath;
 };
 
 #endif

@@ -40,11 +40,11 @@
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
-CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse):
+CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, char *PartBackupPath):
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
 	FatInstall(TextUIToUse,XoslFiles,DosFile),
-	FsCreator(TextUIToUse,XoslFiles,DosFile)
+	FsCreator(TextUIToUse,XoslFiles,DosFile,PartBackupPath)
 {
 }
 
@@ -129,7 +129,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	}
 
-	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0) == -1)
+	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0,Partition->FSType) == -1)
 		return -1;
 
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
@@ -181,6 +181,7 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 	char OriginalMbrBuffer[512];
 	char DefaultMbrBuffer[512];
 	char *MbrBuffer;
+	unsigned short FSType;
 	
 
 	Partition = PartList.GetPartition(PartIndex);
@@ -199,7 +200,8 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 			return -1;
 	}
 		
-	FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
+	FSType = FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
+	SetPartId(PartIndex,FSType);
 
 	TextUI.OutputStr("\nUninstall complete\n");
 	return 0;
@@ -680,7 +682,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	}
 
-	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0) == -1){
+	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0, Partition->FSType) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade in %s \n\n","FsCreator.InstallFs");
 		return -1;
 	}

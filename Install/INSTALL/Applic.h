@@ -25,7 +25,7 @@
 
 class CApplication {
 public:
-	CApplication();
+	CApplication( char *PartBackupPath);
 	~CApplication();
 
 	void ApplicationLoop();

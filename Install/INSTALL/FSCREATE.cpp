@@ -26,6 +26,7 @@
  *
  */
 
+#include <stdio.h>
 
 #include <FsCreate.h>
 #include <string.h>
@@ -39,18 +40,19 @@
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
 
-CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
+CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, char *PartBackupPath):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
+	this->PartBackupPath = PartBackupPath;
 }
 
 CFsCreator::~CFsCreator()
 {
 }
 
-int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0)
+int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0, unsigned short FSType)
 {
 	MemSet(Fat,0,sizeof(unsigned short[256]));
 	MemSet(RootDir,0,sizeof(CDirectoryEntry[32]));
@@ -62,7 +64,7 @@ int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsig
 	if (InitBootRecord(Drive,Sector,MbrHDSector0) == -1)
 		return -1;
 
-	if (BackupPartition(Drive,Sector) == -1)
+	if (BackupPartition(Drive,Sector,FSType) == -1)
 		return -1;
 	if (InstallXoslImg(Drive,Sector) == -1)
 		return -1;
@@ -302,13 +304,22 @@ void CFsCreator::AddFatEntries(long FileSize)
 	Fat[FatIndex++] = 0xffff;
 }
 
-int CFsCreator::BackupPartition(int Drive, unsigned long long Sector)
+int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsigned short FSType)
 {
 	unsigned long ImageSize;
 	int TransferCount;
 	int Index;
 	CDisk Disk;
 	int hFile;
+	char PartBackupFile[128];
+	int pathlen;
+	CPartBackupDetails PartBackupDetails;
+
+
+	if (strcmp(PartBackupPath,"NONE")){
+		TextUI.OutputStr("No backup requested...");
+		return 0;
+	}
 
 	TextUI.OutputStr("Creating backup...");
 	if ((ImageSize = DosFile.FileSize(XOSLIMG_FILE)) == -1) {
@@ -316,31 +327,40 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long Sector)
 		return -1;
 	}
 
-	TransferCount = (int)((ImageSize >> 11) + 1);
+	TransferCount = (int)(((ImageSize >> 11) + 1) << 2); // Transfer of 2048 blocks of 512 sectors
 
-	if (Disk.Map(Drive,Sector) == -1) {
+	if (Disk.Map(Drive,StartSector) == -1) {
 		TextUI.OutputStr("failed\nUnable to map partition\n");
 		return -1;
 	}
 
-	if ((hFile = DosFile.Create(PARTBACKUP_FILE)) == -1) {
-		TextUI.OutputStr("failed\nUnable to create "PARTBACKUP_FILE"\n");
-		return -1;
+
+	PartBackupDetails.Drive = Drive;
+	PartBackupDetails.StartSector = StartSector;
+	PartBackupDetails.FSType = FSType;
+
+	pathlen = strlen(PartBackupPath);
+	if (pathlen > 0){
+		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, (PartBackupPath[pathlen] == '\\') ? "" : "\\", PARTBACKUP_FILE);
+	}
+	else{
+		strcpy(PartBackupFile,PARTBACKUP_FILE);
 	}
 
-	if (DosFile.Write(hFile,&Drive,sizeof (unsigned short)) != sizeof (unsigned short)) {
+	if ((hFile = DosFile.Create(PartBackupFile)) == -1) {
+		TextUI.OutputStr("failed\nUnable to create ");
+		TextUI.OutputStr(PartBackupFile);
+		TextUI.OutputStr("\n");
+		return -1;
+	}
+	
+
+	if (DosFile.Write(hFile,PartBackupDetails,sizeof (CPartBackupDetails)) != sizeof (CPartBackupDetails)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 		DosFile.Close(hFile);
 		return -1;
 	}
-
-	if (DosFile.Write(hFile,&Sector,sizeof (unsigned long long)) != sizeof (unsigned long long)) {
-		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-		DosFile.Close(hFile);
-		return -1;
-	}
-
-	for (Index = 0; Index < TransferCount; ++Index) {
+	for (Index = 0; Index < TransferCount; Index += 4) {
 		if (Disk.Read(Index,CDosFile::TransferBuffer,4) == -1) {
 			TextUI.OutputStr("failed\nUnable to read partition data\n");
 			DosFile.Close(hFile);
@@ -358,7 +378,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long Sector)
 }
 
 
-void CFsCreator::RestorePartition(unsigned short Drive, unsigned long long StartSector)
+unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long long StartSector)
 {
 	long ImageSize;
 	int TransferCount;
@@ -367,46 +387,77 @@ void CFsCreator::RestorePartition(unsigned short Drive, unsigned long long Start
 	int hFile;
 	unsigned short BackupDrive;
 	unsigned long long BackupStartSector;
+	unsigned short FSType;
+	char PartBackupFile[128];
+	int pathlen;
 
-	TextUI.OutputStr("Restoring partition data...");
-	if (DosFile.SetAttrib(PARTBACKUP_FILE,0) == -1) {
-		TextUI.OutputStr("ignored\nBackup not found\n");
-		return;
+	if (strcmp(PartBackupPath,"NONE")){
+		TextUI.OutputStr("No restore requested...");
+		return 0;
 	}
 
-	if ((ImageSize = DosFile.FileSize(PARTBACKUP_FILE)) == -1) {
+	pathlen = len(PartBackupPath);
+	if (pathlen > 0){
+
+		if (PathBackupPath[pathlen] == '\\';
+		sprintf(PartBackupFile, "%s%s%s",PathBackupPath, (PathBackupPath[pathlen] == '\\') ? "" : "\\", PARTBACKUP_FILE);
+	}
+	else{
+		strcpy(PartBackupFile,PARTBACKUP_FILE);
+	}
+
+	TextUI.OutputStr("Restoring partition data...");
+	if (DosFile.SetAttrib(PartBackupFile,0) == -1) {
+		TextUI.OutputStr("ignored\nBackup not found\n");
+		return -1;
+	}
+
+	if ((ImageSize = DosFile.FileSize(PartBackupFile)) == -1) {
 		TextUI.OutputStr("ignored\nUnable to determine backup size\n");
-		return;
+		return -1;
 	}
 
 
 	if (Disk.Map(Drive,StartSector) == -1) {
 		TextUI.OutputStr("ignored\nUnable to map partition\n");
-		return;
+		return -1;
 	}
 
-	if ((hFile = DosFile.Open(PARTBACKUP_FILE,CDosFile::accessReadOnly)) == -1) {
-		TextUI.OutputStr("ignored\nUnable to open "PARTBACKUP_FILE"\n");
-		return;
+	if ((hFile = DosFile.Open(PartBackupFile,CDosFile::accessReadOnly)) == -1) {
+		TextUI.OutputStr("ignored\nUnable to open "
+		TextUI.OutputStr(PartBackupFile);
+		TextUI.OutputStr("\n");
+		return -1;
 	}
 
 	Disk.Lock();
-	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
-
+//	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
+	TransferCount = (int)(((ImageSize >> 11) + 1) << 2); // Transfer of 2048 blocks of 512 sectors
+/*
 	DosFile.Read(hFile,&BackupDrive,sizeof (unsigned short));
 	DosFile.Read(hFile,&BackupStartSector,sizeof (unsigned long long));
 	if (BackupDrive != Drive || BackupStartSector != StartSector) {
 		TextUI.OutputStr("ignored\nInvalid backup image\n");
 		return;
 	}
-	
-	for (Index = 0; Index < TransferCount; ++Index) {
+*/
+	PartBackupDetails = CDosFile::TransferBuffer;
+	DosFile.Read(hFile,PartBackupDetails,sizeof (*PartBackupDetails));
+	if (PartBackupDetails->Drive != Drive || PartBackupDetails->StartSector != StartSector) {
+		TextUI.OutputStr("ignored\nInvalid backup image\n");
+		return -1;
+	}
+	FSType = PartBackupDetails->FSType;
+
+
+	for (Index = 0; Index < TransferCount; Index+=4) {
 		DosFile.Read(hFile,CDosFile::TransferBuffer,2048);
 		Disk.Write(Index,CDosFile::TransferBuffer,4);
 	}
 	Disk.Unlock();
 	DosFile.Close(hFile);
 	TextUI.OutputStr("done\n");
+	return FSType;
 }
 
 
@@ -453,4 +504,3 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	TextUI.OutputStr("done\n");
 	return 0;
 }
-

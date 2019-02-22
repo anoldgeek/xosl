@@ -268,6 +268,9 @@ XOSL130a12 release
 
 24c. Check install form usb C: drive
 
+24f. Fix backup and restore of xosl fs partition on install and uninstall.
+
+24h. Store FSType in PARTIMG
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
