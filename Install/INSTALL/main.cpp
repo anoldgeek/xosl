@@ -55,27 +55,28 @@ int main(int argc, char* argv[])
 	}
 */
 
-	optc = getopt(argc, argv, ":hp:o:");
-	switch (optc){
-		case 'o':
-			arg = optarg;
-			digit = *arg - '0';
-			if (digit >= 0 && digit <= 9 && arg[1] == 0 ){
-				HDOffset = digit;
-				printf("\nUsing drive-offset %d\n", HDOffset);
-			}
-			break;
-		case 'p':
-			PartBackupPath = optarg;
-			break;
-		case ':':
-			printf( "-%c without param\n", optopt );
-		case '?':
-		case 'h':
-			printf("Usage: %s [-p <partbackup-path>|NONE] [-o <HD-offset>] [-h]\n", argv[0]);
-			printf("e,g,\n\t '%s -p E:\PBACKUPS -o 1\n\t %s -p NONE \n", argv[0], argv[0]);
-			printf("\nSee file Notes.txt\n");
-			return ( -1 );
+	while ((optc = getopt(argc, argv, ":hp:o:" )) != -1) {
+		switch (optc){
+			case 'o':
+				arg = optarg;
+				digit = *arg - '0';
+				if (digit >= 0 && digit <= 9 && arg[1] == 0 ){
+					HDOffset = digit;
+					printf("\nUsing drive-offset %d\n", HDOffset);
+				}
+				break;
+			case 'p':
+				PartBackupPath = optarg;
+				break;
+			case ':':
+				printf( "-%c without param\n", optopt );
+			case '?':
+			case 'h':
+				printf("Usage: %s [-p <partbackup-path>|NONE] [-o <HD-offset>] [-h]\n", argv[0]);
+				printf("e,g,\n\t '%s -p E:\PBACKUPS -o 1\n\t %s -p NONE \n", argv[0], argv[0]);
+				printf("\nSee file Notes.txt\n");
+				return ( -1 );
+		}
 	}
 
 

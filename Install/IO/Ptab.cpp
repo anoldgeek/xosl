@@ -452,7 +452,7 @@ void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char Mbr
 	}
 }
 
-uuid_t* CPartList::GetGPTType(int FSType)
+uuid_t* CPartList::GetGPTType(unsigned short FSType)
 {
 	for (int Index = 0; ;++Index ){
 		if (gpt_fstypes[Index].MBRType == FSType) {
@@ -463,7 +463,7 @@ uuid_t* CPartList::GetGPTType(int FSType)
 		}
 	}
 }
-char* CPartList::GetGPTName(int FSType)
+char* CPartList::GetGPTName(unsigned short FSType)
 {
 	for (int Index = 0; ;++Index ){
 		if (gpt_fstypes[Index].MBRType == FSType) {
@@ -569,7 +569,7 @@ void CPartList::SetActive(int Index)
 	}
 }
 
-void CPartList::SetFsType(int Index, int FSType)
+void CPartList::SetFsType(int Index, unsigned short FSType)
 {
 	if (FSType < 0x100){
 		// MBR FSType

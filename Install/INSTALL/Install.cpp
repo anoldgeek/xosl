@@ -186,21 +186,20 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 
 	Partition = PartList.GetPartition(PartIndex);
 	if (MbrHDSector0 != 0xff){
-		if (LoadRawMbr(PartIndex,XoslFiles.GetOriginalMbrName(),OriginalMbrBuffer) != -1)
-				SetPartId(PartIndex,*(unsigned short *)&OriginalMbrBuffer[508]);
-		if (!OriginalMbr) {
+		if (OriginalMbr && LoadRawMbr(PartIndex,XoslFiles.GetOriginalMbrName(),OriginalMbrBuffer) != -1)
+			MbrBuffer = OriginalMbrBuffer;
+		else{
 			if (LoadDefaultMbr(DefaultMbrBuffer) == -1)
 				return -1;
 			MbrBuffer = DefaultMbrBuffer;
 		}
-		else
-			MbrBuffer = OriginalMbrBuffer;
 
 		if (FatInstall.InstallIpl(MbrBuffer,MbrHDSector0) == -1)
 			return -1;
 	}
 		
 	FSType = FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
+	PartList.UpdateFSType(PartIndex, FSType, MbrHDSector0);
 	SetPartId(PartIndex,FSType);
 
 	TextUI.OutputStr("\nUninstall complete\n");

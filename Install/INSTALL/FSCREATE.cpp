@@ -316,7 +316,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	CPartBackupDetails PartBackupDetails;
 
 
-	if (strcmp(PartBackupPath,"NONE")){
+	if (strcmp(PartBackupPath,"NONE") == 0){
 		TextUI.OutputStr("No backup requested...");
 		return 0;
 	}
@@ -333,15 +333,20 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 		TextUI.OutputStr("failed\nUnable to map partition\n");
 		return -1;
 	}
-
-
 	PartBackupDetails.Drive = Drive;
 	PartBackupDetails.StartSector = StartSector;
 	PartBackupDetails.FSType = FSType;
 
 	pathlen = strlen(PartBackupPath);
 	if (pathlen > 0){
-		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, (PartBackupPath[pathlen] == '\\') ? "" : "\\", PARTBACKUP_FILE);
+		char *backslash;
+		if (PartBackupPath[pathlen - 1] == '\\'){
+			backslash = "";
+		}
+		else{
+			backslash = "\\";
+		}
+		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, backslash, PARTBACKUP_FILE);
 	}
 	else{
 		strcpy(PartBackupFile,PARTBACKUP_FILE);
@@ -355,11 +360,12 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	}
 	
 
-	if (DosFile.Write(hFile,PartBackupDetails,sizeof (CPartBackupDetails)) != sizeof (CPartBackupDetails)) {
+	if (DosFile.Write(hFile,&PartBackupDetails,sizeof (CPartBackupDetails)) != sizeof (CPartBackupDetails)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
 		DosFile.Close(hFile);
 		return -1;
 	}
+
 	for (Index = 0; Index < TransferCount; Index += 4) {
 		if (Disk.Read(Index,CDosFile::TransferBuffer,4) == -1) {
 			TextUI.OutputStr("failed\nUnable to read partition data\n");
@@ -377,7 +383,6 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	return 0;
 }
 
-
 unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long long StartSector)
 {
 	long ImageSize;
@@ -390,17 +395,23 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	unsigned short FSType;
 	char PartBackupFile[128];
 	int pathlen;
+	CPartBackupDetails PartBackupDetails;
 
-	if (strcmp(PartBackupPath,"NONE")){
+	if (strcmp(PartBackupPath,"NONE") == 0){
 		TextUI.OutputStr("No restore requested...");
 		return 0;
 	}
 
-	pathlen = len(PartBackupPath);
+	pathlen = strlen(PartBackupPath);
 	if (pathlen > 0){
-
-		if (PathBackupPath[pathlen] == '\\';
-		sprintf(PartBackupFile, "%s%s%s",PathBackupPath, (PathBackupPath[pathlen] == '\\') ? "" : "\\", PARTBACKUP_FILE);
+		char *backslash;
+		if (PartBackupPath[pathlen - 1] == '\\'){
+			backslash = "";
+		}
+		else{
+			backslash = "\\";
+		}
+		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, backslash, PARTBACKUP_FILE);
 	}
 	else{
 		strcpy(PartBackupFile,PARTBACKUP_FILE);
@@ -424,7 +435,7 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	}
 
 	if ((hFile = DosFile.Open(PartBackupFile,CDosFile::accessReadOnly)) == -1) {
-		TextUI.OutputStr("ignored\nUnable to open "
+		TextUI.OutputStr("ignored\nUnable to open ");
 		TextUI.OutputStr(PartBackupFile);
 		TextUI.OutputStr("\n");
 		return -1;
@@ -433,21 +444,13 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	Disk.Lock();
 //	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
 	TransferCount = (int)(((ImageSize >> 11) + 1) << 2); // Transfer of 2048 blocks of 512 sectors
-/*
-	DosFile.Read(hFile,&BackupDrive,sizeof (unsigned short));
-	DosFile.Read(hFile,&BackupStartSector,sizeof (unsigned long long));
-	if (BackupDrive != Drive || BackupStartSector != StartSector) {
-		TextUI.OutputStr("ignored\nInvalid backup image\n");
-		return;
-	}
-*/
-	PartBackupDetails = CDosFile::TransferBuffer;
-	DosFile.Read(hFile,PartBackupDetails,sizeof (*PartBackupDetails));
-	if (PartBackupDetails->Drive != Drive || PartBackupDetails->StartSector != StartSector) {
+
+	DosFile.Read(hFile,&PartBackupDetails,sizeof (CPartBackupDetails));
+	if (PartBackupDetails.Drive != Drive || PartBackupDetails.StartSector != StartSector) {
 		TextUI.OutputStr("ignored\nInvalid backup image\n");
 		return -1;
 	}
-	FSType = PartBackupDetails->FSType;
+	FSType = PartBackupDetails.FSType;
 
 
 	for (Index = 0; Index < TransferCount; Index+=4) {
