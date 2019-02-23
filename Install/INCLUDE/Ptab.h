@@ -112,10 +112,10 @@ class CPartList {
 		int CanActivate(int Index);
 		void SetAllowActiveHD(int Status);
 		void SetActive(int Index);
-		void SetFsType(int Index, unsigned short FsType);
+		void SetFsType(int Index, unsigned short FsType, unsigned char MbrHDSector0);
 		int UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0);
 		int Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition);
-		void UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0);
+//		void UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0);
 		int GetGPTIndex(uuid_t GPTType);
 		unsigned short GetGPTShortType(uuid_t GPTType);
 		uuid_t* GetGPTType(unsigned short FSType);

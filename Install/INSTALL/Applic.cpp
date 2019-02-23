@@ -50,11 +50,11 @@ const char InstallNotes[] =
 "\n"
 "Press any key to continue...";
 
-CApplication::CApplication(char *PartBackupPath):
+CApplication::CApplication(TPartBackControl *PartBackControl):
 	TextScreen(new CTextScreen(0x1f00)),
 	TextUI(*TextScreen),
 	Data(TextUI,PartList),
-	Installer(TextUI,PartList,PartBackupPath),
+	Installer(TextUI,PartList,PartBackControl),
 	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A')) > 0)
 {
 	DoExit = 0;
@@ -275,12 +275,22 @@ int CApplication::StartUninstallSep()
 {
 	int PartIndex;
 	int OriginalMbr;
+	int PartNameIndex;
 	unsigned char MbrHDSector0;
 	
 	OriginalMbr = !TextUI.GetOptionIndex(0);
-	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(2));
+	PartNameIndex = TextUI.GetOptionIndex(2);
+	PartIndex = InstallMenus.ResolvePartIndex(PartNameIndex);
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(6));
-	return Installer.Uninstall(PartIndex,OriginalMbr,MbrHDSector0);
+	if (Installer.Uninstall(PartIndex,OriginalMbr,MbrHDSector0) == -1){
+		TextUI.OutputStr("Uninstall error\n");
+		return -1;
+	}
+	else{
+		// Update PartNameList item after FSType change
+		InstallMenus.UpdatePartNameItem(PartNameIndex,PartIndex,MbrHDSector0);
+		return 0;
+	}
 }
 
 void CApplication::MainMenuExecute(CApplication *Application, TEnumMainMenu Item)

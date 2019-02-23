@@ -39,7 +39,7 @@
 
 class CFsCreator {
 public:
-	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, char *PartBackupPath);
+	CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, TPartBackControl *PartBackControl);
 	~CFsCreator();
 
 	int InstallFs(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0, unsigned short FSType);
@@ -117,7 +117,9 @@ private:
 	void CFsCreator::AddRootDirEntry(const char *FileName, long FileSize,unsigned short FatDate,unsigned short FatTime);
 	void AddFatEntries(long FileSize);
 
-	char *PartBackupPath;
+	TPartBackControl *PartBackControl;
+
+	void GetPartBackFilePath(char *PartBackupFile);
 };
 
 #endif

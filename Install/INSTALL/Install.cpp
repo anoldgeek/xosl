@@ -40,11 +40,11 @@
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
-CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, char *PartBackupPath):
+CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, TPartBackControl *PartBackControl):
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
 	FatInstall(TextUIToUse,XoslFiles,DosFile),
-	FsCreator(TextUIToUse,XoslFiles,DosFile,PartBackupPath)
+	FsCreator(TextUIToUse,XoslFiles,DosFile,PartBackControl)
 {
 }
 
@@ -139,13 +139,13 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		return -1;
 	if (Partition->Type != PART_GPT){
 		// MBR Drive
-		SetPartId(PartIndex,0x78);
-		// Update the partition entries in case user returns to menu
-		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
+		SetPartId(PartIndex,0x78, MbrHDSector0);
+//		// Update the partition entries in case user returns to menu
+//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
 	}else{
 		// GPT Drive
-		SetPartId(PartIndex,0x7800);
-		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
+		SetPartId(PartIndex,0x7800, MbrHDSector0);
+//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
 	}
 
  	if (MbrHDSector0 != 0xff){
@@ -199,8 +199,8 @@ int CInstaller::Uninstall(int PartIndex, int OriginalMbr, unsigned char MbrHDSec
 	}
 		
 	FSType = FsCreator.RestorePartition(Partition->Drive,Partition->StartSector);
-	PartList.UpdateFSType(PartIndex, FSType, MbrHDSector0);
-	SetPartId(PartIndex,FSType);
+//	PartList.UpdateFSType(PartIndex, FSType, MbrHDSector0);
+	SetPartId(PartIndex,FSType, MbrHDSector0);
 
 	TextUI.OutputStr("\nUninstall complete\n");
 	return 0;
@@ -470,12 +470,12 @@ int CInstaller::LoadDefaultMbr(void *MbrBuffer)
 }
 
 
-void CInstaller::SetPartId(int PartIndex, int PartId)
+void CInstaller::SetPartId(int PartIndex, unsigned short PartId, unsigned char MbrHDSector0)
 {
 	char *errstr;
 
 	TextUI.OutputStr("Updating partition tables...");
-	PartList.SetFsType(PartIndex,PartId);
+	PartList.SetFsType(PartIndex, PartId, MbrHDSector0);
 	if((errstr=PartList.WriteStructure()) != NULL ){
 		TextUI.OutputStr(errstr);
 	}
@@ -693,13 +693,13 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 
 	if (Partition->Type != PART_GPT){
 		// MBR Drive
-		SetPartId(PartIndex,0x78);
-		// Update the partition entries in case user returns to menu
-		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
+		SetPartId(PartIndex,0x78, MbrHDSector0);
+//		// Update the partition entries in case user returns to menu
+//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
 	}else{
 		// GPT Drive
-		SetPartId(PartIndex,0x7800);
-		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
+		SetPartId(PartIndex,0x7800, MbrHDSector0);
+//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
 	}
 
  	if (MbrHDSector0 != 0xff){

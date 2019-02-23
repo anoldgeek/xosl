@@ -424,7 +424,7 @@ const TPartition *CPartList::GetPartition(int Index)
 {
 	return PLUP[Index]->Partition;
 }
-
+/*
 void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0)
 {
 	PLUP[Index]->Partition->FSType = FSType;
@@ -443,6 +443,36 @@ void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char Mbr
 		// wide charcter fudge
 		Name = GetGPTName(FSType);
 		gptname = PLUP[Index]->gptEntry->name;
+		for(i = 0, j = 0; Name[i] != 0 ;){
+			gptname[j++] = Name[i++];
+			gptname[j++] = 0;
+		}
+		gptname[j++] = 0;
+		gptname[j++] = 0;
+	}
+}
+*/
+void CPartList::SetFsType(int Index, unsigned short FSType, unsigned char MbrHDSector0)
+{
+	TPartition *Partition = PLUP[Index]->Partition;
+	Partition->FSType = FSType;
+	Partition->FSName = GetFSName(FSType);
+	Partition->MbrHDSector0 = MbrHDSector0;
+	if (FSType < 0x100){
+		// MBR FSType
+		TPartMbrEntry *Entry = PLUP[Index]->Entry;
+		Entry->FSType = FSType;
+	}
+	else{
+		// gpt type
+		char *Name, *gptname;
+		int i,j;
+		gpt_partentry_t *gptEntry = PLUP[Index]->gptEntry;
+
+		memcpy(&gptEntry->type,GetGPTType(FSType), sizeof(uuid_t));
+		// wide charcter fudge
+		Name = GetGPTName(FSType);
+		gptname = gptEntry->name;
 		for(i = 0, j = 0; Name[i] != 0 ;){
 			gptname[j++] = Name[i++];
 			gptname[j++] = 0;
@@ -569,31 +599,6 @@ void CPartList::SetActive(int Index)
 	}
 }
 
-void CPartList::SetFsType(int Index, unsigned short FSType)
-{
-	if (FSType < 0x100){
-		// MBR FSType
-		PLUP[Index]->Entry->FSType = FSType;
-	}
-	else{
-		// gpt type
-		char *Name, *gptname;
-		int i,j;
-
-		memcpy(&PLUP[Index]->gptEntry->type,GetGPTType(FSType), sizeof(uuid_t));
-		// wide charcter fudge
-		Name = GetGPTName(FSType);
-		gptname = PLUP[Index]->gptEntry->name;
-		for(i = 0, j = 0; Name[i] != 0 ;){
-			gptname[j++] = Name[i++];
-			gptname[j++] = 0;
-		}
-		gptname[j++] = 0;
-		gptname[j++] = 0;
-	}
-}
-
-
 CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0x01,"Microsoft FAT12"},
 	{0x04,"Microsoft FAT16"},
@@ -613,11 +618,16 @@ CPartList::TFSNameEntry CPartList::FSNameList[] = {
 	{0x1c,"Hidden FAT32 LBA"},
 	{0x1e,"Hidden FAT16 LBA"},
 	{0x1f,"Hidden Extended LBA"},
+	{0x4d,"QNX4.x"},
+	{0x4e,"QNX4.x 2nd part"},
+	{0x4f,"QNX4.x 3rd part"},
 	{0x63,"Unix SysV/386"},
 	{0x78,"XOSL FS"},
 	{0x82,"Linux Swap"},
 	{0x83,"Linux Native"},
 	{0x85,"Linux Extended"},
+	{0x88,"Linux plaintext"},
+	{0x8e,"Linux LVM"},
 	{0xa5,"FreeBSD, BSD/386"},
 	{0xeb,"BeOS"},
 	{0xee,"Protective MBR"},

@@ -25,7 +25,7 @@
 
 class CApplication {
 public:
-	CApplication( char *PartBackupPath);
+	CApplication( TPartBackControl *PartBackControl );
 	~CApplication();
 
 	void ApplicationLoop();

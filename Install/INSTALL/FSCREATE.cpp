@@ -40,12 +40,12 @@
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
 
-CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, char *PartBackupPath):
+CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, TPartBackControl *PartBackControl):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
-	this->PartBackupPath = PartBackupPath;
+	this->PartBackControl = PartBackControl;
 }
 
 CFsCreator::~CFsCreator()
@@ -316,10 +316,6 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	CPartBackupDetails PartBackupDetails;
 
 
-	if (strcmp(PartBackupPath,"NONE") == 0){
-		TextUI.OutputStr("No backup requested...");
-		return 0;
-	}
 
 	TextUI.OutputStr("Creating backup...");
 	if ((ImageSize = DosFile.FileSize(XOSLIMG_FILE)) == -1) {
@@ -337,20 +333,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	PartBackupDetails.StartSector = StartSector;
 	PartBackupDetails.FSType = FSType;
 
-	pathlen = strlen(PartBackupPath);
-	if (pathlen > 0){
-		char *backslash;
-		if (PartBackupPath[pathlen - 1] == '\\'){
-			backslash = "";
-		}
-		else{
-			backslash = "\\";
-		}
-		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, backslash, PARTBACKUP_FILE);
-	}
-	else{
-		strcpy(PartBackupFile,PARTBACKUP_FILE);
-	}
+	GetPartBackFilePath(PartBackupFile);
 
 	if ((hFile = DosFile.Create(PartBackupFile)) == -1) {
 		TextUI.OutputStr("failed\nUnable to create ");
@@ -366,16 +349,22 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 		return -1;
 	}
 
-	for (Index = 0; Index < TransferCount; Index += 4) {
-		if (Disk.Read(Index,CDosFile::TransferBuffer,4) == -1) {
-			TextUI.OutputStr("failed\nUnable to read partition data\n");
-			DosFile.Close(hFile);
-			return -1;
-		}
-		if (DosFile.Write(hFile,CDosFile::TransferBuffer,2048) != 2048) {
-			TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
-			DosFile.Close(hFile);
-			return -1;
+	if (PartBackControl->BackupPartData == 0){
+		TextUI.OutputStr("Partition details backed up...\n");
+		TextUI.OutputStr("No partition data backup requested...\n");
+	}
+	else{
+		for (Index = 0; Index < TransferCount; Index += 4) {
+			if (Disk.Read(Index,CDosFile::TransferBuffer,4) == -1) {
+				TextUI.OutputStr("failed\nUnable to read partition data\n");
+				DosFile.Close(hFile);
+				return -1;
+			}
+			if (DosFile.Write(hFile,CDosFile::TransferBuffer,2048) != 2048) {
+				TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
+				DosFile.Close(hFile);
+				return -1;
+			}
 		}
 	}
 	DosFile.Close(hFile);
@@ -394,28 +383,9 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	unsigned long long BackupStartSector;
 	unsigned short FSType;
 	char PartBackupFile[128];
-	int pathlen;
 	CPartBackupDetails PartBackupDetails;
 
-	if (strcmp(PartBackupPath,"NONE") == 0){
-		TextUI.OutputStr("No restore requested...");
-		return 0;
-	}
-
-	pathlen = strlen(PartBackupPath);
-	if (pathlen > 0){
-		char *backslash;
-		if (PartBackupPath[pathlen - 1] == '\\'){
-			backslash = "";
-		}
-		else{
-			backslash = "\\";
-		}
-		sprintf(PartBackupFile, "%s%s%s",PartBackupPath, backslash, PARTBACKUP_FILE);
-	}
-	else{
-		strcpy(PartBackupFile,PARTBACKUP_FILE);
-	}
+	GetPartBackFilePath(PartBackupFile);
 
 	TextUI.OutputStr("Restoring partition data...");
 	if (DosFile.SetAttrib(PartBackupFile,0) == -1) {
@@ -429,22 +399,12 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	}
 
 
-	if (Disk.Map(Drive,StartSector) == -1) {
-		TextUI.OutputStr("ignored\nUnable to map partition\n");
-		return -1;
-	}
-
 	if ((hFile = DosFile.Open(PartBackupFile,CDosFile::accessReadOnly)) == -1) {
 		TextUI.OutputStr("ignored\nUnable to open ");
 		TextUI.OutputStr(PartBackupFile);
 		TextUI.OutputStr("\n");
 		return -1;
 	}
-
-	Disk.Lock();
-//	TransferCount = (int)((ImageSize - 6) >> 11); // always a multiple of 2048!
-	TransferCount = (int)(((ImageSize >> 11) + 1) << 2); // Transfer of 2048 blocks of 512 sectors
-
 	DosFile.Read(hFile,&PartBackupDetails,sizeof (CPartBackupDetails));
 	if (PartBackupDetails.Drive != Drive || PartBackupDetails.StartSector != StartSector) {
 		TextUI.OutputStr("ignored\nInvalid backup image\n");
@@ -452,12 +412,28 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	}
 	FSType = PartBackupDetails.FSType;
 
-
-	for (Index = 0; Index < TransferCount; Index+=4) {
-		DosFile.Read(hFile,CDosFile::TransferBuffer,2048);
-		Disk.Write(Index,CDosFile::TransferBuffer,4);
+	if (PartBackControl->BackupPartData == 0 || ImageSize == 512){
+		TextUI.OutputStr("Partition details recovered...\n");
+		if (ImageSize == 512)
+			TextUI.OutputStr("No partition data available for restore...\n");
+		else
+			TextUI.OutputStr("No partition data restore requested...\n");
 	}
-	Disk.Unlock();
+	else{
+		if (Disk.Map(Drive,StartSector) == -1) {
+			TextUI.OutputStr("ignored\nUnable to map partition\n");
+			return -1;
+		}
+
+		Disk.Lock();
+		TransferCount = (int)(((ImageSize >> 11) + 1) << 2); // Transfer of 2048 blocks of 512 sectors
+
+		for (Index = 0; Index < TransferCount; Index+=4) {
+			DosFile.Read(hFile,CDosFile::TransferBuffer,2048);
+			Disk.Write(Index,CDosFile::TransferBuffer,4);
+		}
+		Disk.Unlock();
+	}
 	DosFile.Close(hFile);
 	TextUI.OutputStr("done\n");
 	return FSType;
@@ -506,4 +482,26 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	DosFile.Close(hFile);
 	TextUI.OutputStr("done\n");
 	return 0;
+}
+
+void CFsCreator::GetPartBackFilePath(char *PartBackupFile)
+{
+	int pathlen;
+	char *PartBackupPath = PartBackControl->PartBackupPath;
+
+	pathlen = strlen(PartBackupPath);
+	if (pathlen > 0){
+		if (PartBackupPath[pathlen - 1] == '\\'){
+			// Just the path given. Add the defualt name
+			sprintf(PartBackupFile, "%s%s",PartBackupPath, PARTBACKUP_FILE);
+		}
+		else{
+			// Full path and file given
+			strcpy(PartBackupFile,PartBackupPath);
+		}
+	}
+	else{
+		// No path given. Use the default
+		strcpy(PartBackupFile,PARTBACKUP_FILE);
+	}
 }
