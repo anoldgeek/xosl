@@ -11,7 +11,7 @@
 #ifndef __xoslversion__
 #define __xoslversion__
 
-#define XOSL_VERSION "1.3.0a13"
-#define XOSL_LABEL "XOSL130a13 "
+#define XOSL_VERSION "1.3.0a14"
+#define XOSL_LABEL "XOSL130a14 "
 
 #endif
