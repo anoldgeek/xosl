@@ -40,10 +40,11 @@ ipl0blba.bin: .SYMBOLIC mainfat.obj disklba.obj fat32.obj mem.obj dt32lba.obj
         $(LINK) name ipl0blba.bin $(LINK_OPTIONS) FIL MainFat.obj,disklba.obj,fat32.obj,mem.obj,dt32lba.obj
 
 clean: .SYMBOLIC
-        @if exist *.obj del *.obj
-        @if exist *.bak del *.bak
-        @if exist *.map del *.map
-        @if exist *.bin del *.bin
+        @if exist *.obj @del *.obj
+        @if exist *.bak @del *.bak
+        @if exist *.map @del *.map
+        @if exist *.bin @del *.bin
+	@if exist *.err @del *.err
 
 .asm.obj:
         $(ASM) $<

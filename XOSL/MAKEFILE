@@ -138,6 +138,8 @@ clean: .SYMBOLIC
    wmake clean
    $(ENTER) ..\debug
    wmake clean
+   $(ENTER) ..\include
+   @if exist *.bak del *.bak
    $(LEAVE)
    @if exist xosl.exe del xosl.exe
    @if exist xosl.map del xosl.map

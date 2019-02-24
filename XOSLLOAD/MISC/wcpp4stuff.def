@@ -1,6 +1,0 @@
-//#line "wcpp4stuff.cpp" 41
-extern void __wcpp_4_undefed_cdtor_( void );
-//#line "wcpp4stuff.cpp" 66
-extern void * __wcpp_4_dtor_array_store_( void );
-//#line "wcpp4stuff.cpp" 76
-extern void __wcpp_4_pure_error_( void );

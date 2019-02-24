@@ -45,6 +45,7 @@ clean: .SYMBOLIC
    @if exist *.bak del *.bak
    @if exist *.lib del *.lib
    @if exist *.lst del *.lst
+   @if exist *.err del *.err
 
 .cpp.obj:
    $(CPP) $<

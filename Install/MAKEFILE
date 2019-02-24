@@ -116,7 +116,10 @@ clean: .SYMBOLIC
    wmake clean
    $(ENTER) ..\text
    wmake clean
+   $(ENTER) ..\include
+   @if exist *.bak del *.bak
    $(LEAVE)
    @if exist install.exe del install.exe
    @if exist install.map del install.map
    @if exist install.sym del install.sym
+   @if exist *.bak del *.bak

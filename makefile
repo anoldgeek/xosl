@@ -19,7 +19,7 @@ MAKE_OPTIONS=DOS_DEBUG=1
 ENTER=cd
 LEAVE=$(ENTER) ..
 COPY=copy
-DELETE=del
+DELETE=@del
 
 all: build arch
 
@@ -58,22 +58,22 @@ ipl: .SYMBOLIC
 
 arch: .SYMBOLIC
     $(COPY) xosl\*.xxf arch
-    $(COPY) xosl\xosl.* arch
+#    $(COPY) xosl\xosl.* arch
     $(COPY) xoslload\xoslload.xcf arch
     $(COPY) install\install.exe arch
-    $(COPY) install\install.map arch
-    $(COPY) install\install.sym arch
+#    $(COPY) install\install.map arch
+#    $(COPY) install\install.sym arch
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
-    $(COPY) xoslload\xoslload.* arch
+#    $(COPY) xoslload\xoslload.* arch
 
     @cmd.exe /c chkbinsz.cmd
 #    dir arch\*.bin
 
 #------------------------- CLEAN ------------------------- #
 
-clean: clean_xosl clean_xoslload clean_install clean_ipl clean_arch
+clean: clean_xosl clean_xoslload clean_install clean_ipl clean_arch clean_include clean_resource
 
 
 clean_xosl: .SYMBOLIC
@@ -103,14 +103,26 @@ clean_ipl: .SYMBOLIC
 
 clean_arch: .SYMBOLIC
     $(ENTER) arch
-    $(DELETE) *.xxf
-    $(DELETE) *.xcf
-    $(DELETE) *.xff
-    $(DELETE) *.xbf
-    $(DELETE) *.exe
-    $(DELETE) *.bin
-    $(DELETE) *.mbr
-    $(DELETE) *.txt
-    $(DELETE) *.map
-    $(DELETE) *.sym
+    $(DELETE) *.xxf >nul 2>&1
+    $(DELETE) *.xcf >nul 2>&1
+    $(DELETE) *.xff >nul 2>&1
+    $(DELETE) *.xbf >nul 2>&1
+    $(DELETE) *.exe >nul 2>&1
+    $(DELETE) *.bin >nul 2>&1
+    $(DELETE) *.mbr >nul 2>&1
+    $(DELETE) *.txt >nul 2>&1
+    $(DELETE) *.map >nul 2>&1
+    $(DELETE) *.sym >nul 2>&1
+    $(DELETE) *.com >nul 2>&1
+    $(DELETE) *.bak >nul 2>&1
+    $(LEAVE)
+
+clean_include: .SYMBOLIC
+    $(ENTER) include
+    $(DELETE) *.bak >nul 2>&1
+    $(LEAVE)
+
+clean_resource: .SYMBOLIC
+    $(ENTER) resource
+    $(DELETE) *.bak >nul 2>&1
     $(LEAVE)

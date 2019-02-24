@@ -39,6 +39,9 @@ clean: .SYMBOLIC
    @if exist *.bak del *.bak
    @if exist *.bin del *.bin
    @if exist *.map del *.map
+   @if exist *.err del *.err
+   @if exist *.lst del *.lst
+   @if exist *.bak del *.bak
 
 $(CONV_OUT): .SYMBOLIC $(CONV_OBJ)
     $(LINK) name $(CONV_OUT) $(LINK_OPTIONS) FIL $(FIL_CONV_OBJ)

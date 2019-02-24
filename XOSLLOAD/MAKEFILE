@@ -96,6 +96,13 @@ clean: .SYMBOLIC
    wmake clean
    $(ENTER) ..\misc
    wmake clean
+   $(ENTER) ..\include
+   @if exist *.bak del *.bak
    $(LEAVE)
    @del xoslload.xcf
    @del xoslload.map
+   @del xoslload.bin
+   @del xoslload.sym
+   @del xoslload.com
+   @del xoslload.exe
+   @del *.bak
