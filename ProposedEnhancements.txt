@@ -274,6 +274,8 @@ XOSL130a12 release
 XOSL130a12 release
 **************** TODO ****************
 
+24i. Update Notes.txt
+
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and excute.
 
