@@ -22,7 +22,7 @@ The full license can be found in the GPL.TXT file.
 	 partition from a 1.44MB floppy. So that the save an additional 512 
 	 bytes rather than approx 478,000.
 
-   b) > 2TB hard disks provided LBA is available.
+   b) > 2TB hard disks supported provided LBA is available and GPT Partitioned.
    c) GPT partitioned disks. Tested with grub2 and xosl chain load.
    d) Upgrading  from older versions >= 1.1.4
    e) When installing on a dedicated partition, the option the choose 

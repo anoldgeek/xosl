@@ -73,7 +73,7 @@ arch: .SYMBOLIC
 
 #------------------------- CLEAN ------------------------- #
 
-clean: clean_xosl clean_xoslload clean_install clean_ipl clean_arch clean_include clean_resource
+clean: clean_xosl clean_xoslload clean_install clean_ipl clean_arch clean_include clean_resource clean_root
 
 
 clean_xosl: .SYMBOLIC
@@ -126,3 +126,6 @@ clean_resource: .SYMBOLIC
     $(ENTER) resource
     $(DELETE) *.bak >nul 2>&1
     $(LEAVE)
+
+clean_root: .SYMBOLIC
+    $(DELETE) *.bak >nul 2>&1
