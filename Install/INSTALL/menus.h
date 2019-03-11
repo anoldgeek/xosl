@@ -46,7 +46,9 @@ public:
 	int GetHDIndex(unsigned char MbrHDSector0);
 	void ResetPartNameList(void);
 	char * UpdatePartNameList(char * PartStr, const TPartition *Partition);
-	void  UpdatePartNameItem(int PartNameIndex, int PartIndex,unsigned char MbrHDSector0);
+	void UpdatePartNameItem(int PartNameIndex, int PartIndex,unsigned char MbrHDSector0);
+	void UpdateMbrHDSector0(int PartNameIndex, unsigned char MbrHDSector0);
+	void UpdateDosDriveNameItem(CDosDriveList::CDosDrive *DosDrive,unsigned char MbrHDSector0);
 
 private:
 	CTextUI &TextUI;
@@ -54,6 +56,7 @@ private:
 	CPartList &PartList;
 
 	char **DosDriveList;
+	unsigned char *MbrDosDriveSector0List;
 	int DosDriveCount;
 	void CreateDosDriveList();
 

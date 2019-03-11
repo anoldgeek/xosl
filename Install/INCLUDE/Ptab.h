@@ -14,6 +14,7 @@
 #include <defs.h>
 #include <gptab.h>
 #include <main.h>
+//#include <bootrec.h>
 
 #define PART_PRIMARY 1
 #define PART_LOGICAL 2
@@ -113,7 +114,7 @@ class CPartList {
 		void SetAllowActiveHD(int Status);
 		void SetActive(int Index);
 		void SetFsType(int Index, unsigned short FsType, unsigned char MbrHDSector0);
-		int UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0);
+		int UpgradeXoslBootItem(const TPartition *Partition, unsigned char MbrHDSector0, unsigned char &OldMbrHDSector0);
 		int Retain(const char *DosFileName,unsigned short FileSize,const TPartition *Partition);
 //		void UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0);
 		int GetGPTIndex(uuid_t GPTType);
@@ -121,6 +122,7 @@ class CPartList {
 		uuid_t* GetGPTType(unsigned short FSType);
 		uint16_t GetGptMBRType(int gpt_index);
 		char* GetGPTName(unsigned short FSType);
+		void UpdatePartitionMbrHDSector0(int Index, unsigned char MbrHDSector0);
 	public:
 		typedef struct {
 			int FSID;
@@ -140,6 +142,7 @@ class CPartList {
 		void ConvertDOS2XoslFsName(const char *DosFileName, char *XoslFsFileName);
 		uint32_t chksum_crc32 (uint32_t initial, const void *block, uint64_t length);
 		void chksum_crc32gentab ();
+//		int GetDriveIndex(TPartition *Partition, TBootRecord &BootRecord);
 		TMBRNode MBRList;
 		TPartNode PartList;
 		int Count;

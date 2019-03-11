@@ -33,9 +33,13 @@
 extern "C" {
 #endif
 
-void far memset(void *dest, int value, unsigned short count);
-void far memcpy(void *dest, const void *src, unsigned short size);
-int far memcmp(const void *s1, const void *s2, unsigned short count);
+//void far memset(void *dest, int value, unsigned short count);
+//void far memcpy(void *dest, const void *src, unsigned short size);
+//int far memcmp(const void *s1, const void *s2, unsigned short count);
+
+void far memset(void *dest, int value, unsigned count);
+void far memcpy(void *dest, const void *src, unsigned size);
+int far memcmp(const void *s1, const void *s2, unsigned count);
 
 #ifdef __cplusplus
 };

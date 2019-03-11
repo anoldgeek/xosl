@@ -130,11 +130,11 @@ void CDisk::Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned 
 	int Sector;
 	int Head;
 
-	RSector += (int) StartSector;
+	RSector += (unsigned long) StartSector;
 
-	Sector = (int)RSector % DrvSectorCount + 1;
+	Sector = (int)(RSector % DrvSectorCount + 1);
 	RSector /= DrvSectorCount;
-	Head = (int)RSector % DrvHeadCount;
+	Head = (int)(RSector % DrvHeadCount);
 	Cylinder = (int)(RSector / DrvHeadCount);
 
 	DrvHead = Drive | (Head << 8);

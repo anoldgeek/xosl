@@ -25,6 +25,7 @@
 #include <memory_x.h>
 #include <xoslver.h>
 #include <gptab.h>
+#include <dosdrv.h>
 
 static const char *YesNoList[2] = {"Yes", "No"};
 
@@ -134,7 +135,8 @@ void CInstallMenus::InitInstFatMenu(CTextList::TListItemExecute MenuHandler, voi
 	TextUI.ClearMenu();
 	TextUI.AddMenuItem(0,"Video mode","Initial video mode",1,ModeCount,ModeNameList,1);
 	TextUI.AddMenuItem(1,"Mouse type","Initial mouse type",1,MouseTypeCount,MouseTypeNames,1);
-	TextUI.AddMenuItem(2,"Install on drive","Drive to install XOSL on",1,DosDriveCount,(const char **)DosDriveList,1);
+//	TextUI.AddMenuItem(2,"Install on drive","Drive to install XOSL on",1,DosDriveCount,(const char **)DosDriveList,1);
+	TextUI.AddMenuItem(2,"Install on drive","Drive to install XOSL on",1,DosDriveCount,(const char **)DosDriveList,1,3,MbrDosDriveSector0List);
 	TextUI.AddMenuItem(3,"Drv for Sector0 MBR","Drive to install Sector 0 XOSL "XOSL_VERSION" MBR on",1,HDNameCount,(const char **)HDNameList,1);
 	TextUI.AddMenuItem(4,"Ranish Partition Manager","Install Ranish Partition Manager 2.44 beta together with XOSL "XOSL_VERSION"",1,2,YesNoList,1);
 	TextUI.AddMenuItem(5,"Smart Boot Manager","Install Smart Boot Manager 3.7.1 for CD-ROM booting support.",1,2,YesNoList,1);
@@ -355,14 +357,17 @@ void CInstallMenus::CreateDosDriveList()
 {
 	int Index;
 	int *Buffer;
+	CDosDriveList DosDrive(PartList);
 
 	DosDriveCount = Data.GetLastDrive() - ('C' - 'A');
 	if (DosDriveCount > 0) {
 		DosDriveList = new char *[DosDriveCount];
+		MbrDosDriveSector0List = new unsigned char [DosDriveCount];
 		Buffer = new int[DosDriveCount];
 		for (Index = 0; Index < DosDriveCount; ++Index) {
 			Buffer[Index] = Index + 'C';
 			DosDriveList[Index] = (char *)&Buffer[Index];
+			MbrDosDriveSector0List[Index] = DosDrive.GetDosDriveSector0(Index);
 		}
 	} else {
 		DosDriveList = (char **) 0;
@@ -403,7 +408,7 @@ void CInstallMenus::CreatePartList()
 							MbrHDSector0List[PartNameCount] = GetHDIndex(Partition->MbrHDSector0);
 						}else{
 							MbrHDSector0List[PartNameCount] = 0; // HD0
-						}
+ 						}
 
 						PartNameCount++;
 						break;
@@ -464,6 +469,12 @@ void  CInstallMenus::UpdatePartNameItem(int PartNameIndex, int PartIndex, unsign
 	PartNameList[PartNameIndex] = UpdatePartNameList(PartNameList[PartNameIndex], Partition);
 	MbrHDSector0List[PartNameIndex] = GetHDIndex(MbrHDSector0);
 }
+
+void  CInstallMenus::UpdateMbrHDSector0(int PartNameIndex, unsigned char MbrHDSector0)
+{
+	MbrHDSector0List[PartNameIndex] = GetHDIndex(MbrHDSector0);
+}
+
 
 void CInstallMenus::CreateHDList()
 // TODO: Implement the sprintf() function

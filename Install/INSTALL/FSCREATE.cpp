@@ -59,7 +59,7 @@ int CFsCreator::InstallFs(unsigned short Drive, unsigned long long Sector, unsig
 
 	if (LoadIplS(Drive) == -1)
 		return -1;
-	if (PackFiles() == -1)
+	if (PackFiles(MbrHDSector0) == -1)
 		return -1;
 	if (InitBootRecord(Drive,Sector,MbrHDSector0) == -1)
 		return -1;
@@ -198,7 +198,7 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 }
 
 
-int CFsCreator::PackFiles()
+int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 {
 	int hClusterFile;
 	int Index, Count;
@@ -255,11 +255,16 @@ int CFsCreator::PackFiles()
 	Count = XoslFiles.GetCount();
 	for (Index = 0; Index < Count; ++Index) {
 		FileName = XoslFiles.GetFileName(Index);
-		TextUI.OutputStr("Packing %s... ",FileName);
-		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
-			return -1;
+		if( (MbrHDSector0 == 0xff) && strcmp(FileName,"ORIG_MBR.XCF") == 0 ){
+			TextUI.OutputStr("Skipping %s\n",FileName);
 		}
-		TextUI.OutputStr("done\n");
+		else{
+			TextUI.OutputStr("Packing %s... ",FileName);
+			if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+				return -1;
+			}
+			TextUI.OutputStr("done\n");
+		}
 	}
 	DosFile.SetFileDateTime(hClusterFile);
 	DosFile.Close(hClusterFile);

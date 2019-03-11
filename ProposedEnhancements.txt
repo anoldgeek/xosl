@@ -272,19 +272,26 @@ XOSL130a12 release
 
 24i. Update Notes.txt
 
+24j. Check for memory leaks using bochs.
+	Checked writes at address 0x0
+
+24b. Check install FAT to GPT disk
+	As FreeDos does not yet support GPT partitioned diskss. Cannot be tested.
+
+24m. Regression check CHS
+	Added assembly conditional to disable LBA
+	Fixed  issue in Sector2CHS present since 1.1.5. It was coded for 'far' rather than 'near' pointers.
+
 XOSL130a12 release
 **************** TODO ****************
 
-24b. Check install FAT to GPT disk
-
-24j. Check for memory leaks using bochs.
 
 24k. Install sometimes crashes on reboot after install in vmware vm.
 
 24l. Zbox mouse issues. (Issue exists in XOSL115).
 
-24m. Regression check CHS
 
+24n. Still trying to write ORG_MBR to XOSL FS when HDSector0 is set to NONE!
 
 
 25. Add boot via UEFI

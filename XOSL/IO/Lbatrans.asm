@@ -25,6 +25,7 @@
 `W?LBAAccessAvail$:CDiskAccess$F(I)I` proc syscall,
                 @@this: dword, @@Drive: word
 
+IFNDEF DISABLE_LBA
                 mov     ah,41h
                 mov     bx,55aah
                 mov     dx,@@Drive
@@ -36,6 +37,7 @@
                 jz      NoLBA
                 xor     ax,ax
                 jmp     LBA_AAEnd
+ENDIF
 
 NoLBA:          mov     ax,-1
 LBA_AAEnd:      ret

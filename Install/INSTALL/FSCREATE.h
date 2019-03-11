@@ -107,7 +107,7 @@ private:
 
 	int LoadIplS(int Drive);
 	int PackFile(int hClusterFile,const char *FileName);
-	int PackFiles();
+	int PackFiles(unsigned char MbrHDSector0);
 	int InitBootRecord(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
 
 	int BackupPartition(int Drive, unsigned long long Sector, unsigned short FSType);

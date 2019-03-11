@@ -117,6 +117,9 @@ int CApplication::StartInstallFat()
 	if (Installer.Install(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Install error\n");
 		return -1;
+	}else{
+		// Update MbrHDSector0 for this drive
+		DosDriveList.UpdateDosDriveMbrHDSector0(DosDrive,MbrHDSector0);
 	}
 
 	return 0;
@@ -193,6 +196,7 @@ int CApplication::StartUpgradeSep()
 	unsigned char MbrHDSector0;
 	bool PartMan;
 	bool SmartBootManager;
+	int PartNameIndex;
 	
 	GraphicsMode = Data.GetGraphicsMode(TextUI.GetOptionIndex(0));
 	MouseType = Data.GetMouseType(TextUI.GetOptionIndex(1));
@@ -201,12 +205,17 @@ int CApplication::StartUpgradeSep()
 
 	SmartBootManager = TextUI.GetOptionIndex(3) == 0;
 
-	PartIndex = InstallMenus.ResolvePartIndex(TextUI.GetOptionIndex(4));
+	PartNameIndex = TextUI.GetOptionIndex(4);
+
+	PartIndex = InstallMenus.ResolvePartIndex(PartNameIndex);
 	MbrHDSector0 = InstallMenus.ResolveHDIndex(TextUI.GetOptionIndex(8));
 
 	if (Installer.Upgrade(GraphicsMode,MouseType,PartIndex,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Upgrade error\n");
 		return -1;
+	}else{
+		// Update PartNameList item after HDSector0 change
+		InstallMenus.UpdateMbrHDSector0(PartNameIndex,MbrHDSector0);
 	}
 	return 0;
 }

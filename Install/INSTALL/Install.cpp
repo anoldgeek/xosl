@@ -554,7 +554,7 @@ int CInstaller::CopyFileForUpgrade(const char *FileName, char DriveChar)
 	}
 	return 0;
 }
-int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0)
+int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0, unsigned char &OldMbrHDSector0 )
 {
 	CDosFile DosFile;
 	CXoslFiles XoslFiles;
@@ -576,6 +576,9 @@ int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0)
 				oldBootItemData = (pre130a4CBootItemFile*)BootItemData;
 				BootItemData = upgradeBootItems->upgradeBootItems(oldBootItemData,MbrHDSector0);
 			}
+			else{
+				BootItemData->MbrHDSector0 = MbrHDSector0;
+			}		
 			DosFile.LSeek(fh,0,CDosFile::seekStart);
 			if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
 				DosFile.Close(fh);
@@ -591,6 +594,7 @@ int CInstaller::UpgradeXoslBootItem(unsigned char MbrHDSector0)
 int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType MouseType, const CDosDriveList::CDosDrive &DosDrive, bool PartMan, bool SmartBm, unsigned char MbrHDSector0)
 {
 	TIPL Ipl;
+	unsigned char OldMbrHDSector0;
 
 	if (!PartMan) {
 		XoslFiles.IgnorePartManFiles();
@@ -601,7 +605,25 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if(CopyFileForUpgrade(XoslFiles.GetBootItemName(),DosDrive.DriveChar) == -1)
 		return -1;
 	// Upgrade bootitems 
-	UpgradeXoslBootItem(MbrHDSector0);
+	UpgradeXoslBootItem(MbrHDSector0, OldMbrHDSector0);
+
+
+	if ( OldMbrHDSector0 != 0xff && MbrHDSector0 == OldMbrHDSector0 ){
+		if (CopyFileForUpgrade(XoslFiles.GetOriginalMbrName(),DosDrive.DriveChar) == -1 ) {
+			// Old OriginalMbr should exist. Retain it.
+			TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetOriginalMbrName());
+			return -1;
+		}
+	}
+	else{
+		if ( MbrHDSector0 != 0xff){
+			// Old OriginalMbr does not exist and we are updating MBR so backup the MBR
+			if (BackupOriginalMbr(0,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1) {
+				TextUI.OutputStr("XOSL "XOSL_VERSION" failed to backup %s \n\n",XoslFiles.GetOriginalMbrName());
+				return -1;
+			}
+		}
+	}
 
 	if(CopyFileForUpgrade(XoslFiles.GetOriginalMbrName(),DosDrive.DriveChar) == -1)
 		return -1; 
@@ -636,6 +658,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	const TPartition *Partition;
 	TIPL Ipl;
 	CDosDriveList::CDosDrive DosDrive;
+	unsigned char OldMbrHDSector0;
 
 	if (!PartMan) {
 		XoslFiles.IgnorePartManFiles();
@@ -662,14 +685,26 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}
 
 	// Save the existing bootitem file, upgrade and restore
-	if (PartList.UpgradeXoslBootItem(Partition,MbrHDSector0) == -1){
+	if (PartList.UpgradeXoslBootItem(Partition,MbrHDSector0,OldMbrHDSector0) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetBootItemName());
 		return -1;
 	}
 
-	if (PartList.Retain(XoslFiles.GetOriginalMbrName(),512,Partition) == -1){
-		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetOriginalMbrName());
-		return -1;
+	if ( OldMbrHDSector0 != 0xff && MbrHDSector0 == OldMbrHDSector0 ){
+		if (PartList.Retain(XoslFiles.GetOriginalMbrName(),512,Partition) == -1 ) {
+			// Old OriginalMbr should exist. Retain it.
+			TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetOriginalMbrName());
+			return -1;
+		}
+	}
+	else{
+		if ( MbrHDSector0 != 0xff){
+			// Old OriginalMbr does not exist and we are updating MBR so backup the MBR
+			if (BackupOriginalMbr(Partition->FSType,XoslFiles.GetOriginalMbrName(),MbrHDSector0) == -1) {
+				TextUI.OutputStr("XOSL "XOSL_VERSION" failed to backup %s \n\n",XoslFiles.GetOriginalMbrName());
+				return -1;
+			}
+		}
 	}
 	
 	if (SmartBm) {

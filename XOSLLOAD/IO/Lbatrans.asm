@@ -30,6 +30,8 @@
 `W?LBAAccessAvail$:CDiskAccess$N(I)I` proc
 		push	bx
 		push	cx
+
+IFNDEF DISABLE_LBA
                 mov     ah,41h
 ;                mov     dx,@@Drive
 		mov	dx,bx
@@ -42,6 +44,7 @@
                 jz      NoLBA
                 xor     ax,ax
                 jmp     LBA_AAEnd
+ENDIF
 
 NoLBA:          mov     ax,-1
 LBA_AAEnd:	pop	cx

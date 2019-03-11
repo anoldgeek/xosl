@@ -61,6 +61,7 @@ class CTextList {
 		void DrawOptionItem(int Index);
 		void DrawListItem(int Index);
 		void GetMaxOptionWidth();
+		int GetHDIndex(unsigned char MbrHDSector0, CListItem *LinkedItem );
 
 		int Left, Top;
 		int Width, Height;

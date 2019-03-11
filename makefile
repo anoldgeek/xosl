@@ -16,6 +16,11 @@
 MAKE_OPTIONS=DOS_DEBUG=1
 !endif
 
+!ifdef DISABLE_LBA
+MAKE_OPTIONS=DISABLE_LBA=1 $(MAKE_OPTIONS)
+!endif
+
+
 ENTER=cd
 LEAVE=$(ENTER) ..
 COPY=copy
@@ -58,16 +63,21 @@ ipl: .SYMBOLIC
 
 arch: .SYMBOLIC
     $(COPY) xosl\*.xxf arch
-#    $(COPY) xosl\xosl.* arch
+!ifdef DOS_DEBUG
+    $(COPY) xosl\xosl.* arch
+!endif
     $(COPY) xoslload\xoslload.xcf arch
     $(COPY) install\install.exe arch
-#    $(COPY) install\install.map arch
-#    $(COPY) install\install.sym arch
+!ifdef DOS_DEBUG
+    $(COPY) install\install.map arch
+    $(COPY) install\install.sym arch
+!endif
     $(COPY) ipl\ipl_brec\*.bin arch
     $(COPY) ipl\ipl_mbr\*.bin arch
     $(COPY) resource\*.* arch
-#    $(COPY) xoslload\xoslload.* arch
-
+!ifdef DOS_DEBUG
+    $(COPY) xoslload\xoslload.* arch
+!endif
     @cmd.exe /c chkbinsz.cmd
 #    dir arch\*.bin
 

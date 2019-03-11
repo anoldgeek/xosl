@@ -29,6 +29,10 @@ LINK_OPTIONS=debug dwarf SYS dos op m op maxe=25 op q op symf op stack=8192 libp
 LINK_OPTIONS=debug dwarf SYS dos op m op maxe=25 op symf op stack=8192 libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES)
 !endif
 
+!ifdef DISABLE_LBA
+MAKE_OPTIONS=DISABLE_LBA=1 $(MAKE_OPTIONS)
+!endif
+
 LINK=wlink
 MAKE=wmake $(MAKE_OPTIONS)
 

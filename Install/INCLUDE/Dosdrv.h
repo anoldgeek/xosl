@@ -19,6 +19,7 @@
 #include <ptab.h>
 #include <defs.h>
 #include <main.h>
+#include <bootrec.h>
 
 #define FATTYPE_FAT16 16
 #define FATTYPE_FAT32 32
@@ -31,12 +32,16 @@ class CDosDriveList {
 			int FATType;
 			int Drive;
 			unsigned long long StartSector;
+			unsigned char DosDriveSector0;
 		};
 
 
 		CDosDriveList(CPartList &PartListToUse);
 		~CDosDriveList();
 		int LocateDrive(int DriveNum, CDosDrive &DosDrive);
+		int GetDriveIndex(TPartition *Partition, TBootRecord &BootRecord);
+		int GetDosDriveSector0(int Drive);
+		void UpdateDosDriveMbrHDSector0(CDosDrive &DosDrive, unsigned char MbrHDSector0);
 	private:
 		CPartList &PartList;
 

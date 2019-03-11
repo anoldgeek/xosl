@@ -17,11 +17,12 @@
 #include <fat32.h>
 #include <ptab.h>
 
+/*
 typedef union {
 	TBootFAT16 BootFAT16;
 	TBootFAT32 BootFAT32;
 } TBootRecord;
-
+*/
 class CDriveFix {
 	public:
 		CDriveFix();

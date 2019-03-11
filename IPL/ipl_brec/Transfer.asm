@@ -84,29 +84,30 @@ Sector          dw      ?
 ;void Sector2CHS(unsigned long RSector, unsigned short &SectCyl, unsigned short &DrvHead)
 `W?Sector2CHS$N(ULRNUSRNUS)V`   proc syscall,
                 @@RSector: dword, 
-		@@SectCyl: dword, @@DrvHead: dword
+		@@SectCyl: word, @@DrvHead: word
 
                 ;RSector += StartSector
+		; eax -> RSector
                 mov     eax,@@RSector
                 add     eax,`W?StartSector$NUL`
 
                 ;Sector = RSector % DrvSectorCount + 1
                 ;RSector /= DrvSectorCount
                 xor     edx,edx
-                div     DrvSectorCount
+                div     DrvSectorCount	; edx,eax / -> eax RSector, edx Sector
                 inc     dx
                 mov     Sector,dx
 
                 ;Head = RSector % DrvHeadCount
                 ;Cylinder = RSector / DrvHeadCount
                 xor     dx,dx
-                div     dword ptr DrvHeadCount
+                div     dword ptr DrvHeadCount ; ax -> cylinder dx -> Head
 
                 ;DrvHead = Drive | (Head << 8)
                 mov     dh,dl
                 mov     dl,byte ptr `W?Drive$ni`
-                les     bx,@@DrvHead
-                mov     es:[bx],dx
+                mov     bx,@@DrvHead
+                mov     [bx],dx
 
                 ;((Cylinder & 0xff) << 8)
                 mov     dh,al
@@ -117,8 +118,8 @@ Sector          dw      ?
 
                 ; SectCyl = Sector | ((Cylinder & 0xff) << 8) | ....
                 or      dl,byte ptr Sector
-                les     bx,@@SectCyl
-                mov     es:[bx],dx
+                mov     bx,@@SectCyl
+                mov     [bx],dx
 
 
                 ret

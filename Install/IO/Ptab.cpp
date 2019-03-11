@@ -8,6 +8,11 @@
  * or at http://www.gnu.org
  */
 
+#include <string.h>
+#include <stdlib.h>
+#include <data.h>
+#include <dosdrv.h>
+
 #include <ptab.h>
 #include <transfer.h>
 #include <disk.h>
@@ -15,7 +20,6 @@
 #include <fat16.h>
 #include <bootrec.h>
 #include <items.h>
-#include <mem.h>
 #include <memory_x.h>
 #include <dosio.h>
 #include <files.h>
@@ -283,6 +287,8 @@ TPartNode *CPartList::CreatePartNode(const TMBRNode *MBRNode, int Index)
 	Partition->FSName = GetFSName(mbrEntry->FSType);
 	Partition->FSType = mbrEntry->FSType;
 	Partition->Type = MBRNode->Type;
+	// Set the default
+	Partition->MbrHDSector0 = 0x80;
 	GetPartMbrHDSector0(Partition);
 	return PartNode;
 }
@@ -305,7 +311,8 @@ TPartNode *CPartList::CreateGPTPartNode(const TMBRNode *MBRNode, int Index)
 	Partition->FSName = GetFSName(GptShortType);
 	Partition->FSType = GptShortType;
 	Partition->Type = MBRNode->Type;
-//	Partition->MbrHDSector0 = 0xff;
+	// Set the default
+	Partition->MbrHDSector0 = 0x80;
 	GetPartMbrHDSector0(Partition);
 	return PartNode;
 }
@@ -424,34 +431,11 @@ const TPartition *CPartList::GetPartition(int Index)
 {
 	return PLUP[Index]->Partition;
 }
-/*
-void CPartList::UpdateFSType(int Index, unsigned short FSType, unsigned char MbrHDSector0)
+void CPartList::UpdatePartitionMbrHDSector0(int Index, unsigned char MbrHDSector0)
 {
-	PLUP[Index]->Partition->FSType = FSType;
-	PLUP[Index]->Partition->FSName = GetFSName(FSType);
 	PLUP[Index]->Partition->MbrHDSector0 = MbrHDSector0;
-	if (FSType < 0x100){
-		// mbr type
-		PLUP[Index]->Entry->FSType = (char)FSType;
-	}
-	else{
-		// gpt type
-		char *Name, *gptname;
-		int i,j;
-
-		memcpy(&PLUP[Index]->gptEntry->type,GetGPTType(FSType), sizeof(uuid_t));
-		// wide charcter fudge
-		Name = GetGPTName(FSType);
-		gptname = PLUP[Index]->gptEntry->name;
-		for(i = 0, j = 0; Name[i] != 0 ;){
-			gptname[j++] = Name[i++];
-			gptname[j++] = 0;
-		}
-		gptname[j++] = 0;
-		gptname[j++] = 0;
-	}
 }
-*/
+
 void CPartList::SetFsType(int Index, unsigned short FSType, unsigned char MbrHDSector0)
 {
 	TPartition *Partition = PLUP[Index]->Partition;
@@ -644,20 +628,44 @@ void CPartList::GetPartMbrHDSector0(TPartition *Partition)
 	CFAT16 *FileSystem = new CFAT16;
 	TBootRecord BootRecord;
 	CBootItemFile *BootItemData = new CBootItemFile;
+	CDosFile DosFile;
+	CXoslFiles XoslFiles;
+	CDosDriveList *DosDriveList;
+
+	int DriveIndex;
+	char BootItemPath[20];
+	int hFile;
 	
-	// Does this partition have sep XOSL installed
-	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1)
-		if(Disk.Read(0, &BootRecord,1) != -1 )
-// Check Fat installed XOSL as well
-//			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 )
+	if(Disk.Map(Partition->Drive, Partition->StartSector) != -1){
+		if(Disk.Read(0, &BootRecord,1) != -1 ){
+			// Does this partition have sep XOSL installed
+			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
+				// Check XOSL FS installed XOSL 
 				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 )
 					if (FileSystem->ReadFile("BOOTITEMXDF",BootItemData) == BOOTITEM_FILESIZE )
 						Partition->MbrHDSector0 = BootItemData->MbrHDSector0;
+			}
+			else{
+				if (Partition->Type == PART_PRIMARY || Partition->Type == PART_LOGICAL){
+					// Check Fat installed XOSL on msdos partitioned disks
+					if( ( DriveIndex = DosDriveList->GetDriveIndex(Partition,BootRecord) ) != -1){
+						BootItemPath[0] = DriveIndex + 'C';
+						strcpy(&BootItemPath[1],":\\");
+						strcat(&BootItemPath[3],XoslFiles.GetBootItemName());
+						if ((hFile = DosFile.Open(BootItemPath,CDosFile::accessReadOnly)) != -1) {
+							if( DosFile.Read(hFile,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE )
+								Partition->MbrHDSector0 = BootItemData->MbrHDSector0;
+						}
+					}
+				}
+			}
+		}
+	}
 	delete FileSystem;
 	delete BootItemData;
 }
 
-int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0)
+int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char MbrHDSector0, unsigned char &OldMbrHDSector0)
 {
 	CDisk Disk;
 	CDosFile DosFile;
@@ -684,8 +692,16 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 								CUpgrade *upgradeBootItems = new CUpgrade();
 
 								oldBootItemData = (pre130a4CBootItemFile*)BootItemData;
+								OldMbrHDSector0 = 0x80;
 								BootItemData = upgradeBootItems->upgradeBootItems(oldBootItemData,MbrHDSector0);
 							}
+							else{
+								// return the old MbrHDSector0
+								OldMbrHDSector0 = BootItemData->MbrHDSector0;
+								// Update MbrHDSector0
+								BootItemData->MbrHDSector0 = MbrHDSector0;
+							}
+
 							fh = DosFile.Create(XoslFiles.GetBootItemName());
 							if( fh != -1 ) {
 								if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){

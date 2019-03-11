@@ -32,7 +32,8 @@ void DiskMap(int DriveToUse, unsigned long StartSectorToUse)
 
 void DiskRead(unsigned long Sector, void far *Buffer, int Count)
 {
-	unsigned short SectCyl, DrvHead;
+	unsigned short DrvHead;
+	unsigned short SectCyl;
 
 	Sector2CHS(Sector,SectCyl,DrvHead);
 	ConvRead(SectCyl,DrvHead,Buffer,Count);

@@ -163,11 +163,23 @@ void CTextList::ConnectEventHandler(CTextList::TListItemExecute Handler, void *_
 	Event_this = _this;
 }
 
+int CTextList::GetHDIndex(unsigned char MbrHDSector0, CListItem *LinkedItem )
+{
+	int index;
+
+	if(MbrHDSector0 != 0xff )
+		return MbrHDSector0 - 0x80;
+	for (index = 0 ;; index++){
+		if(strcmp(LinkedItem->OptionList[index],"NONE") == 0)
+			return index;
+	}
+}
 
 void CTextList::HandleKeyAction(int Key)
 {
 	CListItem *Item;
 	CListItem *LinkedItem;
+	unsigned char MbrHDSector0;
 
 	switch (Key) {
 		case KEY_UP:
@@ -191,9 +203,16 @@ void CTextList::HandleKeyAction(int Key)
 		case KEY_PAGEUP:
 		case KEY_MIN:
 			Item = &ListItems[ItemIndex];
+
 			if (Item->Type == tltCombo) {
 				if (--Item->OptionIndex < 0)
 					Item->OptionIndex = Item->OptionCount - 1;
+				if (Item->LinkedListItemIndex != -1){
+					// Set the index on the linked item
+					LinkedItem=&ListItems[Item->LinkedListItemIndex];
+					MbrHDSector0 = Item->MbrHDSector0List[Item->OptionIndex];
+					LinkedItem->OptionIndex = GetHDIndex(MbrHDSector0,LinkedItem);
+				}
 
 				Refresh();
 			}
@@ -216,6 +235,12 @@ void CTextList::HandleKeyAction(int Key)
 			if (Item->Type == tltCombo) {
 				if (++Item->OptionIndex == Item->OptionCount)
 					Item->OptionIndex = 0;
+				if (Item->LinkedListItemIndex != -1){
+					// Set the index on the linked item
+					LinkedItem=&ListItems[Item->LinkedListItemIndex];
+					MbrHDSector0 = Item->MbrHDSector0List[Item->OptionIndex];
+					LinkedItem->OptionIndex = GetHDIndex(MbrHDSector0,LinkedItem);
+				}
 				Refresh();
 			}
 			else {

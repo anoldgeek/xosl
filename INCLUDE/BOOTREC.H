@@ -83,4 +83,9 @@ typedef union {
 	TBootFAT32 FAT32;
 } TBootRecord;
 */
+typedef union {
+	TBootFAT16 BootFAT16;
+	TBootFAT32 BootFAT32;
+} TBootRecord;
+
 #endif

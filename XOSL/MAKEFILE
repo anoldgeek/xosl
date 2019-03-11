@@ -28,6 +28,10 @@ LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_F
 LINK_OPTIONS=d all SYS dos op m op nod libp $(LIBPATH) libf $(OBJ_FILES) $(LIB_FILES) op maxe=25 op d op q op symf
 !endif
 
+!ifdef DISABLE_LBA
+MAKE_OPTIONS=DISABLE_LBA=1 $(MAKE_OPTIONS)
+!endif
+
 LINK=wlink
 MAKE=wmake $(MAKE_OPTIONS)
 
