@@ -283,16 +283,21 @@ XOSL130a12 release
 	Fixed  issue in Sector2CHS present since 1.1.5. It was coded for 'far' rather than 'near' pointers.
 
 XOSL130a12 release
-**************** TODO ****************
 
+24n. Still trying to write ORG_MBR to XOSL FS when HDSector0 is set to NONE!
+
+24o. MbrHDSector0 now follows installed setting for Fat installs when drive 
+     letter is selected.
+
+
+XOSL130a15 debug
+XOSL130a16 release
+
+**************** TODO ****************
 
 24k. Install sometimes crashes on reboot after install in vmware vm.
 
 24l. Zbox mouse issues. (Issue exists in XOSL115).
-
-
-24n. Still trying to write ORG_MBR to XOSL FS when HDSector0 is set to NONE!
-
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and execute.

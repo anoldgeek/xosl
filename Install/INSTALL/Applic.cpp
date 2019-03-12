@@ -120,6 +120,7 @@ int CApplication::StartInstallFat()
 	}else{
 		// Update MbrHDSector0 for this drive
 		DosDriveList.UpdateDosDriveMbrHDSector0(DosDrive,MbrHDSector0);
+		InstallMenus.UpdateDosDriveMbrHDSector0(DosDriveIndex,MbrHDSector0);
 	}
 
 	return 0;
@@ -183,6 +184,10 @@ int CApplication::StartUpgradeFat()
 	if (Installer.Upgrade(GraphicsMode,MouseType,DosDrive,PartMan,SmartBootManager,MbrHDSector0) == -1) {
 		TextUI.OutputStr("Upgrade error\n");
 		return -1;
+	}else{
+		// Update MbrHDSector0 for this drive
+		DosDriveList.UpdateDosDriveMbrHDSector0(DosDrive,MbrHDSector0);
+		InstallMenus.UpdateDosDriveMbrHDSector0(DosDriveIndex,MbrHDSector0);
 	}
 
 	return 0;
@@ -277,7 +282,14 @@ int CApplication::StartUninstallFat()
 		TextUI.OutputStr("Unable to locate drive %c:\n",'C' + DosDriveIndex);
 		return -1;
 	}
-	return Installer.Uninstall(DosDrive,OriginalMbr,MbrHDSector0);
+	if(Installer.Uninstall(DosDrive,OriginalMbr,MbrHDSector0) == -1){
+		return -1;
+	}else{
+		// Update MbrHDSector0 for this drive
+		DosDriveList.UpdateDosDriveMbrHDSector0(DosDrive,0x80);
+		InstallMenus.UpdateDosDriveMbrHDSector0(DosDriveIndex,0x80);
+	}
+	return 0;
 }
 
 int CApplication::StartUninstallSep()

@@ -48,7 +48,7 @@ public:
 	char * UpdatePartNameList(char * PartStr, const TPartition *Partition);
 	void UpdatePartNameItem(int PartNameIndex, int PartIndex,unsigned char MbrHDSector0);
 	void UpdateMbrHDSector0(int PartNameIndex, unsigned char MbrHDSector0);
-	void UpdateDosDriveNameItem(CDosDriveList::CDosDrive *DosDrive,unsigned char MbrHDSector0);
+	void UpdateDosDriveMbrHDSector0(int Drive,unsigned char MbrHDSector0);
 
 private:
 	CTextUI &TextUI;
