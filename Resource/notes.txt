@@ -19,8 +19,8 @@ The full license can be found in the GPL.TXT file.
          '-b 1' Backup the partition details and data.
 	 '-b 0' Only backup the partition details.
 	 Use '-b 0' when installing to a specifically created dedicated 
-	 partition from a 1.44MB floppy. So that the save an additional 512 
-	 bytes rather than approx 478,000.
+	 partition from a 1.44MB floppy. So that the save requires an 
+	 additional 512 bytes rather than approx 478,000.
 
    b) > 2TB hard disks supported provided LBA is available and GPT Partitioned.
    c) GPT partitioned disks. Tested with grub2 and xosl chain load.

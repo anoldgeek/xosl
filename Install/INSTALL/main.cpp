@@ -23,10 +23,25 @@ int HDOffset; // Global
 
 void Usage(char *argv[])
 {
-	printf("Usage: %s [-p <partbackup-path>|NONE] [-o <HD-offset>] [-b [0|1] [-h]\n", argv[0]);
-	printf("e.g.\n\t '%s -p E:\PBACKUPS\ -o 1\n\t %s -b 0 \n", argv[0], argv[0]);
-	printf("\t '%s -p E:\PBACKUPS\BACKUP.IMG -o 1 -b 0\n", argv[0], argv[0]);
-	printf("\nSee file Notes.txt\n");
+	printf("Usage: install [-p <partbackup-path>|NONE] [-o <HD-offset>] [-b [0|1] [-h]\n");
+    printf("  -o <drive-offset>\n"
+           "     Enables installing from a USB device that has booted as C:\n"
+           "     Use '-o 1' to direct xosl install to ignore the first drive.\n"
+           "  -p <part-backup-path>\n"
+           "     Enable the choice of location to to save the partition backup\n"
+	       "     when installing to a dedicated partition. e.g.\n"
+	       "  -p C:\\partback\\bu12345.img or\n"
+	       "  -p E:\\partback\\ to save with the default file name.\n"
+           "  -b <enable-disable-part-backup-data>  when installing to a\n"
+           "     dedicated partition. e.g.\n"
+           "     -b 1 Backup the partition details and data.\n"
+	       "     -b 0 Only backup the partition details.\n"
+	       "     Use -b 0 when installing to a specifically created dedicated\n"
+	       "     partition from a 1.44MB floppy. So that the save requires an\n"
+	       "     additional 512 bytes rather than approx 478,000.\n");
+	printf("e.g.\t install -p E:\\PBACKUPS\\ -o 1\n\t install -b 0 \n");
+	printf("\t install -p E:\\PBACKUPS\\BACKUP.IMG -o 1 -b 0\n");
+	printf("Also see file Notes.txt\n");
 }
 
 //int main()

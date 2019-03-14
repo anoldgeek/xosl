@@ -295,6 +295,8 @@ XOSL130a16 release
 
 **************** TODO ****************
 
+24p. Improve command line help.
+
 24k. Install sometimes crashes on reboot after install in vmware vm.
 
 24l. Zbox mouse issues. (Issue exists in XOSL115).
