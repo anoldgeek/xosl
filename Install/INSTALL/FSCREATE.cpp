@@ -208,13 +208,17 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 	int NextImgFile;
 	int ImgFileCount;
 	char SrcFile2[13];
+	char buffer[128];
+	char *xoslimgfile;
 
 	TextUI.OutputStr("Packing XOSL files...\n");
 	FatIndex = 2; // first two are reserved!
 	RootDirIndex = 0;
 
-	TextUI.OutputStr("Creating %s... ",XOSLIMG_FILE);
-	if ((hClusterFile = DosFile.Create(XOSLIMG_FILE)) == -1) {
+	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
+
+	TextUI.OutputStr("Creating %s... ",FileName);
+	if ((hClusterFile = DosFile.Create(xoslimgfile)) == -1) {
 		TextUI.OutputStr("failed\n");
 		return - 1;
 	}
@@ -319,11 +323,13 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	char PartBackupFile[128];
 	int pathlen;
 	CPartBackupDetails PartBackupDetails;
+	char *xoslimgfile;
+	char buffer[128];
 
-
+	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
 
 	TextUI.OutputStr("Creating backup...");
-	if ((ImageSize = DosFile.FileSize(XOSLIMG_FILE)) == -1) {
+	if ((ImageSize = DosFile.FileSize(xoslimgfile)) == -1) {
 		TextUI.OutputStr("failed\nUnable to determine image size\n");
 		return -1;
 	}
@@ -338,15 +344,12 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	PartBackupDetails.StartSector = StartSector;
 	PartBackupDetails.FSType = FSType;
 
-	GetPartBackFilePath(PartBackupFile);
+	xoslimgfile = AddFolderPath(PARTBACKUP_FILE,buffer);
 
-	if ((hFile = DosFile.Create(PartBackupFile)) == -1) {
-		TextUI.OutputStr("failed\nUnable to create ");
-		TextUI.OutputStr(PartBackupFile);
-		TextUI.OutputStr("\n");
+	if ((hFile = DosFile.Create(xoslimgfile)) == -1) {
+		TextUI.OutputStr("failed\nUnable to create %s\n", xoslimgfile);
 		return -1;
 	}
-	
 
 	if (DosFile.Write(hFile,&PartBackupDetails,sizeof (CPartBackupDetails)) != sizeof (CPartBackupDetails)) {
 		TextUI.OutputStr(DiskFullMsg_ss, __FILE__, __LINE__);
@@ -387,26 +390,28 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	unsigned short BackupDrive;
 	unsigned long long BackupStartSector;
 	unsigned short FSType;
-	char PartBackupFile[128];
 	CPartBackupDetails PartBackupDetails;
 
-	GetPartBackFilePath(PartBackupFile);
+	char *FileName;
+	char buffer[128];
+
+	FileName = AddFolderPath(PARTBACKUP_FILE, buffer);
 
 	TextUI.OutputStr("Restoring partition data...");
-	if (DosFile.SetAttrib(PartBackupFile,0) == -1) {
+	if (DosFile.SetAttrib(FileName,0) == -1) {
 		TextUI.OutputStr("ignored\nBackup not found\n");
 		return -1;
 	}
 
-	if ((ImageSize = DosFile.FileSize(PartBackupFile)) == -1) {
+	if ((ImageSize = DosFile.FileSize(FileName)) == -1) {
 		TextUI.OutputStr("ignored\nUnable to determine backup size\n");
 		return -1;
 	}
 
 
-	if ((hFile = DosFile.Open(PartBackupFile,CDosFile::accessReadOnly)) == -1) {
+	if ((hFile = DosFile.Open(FileName,CDosFile::accessReadOnly)) == -1) {
 		TextUI.OutputStr("ignored\nUnable to open ");
-		TextUI.OutputStr(PartBackupFile);
+		TextUI.OutputStr(FileName);
 		TextUI.OutputStr("\n");
 		return -1;
 	}
@@ -451,6 +456,10 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	int hFile;
 	CDisk Disk;
 	int WriteIndex;
+	char *xoslimgfile;
+	char buffer[128];
+
+	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
 
 
 	TextUI.OutputStr("Writing XOSL image...");
@@ -473,8 +482,8 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 		return -1;
 	}
 
-	if ((hFile = DosFile.Open(XOSLIMG_FILE,CDosFile::accessReadOnly)) == -1) {
-		TextUI.OutputStr("failed\nUnable to open "XOSLIMG_FILE"\n");
+	if ((hFile = DosFile.Open(xoslimgfile,CDosFile::accessReadOnly)) == -1) {
+		TextUI.OutputStr("failed\nUnable to open %s\n",xoslimgfile);
 		return -1;
 	}
 
@@ -489,24 +498,22 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	return 0;
 }
 
-void CFsCreator::GetPartBackFilePath(char *PartBackupFile)
+char* CFsCreator::AddFolderPath(char *file, char *buffer)
 {
 	int pathlen;
-	char *PartBackupPath = PartBackControl->PartBackupPath;
+	char *tmp;
+	
+	strcpy(buffer, PartBackControl->TempFolder);
 
-	pathlen = strlen(PartBackupPath);
+	pathlen = strlen(buffer);
 	if (pathlen > 0){
-		if (PartBackupPath[pathlen - 1] == '\\'){
-			// Just the path given. Add the defualt name
-			sprintf(PartBackupFile, "%s%s",PartBackupPath, PARTBACKUP_FILE);
-		}
-		else{
-			// Full path and file given
-			strcpy(PartBackupFile,PartBackupPath);
+		tmp = &buffer[pathlen - 1];
+		if (*tmp++ != '\\'){
+			*tmp++ = '\\';
+			*tmp = 0;
 		}
 	}
-	else{
-		// No path given. Use the default
-		strcpy(PartBackupFile,PARTBACKUP_FILE);
-	}
+	strcat(buffer,file);
+
+	return buffer;
 }

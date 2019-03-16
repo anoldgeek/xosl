@@ -15,7 +15,7 @@ extern int HDOffset;
 
 typedef struct{
 	int BackupPartData;
-	char *PartBackupPath;
+	char *TempFolder;
 } TPartBackControl;
 
 #endif

@@ -290,16 +290,27 @@ XOSL130a12 release
      letter is selected.
 
 
+24p. Improve command line help.
+
 XOSL130a15 debug
 XOSL130a16 release
 
+24q. Add option to select a folder to write XOSLIMG.FS to.
+     Changed -p option to <file-path> for XOSLIMG.FS and PARTIMG.BIN
+
+XOSL130a17 debug
+XOSL130a18 release
+
+
 **************** TODO ****************
 
-24p. Improve command line help.
 
-24k. Install sometimes crashes on reboot after install in vmware vm.
-
-24l. Zbox mouse issues. (Issue exists in XOSL115).
+24-release
+    a) Create 1.44 floppy install media
+    b) Create USB install media
+    c) Create 2.8M floppy install media
+    d) Create USB install media mounting as A:
+    e) Publish code and install media on github
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and execute.
@@ -312,3 +323,8 @@ XOSL130a16 release
 
 28. Boot Windows on gpt disk.
 
+**************** DONT FIX ****************
+
+24k. Install sometimes crashes on reboot after install in vmware vm.
+
+24l. Zbox mouse issues. (Issue exists in XOSL115).

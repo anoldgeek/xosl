@@ -23,22 +23,21 @@ int HDOffset; // Global
 
 void Usage(char *argv[])
 {
-	printf("Usage: install [-p <partbackup-path>|NONE] [-o <HD-offset>] [-b [0|1] [-h]\n");
+	printf("Usage: install [-p <file-path>] [-o <HD-offset>] [-b [0|1] [-h]\n");
     printf("  -o <drive-offset>\n"
            "     Enables installing from a USB device that has booted as C:\n"
            "     Use '-o 1' to direct xosl install to ignore the first drive.\n"
-           "  -p <part-backup-path>\n"
-           "     Enable the choice of location to to save the partition backup\n"
+           "  -p <file-path>\n"
+           "     Chooce the folder to save/restore created files\n"
 	       "     when installing to a dedicated partition. e.g.\n"
-	       "  -p C:\\partback\\bu12345.img or\n"
-	       "  -p E:\\partback\\ to save with the default file name.\n"
+	       "     -p C:\\temp\\  or -p E:\\backups\\<this-pc>\\ \n"
+	       "     Use -p C:\\temp\\ when installing to a specifically created dedicated\n"
+	       "     partition from a 1.44MB floppy. So that the additional space required\n"
+	       "     on the floppy is reduced. The folder must already exist.\n"
            "  -b <enable-disable-part-backup-data>  when installing to a\n"
            "     dedicated partition. e.g.\n"
            "     -b 1 Backup the partition details and data.\n"
-	       "     -b 0 Only backup the partition details.\n"
-	       "     Use -b 0 when installing to a specifically created dedicated\n"
-	       "     partition from a 1.44MB floppy. So that the save requires an\n"
-	       "     additional 512 bytes rather than approx 478,000.\n");
+	       "     -b 0 Only backup the partition details.\n");
 	printf("e.g.\t install -p E:\\PBACKUPS\\ -o 1\n\t install -b 0 \n");
 	printf("\t install -p E:\\PBACKUPS\\BACKUP.IMG -o 1 -b 0\n");
 	printf("Also see file Notes.txt\n");
@@ -53,8 +52,8 @@ int main(int argc, char* argv[])
 
 	TPartBackControl PartBackupControl;
 
-	PartBackupControl.PartBackupPath = "";
 	PartBackupControl.BackupPartData = 1;
+	PartBackupControl.TempFolder = "";
 
 	HDOffset = 0;
 
@@ -74,7 +73,7 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case 'p':
-				PartBackupControl.PartBackupPath = optarg;
+				PartBackupControl.TempFolder = optarg;
 				break;
 			case 'b':
 				if (*optarg != '0' && *optarg != '1'){

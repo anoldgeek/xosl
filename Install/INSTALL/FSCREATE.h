@@ -119,7 +119,7 @@ private:
 
 	TPartBackControl *PartBackControl;
 
-	void GetPartBackFilePath(char *PartBackupFile);
+	char* AddFolderPath(char *file, char *buffer);
 };
 
 #endif
