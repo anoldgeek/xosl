@@ -40,12 +40,15 @@
 
 char DiskFullMsg_ss[] = "failed\nDisk full %s %d.\n";
 
-CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, TPartBackControl *PartBackControl):
+CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, TXoslWorkConfig *XoslWorkConfigToUse):
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
-	FatInstall(TextUIToUse,XoslFiles,DosFile),
-	FsCreator(TextUIToUse,XoslFiles,DosFile,PartBackControl)
+	FatInstall(TextUIToUse,XoslFiles,DosFile,XoslWorkConfigToUse),
+	FsCreator(TextUIToUse,XoslFiles,DosFile,XoslWorkConfig)
 {
+	PartList.SetXoslWorkConfig(XoslWorkConfig);
+	XoslWorkConfig = XoslWorkConfigToUse;
+
 }
 
 CInstaller::~CInstaller()
@@ -79,7 +82,7 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (BackupCurrentMbr(&Ipl) == -1)
 		return -1;
 
-	if (FatInstall.InstallFiles(DosDrive) == -1)
+	if (FatInstall.InstallFiles(DosDrive, MbrHDSector0) == -1)
 		return -1;
 
 	if (MbrHDSector0 != 0xff){
@@ -278,7 +281,7 @@ int CInstaller::CreateXoslData(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouse
 
 	XoslData.XoslVersion = 2;
 
-	if ((fh = DosFile.Create(XoslFiles.GetXoslDataName())) == -1) {
+	if ((fh = DosFile.Create(XoslFiles.GetXoslDataName(), XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetXoslDataName());
 		return -1;
 	}
@@ -305,7 +308,7 @@ int CInstaller::CreateBootItem(unsigned char MbrHDSector0)
 	MemSet(BootItemData,0,BOOTITEM_FILESIZE);
 	BootItemData->MbrHDSector0 = MbrHDSector0;
 	BootItemData->BootItemVersion = CURRENT_BOOTITEM_VERSION;
-	if ((hFile = DosFile.Create(XoslFiles.GetBootItemName())) == -1) {
+	if ((hFile = DosFile.Create(XoslFiles.GetBootItemName(), XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\nUnable to create %s\n",XoslFiles.GetBootItemName());
 		delete[] BootItemData;
 		return -1;
@@ -343,7 +346,7 @@ int CInstaller::BackupOriginalMbr(int PartId, const char *DestFileName, unsigned
 		Mbr[254] = PartId;
 	}
 
-	if ((hFile = DosFile.Create(DestFileName)) != -1) {
+	if ((hFile = DosFile.Create(DestFileName, XoslWorkConfig->WorkFolder)) != -1) {
 		if (DosFile.Write(hFile,Mbr,512) != 512) {
 			TextUI.OutputStr("failed\nFloppy disk full.\n");
 			DosFile.Close(hFile);
@@ -362,7 +365,7 @@ int CInstaller::BackupCurrentMbr(void *Ipl)
 	int hFile;
 
 	TextUI.OutputStr("Creating backup of new MBR...");
-	if ((hFile = DosFile.Create(XoslFiles.GetCurrentMbrName())) != -1) {
+	if ((hFile = DosFile.Create(XoslFiles.GetCurrentMbrName(), XoslWorkConfig->WorkFolder)) != -1) {
 		if (DosFile.Write(hFile,Ipl,512) != 512) {
 			TextUI.OutputStr("failed\nFloppy disk full.\n");
 			DosFile.Close(hFile);
@@ -415,7 +418,7 @@ int CInstaller::LoadDosMbr(int DriveChar, const char *DosFileName, void *MbrBuff
 	strcpy(&FileName[3],DosFileName);
 
 	TextUI.OutputStr("Loading backup of MBR...");
-	if ((hFile = DosFile.Open(FileName,CDosFile::accessReadOnly)) == -1) {
+	if ((hFile = DosFile.Open(FileName,CDosFile::accessReadOnly, XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\nUnable to open %s\n",FileName);
 		return -1;
 	}
@@ -640,7 +643,7 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (BackupCurrentMbr(&Ipl) == -1)
 		return -1;
 
-	if (FatInstall.InstallFiles(DosDrive) == -1)
+	if (FatInstall.InstallFiles(DosDrive, MbrHDSector0) == -1)
 		return -1;
  	if (MbrHDSector0 != 0xff){
  		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)

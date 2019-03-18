@@ -50,11 +50,11 @@ const char InstallNotes[] =
 "\n"
 "Press any key to continue...";
 
-CApplication::CApplication(TPartBackControl *PartBackControl):
+CApplication::CApplication(TXoslWorkConfig *XoslWorkConfigToUse):
 	TextScreen(new CTextScreen(0x1f00)),
 	TextUI(*TextScreen),
 	Data(TextUI,PartList),
-	Installer(TextUI,PartList,PartBackControl),
+	Installer(TextUI,PartList,XoslWorkConfig),
 	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A')) > 0)
 {
 	DoExit = 0;
@@ -64,6 +64,7 @@ CApplication::CApplication(TPartBackControl *PartBackControl):
 	InstallMenus.InitMainMenu((CTextList::TListItemExecute)MainMenuExecute,this);
 	
 	TextUI.ShowPopup(18,5,44,14,InstallNotes);
+	XoslWorkConfig = XoslWorkConfigToUse;
 }
 
 CApplication::~CApplication()

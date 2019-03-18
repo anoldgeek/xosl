@@ -11,11 +11,13 @@
 #ifndef __main__
 #define __main__
 
+#define MAX_PATH_LEN 128
+
 extern int HDOffset;
 
 typedef struct{
 	int BackupPartData;
-	char *TempFolder;
-} TPartBackControl;
+	char *WorkFolder;
+} TXoslWorkConfig;
 
 #endif

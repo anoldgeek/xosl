@@ -12,13 +12,16 @@
 #define FilesH
 
 #include <defs.h>
+#include <main.h>
 
 class CXoslFiles {
 public:
 	CXoslFiles();
 	~CXoslFiles();
-	int GetCount();
-	const char *GetFileName(int Index);
+	int GetIssuedFileCount();
+	int GetPartFileCount();
+	const char *GetIssuedFileName(int Index);
+	const char *GetPartFileName(int Index);
 	const char *GetXoslDataName();
 	const char *GetBootItemName();
 
@@ -37,9 +40,11 @@ public:
 
 
 private:
-	static const char *FileList[];
+	static const char *IssuedFileList[];
+	static const char *PartFileList[];
 	static const char *IplFileList[];
-	static const int FileCount;
+	static const int IssuedFileCount;
+	static const int PartFileCount;
 
 
 	static const char *XoslData;
@@ -48,7 +53,6 @@ private:
 	static const char *OriginalMBR;
 	static const char *XoslLoad;
 	static const char *XoslImgX;
-
 
 	bool IgnoreRPM;
 

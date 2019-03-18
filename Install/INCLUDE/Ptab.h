@@ -101,6 +101,7 @@ typedef struct S_PartNode {
 class CPartList {
 	public:
 		CPartList();
+//		CPartList(CPartList const &PartListToUse, TXoslWorkConfig *XoslWorkConfigToUse);
 		~CPartList();
 		void ReadStructure();
 		char* WriteStructure();
@@ -123,6 +124,7 @@ class CPartList {
 		uint16_t GetGptMBRType(int gpt_index);
 		char* GetGPTName(unsigned short FSType);
 		void UpdatePartitionMbrHDSector0(int Index, unsigned char MbrHDSector0);
+		void SetXoslWorkConfig(TXoslWorkConfig *XoslWorkConfigToUse);
 	public:
 		typedef struct {
 			int FSID;
@@ -149,6 +151,7 @@ class CPartList {
 		TPartNode **PLUP;
 		static TFSNameEntry FSNameList[];
 		int AllowActiveHD;
+		TXoslWorkConfig *XoslWorkConfig;
 };
 
 

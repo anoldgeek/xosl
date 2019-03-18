@@ -40,12 +40,12 @@
 //char DiskFullMsg_ss[] = "failed\nDisk full %s %s.\n";
 extern char DiskFullMsg_ss[];
 
-CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, TPartBackControl *PartBackControl):
+CFsCreator::CFsCreator(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, TXoslWorkConfig *XoslWorkConfigToUse):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
-	this->PartBackControl = PartBackControl;
+	XoslWorkConfig = XoslWorkConfigToUse;
 }
 
 CFsCreator::~CFsCreator()
@@ -208,17 +208,16 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 	int NextImgFile;
 	int ImgFileCount;
 	char SrcFile2[13];
-	char buffer[128];
 	char *xoslimgfile;
 
 	TextUI.OutputStr("Packing XOSL files...\n");
 	FatIndex = 2; // first two are reserved!
 	RootDirIndex = 0;
 
-	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
+	FileName = XOSLIMG_FILE;
 
 	TextUI.OutputStr("Creating %s... ",FileName);
-	if ((hClusterFile = DosFile.Create(xoslimgfile)) == -1) {
+	if ((hClusterFile = DosFile.Create(FileName,XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\n");
 		return - 1;
 	}
@@ -256,20 +255,34 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 	}
 
 	// Now pack the rest
-	Count = XoslFiles.GetCount();
+	Count = XoslFiles.GetIssuedFileCount();
 	for (Index = 0; Index < Count; ++Index) {
-		FileName = XoslFiles.GetFileName(Index);
-		if( (MbrHDSector0 == 0xff) && strcmp(FileName,"ORIG_MBR.XCF") == 0 ){
-			TextUI.OutputStr("Skipping %s\n",FileName);
+		FileName = XoslFiles.GetIssuedFileName(Index);
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
 		}
-		else{
-			TextUI.OutputStr("Packing %s... ",FileName);
-			if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
-				return -1;
-			}
-			TextUI.OutputStr("done\n");
-		}
+		TextUI.OutputStr("done\n");
 	}
+	if( (MbrHDSector0 != 0xff) && strcmp(FileName,XoslFiles.GetOriginalMbrName()) == 0 ){
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
+		}
+		TextUI.OutputStr("done\n");
+	}
+	Count = XoslFiles.GetPartFileCount();
+	for (Index = 0; Index < Count; ++Index) {
+		FileName = XoslFiles.GetPartFileName(Index);
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
+		}
+		TextUI.OutputStr("done\n");
+	}
+
+	
+	
 	DosFile.SetFileDateTime(hClusterFile);
 	DosFile.Close(hClusterFile);
 	return 0;
@@ -324,12 +337,11 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	int pathlen;
 	CPartBackupDetails PartBackupDetails;
 	char *xoslimgfile;
-	char buffer[128];
 
-	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
+	xoslimgfile = XOSLIMG_FILE;
 
 	TextUI.OutputStr("Creating backup...");
-	if ((ImageSize = DosFile.FileSize(xoslimgfile)) == -1) {
+	if ((ImageSize = DosFile.FileSize(xoslimgfile,XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\nUnable to determine image size\n");
 		return -1;
 	}
@@ -344,9 +356,9 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 	PartBackupDetails.StartSector = StartSector;
 	PartBackupDetails.FSType = FSType;
 
-	xoslimgfile = AddFolderPath(PARTBACKUP_FILE,buffer);
+	xoslimgfile = PARTBACKUP_FILE;
 
-	if ((hFile = DosFile.Create(xoslimgfile)) == -1) {
+	if ((hFile = DosFile.Create(xoslimgfile,XoslWorkConfig->WorkFolder)) == -1) {
 		TextUI.OutputStr("failed\nUnable to create %s\n", xoslimgfile);
 		return -1;
 	}
@@ -357,7 +369,7 @@ int CFsCreator::BackupPartition(int Drive, unsigned long long StartSector, unsig
 		return -1;
 	}
 
-	if (PartBackControl->BackupPartData == 0){
+	if (XoslWorkConfig->BackupPartData == 0){
 		TextUI.OutputStr("Partition details backed up...\n");
 		TextUI.OutputStr("No partition data backup requested...\n");
 	}
@@ -393,9 +405,8 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	CPartBackupDetails PartBackupDetails;
 
 	char *FileName;
-	char buffer[128];
 
-	FileName = AddFolderPath(PARTBACKUP_FILE, buffer);
+	FileName = AddFolderPath(PARTBACKUP_FILE);
 
 	TextUI.OutputStr("Restoring partition data...");
 	if (DosFile.SetAttrib(FileName,0) == -1) {
@@ -422,7 +433,7 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	}
 	FSType = PartBackupDetails.FSType;
 
-	if (PartBackControl->BackupPartData == 0 || ImageSize == 512){
+	if (XoslWorkConfig->BackupPartData == 0 || ImageSize == 512){
 		TextUI.OutputStr("Partition details recovered...\n");
 		if (ImageSize == 512)
 			TextUI.OutputStr("No partition data available for restore...\n");
@@ -457,10 +468,8 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	CDisk Disk;
 	int WriteIndex;
 	char *xoslimgfile;
-	char buffer[128];
 
-	xoslimgfile = AddFolderPath(XOSLIMG_FILE,buffer);
-
+	xoslimgfile = AddFolderPath(XOSLIMG_FILE);
 
 	TextUI.OutputStr("Writing XOSL image...");
 
@@ -498,12 +507,13 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	return 0;
 }
 
-char* CFsCreator::AddFolderPath(char *file, char *buffer)
+char* CFsCreator::AddFolderPath(char *file)
 {
 	int pathlen;
+	char *buffer = CDosFile::PathBuffer;
 	char *tmp;
-	
-	strcpy(buffer, PartBackControl->TempFolder);
+
+	strcpy(buffer, XoslWorkConfig->WorkFolder);
 
 	pathlen = strlen(buffer);
 	if (pathlen > 0){

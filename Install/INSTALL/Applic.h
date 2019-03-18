@@ -25,7 +25,7 @@
 
 class CApplication {
 public:
-	CApplication( TPartBackControl *PartBackControl );
+	CApplication( TXoslWorkConfig *XoslWorkConfigToUse );
 	~CApplication();
 
 	void ApplicationLoop();
@@ -94,9 +94,8 @@ private:
 	
 	int DoExit;
 	int DoReboot;
-	
 
-
+	TXoslWorkConfig *XoslWorkConfig;	
 };
 
 #endif

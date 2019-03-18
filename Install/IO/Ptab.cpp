@@ -27,12 +27,12 @@
 #include <gptabdata.h>
 #include <xoslver.h>
 #include <pre130a4.h>
+#include <main.h>
 
 #define FSTYPE_EXTENDED 0x05
 #define FSTYPE_EXTENDEDLBA 0x0f
 #define FSTYPE_LINUXEXT 0x85
 #define FSTYPE_HIDDENEXTENDED 0x1f
-
 
 CPartList::CPartList()
 {
@@ -835,4 +835,9 @@ void CPartList::chksum_crc32gentab ()
       }
       crc_tab[i] = crc;
    }
+}
+
+void CPartList::SetXoslWorkConfig(TXoslWorkConfig *XoslWorkConfigToUse)
+{
+	XoslWorkConfig = XoslWorkConfigToUse;
 }

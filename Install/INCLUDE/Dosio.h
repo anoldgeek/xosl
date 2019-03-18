@@ -17,6 +17,7 @@
 #define __io__
 
 #include <defs.h>
+#include <main.h>
 
 class CDosFile {
 public:
@@ -34,27 +35,38 @@ public:
 	~CDosFile();
 
 	static int __cdecl Create(const char *FileName);
+	int Create(const char *FileName, const char * Path);
 	static int __cdecl Open(const char *FileName, TFileAccess Access);
+	int Open(const char *FileName, TFileAccess Access, const char * Path);
 	static void __cdecl Close(int Handle);
 	static unsigned short __cdecl Read(int Handle, void *Buffer, unsigned short Length);
 	static unsigned short __cdecl Write(int Handle, const void *Buffer, unsigned short Length);
 
 	static int __cdecl SetAttrib(const char *FileName, int Attributes);
 	int Delete(const char *FileName);
+	int Delete(const char *FileName, const char * Path);
 
 	int Copy(const char *Src, const char *Dest);
 	int Append(int hOutFile, const char *FileName);
+	int Append(int hOutFile, const char *FileName, const char * Path);
 	long FileSize(const char *FileName);
+	long FileSize(const char *FileName, const char * Path);
 	void GetNameExt(const char *FileName, char *Name, char *Ext);
 
 	static char TransferBuffer[32768];
+	static char PathBuffer[MAX_PATH_LEN];
 	void SetFileDateTime(int hFile);
 	void CDosFile::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfattime);
 	static long __cdecl LSeek(int Handle, long Offset, TWhence Whence);
 	int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime);
-
+	int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime, const char *Path);
+	int Copy(const char *Src, const char *Dest, const char *SrcPath);
+	int SetAttrib(const char *FileName, int Attributes, const char *Path);
+	void SetXoslWorkConfig(TXoslWorkConfig *XoslWorkConfigToUse);
 private:
 	static int __cdecl Unlink(const char *FileName);
+	char* AddFolderPath(const char *file, const char * Path);
+
 };
 
 

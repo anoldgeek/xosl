@@ -19,18 +19,30 @@ CXoslFiles::~CXoslFiles()
 {
 }
 
-int CXoslFiles::GetCount()
+int CXoslFiles::GetIssuedFileCount()
 {
 	if (!IgnoreRPM) {
-		return FileCount;
+		return IssuedFileCount;
 	}
-	return FileCount - 2;
+	return IssuedFileCount - 2;
 }
 
-const char *CXoslFiles::GetFileName(int Index)
+int CXoslFiles::GetPartFileCount()
 {
-	return FileList[Index];
+	return PartFileCount;
 }
+
+const char *CXoslFiles::GetIssuedFileName(int Index)
+{
+	return IssuedFileList[Index];
+}
+
+const char *CXoslFiles::GetPartFileName(int Index)
+{
+	return PartFileList[Index];
+}
+
+
 
 const char *CXoslFiles::GetXoslDataName()
 {
@@ -93,19 +105,49 @@ const char *CXoslFiles::XoslLoad = "XOSLLOAD.XCF";
 
 const char *CXoslFiles::XoslImgX = "XOSLIMG0.XXF";
 
+/*
 const char *CXoslFiles::FileList[] = {
-/* These are now done individually
+ These are now done individually
 	"XOSLLOAD.XCF",
 	"XOSLIMG0.XXF","XOSLIMG1.XXF","XOSLIMG2.XXF","XOSLIMG3.XXF","XOSLIMG4.XXF","XOSLIMG5.XXF", "XOSLIMG6.XXF",
-*/
+
+
 	"XOSLLOGO.XBF","XOSLWALL.XBF","SPLASHLG.XBF",
 	"DEFAULT.XFF","EXTRA.XFF",
 	"ORIG_MBR.XCF","CURR_MBR.XCF","SBM_IPL0.XCF",
 	"BOOTITEM.XDF","XOSLDATA.XDF",
 	"XRPART00.XXF","XRPART01.XXF"
+
+	// Issued files
+	"XOSLLOGO.XBF","XOSLWALL.XBF","SPLASHLG.XBF",
+	"DEFAULT.XFF","EXTRA.XFF",
+	"XRPART00.XXF","XRPART01.XXF"
+
+	// Created files
+	"ORIG_MBR.XCF","CURR_MBR.XCF","SBM_IPL0.XCF",
+	"BOOTITEM.XDF","XOSLDATA.XDF",
+
+
+
+};
+*/
+const char *CXoslFiles::IssuedFileList[] = {
+	// Issued files
+	"XOSLLOGO.XBF","XOSLWALL.XBF","SPLASHLG.XBF",
+	"DEFAULT.XFF","EXTRA.XFF",
+	"XRPART00.XXF","XRPART01.XXF"
 };
 
-const int CXoslFiles::FileCount = sizeof (FileList) / sizeof (char *);
+const int CXoslFiles::IssuedFileCount = sizeof (IssuedFileList) / sizeof (char *);
+
+const char *CXoslFiles::PartFileList[] = {
+	// Issued files
+	"CURR_MBR.XCF","SBM_IPL0.XCF",
+	"BOOTITEM.XDF","XOSLDATA.XDF",
+};
+
+const int CXoslFiles::PartFileCount = sizeof (PartFileList) / sizeof (char *);
+
 
 
 const char *CXoslFiles::IplFileList[] = {

@@ -21,6 +21,7 @@
 
 char CDosFile::TransferBuffer[32768];
 
+char CDosFile::PathBuffer[MAX_PATH_LEN];
 
 CDosFile::CDosFile()
 {
@@ -32,10 +33,12 @@ CDosFile::~CDosFile()
 
 int CDosFile::Delete(const char *FileName)
 {
+
 	if (SetAttrib(FileName,0) == -1)
 		return -1;
 	return Unlink(FileName);
 }
+
 
 int CDosFile::Copy(const char *Src, const char *Dest)
 {
@@ -69,13 +72,12 @@ int CDosFile::Copy(const char *Src, const char *Dest)
 	return 0;
 }
 
-
 int CDosFile::Append(int hOutFile, const char *FileName)
 {
 	int hInFile;
 	unsigned short Size;
 
-	if ((hInFile = Open(FileName,accessReadOnly)) == -1)
+	if ( (hInFile = Open(FileName,accessReadOnly) ) == -1 ) 
 		return -1;
 
 	while ((Size = Read(hInFile,TransferBuffer,32768)) != 0)
@@ -83,6 +85,8 @@ int CDosFile::Append(int hOutFile, const char *FileName)
 	Close(hInFile);
 	return 0;
 }
+
+
 
 long CDosFile::FileSize(const char *FileName)
 {
@@ -95,6 +99,7 @@ long CDosFile::FileSize(const char *FileName)
 	Close(fh);
 	return FileSize;
 }
+
 
 int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime)
 {
@@ -195,4 +200,65 @@ void CDosFile::GetCurFatDateTime(unsigned short *pfatdate,unsigned short *pfatti
 	
 	*pfatdate = fatdate;
 	*pfattime = fattime;
+}
+
+int CDosFile::Create(const char *FileName, const char *Path)
+{
+	return Create(AddFolderPath(FileName,Path));
+}
+
+int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime, const char *Path)
+{
+	return FileDateTime(AddFolderPath(FileName,Path),pFatDate, pFatTime);
+}
+
+long CDosFile::FileSize(const char *FileName, const char *Path)
+{
+	return FileSize(AddFolderPath(FileName,Path));
+}
+
+int CDosFile::Append(int hOutFile, const char *FileName, const char *Path)
+{
+	return Append(hOutFile, AddFolderPath(FileName,Path));
+}
+
+int CDosFile::Delete(const char *FileName, const char *Path)
+{
+	return Delete(AddFolderPath(FileName,Path));
+}
+
+int CDosFile::Open(const char *FileName, TFileAccess Access, const char * Path)
+{
+	return Open(AddFolderPath(FileName,Path),Access);
+}
+
+int CDosFile::Copy(const char *Src, const char *Dest, const char *SrcPath)
+{
+	return Copy(AddFolderPath(Src,SrcPath),Dest);
+}
+int CDosFile::SetAttrib(const char *FileName, int Attributes, const char *Path)
+{
+	return SetAttrib(AddFolderPath(FileName,Path), Attributes);
+}
+
+
+char* CDosFile::AddFolderPath(const char *file, const char *Path)
+{
+	int pathlen;
+	char *buffer = PathBuffer;
+	char *tmp;
+
+	strcpy(buffer, Path);
+
+	pathlen = strlen(buffer);
+	if (pathlen > 0){
+		tmp = &buffer[pathlen - 1];
+		if (*tmp++ != '\\'){
+			*tmp++ = '\\';
+			*tmp = 0;
+		}
+	}
+	strcat(buffer,file);
+
+	return buffer;
 }

@@ -29,11 +29,12 @@
 #include <memory_x.h>
 #include <main.h>
 
-CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse):
+CFatInstall::CFatInstall(CTextUI &TextUIToUse, CXoslFiles &XoslFilesToUse, CDosFile &DosFileToUse, TXoslWorkConfig *XoslWorkConfigToUse):
 	TextUI(TextUIToUse),
 	XoslFiles(XoslFilesToUse),
 	DosFile(DosFileToUse)
 {
+	XoslWorkConfig = XoslWorkConfigToUse;
 }
 
 CFatInstall::~CFatInstall()
@@ -167,7 +168,7 @@ int CFatInstall::InstallFile(const char *SrcFile, const char *DestFile)
 	return 0;
 }
 
-int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
+int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive, unsigned char MbrHDSector0)
 {
 	char DestFile[32];
 	const char *SrcFile;
@@ -218,27 +219,28 @@ int CFatInstall::InstallFiles(const CDosDriveList::CDosDrive &DosDrive)
 		}
 	}
 	// Now the remaining files
-	Count = XoslFiles.GetCount();
+	Count = XoslFiles.GetIssuedFileCount();
 	for (Index = 0; Index < Count; ++Index) {
-		strcpy(&DestFile[3],XoslFiles.GetFileName(Index));
-		SrcFile = XoslFiles.GetFileName(Index);
+		strcpy(&DestFile[3],XoslFiles.GetIssuedFileName(Index));
+		SrcFile = XoslFiles.GetIssuedFileName(Index);
 		if(CFatInstall::InstallFile(SrcFile,DestFile) == -1){
 			return -1;
 		}
-/*
-		TextUI.OutputStr("Copying %s...",SrcFile);
-		if (DosFile.SetAttrib(DestFile,0) != -1)
-			if (DosFile.Delete(DestFile) == -1) {
-				TextUI.OutputStr("failed\nUnable to delete existing %s\n",SrcFile);
-				return -1;
-			}
-		if (DosFile.Copy(SrcFile,DestFile) == -1) {
-			TextUI.OutputStr("failed\nUnabled to copy %s\n",SrcFile);
+	}
+	if ( MbrHDSector0 != 0xff ){
+		strcpy(&DestFile[3],XoslFiles.GetOriginalMbrName());
+		SrcFile = XoslFiles.GetOriginalMbrName();
+		if(CFatInstall::InstallFile(AddFolderPath(SrcFile),DestFile) == -1){
 			return -1;
 		}
-		DosFile.SetAttrib(DestFile,CDosFile::attrHidden);
-		TextUI.OutputStr("done\n");
-*/
+	}
+	Count = XoslFiles.GetPartFileCount();
+	for (Index = 0; Index < Count; ++Index) {
+		strcpy(&DestFile[3],XoslFiles.GetPartFileName(Index));
+		SrcFile = XoslFiles.GetPartFileName(Index);
+		if(CFatInstall::InstallFile(AddFolderPath(SrcFile),DestFile) == -1){
+			return -1;
+		}
 	}
 	return 0;
 }
@@ -284,9 +286,9 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 	FileStr[0] = DosDriveChar + HDOffset;
 	FileStr[1] = ':';
 	FileStr[2] = '\\';
-	Count = XoslFiles.GetCount();
+	Count = XoslFiles.GetIssuedFileCount();
 	for (Index = 0; Index < Count; ++Index) {
-		XoslFileName = XoslFiles.GetFileName(Index);
+		XoslFileName = XoslFiles.GetIssuedFileName(Index);
 		TextUI.OutputStr("Removing %s...",XoslFileName);
 		strcpy(&FileStr[3],XoslFileName);
 		if (DosFile.Delete(FileStr) == -1)
@@ -294,6 +296,27 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 		else
 			TextUI.OutputStr("done\n");
 	}
+	XoslFileName = XoslFiles.GetOriginalMbrName();
+	TextUI.OutputStr("Removing %s...",XoslFileName);
+	strcpy(&FileStr[3],XoslFileName);
+	if (DosFile.Delete(FileStr) == -1)
+		TextUI.OutputStr("not found\n");
+	else
+		TextUI.OutputStr("done\n");
+
+	Count = XoslFiles.GetPartFileCount();
+	for (Index = 0; Index < Count; ++Index) {
+		XoslFileName = XoslFiles.GetPartFileName(Index);
+		TextUI.OutputStr("Removing %s...",XoslFileName);
+		strcpy(&FileStr[3],XoslFileName);
+		if (DosFile.Delete(FileStr) == -1)
+			TextUI.OutputStr("failed\n");
+		else
+			TextUI.OutputStr("done\n");
+	}
+
+
+
 	XoslFileName = "XOSLLOAD.XCF";
 	strcpy(&FileStr[3],XoslFileName);
 	TextUI.OutputStr("Removing %s...",XoslFileName);
@@ -313,3 +336,23 @@ void CFatInstall::RemoveXoslFiles(char DosDriveChar)
 	TextUI.OutputStr("done\n");
 }
 
+const char* CFatInstall::AddFolderPath(const char *file)
+{
+	int pathlen;
+	char *buffer = CDosFile::PathBuffer;
+	char *tmp;
+
+	strcpy(buffer, XoslWorkConfig->WorkFolder);
+
+	pathlen = strlen(buffer);
+	if (pathlen > 0){
+		tmp = &buffer[pathlen - 1];
+		if (*tmp++ != '\\'){
+			*tmp++ = '\\';
+			*tmp = 0;
+		}
+	}
+	strcat(buffer,file);
+
+	return buffer;
+}

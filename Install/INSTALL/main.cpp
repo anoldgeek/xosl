@@ -49,11 +49,13 @@ int main(int argc, char* argv[])
 	int optc;
 	char *arg;
 	int digit = 0;
+	int pathlen;
+	char *tmp;
 
-	TPartBackControl PartBackupControl;
+	TXoslWorkConfig XoslWorkConfig;
 
-	PartBackupControl.BackupPartData = 1;
-	PartBackupControl.TempFolder = "";
+	XoslWorkConfig.BackupPartData = 1;
+	XoslWorkConfig.WorkFolder = "";
 
 	HDOffset = 0;
 
@@ -73,14 +75,14 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case 'p':
-				PartBackupControl.TempFolder = optarg;
+				XoslWorkConfig.WorkFolder = optarg;
 				break;
 			case 'b':
 				if (*optarg != '0' && *optarg != '1'){
 					Usage(argv);
 					return( -1 );
 				}
-				PartBackupControl.BackupPartData = (*optarg == '1');
+				XoslWorkConfig.BackupPartData = (*optarg == '1');
 				break;
 			case ':':
 				printf( "-%c without param\n", optopt );
@@ -92,7 +94,7 @@ int main(int argc, char* argv[])
 				return ( 0 );
 		}
 	}
-	CApplication *Application = new CApplication(&PartBackupControl);
+	CApplication *Application = new CApplication(&XoslWorkConfig);
 	Application->ApplicationLoop();
 	delete Application;
 	return 0;
