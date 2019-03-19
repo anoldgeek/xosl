@@ -35,7 +35,7 @@ public:
 	~CDosFile();
 
 	static int __cdecl Create(const char *FileName);
-	int Create(const char *FileName, const char * Path);
+	int Create(const char *FileName, const char *Path);
 	static int __cdecl Open(const char *FileName, TFileAccess Access);
 	int Open(const char *FileName, TFileAccess Access, const char * Path);
 	static void __cdecl Close(int Handle);

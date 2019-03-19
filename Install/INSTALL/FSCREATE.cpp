@@ -155,6 +155,8 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 	TextUI.OutputStr("done\n");
 	return 0;
 }
+
+
 int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 {
 	long FileSize;
@@ -254,7 +256,7 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 		TextUI.OutputStr("done\n");
 	}
 
-	// Now pack the rest
+	// Now pack the issued files
 	Count = XoslFiles.GetIssuedFileCount();
 	for (Index = 0; Index < Count; ++Index) {
 		FileName = XoslFiles.GetIssuedFileName(Index);
@@ -264,24 +266,32 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 		}
 		TextUI.OutputStr("done\n");
 	}
-	if( (MbrHDSector0 != 0xff) && strcmp(FileName,XoslFiles.GetOriginalMbrName()) == 0 ){
+	// Now pack the original mbr file if required
+	if( MbrHDSector0 != 0xff) {
+		FileName = AddFolderPath(XoslFiles.GetOriginalMbrName());
+		TextUI.OutputStr("Packing %s... ",FileName);
+		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+			return -1;
+		}
+		TextUI.OutputStr("done\n");
+
+		FileName = AddFolderPath(XoslFiles.GetCurrentMbrName());
 		TextUI.OutputStr("Packing %s... ",FileName);
 		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
 			return -1;
 		}
 		TextUI.OutputStr("done\n");
 	}
+	// Now pack the partition specific files
 	Count = XoslFiles.GetPartFileCount();
 	for (Index = 0; Index < Count; ++Index) {
-		FileName = XoslFiles.GetPartFileName(Index);
+		FileName = AddFolderPath(XoslFiles.GetPartFileName(Index));
 		TextUI.OutputStr("Packing %s... ",FileName);
 		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
 			return -1;
 		}
 		TextUI.OutputStr("done\n");
 	}
-
-	
 	
 	DosFile.SetFileDateTime(hClusterFile);
 	DosFile.Close(hClusterFile);
@@ -404,7 +414,7 @@ unsigned short CFsCreator::RestorePartition(unsigned short Drive, unsigned long 
 	unsigned short FSType;
 	CPartBackupDetails PartBackupDetails;
 
-	char *FileName;
+	const char *FileName;
 
 	FileName = AddFolderPath(PARTBACKUP_FILE);
 
@@ -467,7 +477,7 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	int hFile;
 	CDisk Disk;
 	int WriteIndex;
-	char *xoslimgfile;
+	const char *xoslimgfile;
 
 	xoslimgfile = AddFolderPath(XOSLIMG_FILE);
 
@@ -507,7 +517,7 @@ int CFsCreator::InstallXoslImg(int Drive, unsigned long long Sector)
 	return 0;
 }
 
-char* CFsCreator::AddFolderPath(char *file)
+const char* CFsCreator::AddFolderPath(const char *file)
 {
 	int pathlen;
 	char *buffer = CDosFile::PathBuffer;

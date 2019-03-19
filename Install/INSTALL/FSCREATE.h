@@ -119,7 +119,7 @@ private:
 
 	TXoslWorkConfig *XoslWorkConfig;
 
-	char* AddFolderPath(char *file);
+	const char* AddFolderPath(const char *file);
 };
 
 #endif

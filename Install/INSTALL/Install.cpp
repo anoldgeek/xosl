@@ -44,9 +44,9 @@ CInstaller::CInstaller(CTextUI &TextUIToUse, CPartList &PartListToUse, TXoslWork
 	TextUI(TextUIToUse),
 	PartList(PartListToUse),
 	FatInstall(TextUIToUse,XoslFiles,DosFile,XoslWorkConfigToUse),
-	FsCreator(TextUIToUse,XoslFiles,DosFile,XoslWorkConfig)
+	FsCreator(TextUIToUse,XoslFiles,DosFile,XoslWorkConfigToUse)
 {
-	PartList.SetXoslWorkConfig(XoslWorkConfig);
+	PartList.SetXoslWorkConfig(XoslWorkConfigToUse);
 	XoslWorkConfig = XoslWorkConfigToUse;
 
 }
@@ -726,18 +726,17 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
 		return -1;
 
-	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
-		return -1;
+	if ( MbrHDSector0 != 0xff){
+		if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
+			return -1;
+	}
 
 	if (Partition->Type != PART_GPT){
 		// MBR Drive
 		SetPartId(PartIndex,0x78, MbrHDSector0);
-//		// Update the partition entries in case user returns to menu
-//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x78, MbrHDSector0);
 	}else{
 		// GPT Drive
 		SetPartId(PartIndex,0x7800, MbrHDSector0);
-//		PartList.UpdateFSType(PartIndex, (unsigned short) 0x7800, MbrHDSector0);
 	}
 
  	if (MbrHDSector0 != 0xff){

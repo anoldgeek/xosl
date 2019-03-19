@@ -142,7 +142,7 @@ const int CXoslFiles::IssuedFileCount = sizeof (IssuedFileList) / sizeof (char *
 
 const char *CXoslFiles::PartFileList[] = {
 	// Issued files
-	"CURR_MBR.XCF","SBM_IPL0.XCF",
+	"SBM_IPL0.XCF",
 	"BOOTITEM.XDF","XOSLDATA.XDF",
 };
 

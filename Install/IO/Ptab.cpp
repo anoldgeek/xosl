@@ -702,7 +702,7 @@ int CPartList::UpgradeXoslBootItem(const TPartition *Partition,unsigned char Mbr
 								BootItemData->MbrHDSector0 = MbrHDSector0;
 							}
 
-							fh = DosFile.Create(XoslFiles.GetBootItemName());
+							fh = DosFile.Create(XoslFiles.GetBootItemName(), XoslWorkConfig->WorkFolder);
 							if( fh != -1 ) {
 								if(DosFile.Write(fh,BootItemData,BOOTITEM_FILESIZE) == BOOTITEM_FILESIZE){
 									DosFile.Close(fh);
@@ -741,7 +741,7 @@ int CPartList::Retain(const char *DosFileName,unsigned short FileSize,const TPar
 			if(MemCompare(BootRecord.BootFAT16.OEM_ID,"XOSLINST",8) == 0 ){
 				if(FileSystem->Mount(Partition->Drive,Partition->StartSector) != -1 ){
 					if (FileSystem->ReadFile(XoslFsFileName,CDosFile::TransferBuffer) == FileSize ){
-						if( (fh=DosFile.Create(DosFileName)) != -1 ){
+						if( (fh=DosFile.Create(DosFileName, XoslWorkConfig->WorkFolder)) != -1 ){
 							if(DosFile.Write(fh,CDosFile::TransferBuffer,FileSize) == FileSize){
 								DosFile.Close(fh);
 								delete FileSystem;
