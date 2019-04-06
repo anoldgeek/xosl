@@ -29,17 +29,17 @@ void Usage(char *argv[])
            "     Use '-o 1' to direct xosl install to ignore the first drive.\n"
            "  -p <file-path>\n"
            "     Chooce the folder to save/restore created files\n"
-	       "     when installing to a dedicated partition. e.g.\n"
+	       "     when installing or upgrading. e.g.\n"
 	       "     -p C:\\temp\\  or -p E:\\backups\\<this-pc>\\ \n"
 	       "     Use -p C:\\temp\\ when installing to a specifically created dedicated\n"
-	       "     partition from a 1.44MB floppy. So that the additional space required\n"
-	       "     on the floppy is reduced. The folder must already exist.\n"
+	       "     partition from a 1.44MB floppy. So that no additional space is required\n"
+	       "     on the floppy. The folder must already exist.\n"
            "  -b <enable-disable-part-backup-data>  when installing to a\n"
            "     dedicated partition. e.g.\n"
            "     -b 1 Backup the partition details and data.\n"
 	       "     -b 0 Only backup the partition details.\n");
 	printf("e.g.\t install -p E:\\PBACKUPS\\ -o 1\n\t install -b 0 \n");
-	printf("\t install -p E:\\PBACKUPS\\BACKUP.IMG -o 1 -b 0\n");
+	printf("\t install -p E:\\PBACKUPS\\FREDS-PC\\ -o 1 -b 0\n");
 	printf("Also see file Notes.txt\n");
 }
 
@@ -51,6 +51,7 @@ int main(int argc, char* argv[])
 	int digit = 0;
 	int pathlen;
 	char *tmp;
+	char *workfolder;
 
 	TXoslWorkConfig XoslWorkConfig;
 
@@ -75,7 +76,9 @@ int main(int argc, char* argv[])
 				}
 				break;
 			case 'p':
-				XoslWorkConfig.WorkFolder = optarg;
+				workfolder = new char[strlen(optarg) + 1];
+				strcpy(workfolder,optarg);
+				XoslWorkConfig.WorkFolder = workfolder;
 				break;
 			case 'b':
 				if (*optarg != '0' && *optarg != '1'){

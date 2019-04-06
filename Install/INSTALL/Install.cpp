@@ -138,8 +138,10 @@ int CInstaller::Install(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
 		return -1;
 
-	if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
-		return -1;
+	if ( MbrHDSector0 != 0xff){
+		if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
+			return -1;
+	}
 	if (Partition->Type != PART_GPT){
 		// MBR Drive
 		SetPartId(PartIndex,0x78, MbrHDSector0);
@@ -551,7 +553,7 @@ int CInstaller::CopyFileForUpgrade(const char *FileName, char DriveChar)
 	strcpy(CopySrc,RootPath);
 	strcat(CopySrc,FileName);
 	*CopySrc = DriveChar + HDOffset;
-	if(DosFile.Copy(CopySrc,FileName) == -1){
+	if(DosFile.Copy(CopySrc,FileName,XoslWorkConfig->WorkFolder) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",FileName);
 		return -1;
 	}
@@ -718,19 +720,18 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetSmartBmName());
 		return -1;
 	}
-
 	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0, Partition->FSType) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade in %s \n\n","FsCreator.InstallFs");
 		return -1;
 	}
-	if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
-		return -1;
-
 	if ( MbrHDSector0 != 0xff){
+		if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+			return -1;
+		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+			return -1;
 		if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
 			return -1;
 	}
-
 	if (Partition->Type != PART_GPT){
 		// MBR Drive
 		SetPartId(PartIndex,0x78, MbrHDSector0);
@@ -738,12 +739,8 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		// GPT Drive
 		SetPartId(PartIndex,0x7800, MbrHDSector0);
 	}
-
  	if (MbrHDSector0 != 0xff){
- 		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
- 			return -1;
- 		else
- 			TextUI.OutputStr("\nUpgrade complete\n");
+		TextUI.OutputStr("\nUpgrade complete\n");
  	}else{
  		TextUI.OutputStr("\Upgrade complete...\n   for chain loading only.\n");
  	}

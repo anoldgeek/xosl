@@ -106,7 +106,7 @@ private:
 	int RootDirIndex;
 
 	int LoadIplS(int Drive);
-	int PackFile(int hClusterFile,const char *FileName);
+	int PackFile(int hClusterFile,const char *FileName, bool PartFile = false);
 	int PackFiles(unsigned char MbrHDSector0);
 	int InitBootRecord(unsigned short Drive, unsigned long long Sector, unsigned char MbrHDSector0);
 

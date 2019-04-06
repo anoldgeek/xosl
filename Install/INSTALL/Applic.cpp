@@ -54,7 +54,7 @@ CApplication::CApplication(TXoslWorkConfig *XoslWorkConfigToUse):
 	TextScreen(new CTextScreen(0x1f00)),
 	TextUI(*TextScreen),
 	Data(TextUI,PartList),
-	Installer(TextUI,PartList,XoslWorkConfig),
+	Installer(TextUI,PartList,XoslWorkConfigToUse),
 	InstallMenus(TextUI,Data,PartList,(CData::GetDosVersion() & 0xff) > 4 && (CData::GetDriveCount() - ('C' - 'A')) > 0)
 {
 	DoExit = 0;

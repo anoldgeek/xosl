@@ -157,12 +157,15 @@ int CFsCreator::InitBootRecord(unsigned short Drive, unsigned long long Sector, 
 }
 
 
-int CFsCreator::PackFile(int hClusterFile,const char *FileName)
+int CFsCreator::PackFile(int hClusterFile,const char *pFileName, bool PartFile)
 {
 	long FileSize;
 	int AppendStat;
 	unsigned short FatDate;
 	unsigned short FatTime;
+	const char *FileName;
+
+	FileName = (PartFile)?AddFolderPath(pFileName):pFileName;
 
 	FileSize = DosFile.FileSize(FileName);
 	if (FileSize == -1) {
@@ -184,7 +187,7 @@ int CFsCreator::PackFile(int hClusterFile,const char *FileName)
 
 	// AddRootDirEntry() needs current FatIndex, 
 	// so can't swap next two function calls
-	AddRootDirEntry(FileName,FileSize,FatDate,FatTime);
+	AddRootDirEntry(pFileName,FileSize,FatDate,FatTime);
 	AddFatEntries(FileSize);
 
 	// fill last part of the cluster with random data
@@ -266,16 +269,16 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 		}
 		TextUI.OutputStr("done\n");
 	}
-	// Now pack the original mbr file if required
+	// Now pack the original mbr and current mbr files if required
 	if( MbrHDSector0 != 0xff) {
-		FileName = AddFolderPath(XoslFiles.GetOriginalMbrName());
+		FileName = XoslFiles.GetOriginalMbrName();
 		TextUI.OutputStr("Packing %s... ",FileName);
-		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+		if(CFsCreator::PackFile(hClusterFile,FileName,TRUE) == -1){
 			return -1;
 		}
 		TextUI.OutputStr("done\n");
 
-		FileName = AddFolderPath(XoslFiles.GetCurrentMbrName());
+		FileName = XoslFiles.GetCurrentMbrName();
 		TextUI.OutputStr("Packing %s... ",FileName);
 		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
 			return -1;
@@ -285,9 +288,9 @@ int CFsCreator::PackFiles(unsigned char MbrHDSector0)
 	// Now pack the partition specific files
 	Count = XoslFiles.GetPartFileCount();
 	for (Index = 0; Index < Count; ++Index) {
-		FileName = AddFolderPath(XoslFiles.GetPartFileName(Index));
+		FileName = XoslFiles.GetPartFileName(Index);
 		TextUI.OutputStr("Packing %s... ",FileName);
-		if(CFsCreator::PackFile(hClusterFile,FileName) == -1){
+		if(CFsCreator::PackFile(hClusterFile,FileName,TRUE) == -1){
 			return -1;
 		}
 		TextUI.OutputStr("done\n");

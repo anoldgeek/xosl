@@ -232,9 +232,9 @@ int CDosFile::Open(const char *FileName, TFileAccess Access, const char * Path)
 	return Open(AddFolderPath(FileName,Path),Access);
 }
 
-int CDosFile::Copy(const char *Src, const char *Dest, const char *SrcPath)
+int CDosFile::Copy(const char *Src, const char *Dest, const char *DestPath)
 {
-	return Copy(AddFolderPath(Src,SrcPath),Dest);
+	return Copy(Src,AddFolderPath(Dest,DestPath));
 }
 int CDosFile::SetAttrib(const char *FileName, int Attributes, const char *Path)
 {

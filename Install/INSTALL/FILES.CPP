@@ -132,7 +132,7 @@ const char *CXoslFiles::FileList[] = {
 };
 */
 const char *CXoslFiles::IssuedFileList[] = {
-	// Issued files
+	// Issued files 
 	"XOSLLOGO.XBF","XOSLWALL.XBF","SPLASHLG.XBF",
 	"DEFAULT.XFF","EXTRA.XFF",
 	"XRPART00.XXF","XRPART01.XXF"
@@ -141,7 +141,7 @@ const char *CXoslFiles::IssuedFileList[] = {
 const int CXoslFiles::IssuedFileCount = sizeof (IssuedFileList) / sizeof (char *);
 
 const char *CXoslFiles::PartFileList[] = {
-	// Issued files
+	// Partition specific files
 	"SBM_IPL0.XCF",
 	"BOOTITEM.XDF","XOSLDATA.XDF",
 };

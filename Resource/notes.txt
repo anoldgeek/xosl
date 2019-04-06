@@ -9,11 +9,16 @@ The full license can be found in the GPL.TXT file.
       -o <drive-offset>
          Enables installing from a USB device that has booted as C:
          Use '-o 1' to direct xosl install to ignore the first drive.
-      -p <part-backup-path>
-         Enable the choice of location to to save the partition backup
-	 when installing to a dedicated partition. e.g.
-	 '-p C:\partback\bu12345.img' or
-	 '-p E:\partback\' to save with the default file name.
+      -p <file-path>
+         Chooce the folder to save/restore created files when installing 
+	 or upgrading. e.g.
+	 Use -p C:\temp\ to direct all created files to c:\temp
+	 Use -p E:\backups\<this-pc-name>\<this-pc-partition> to save 
+	 xosl backups from multiple systems to the same base folder e.g.
+		install -p e:\xoslbup\freds-pc\sda1
+	 Use -p C:\temp\ when installing to a specifically created dedicated
+         partition from a 1.44MB floppy. So that no additional space is 
+	 required on the floppy. The folder must already exist.
       -b <enable-disable-part-backup-data>  when installing to a 
          dedicated partition. e.g.
          '-b 1' Backup the partition details and data.

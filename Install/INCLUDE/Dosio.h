@@ -60,7 +60,7 @@ public:
 	static long __cdecl LSeek(int Handle, long Offset, TWhence Whence);
 	int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime);
 	int CDosFile::FileDateTime(const char *FileName, unsigned short *pFatDate, unsigned short *pFatTime, const char *Path);
-	int Copy(const char *Src, const char *Dest, const char *SrcPath);
+	int Copy(const char *Src, const char *Dest, const char *DestPath);
 	int SetAttrib(const char *FileName, int Attributes, const char *Path);
 	void SetXoslWorkConfig(TXoslWorkConfig *XoslWorkConfigToUse);
 private:
