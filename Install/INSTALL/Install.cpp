@@ -720,15 +720,15 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade %s \n\n",XoslFiles.GetSmartBmName());
 		return -1;
 	}
+	if ( MbrHDSector0 != 0xff){
+		if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
+			return -1;
+	}
 	if (FsCreator.InstallFs(Partition->Drive,Partition->StartSector,MbrHDSector0, Partition->FSType) == -1){
 		TextUI.OutputStr("XOSL "XOSL_VERSION" failed to upgrade in %s \n\n","FsCreator.InstallFs");
 		return -1;
 	}
 	if ( MbrHDSector0 != 0xff){
-		if (FatInstall.CreateIpl(DosDrive,Ipl) == -1)
-			return -1;
-		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
-			return -1;
 		if (BackupCurrentMbr(&Ipl,Partition->Drive,Partition->StartSector) == -1)
 			return -1;
 	}
@@ -738,6 +738,10 @@ int CInstaller::Upgrade(CVesa::TGraphicsMode GraphicsMode, CMouse::TMouseType Mo
 	}else{
 		// GPT Drive
 		SetPartId(PartIndex,0x7800, MbrHDSector0);
+	}
+	if ( MbrHDSector0 != 0xff){
+		if (FatInstall.InstallIpl(&Ipl, MbrHDSector0) == -1)
+			return -1;
 	}
  	if (MbrHDSector0 != 0xff){
 		TextUI.OutputStr("\nUpgrade complete\n");
