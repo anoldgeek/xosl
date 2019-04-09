@@ -301,15 +301,24 @@ XOSL130a16 release
 XOSL130a17 debug
 XOSL130a18 release
 
+	Changed -p otion to provide <file-path> for all created files.
+
+
+XOSL130a21 debug
+XOSL130a22 release
+
+XOSL130a22-release
+    a) Create 1.44 floppy install media			- freedos-xosl130a22-1.4M.img.zip
+    b) Create USB install media mounting as C:		- xosl130a22-usb-c-512M.img.zip
+    c) Create CD-ROM install media			- xosl130a22.iso.zip
+    d) Create USB install media mounting as A:		- xosl130a22-usb-a-16M.img.zip
+
+
 
 **************** TODO ****************
 
 
-24-release
-    a) Create 1.44 floppy install media
-    b) Create USB install media
-    c) Create 2.8M floppy install media
-    d) Create USB install media mounting as A:
+XOSL130a22-release
     e) Publish code and install media on github
 
 25. Add boot via UEFI
