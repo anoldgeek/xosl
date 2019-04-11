@@ -313,7 +313,9 @@ XOSL130a22-release
     c) Create CD-ROM install media			- xosl130a22.iso.zip
     d) Create USB install media mounting as A:		- xosl130a22-usb-a-16M.img.zip
 
-
+git remote add mygithub https://github.com/anoldgeek/xosl.git
+git push -u mygithub master
+git push mygithub 1.3.0-alpha-22
 
 **************** TODO ****************
 
