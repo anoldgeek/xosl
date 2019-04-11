@@ -319,7 +319,12 @@ XOSL130a22-release
 
 
 XOSL130a22-release
-    e) Publish code and install media on github
+    e) Publish code and install media on github.
+    f) Publish on XOSL yahoo group.
+
+24r. Change GPT partition storage so that empty/unused partitions do not take up space in memory.
+     Suggest creating dummy empty (zeroed) GPT entries sector and pointing empty sectors at it
+     via existing linked list.
 
 25. Add boot via UEFI
 	Use System Rescue kernel with stub to switch to real mode, load xoslloader and execute.
