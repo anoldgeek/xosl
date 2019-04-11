@@ -1,5 +1,5 @@
 # xosl
-Extended Operating System Loader 1.3.0 aplha 22. 
+Extended Operating System Loader 1.3.0 alpha 22. 
 An update/branch of the orignal described at https://groups.yahoo.com/neo/groups/xosl/info
 
 PLEASE READ THE FOLLOWING NOTES CAREFULLY, BEFORE INSTALLING XOSL
